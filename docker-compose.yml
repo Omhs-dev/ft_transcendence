@@ -5,11 +5,18 @@ services:
   postgres:
     container_name: postgres_container
     image: postgres:latest
-    env_file: ./.env  # Load environment variables from .env file
+    environment: 
+      - ./.env   # Load environment variables from .env file
     ports:
       - "5432:5432"
     volumes:
       - database:/var/lib/postgresql/data  # Use named volume for persistence
+    # healthcheck:
+    #   test: ["CMD", "pg_isready", "-U", "postgres"]
+    #   interval: 10s
+    #   retries: 5
+    #   start_period: 30s
+    #   timeout: 10s
 
   django:
     container_name: django_container
@@ -20,7 +27,8 @@ services:
       - ./backend:/app  # Mount backend folder into the container
     depends_on:
       - postgres  # Ensure Django waits for PostgreSQL to be ready
-    env_file: ./.env  # Load environment variables from .env file
+    environment: 
+      - ./.env    # Load environment variables from .env file
 
   nginx:
     container_name: nginx_container
@@ -36,3 +44,4 @@ services:
 
 volumes:
   database:  # Define named volume for PostgreSQL persistence
+
