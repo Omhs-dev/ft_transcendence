@@ -26,8 +26,19 @@ SECRET_KEY = 'django-insecure-*o&k&v7w7&9^242!1$^e#v&27)@0ltyiwx=rxz#0(^yk=h3=l_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django']
 
+
+# ALLOWED_HOSTS = ['transcendence.com', '0.0.0.0','192.168.65.1', "localhost", "django", intra_ip]
+
+# CSRF_TRUSTED_ORIGINS = [
+#     'https://localhost',
+#     'http://0.0.0.0',
+#     'https://0.0.0.0',
+#     'http://localhost',
+#     'http://django',
+#     'https://django',
+# ]
 
 # Application definition
 
