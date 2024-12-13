@@ -1,0 +1,34 @@
+body {
+	min-height: 100vh;
+	min-height: -webkit-fill-available;
+}
+
+html {
+	height: -webkit-fill-available;
+}
+
+main {
+	height: 1000px;
+}
+
+.sidenav {
+	color: #FFFFFF;
+	background-color: #031C30;
+	min-height: 100vh;
+}
+
+i {
+	Padding-right: 10px;
+}
+
+#navlist {
+
+}
+
+#navlist .nav-item:first-child {
+    /* First item stays at the top by default */
+}
+
+#navlist .nav-item:last-child {
+    margin-bottom: auto; /* This pushes the last item to the bottom */
+}
