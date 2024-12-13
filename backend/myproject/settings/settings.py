@@ -15,7 +15,8 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TEMPLATE_DIR = Path.joinpath(BASE_DIR, 'templates')
+STATIC_DIR = Path.joinpath(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-*o&k&v7w7&9^242!1$^e#v&27)@0ltyiwx=rxz#0(^yk=h3=l_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django', '127.0.0.1']
 
 
 # ALLOWED_HOSTS = ['transcendence.com', '0.0.0.0','192.168.65.1', "localhost", "django", intra_ip]
@@ -68,7 +69,7 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR,],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,7 +143,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "backend_app/static"),
+    STATIC_DIR,
 ]
 
 # Default primary key field type
