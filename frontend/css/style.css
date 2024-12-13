@@ -1,6 +1,7 @@
 body {
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
+	background-color: #2F5760;
 }
 
 html {
@@ -8,14 +9,34 @@ html {
 }
 
 main {
-	height: 1000px;
 }
 
 .sidenav {
 	color: #FFFFFF;
-	background-color: #031C30;
+	background-color: #182B38;
 	min-height: 100vh;
 }
+
+.homebtn {
+    height: 80px;
+    width: 400px;
+    background-color: #28a745; /* Green background (same color) */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 10px; /* Rounded corners */
+    /* font-size: 24px; /* Font size */
+    font-weight: bold; */
+    line-height: 80px; /* Vertically center the text */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.homebtn:hover {
+    transform: translateY(-5px); /* Slightly lift the button on hover */
+    box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
 
 i {
 	Padding-right: 10px;
@@ -31,4 +52,22 @@ i {
 
 #navlist .nav-item:last-child {
     margin-bottom: auto; /* This pushes the last item to the bottom */
+}
+
+@media (max-width: 868px) {
+    .homebtn {
+        height: 60px;
+        width: 300px;
+        font-size: 16px; /* Adjust font size */
+        line-height: 60px; /* Adjust line height */
+    }
+}
+
+@media (max-width: 480px) {
+    .homebtn {
+        height: 50px;
+        width: 250px;
+        font-size: 14px; /* Adjust font size for very small screens */
+        line-height: 50px; /* Adjust line height */
+    }
 }

@@ -15,34 +15,40 @@
 <body>
 	<!-- <h1>Hey this transcendence</h1> -->
 
-	<main>
+	<div class="d-flex">
 		<div class="d-flex flex-column flex-shrink-0 p-3 text-white sidenav text-warning" style="width: 250px;">
-			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+			<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none fw-bold">
 				<i class="fa-solid fa-table-tennis-paddle-ball fa-2x" style="padding-right: 8px;"></i>
 				<span class="fs-3">Ping Pong</span>
 			</a>
 			<hr>
 			<ul class="nav nav-pills flex-column mb-auto d-flex flex-column" id="navlist">
 				<li class="nav-item flex-grow-1">
-					<a href="#" class="nav-link active" aria-current="page">
+					<a href="#" class="nav-link active fw-bolder" aria-current="page">
 						<i class="fa-solid fa-house"></i>
 						Home
 					</a>
 				</li>
 				<li class="nav-item flex-grow-1">
-					<a href="#" class="nav-link text-white">
+					<a href="#" class="nav-link text-white fw-bolder">
 						<i class="fa-solid fa-gauge"></i>
 						Dashboard
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link text-white">
+					<a href="#" class="nav-link text-white fw-bolder">
 						<i class="fa-solid fa-ranking-star"></i>
 						Leaderboard
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link text-white">
+					<a href="#" class="nav-link text-white fw-bolder">
+						<i class="fa-solid fa-user-group"></i>
+						Friend List
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link text-white fw-bolder">
 						<i class="fa-solid fa-gear"></i>
 						Settings
 					</a>
@@ -51,13 +57,13 @@
 
 			<ul class="nav nav-pills flex-column">
 			<li class="nav-item mb-auto">
-				<a href="#" class="nav-link text-white">
+				<a href="#" class="nav-link text-white fw-bolder">
 					<i class="fa-solid fa-moon"></i>
 					Dark Mode
 				</a>
 			</li>
 			<li >
-				<a href="#" class="nav-link text-white">
+				<a href="#" class="nav-link text-white fw-bolder">
 					<i class="fa-solid fa-right-from-bracket"></i>
 					Logout
 				</a>
@@ -82,7 +88,33 @@
 				</ul>
 			</div>
 		</div>
-	</main>
+
+		<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+			<div class="row d-flex justify-content-center align-items-center w-100">
+				<div class="col-12 col-md-6 d-flex justify-content-center">
+					<img src="assets/pong.png" alt="pong_img" class="img-fluid" style="max-height: 400px; width: auto;">
+				</div>
+				<div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+					<button type="button" class="btn btn-success homebtn mb-3">
+						<div class="d-flex flex-column">
+							<span class="fs-2">Start Game</span>
+							<small class="fw-light">Play with a training AI</small>
+						</div>
+					</button>
+				
+					<button type="button" class="btn btn-success homebtn">
+						<div class="d-flex flex-column align-items-center">
+							<span class="fs-2">Game Mode</span>
+							<small class="fw-light">Select a mode to play</small>
+						</div>
+					</button>
+				</div>				
+			</div>
+		</div>
+		
+		
+
+	</div>
 
 	<script src="javascript/app.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
