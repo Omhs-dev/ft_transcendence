@@ -37,6 +37,9 @@ main {
     box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
 }
 
+.register {
+	background-color: #F15151;
+}
 
 i {
 	Padding-right: 10px;
