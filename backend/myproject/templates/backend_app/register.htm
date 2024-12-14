@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <!-- Load static files -->
+    {% load static %}
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Register</h1>
+		<form id="registerForm">
+			<label for="username">Username:</label>
+			<input type="text" id="username" name="username" required>
+			
+			<label for="email">Email:</label>
+			<input type="email" id="email" name="email" required>
+			
+			<label for="password">Password:</label>
+			<input type="password" id="password" name="password" required>
+			
+			<button type="submit">Register</button>
+		</form>
+		
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+		document.getElementById('registerForm').addEventListener('submit', function (e) {
+			e.preventDefault(); // Prevent the default form submission
+
+			const username = document.getElementById('username').value;
+			const email = document.getElementById('email').value;
+			const password = document.getElementById('password').value;
+
+			fetch('/api/register/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					username: username,
+					email: email,
+					password: password,
+				}),
+			})
+				.then(response => {
+					if (!response.ok) {
+						return response.json().then(error => {
+							throw new Error(error.error || 'Registration failed');
+						});
+					}
+					return response.json();
+				})
+				.then(data => {
+					alert(data.message || 'Registration successful!');
+					document.getElementById('registerForm').reset();
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					alert(error.message || 'An error occurred.');
+				});
+		});
+
+    </script>
+</body>
+</html>
