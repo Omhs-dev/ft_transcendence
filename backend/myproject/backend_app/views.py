@@ -8,7 +8,7 @@ from .serializers import RegisterSerializer
 from django.db.utils import IntegrityError
 
 def index(request):
-    return render(request,"backend_app/index.htm")
+    return render(request,"backend_app/index.html")
 
 def registration_page(request):
     return render(request, 'backend_app/register.htm')
