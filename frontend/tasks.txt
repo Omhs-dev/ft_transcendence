@@ -1,0 +1,11 @@
+-- Task to do --
+
+Registration and Login :
+
+- check all forms are filled
+- check password body
+- empty forms after submission
+- registration succes message then redirection
+- main page before registration or login
+- main page after registration or login
+- add Icons on buttons
