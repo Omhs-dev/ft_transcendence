@@ -4,7 +4,7 @@ all:
 
 stop:
 	@echo "$(ORG)----- Stoping containers$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
-	@docker compose down
+	docker compose down
 
 reload: stop all
 
