@@ -1,7 +1,7 @@
 body {
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
-	background-color: #2F5760;
+	background: linear-gradient(135deg, #2F5760, #0F3E60);
 }
 
 html {
@@ -41,6 +41,26 @@ main {
 	background-color: #F15151;
 }
 
+.login {
+	color: #DFE3E7;
+	height: 80px;
+    width: 400px;
+	background-color: none;
+	border: 1px solid #DFE3E7;
+    border-radius: 10px; /* Rounded corners */
+	font-weight: bold; */
+    line-height: 80px; /* Vertically center the text */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    cursor: pointer; /* Pointer cursor on hover */
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.login:hover {
+	color: black;
+	transform: translateY(-5px); /* Slightly lift the button on hover */
+    box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
 i {
 	Padding-right: 10px;
 }
@@ -57,6 +77,28 @@ i {
     margin-bottom: auto; /* This pushes the last item to the bottom */
 }
 
+.separator {
+	padding-top: 10px;
+	padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.separator hr {
+	width: 120px;
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.separator span {
+    white-space: nowrap;
+    font-size: 14px;
+    color: #ccc;
+}
+
 @media (max-width: 868px) {
     .homebtn {
         height: 60px;
@@ -64,6 +106,9 @@ i {
         font-size: 16px; /* Adjust font size */
         line-height: 60px; /* Adjust line height */
     }
+	.separator hr {
+		width: 100px;
+	}
 }
 
 @media (max-width: 480px) {
@@ -73,4 +118,7 @@ i {
         font-size: 14px; /* Adjust font size for very small screens */
         line-height: 50px; /* Adjust line height */
     }
+	.separator hr {
+		width: 70px;
+	}
 }
