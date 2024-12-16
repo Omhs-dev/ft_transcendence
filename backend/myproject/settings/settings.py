@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'backend_app',
     'rest_framework_simplejwt',
 	'corsheaders',
+	'channels',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +87,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'settings.wsgi.application'
 ASGI_APPLICATION = 'settings.asgi.application'
+# ASGI_APPLICATION = 'myproject.asgi.application'
 
 
 # Database
@@ -107,6 +109,16 @@ DATABASES = {
 # DB_PASSWORD=postgres
 # DB_HOST=postgres
 # DB_PORT=5432
+
+#channel_layer configuration
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis_container", 6379)],
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -179,3 +191,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 APPEND_SLASH = True
+
+

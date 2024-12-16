@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Test</title>
+</head>
+<body>
+    <div id="chat-box" style="border:1px solid #ccc; height:300px; overflow-y:scroll;"></div>
+    <input id="message-input" type="text" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const socket = new WebSocket(
+            `ws://${window.location.host}/ws/chat/testroom/`
+        );
+
+        socket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div><b>${data.sender}:</b> ${data.message}</div>`;
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value;
+
+            socket.send(JSON.stringify({
+                'message': message,
+                'sender': 'testuser'
+            }));
+
+            messageInput.value = '';
+        }
+    </script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Test</title>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <div id="chat-log" style="height:300px; border:1px solid black; overflow-y:scroll;"></div>
+    <input id="chat-message-input" type="text" placeholder="Enter your message">
+    <button id="chat-message-send">Send</button>
+
+    <script>
+        const roomName = "testroom";  // Replace with dynamic room name if needed
+        const chatSocket = new WebSocket(
+            `ws://${window.location.host}/ws/chat/${roomName}/`
+        );
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            const chatLog = document.getElementById("chat-log");
+            chatLog.innerHTML += `<div>${data.sender}: ${data.message}</div>`;
+        };
+
+        document.getElementById("chat-message-send").onclick = function () {
+            const messageInput = document.getElementById("chat-message-input");
+            const message = messageInput.value;
+
+            chatSocket.send(JSON.stringify({
+                message: message,
+                sender: "testuser"  // Replace with actual user dynamically
+            }));
+
+            messageInput.value = '';
+        };
+    </script>
+</body>
+</html>

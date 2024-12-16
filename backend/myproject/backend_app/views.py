@@ -15,6 +15,9 @@ def index(request):
 # def registration_page(request):
 #     return render(request, 'backend_app/register.htm')
 
+def chat_test(request):
+    return render(request, "backend_app/chat_test.htm")
+
 class RegisterView(APIView):
     """
     API endpoint for user registration.
