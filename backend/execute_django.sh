@@ -21,6 +21,7 @@ echo "Applying database migrations..."
 python myproject/manage.py makemigrations
 python myproject/manage.py migrate
 
+# tail -f /dev/null
 # Create a superuser if it doesn't exist
 echo "Creating superuser if it doesn't exist..."
 python myproject/manage.py shell <<EOF
