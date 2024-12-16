@@ -29,6 +29,40 @@ services:
       - postgres  # Ensure Django waits for PostgreSQL to be ready
     env_file: 
       - ./.env    # Load environment variables from .env file
+  
+  cadvisor:
+    container_name: cadvisor_container
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    ports:
+      - "8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    restart: always
+
+  prometheus:
+    container_name: prometheus_container
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - cadvisor
+    restart: always
+
+  grafana:
+    container_name: grafana_container
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
 
   nginx:
     container_name: nginx_container
@@ -45,4 +79,4 @@ services:
 
 volumes:
   database:  # Define named volume for PostgreSQL persistence
-
+  grafana-data:  # Define named volume for Grafana persistence
