@@ -39,7 +39,7 @@ body {
 	height: 50px;
     width: 150px;
 	background-color: none;
-	border: 1px solid #DFE3E7;
+	border: 1px solid #14dae9;
     border-radius: 25px; /* Rounded corners */
 	font-weight: bold; */
     line-height: 80px; /* Vertically center the text */
@@ -64,9 +64,17 @@ body {
 	background-color: black;
 }
 
-.Tournamenttab {
-	border-radius: 30px;
-	
+.submenactive {
+	border: 1px solid #14dae9;
+    border-radius: 25px; /* Rounded corners */
+	padding: 10px;
+	width: 250px;
+	/* background: rlinear-gradient(90deg, rgba(24,43,56,1) 0%, rgba(71,174,182,1) 46%, rgba(83,104,126,1) 100%); */
+}
+
+.submenactive:hover {
+	border:1px solid #138F97;
+	margin-top: -1px;
 }
 
 html,
@@ -94,6 +102,53 @@ tbody td {
   color: rgba(255,255,255,.65);
 }
 
+table td i {
+	color: lightgreen;
+	font-size: 12px;
+}
+
 .card {
   border-radius: .5rem;
+}
+
+.pcard {
+	width: 40rem;
+}
+
+.trinfo {
+	width: 13rem;
+	margin-right: 15px;
+}
+
+.trinfolast {
+	width: 27rem;
+}
+
+@media (max-width: 868px) {
+    .pcard {
+		width: 20rem;
+	}
+	
+	.trinfo {
+		width: 8rem;
+		margin-right: 10px;
+	}
+	
+	.trinfolast {
+		width: 17rem;
+	}
+}
+
+@media (max-width: 480px) {
+    .pcard {
+		width: 17rem;
+	}
+	
+	.trinfo {
+		width: 10rem;
+	}
+	
+	.trinfolast {
+		width: 10rem;
+	}
 }
