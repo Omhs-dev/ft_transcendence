@@ -20,21 +20,19 @@ main {
 .homebtn {
     height: 80px;
     width: 400px;
-    background-color: #28a745; /* Green background (same color) */
-    color: white; /* Text color */
+    background-color: #28a745;
+    color: white;/
     border: none;
-    border-radius: 10px; /* Rounded corners */
-    /* font-size: 24px; /* Font size */
-    font-weight: bold; */
-    line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-    cursor: pointer; /* Pointer cursor on hover */
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    border-radius: 10px;
+    font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .homebtn:hover {
-    transform: translateY(-5px); /* Slightly lift the button on hover */
-    box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    transform: translateY(-5px);
+    box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3);
 }
 
 .register {
@@ -47,18 +45,17 @@ main {
     width: 400px;
 	background-color: none;
 	border: 1px solid #DFE3E7;
-    border-radius: 10px; /* Rounded corners */
-	font-weight: bold; */
-    line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 10px;
+	font-weight: bold;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .login:hover {
 	color: black;
-	transform: translateY(-5px); /* Slightly lift the button on hover */
-    box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+	transform: translateY(-5px);
+    box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3);
 }
 
 i {
@@ -70,11 +67,10 @@ i {
 }
 
 #navlist .nav-item:first-child {
-    /* First item stays at the top by default */
 }
 
 #navlist .nav-item:last-child {
-    margin-bottom: auto; /* This pushes the last item to the bottom */
+    margin-bottom: auto;
 }
 
 .separator {
@@ -103,8 +99,8 @@ i {
     .homebtn {
         height: 60px;
         width: 300px;
-        font-size: 16px; /* Adjust font size */
-        line-height: 60px; /* Adjust line height */
+        font-size: 16px;
+        line-height: 60px;
     }
 	.separator hr {
 		width: 100px;
@@ -115,8 +111,8 @@ i {
     .homebtn {
         height: 50px;
         width: 250px;
-        font-size: 14px; /* Adjust font size for very small screens */
-        line-height: 50px; /* Adjust line height */
+        font-size: 14px;
+        line-height: 50px;
     }
 	.separator hr {
 		width: 70px;

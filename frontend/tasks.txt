@@ -10,3 +10,29 @@ Registration and Login :
 - main page after registration or login
 - add Icons on buttons
 - redirect admin user once connected
+
+Components List:
+
+- Layout
+   ├── Navbar
+   ├── Sidebar
+- Authentication
+   ├── Login
+   ├── Register
+- Dashboard
+   ├── DashboardPage
+   ├── TournamentList
+   ├── PlayerStatus
+- Game
+   ├── GameArea
+   ├── Matchmaking
+   ├── Chat
+- Tournament
+   ├── TournamentBracket
+   ├── TournamentDetails
+- Shared
+   ├── Button
+   ├── Modal
+   ├── Table
+   ├── Card
+   ├── Loader

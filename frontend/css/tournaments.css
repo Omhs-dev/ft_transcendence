@@ -40,11 +40,11 @@ body {
     width: 150px;
 	background-color: none;
 	border: 1px solid #14dae9;
-    border-radius: 25px; /* Rounded corners */
+    border-radius: 25px;
 	font-weight: bold; */
-    line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
-    cursor: pointer; /* Pointer cursor on hover */
+    line-height: 80px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -58,7 +58,7 @@ body {
 	color: weight;
 	opacity: 50%;
 	border: 1px solid gray;
-    border-radius: 25px; /* Rounded corners */
+    border-radius: 25px;
 	padding: 10px;
 	width: 250px;
 	background-color: black;
@@ -66,10 +66,9 @@ body {
 
 .submenactive {
 	border: 1px solid #14dae9;
-    border-radius: 25px; /* Rounded corners */
+    border-radius: 25px;
 	padding: 10px;
 	width: 250px;
-	/* background: rlinear-gradient(90deg, rgba(24,43,56,1) 0%, rgba(71,174,182,1) 46%, rgba(83,104,126,1) 100%); */
 }
 
 .submenactive:hover {
