@@ -20,7 +20,7 @@ const loginUser = async () => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:8000/api/token/', {
+        const response = await fetch('http://localhost:8000/backend/api/token/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

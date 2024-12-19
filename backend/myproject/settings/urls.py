@@ -19,7 +19,9 @@ from django.urls import path, include
 from backend_app import views
 
 urlpatterns = [
-	path('', include('backend_app.urls')),
+	path('backend/', include('backend_app.urls')),
+	# path('chat/', include('django.contrib.auth.urls')),
+	path('chat/', include('chat_app.urls')),
     path('admin/', admin.site.urls),
 ]
 

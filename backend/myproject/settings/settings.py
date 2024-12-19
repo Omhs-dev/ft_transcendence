@@ -41,10 +41,55 @@ ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django', '127.0.0.1']
 #     'https://django',
 # ]
 
+
+# Define the base directory for log the project
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs'),
+            'formatter': 'simple',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'chat_app': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        # Add other loggers as needed
+    },
+}
+
+
+
+
 # Application definition
 
 INSTALLED_APPS = [
-	'daphne',
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,10 +97,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backend_app',
+    'chat_app',
+	'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
-	'corsheaders',
-	'channels',
+    'corsheaders',
+    'channels',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,6 +116,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'settings.urls'
 
@@ -88,9 +139,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'settings.wsgi.application'
 ASGI_APPLICATION = 'settings.asgi.application'
-
-# ASGI_APPLICATION = 'myproject.asgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
