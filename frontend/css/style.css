@@ -11,6 +11,11 @@ html {
 main {
 }
 
+img{
+	max-height: 400px;
+	width: auto;
+}
+
 .sidenav {
 	color: #FFFFFF;
 	background-color: #182B38;
