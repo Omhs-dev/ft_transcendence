@@ -11,7 +11,7 @@ const registerUser = async () => {
 	const confirmPassword = document.getElementById('confirmPassword').value;
 
     try {
-        const response = await fetch('http://localhost:8000/api/register/', {
+        const response = await fetch('http://localhost:8000/backend/api/register/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, email, password }),

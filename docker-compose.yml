@@ -30,6 +30,12 @@ services:
     env_file: 
       - ./.env    # Load environment variables from .env file
 
+  redis:
+    container_name: redis_container
+    image: redis:6
+    ports:
+      - "6379:6379"
+
   nginx:
     container_name: nginx_container
     build: 
