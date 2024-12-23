@@ -1,0 +1,38 @@
+#documentation for prometheus and grafana
+
+#to start all containers
+docker compose up --build 
+
+# To check all running
+docker compose ps
+
+#check containers metrics scraped correctly
+http://localhost:8081/metrics   --- check for each container metrics
+
+#Access prometheus and target container are up
+http://localhost:9090/targets          --- cadvisor and prometheus --- up
+
+#Access grafana 
+Grafana will be available at:
+http://localhost:3000
+Default login:
+
+Username: admin
+Password: admin (can be changed in the docker-compose.yml under GF_SECURITY_ADMIN_PASSWORD)
+---steps to add run query fro prometheus
+1.Click on the gear icon (⚙️) in the left sidebar to go to Configuration.
+2.Click on Data Sources and then Add data source.
+3.Select Prometheus as the data source type.
+In the URL field, enter:
+    http://<IP address of prometheus container>:9090 (use the internal Docker network name instead of localhost or 127.0.0.1).
+    Click Save & Test to ensure the connection to Prometheus is successful.
+
+---Create Grafana Dashboard
+1.In Grafana, click on the plus icon (➕) in the left sidebar and select Dashboard.
+2.Add a new Panel.
+3.In the Query field, select Prometheus as the data source.
+4.Add your desired query (e.g., up to check if Prometheus and cAdvisor are up).
+5.Customize the visualization type (e.g., graph, gauge, etc.).
+6.Save the dashboard by clicking the disk icon in the top right corner.
+7.You can also import pre-built dashboards. For example, you can import a cAdvisor dashboard from the Grafana dashboard repository:
+  --- Go to Create > Import and use the dashboard ID (e.g., 893 for the cAdvisor dashboard).
