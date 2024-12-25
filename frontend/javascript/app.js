@@ -1,6 +1,7 @@
 import HomeView from "./views/HomeView.js";
 import DashboardView from "./views/DashboardView.js";
 import LoginView from "./views/LoginView.js";
+import ProfileView from "./views/ProfileView.js";
 
 console.log("this is the app file");
 
@@ -24,6 +25,7 @@ const router = async () => {
 	const routes = [
 		{ path: "/", view: HomeView },
 		{ path: "/dashboard", view: DashboardView },
+		{ path: "/profile", view: ProfileView },
 		{ path: "/login", view: LoginView }
 	];
 
