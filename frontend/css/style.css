@@ -66,6 +66,15 @@ img{
     box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
 }
 
+.modal-dialog
+.modal-content{
+	background-color: inherit;
+}
+
+.btn-close {
+	background-color: gray;
+}
+
 i {
 	Padding-right: 10px;
 }
