@@ -51,12 +51,41 @@
                 <h3>Online Users</h3>
                 <ul id="userList"></ul>
             </div>
-            <div id="chatArea" style="display: none;">
+			<div id="friendreq">
+				<h3>My Friends Requests</h3>
+                <ul id="friendRequests"></ul>
+			</div>
+			<div id="friendLists">
+				<h3>My Friends :</h3>
+                <ul id="friendList"></ul>
+			</div>
+            <!-- <div id="chatArea" style="display: none;">
                 <h3>Chat with <span id="chatWith"></span></h3>
                 <div id="chatMessages" style="border: 1px solid #ccc; height: 200px; overflow-y: scroll;"></div>
-                <textarea id="chatInput" placeholder="Type your message"></textarea>
+                <textarea id="chatInput" placeholder="Type your message">Hello</textarea>
                 <button id="sendMessage">Send</button>
-            </div>
+            </div> -->
+
+			<div class="container1">
+				<!-- Sidebar -->
+				<div class="sidebar">
+					<ul>
+						<li id="openChat" data-receiver-id="1">Chat with User 1</li>
+						<li id="openChat" data-receiver-id="2">Chat with User 2</li>
+					</ul>
+				</div>
+		
+				<!-- Chat Section -->
+				<div class="chat-section">
+					<div id="chatHistory" class="chat-history">
+						<!-- Chat messages will be appended here -->
+					</div>
+					<div class="input-group">
+						<textarea id="chatInput" placeholder="Type your message">Hello</textarea>
+						<button id="sendButton">Send</button>
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 
@@ -72,7 +101,7 @@
 			const password = document.getElementById('reg_password').value;
 	
 			try {
-				const response = await fetch(`${baseUrl}/register/`, {
+				const response = await fetch(`/backend/api/register/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -152,7 +181,7 @@
 				alert('An error occurred while logging out. Please try again.');
 			}
 		});
-	
+
 		// Check for Token on Page Load
 		window.addEventListener('load', () => {
 			const token = localStorage.getItem('accessToken');
@@ -162,13 +191,13 @@
 				showAuthSection();
 			}
 		});
-	
+
 		// Function to Show Auth Section (Login/Register)
 		function showAuthSection() {
 			document.getElementById('authSection').style.display = 'block';
 			document.getElementById('dashboard').style.display = 'none';
 		}
-	
+
 		// Load Dashboard
 		function loadDashboard() {
 			document.getElementById('authSection').style.display = 'none';
@@ -186,7 +215,7 @@
 				const response = await fetch('/chat/api/online-users/', {
 					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 				});
-	
+
 				const data = await response.json();
 				const userList = document.getElementById('userList');
 				userList.innerHTML = '';
@@ -222,10 +251,12 @@
 				console.error('Error sending friend request:', error);
 			}
 		}
-	
+
 		// Fetch Friend Requests
 		async function fetchFriendRequests() {
+			console.log("in fetchFrindRequests");
 			try {
+				console.log("before response");
 				const response = await fetch('/chat/api/friend-requests/', {
 					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 				});
@@ -233,7 +264,8 @@
 				const data = await response.json();
 				const requestsList = document.getElementById('friendRequests');
 				requestsList.innerHTML = '';
-	
+				console.log("section: ", requestsList);
+				
 				data.forEach(request => {
 					const requestItem = document.createElement('li');
 					requestItem.textContent = `${request.from_user} wants to be your friend`;
@@ -249,7 +281,7 @@
 				console.error('Error fetching friend requests:', error);
 			}
 		}
-	
+
 		// Accept Friend Request
 		async function acceptFriendRequest(requestId) {
 			try {
@@ -288,5 +320,26 @@
 				console.error('Error fetching friends:', error);
 			}
 		}
+
+		// chat section
+		let socket;
+		function connectWebSocket(roomName) {
+			socket = new WebSocket(`ws/chat/${roomName}`);
+			
+			socket.onopen = () => {
+				console.log("WebSocket connected to room:", roomName);
+			}
+		}
+
+		document.addEventListener("DOMContentLoaded", () => {
+			const sendButton = document.querySelector("#sendButton");
+
+			sendButton.addEventListener("click", () => {
+				console.log("chat websocket intiating....");
+				connectWebSocket("room_1");
+			});
+		});
+
 	</script>
 	
+

@@ -11,5 +11,4 @@ urlpatterns = [
     path('api/accept-friend-request/<int:request_id>/', views.AcceptFriendRequestView.as_view(), name='accept_friend_request'),
     path('api/friend-requests/', views.FriendRequestsView.as_view(), name='friend_requests'),
     path('api/friends/', views.FriendsListView.as_view(), name='friends'),
-
 ]
