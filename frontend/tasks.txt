@@ -13,3 +13,5 @@ Registration and Login :
 --- SPA ---:
 
 1. show a modal when clicked on Login and Register
+2. Fix profile dropdown
+3. connect all pages as routers
