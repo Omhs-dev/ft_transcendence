@@ -1,13 +1,14 @@
 all:
-	docker compose up --build 
+	docker compose up --build -d
 	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost:80 $(ORG)-----$(RESET)"
 
 stop:
 	@echo "$(ORG)----- Stoping containers$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
 	docker compose down
 
-init_script:
-	@./script/init_docker.sh
+init_docker:
+	@echo "$(ORG)----- Start Script-----$(RESET)"
+	./script/init_docker.sh
 
 reload: stop all
 
