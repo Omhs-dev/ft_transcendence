@@ -9,3 +9,9 @@ Registration and Login :
 - main page before registration or login
 - main page after registration or login
 - add Icons on buttons
+
+--- SPA ---:
+
+1. show a modal when clicked on Login and Register
+2. Fix profile dropdown
+3. connect all pages as routers

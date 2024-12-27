@@ -6,6 +6,9 @@ stop:
 	@echo "$(ORG)----- Stoping containers$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
 	docker compose down
 
+init_script:
+	@./script/init_docker.sh
+
 reload: stop all
 
 clean:
