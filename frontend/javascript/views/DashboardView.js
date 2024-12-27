@@ -6,7 +6,7 @@ export default class extends AbsractView {
 		this.setTitle("Dashboard");
 	}
 
-	async getHtml() {
+	async loadHtml() {
 		return `
 			<h1>This is the Dashboard page</h1>
 		`;

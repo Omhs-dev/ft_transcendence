@@ -66,26 +66,10 @@
                 <button id="sendMessage">Send</button>
             </div> -->
 
-			<div class="container1">
-				<!-- Sidebar -->
-				<div class="sidebar">
-					<ul>
-						<li id="openChat" data-receiver-id="1">Chat with User 1</li>
-						<li id="openChat" data-receiver-id="2">Chat with User 2</li>
-					</ul>
-				</div>
-		
-				<!-- Chat Section -->
-				<div class="chat-section">
-					<div id="chatHistory" class="chat-history">
-						<!-- Chat messages will be appended here -->
-					</div>
-					<div class="input-group">
-						<textarea id="chatInput" placeholder="Type your message">Hello</textarea>
-						<button id="sendButton">Send</button>
-					</div>
-				</div>
-			</div>
+			<h1>Chat Room</h1>
+    <div id="chat-log" style="height:300px; border:1px solid black; overflow-y:scroll;"></div>
+    <input id="chat-message-input" type="text" placeholder="Enter your message">
+    <button id="chat-message-send">Send</button>
         </div>
     </div>
 
@@ -322,23 +306,49 @@
 		}
 
 		// chat section
-		let socket;
-		function connectWebSocket(roomName) {
-			socket = new WebSocket(`ws/chat/${roomName}`);
-			
-			socket.onopen = () => {
-				console.log("WebSocket connected to room:", roomName);
-			}
-		}
+		// Start Chat
+        function startChat(userId, username) {
+            document.getElementById('chatArea').style.display = 'block';
+            document.getElementById('chatWith').textContent = username;
 
-		document.addEventListener("DOMContentLoaded", () => {
-			const sendButton = document.querySelector("#sendButton");
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
 
-			sendButton.addEventListener("click", () => {
-				console.log("chat websocket intiating....");
-				connectWebSocket("room_1");
-			});
-		});
+            fetch(`${baseUrl}/chat/${userId}/`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(message => {
+                        const msg = document.createElement('div');
+                        msg.textContent = `${message.sender}: ${message.message}`;
+                        chatMessages.appendChild(msg);
+                    });
+                });
+
+            document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+        }
+
+        // Send Message
+        function sendMessage(userId) {
+            const message = document.getElementById('chatInput').value;
+            fetch(`${baseUrl}/chat/${userId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+                body: JSON.stringify({ message }),
+            })
+                .then(() => {
+                    const chatMessages = document.getElementById('chatMessages');
+                    const msg = document.createElement('div');
+                    msg.textContent = `You: ${message}`;
+                    chatMessages.appendChild(msg);
+                    document.getElementById('chatInput').value = '';
+                })
+                .catch(error => console.error('Error sending message:', error));
+        }
 
 	</script>
 	

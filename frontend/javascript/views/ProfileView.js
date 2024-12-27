@@ -6,18 +6,21 @@ export default class extends AbsractView {
 		this.setTitle("Profile");
 	}
 
-	async getHtml() {
-		try {
-			console.log("before fetching");
-			const response = await fetch("profile.html");
-			if (!response.ok) {
-				throw new Error(`Error fetching page: ${response.statusText}`);
-			}
-			console.log("fetching informations");
-			const htmlContent = await response.text();
-			return htmlContent;
-		} catch(error) {
-			console.log(error.message);
-		}
-	}
+	async loadHtml() {
+        try {
+            // Fetch the external HTML file
+            const response = await fetch("./frontend/pages/profile.html");
+
+            if (!response.ok) {
+                throw new Error(`Failed to fetch profile.html: ${response.statusText}`);
+            }
+
+            // Return the fetched HTML content as a string
+			const htmlContent =  await response.text();
+            return htmlContent;
+        } catch (error) {
+            console.error(error);
+            return "<p>Error loading profile view. Please try again later.</p>";
+        }
+    }
 }

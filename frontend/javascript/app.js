@@ -2,64 +2,46 @@ import HomeView from "./views/HomeView.js";
 import DashboardView from "./views/DashboardView.js";
 import LoginView from "./views/LoginView.js";
 import ProfileView from "./views/ProfileView.js";
+import TournamentsView from "./views/TournamentsView.js";
+import TournamentView from "./views/TournamentView.js";
+import UsersOnlineview from "./views/UsersOnlineview.js";
+import SettingsView from "./views/SettingsView.js";
+import LeaderboardView from "./views/LeaderboardView.js";
 
-console.log("this is the app file");
-
-const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
-
-const getParams = match => {
-    const values = match.result.slice(1);
-    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
-
-    return Object.fromEntries(keys.map((key, i) => {
-        return [key, values[i]];
-    }));
+const navigateTo = (url) => {
+    history.pushState(null, null, url);
+    router();
 };
 
-const navigateTo = url => {
-	history.pushState(null, null, url);
-	router();
-};
+const routes = [
+    { path: "/", view: HomeView },
+    { path: "/login", view: LoginView },
+    { path: "/dashboard", view: DashboardView },
+    { path: "/profile", view: ProfileView },
+    { path: "/tournaments", view: TournamentsView },
+    { path: "/tournament", view: TournamentView },
+    { path: "/usersonline", view: UsersOnlineview },
+    { path: "/leaderboard", view: LeaderboardView },
+    { path: "/settings", view: SettingsView }
+];
 
 const router = async () => {
-	const routes = [
-		{ path: "/", view: HomeView },
-		{ path: "/dashboard", view: DashboardView },
-		{ path: "/profile", view: ProfileView },
-		{ path: "/login", view: LoginView }
-	];
+    const match = routes.find(route => route.path === location.pathname) || routes[0];
 
-	const potentialMatches = routes.map(route => {
-		return {
-			route: route,
-			result: location.pathname.match(pathToRegex(route.path))
-		};
-	});
+    const view = new match.view();
 
-	let match = potentialMatches.find(potentialMatch => potentialMatch.result !== null);
-
-	if (!match) {
-		match = {
-			route: routes[0],
-			result: [location.pathname]
-		};
-	}
-
-	const view = new match.route.view(getParams(match));
-
-	document.querySelector("#app").innerHTML = await view.getHtml();
+    document.querySelector("#app").innerHTML = await view.loadHtml();
 };
 
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
-	document.body.addEventListener("click", e => {
-		if (e.target.matches("[data-link]")) {
-			console.log("checking links")
-			e.preventDefault();
-			navigateTo(e.target.href);
-		}
-	});
+    document.body.addEventListener("click", (e) => {
+        if (e.target.matches("[data-link]")) {
+            e.preventDefault();
+            navigateTo(e.target.href);
+        }
+    });
 
-	router();
+    router();
 });

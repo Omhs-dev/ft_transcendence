@@ -6,7 +6,7 @@ export default class extends AbsractView {
 		this.setTitle("Login");
 	}
 
-	async getHtml() {
+	async loadHtml() {
 		// try {
 		// 	console.log("before fetching");
 		// 	const response = await fetch("/pages/home.html");
