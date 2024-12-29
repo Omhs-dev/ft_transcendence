@@ -27,7 +27,7 @@ class PongInvitation(models.Model):
     inviter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_invitations')
     invitee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_invitations')
     timestamp = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=[
+    status = models.CharField(max_length=20, choices=      [
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
         ('rejected', 'Rejected')

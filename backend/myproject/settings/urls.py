@@ -17,11 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from backend_app import views
+from game_logic_app import views
 
 urlpatterns = [
 	path('backend/', include('backend_app.urls')),
 	# path('chat/', include('django.contrib.auth.urls')),
+    path('game/', include('game_logic_app.urls')),
 	path('chat/', include('chat_app.urls')),
     path('admin/', admin.site.urls),
 ]
 
+ 

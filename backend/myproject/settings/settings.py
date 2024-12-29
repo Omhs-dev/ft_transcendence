@@ -98,6 +98,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'backend_app',
     'chat_app',
+    'game_logic_app',
 	'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
     'corsheaders',
