@@ -1,3 +1,4 @@
+import { appSection } from "./utils/domUtils.js"
 import HomeView from "./views/HomeView.js";
 import DashboardView from "./views/DashboardView.js";
 import LoginView from "./views/LoginView.js";
@@ -30,7 +31,8 @@ const router = async () => {
 
     const view = new match.view();
 
-    document.querySelector("#app").innerHTML = await view.loadHtml();
+    appSection.innerHTML = await view.loadHtml();
+	console.log("app : \n", appSection);
 };
 
 window.addEventListener("popstate", router);

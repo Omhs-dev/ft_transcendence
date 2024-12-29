@@ -9,7 +9,7 @@ export default class extends AbsractView {
 	async loadHtml() {
         try {
             // Fetch the external HTML file
-            const response = await fetch("./frontend/pages/profile.html");
+            const response = await fetch("./pages/profile.html");
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch profile.html: ${response.statusText}`);

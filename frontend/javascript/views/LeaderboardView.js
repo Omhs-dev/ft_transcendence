@@ -8,7 +8,7 @@ export default class extends AbsractView {
 
 	async loadHtml() {
 		try {
-			const response = await fetch("./frontend/pages/leaderbord.html");
+			const response = await fetch("./pages/leaderbord.html");
 
 			if (!response.ok)
 			{

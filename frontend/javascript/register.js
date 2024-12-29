@@ -1,3 +1,5 @@
+import { appSection } from "./utils/domUtils.js"
+
 let usernameField = document.getElementById('username');
 let emailField = document.getElementById('email');
 let passwordField = document.getElementById('password');
@@ -10,6 +12,10 @@ const registerUser = async () => {
     const password = document.getElementById('password').value;
 	const confirmPassword = document.getElementById('confirmPassword').value;
 
+	console.log("username: ", username);
+	console.log("email: ", email);
+	console.log("password: ", password);
+
     try {
         const response = await fetch('http://localhost:8000/backend/api/register/', {
             method: 'POST',
@@ -17,17 +23,18 @@ const registerUser = async () => {
             body: JSON.stringify({ username, email, password }),
         });
 
+		console.log("username: ", username);
+		console.log("email: ", email);
+		console.log("password: ", password);
+
         const data = await response.json();
 
-        if (response.ok) {
-            alert('User registered successfully!');
-			usernameField.value = "";
-			emailField.value = "";
-			passwordField.value = "";
-			confirmPasswordField.value = "";
-        } else {
-            alert('Error: ' + (data.error || JSON.stringify(data)));
-        }
+        // if (!response.ok) {
+		// 	alert('Error: ' + (data.error || JSON.stringify(data)));
+		// 	throw new Error(`error fetching api: ${response.statusText}`);
+        // }
+
+		alert('User registered successfully!');
     } catch (error) {
         console.error('Error:', error);
         alert('Something went wrong. Please try again.');
@@ -35,8 +42,15 @@ const registerUser = async () => {
 	console.log("Empty the forms !");
 };
 
-document.getElementById('registerForm').addEventListener('submit', (e) => {
-	console.log("register button clicked !!!");
+appSection.addEventListener('submit', (e) => {
+	console.log("submit button clicked");
     e.preventDefault();
-    registerUser();
+	console.log(e);
+	if (e.target.id === "registerForm") {
+		console.log("register button found !");
+		registerUser();
+		console.log("after login");
+	} else {
+		console.error("Not found !");
+	}
 });

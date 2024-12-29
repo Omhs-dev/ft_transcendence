@@ -1,7 +1,11 @@
+import { appSection } from "./utils/domUtils.js"
+
 console.log("this is the login page");
+
+// console.log("appsection: ", appSection);
+
 let usernameField = document.getElementById('username');
 let passwordField = document.getElementById('password');
-
 
 // Function to decode JWT token
 function parseJwt(token) {
@@ -20,7 +24,7 @@ const loginUser = async () => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:8000/backend/api/token/', {
+        const response = await fetch('http://localhost:8000/backend/api/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,13 +43,8 @@ const loginUser = async () => {
             console.log('Access Token:', data.access);
             console.log('Refresh Token:', data.refresh);
 
-            // Decode the access token to check if the user is an admin
-            const decodedToken = parseJwt(data.access);
-            if (decodedToken.is_admin) {
-				alert('The type of this user is admin!!!!');
-            }
             // Redirect to the home/dashboard page
-            window.location.href = '../index1.html';
+            // window.location.href = '../index1.html';
         } else {
             alert('Error: ' + (data.detail || 'Invalid credentials.'));
         }
@@ -55,11 +54,21 @@ const loginUser = async () => {
     }
 };
 
+function one() {
+	console.log("this is a test function \n");
+}
 
 // Add event listener to the login form
-document.getElementById('loginForm').addEventListener('submit', (e) => {
+appSection.addEventListener('submit', (e) => {
 	console.log("submit button clicked");
-	
-    e.preventDefault(); // Prevent form submission
-    loginUser();
+    e.preventDefault();
+	console.log(e);
+	if (e.target.id === "loginForm") {
+		console.log("login button found !");
+		one();
+		loginUser();
+		console.log("after login");
+	} else {
+		console.error("Not found !");
+	}
 });
