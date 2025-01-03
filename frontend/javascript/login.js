@@ -20,8 +20,8 @@ function parseJwt(token) {
 
 // Login functionality
 const loginUser = async () => {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
 
     try {
         const response = await fetch('http://localhost:8000/backend/api/login/', {
@@ -63,12 +63,13 @@ appSection.addEventListener('submit', (e) => {
 	console.log("submit button clicked");
     e.preventDefault();
 	console.log(e);
-	if (e.target.id === "loginForm") {
+	if (e.target.id === "loginForm"
+		&& e.target.className === "loginClass") {
 		console.log("login button found !");
 		one();
 		loginUser();
 		console.log("after login");
 	} else {
-		console.error("Not found !");
+		console.log("Not found !");
 	}
 });

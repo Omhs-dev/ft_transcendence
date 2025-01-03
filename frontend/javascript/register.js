@@ -1,20 +1,30 @@
 import { appSection } from "./utils/domUtils.js"
 
-let usernameField = document.getElementById('username');
-let emailField = document.getElementById('email');
-let passwordField = document.getElementById('password');
-let confirmPasswordField = document.getElementById('confirmPassword');
 console.log("this is the registration page");
 
 const registerUser = async () => {
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-	const confirmPassword = document.getElementById('confirmPassword').value;
+    const username = document.getElementById('registerUsername').value.trim();
+    const email = document.getElementById('registerEmail').value.trim();
+    const password = document.getElementById('registerPassword').value.trim();
+	const confirmPassword = document.getElementById('confirmPassword').value.trim();
 
-	console.log("username: ", username);
-	console.log("email: ", email);
-	console.log("password: ", password);
+	if (!username || !email || !password) {
+		console.log("Username, email, or password is empty!");
+		alert("Please fill out all required fields.");
+		return;
+	}
+	console.log("password length: ", password.length)
+	if (password.length < 8) {
+		console.log("Password too short!");
+		alert("Password must be at least 8 characters long.");
+		return;
+	}
+	
+	if (password !== confirmPassword) {
+		console.log("Passwords do not match!");
+		alert("Passwords do not match. Please confirm your password.");
+		return;
+	}	
 
     try {
         const response = await fetch('http://localhost:8000/backend/api/register/', {
@@ -29,11 +39,17 @@ const registerUser = async () => {
 
         const data = await response.json();
 
-        // if (!response.ok) {
-		// 	alert('Error: ' + (data.error || JSON.stringify(data)));
-		// 	throw new Error(`error fetching api: ${response.statusText}`);
-        // }
-
+		if (!response.ok) {
+			let message = "Registration failed:\n";
+		
+			if (data.username) message += `- Username: ${data.username[0]}\n`;
+			if (data.password) message += `- Password: ${data.password[0]}\n`;
+			if (data.email) message += `- Email: ${data.email[0]}\n`;
+		
+			alert(message.trim());
+			throw new Error(message.trim());
+		}		
+		
 		alert('User registered successfully!');
     } catch (error) {
         console.error('Error:', error);
@@ -46,7 +62,8 @@ appSection.addEventListener('submit', (e) => {
 	console.log("submit button clicked");
     e.preventDefault();
 	console.log(e);
-	if (e.target.id === "registerForm") {
+	if (e.target.id === "registerForm"
+		&& e.target.className === "registerClass") {
 		console.log("register button found !");
 		registerUser();
 		console.log("after login");
