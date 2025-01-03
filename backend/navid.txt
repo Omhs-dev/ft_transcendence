@@ -1,9 +1,0 @@
-{"message": "User registered successfully"}
-
-
-        - fixing the registration
-        - optimize the backend dockerfile to do some stuff as migration, migrate, and check the superuser each tim>
-        - set the static and template folders
-        - add some files in static folder and HTML pages in the template to check their functionality
-        - optimize the makefile
-        - set the admin endpoint to check the db

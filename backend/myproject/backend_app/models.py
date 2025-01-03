@@ -1,4 +1,6 @@
+from django.contrib.auth.models import User
 from django.db import models
+# from chat_app.models import profile, BlockedUser, ChatMessage, PongInvitation
 
 # Create your models here.
 

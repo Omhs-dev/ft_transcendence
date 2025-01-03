@@ -20,7 +20,7 @@ const loginUser = async () => {
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:8000/api/token/', {
+        const response = await fetch('http://localhost:8000/backend/api/token/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,49 +55,6 @@ const loginUser = async () => {
     }
 };
 
-
-// // Login functionality
-// const loginUser = async () => {
-//     const username = document.getElementById('username').value;
-//     const password = document.getElementById('password').value;
-
-//     try {
-//         const response = await fetch('http://localhost:8000/api/token/', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//             body: JSON.stringify({ username, password }),
-//         });
-
-//         const data = await response.json();
-
-// 		console.log("before response");
-		
-//         if (response.ok) {
-//             // Save tokens in localStorage
-//             localStorage.setItem('access_token', data.access);
-//             localStorage.setItem('refresh_token', data.refresh);
-
-//             alert('Login successful!');
-//             console.log('Access Token:', data.access);
-//             console.log('Refresh Token:', data.refresh);
-
-// 			usernameField.value = "";
-// 			passwordField.value = "";
-//             // Optionally redirect to another page after login
-//             window.location.href = '../index1.html'; // Change to your home/dashboard page
-//         } else {
-//             alert('Error: ' + (data.detail || 'Invalid credentials.'));
-//         }
-// 		console.log("after response");
-// 		usernameField.value = "";
-// 		passwordField.value = "";
-//     } catch (error) {
-//         console.error('Error:', error);
-//         alert('Something went wrong. Please try again.');
-//     }
-// };
 
 // Add event listener to the login form
 document.getElementById('loginForm').addEventListener('submit', (e) => {
