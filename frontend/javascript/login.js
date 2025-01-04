@@ -1,22 +1,9 @@
 import { appSection } from "./utils/domUtils.js"
+import { sideNavSection } from "./utils/sideNavUtil.js";
 
 console.log("this is the login page");
 
-// console.log("appsection: ", appSection);
-
-let usernameField = document.getElementById('username');
-let passwordField = document.getElementById('password');
-
-// Function to decode JWT token
-function parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-}
+console.log("sideNavSection: ", sideNavSection);
 
 // Login functionality
 const loginUser = async () => {
@@ -33,30 +20,58 @@ const loginUser = async () => {
         });
 
         const data = await response.json();
+		console.log(data);
+        if (!response.ok) {
+			throw new Error("Login failed with : ", response.statusText);
+		}
 
-        if (response.ok) {
-            // Save tokens in localStorage
-            localStorage.setItem('access_token', data.access);
-            localStorage.setItem('refresh_token', data.refresh);
+		localStorage.setItem("access_token", data.access_token);
+		localStorage.setItem("refresh_token", data.refresh_token);
 
-            alert('Login successful!');
-            console.log('Access Token:', data.access);
-            console.log('Refresh Token:', data.refresh);
-
-            // Redirect to the home/dashboard page
-            // window.location.href = '../index1.html';
-        } else {
-            alert('Error: ' + (data.detail || 'Invalid credentials.'));
-        }
+		alert("Login successful!");
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error.message);
         alert('Something went wrong. Please try again.');
     }
 };
 
-function one() {
-	console.log("this is a test function \n");
-}
+// Logout functionality
+const logoutUser = async () => {
+	try {
+		const refreshToken = localStorage.getItem('refresh_token');
+
+		const response = await fetch('http://localhost:8000/backend/api/logout/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+			},
+			body: JSON.stringify({ refresh_token: refreshToken }),
+		});
+		
+		if (!response.ok) {
+			console.log("can not fetch api !!!");
+			throw new Error("could not fetch api...", response.statusText);
+		}
+
+		localStorage.removeItem("access_token");
+		localStorage.removeItem("refresh_token");
+
+		alert('You have been logged out.');
+	} catch(error) {
+		console.log(error.message);
+	}
+};
+
+sideNavSection.addEventListener("click", (e) => {
+	e.preventDefault();
+	if (e.target.id === "logoutBtn") {
+		console.log("we hit the logout button");
+		logoutUser();
+	} else {
+		console.log("not found");
+	}
+});
 
 // Add event listener to the login form
 appSection.addEventListener('submit', (e) => {
@@ -66,10 +81,8 @@ appSection.addEventListener('submit', (e) => {
 	if (e.target.id === "loginForm"
 		&& e.target.className === "loginClass") {
 		console.log("login button found !");
-		one();
 		loginUser();
-		console.log("after login");
 	} else {
-		console.log("Not found !");
+		console.log("login button not found !");
 	}
 });
