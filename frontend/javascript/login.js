@@ -39,23 +39,27 @@ const loginUser = async () => {
 const logoutUser = async () => {
 	try {
 		const refreshToken = localStorage.getItem('refresh_token');
+		console.log("refresh token: ", refreshToken);
 
 		const response = await fetch('http://localhost:8000/backend/api/logout/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${localStorage.getItem('access_token')}`,
 			},
 			body: JSON.stringify({ refresh_token: refreshToken }),
 		});
-		
+		console.log("response: ", response);
 		if (!response.ok) {
 			console.log("can not fetch api !!!");
 			throw new Error("could not fetch api...", response.statusText);
+		} else if (response.status === 401) {
+			throw new Error("You are not authorized to access this page.");
 		}
 
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("refresh_token");
+
+		window.location.href = "/";
 
 		alert('You have been logged out.');
 	} catch(error) {
@@ -63,15 +67,21 @@ const logoutUser = async () => {
 	}
 };
 
+const logoutBtn = sideNavSection.querySelector(".logoutbtn");
+console.log("logout btn: ", logoutBtn);
+
 sideNavSection.addEventListener("click", (e) => {
-	e.preventDefault();
-	if (e.target.id === "logoutBtn") {
-		console.log("we hit the logout button");
-		logoutUser();
-	} else {
-		console.log("not found");
-	}
+    e.preventDefault();
+    
+    if (e.target.classList.contains("logoutbtn")) {  // Check class instead of ID
+        console.log("we hit the logout button");
+        logoutUser();
+    } else {
+        console.log("not found");
+		return;
+    }
 });
+
 
 // Add event listener to the login form
 appSection.addEventListener('submit', (e) => {
@@ -82,7 +92,5 @@ appSection.addEventListener('submit', (e) => {
 		&& e.target.className === "loginClass") {
 		console.log("login button found !");
 		loginUser();
-	} else {
-		console.log("login button not found !");
 	}
 });
