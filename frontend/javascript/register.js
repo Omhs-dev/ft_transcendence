@@ -1,6 +1,17 @@
 import { appSection } from "./utils/domUtils.js"
 
-console.log("this is the registration page");
+appSection.addEventListener('submit', (e) => {
+	console.log("submit button clicked");
+    e.preventDefault();
+	if (e.target.id === "registerForm"
+		&& e.target.className === "registerClass") {
+		console.log("register button found !");
+		registerUser();
+		console.log("after login");
+	} else {
+		console.error("Not found !");
+	}
+});
 
 const registerUser = async () => {
     const username = document.getElementById('registerUsername').value.trim();
@@ -50,7 +61,10 @@ const registerUser = async () => {
 			throw new Error(message.trim());
 		}		
 		
-		alert('User registered successfully!');
+		closeModal();
+
+		// alert('User registered successfully!');
+		console.log('User registered successfully!');
     } catch (error) {
         console.error('Error:', error);
         alert('Something went wrong. Please try again.');
@@ -58,16 +72,31 @@ const registerUser = async () => {
 	console.log("Empty the forms !");
 };
 
-appSection.addEventListener('submit', (e) => {
-	console.log("submit button clicked");
-    e.preventDefault();
-	console.log(e);
-	if (e.target.id === "registerForm"
-		&& e.target.className === "registerClass") {
-		console.log("register button found !");
-		registerUser();
-		console.log("after login");
-	} else {
-		console.error("Not found !");
-	}
-});
+function closeModal() {
+	const closeBtn = document.getElementById("closeBtn");
+	console.log("closeBtn: ", closeBtn);
+	successfullyRegistered();
+	setTimeout(() => {
+		closeBtn.click();
+	}, 5000);
+}
+
+function successfullyRegistered() {
+	const registerCard = document.querySelector("#registerCard");
+	console.log("reg: ", registerCard);
+	
+	registerCard.innerHTML = `
+		<div class="card text-center shadow-lg p-4">
+			<div class="card-body p-4">
+				<div class="mb-3">
+					<div class="bg-success text-white rounded-circle d-flex justify-content-center
+						align-items-center mx-auto" style="width: 80px; height: 80px;">
+						<i class="fa-solid fa-check fa-2x"></i>
+					</div>
+				</div>
+				<h4 class="fw-bold">Thank You for Registration</h4>
+				<p class="text-muted">Congratulations, your account has been successfully created.</p>
+			</div>
+		</div>
+	`;
+}
