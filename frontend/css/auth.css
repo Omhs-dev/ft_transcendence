@@ -28,7 +28,7 @@
 }
 
 /* Gradient button */
-.btn-register {
+.btn-register, .btn-login {
 	background: #138F97;
 	color: #fff;
 	border: none;

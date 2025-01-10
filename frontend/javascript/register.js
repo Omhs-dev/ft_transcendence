@@ -78,7 +78,7 @@ function closeModal() {
 	successfullyRegistered();
 	setTimeout(() => {
 		closeBtn.click();
-	}, 5000);
+	}, 3000);
 }
 
 function successfullyRegistered() {

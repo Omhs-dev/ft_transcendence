@@ -31,7 +31,9 @@ sideNavSection.addEventListener("click", (e) => {
 const loginUser = async () => {
     const username = document.getElementById('loginUsername').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
+	const loginBtn = document.querySelector('.btn-login');
 
+	console.log("login button: ", loginBtn);
     try {
         const response = await fetch('http://localhost:8000/backend/api/login/', {
             method: 'POST',
@@ -43,9 +45,16 @@ const loginUser = async () => {
 
         const data = await response.json();
 		console.log(data);
+
+		loginBtn.disabled = true;
 		// implement logic to check user credentials
+		// check if token is valid
+		if (response.status === 401) {
+			console.log("error: ", data.error);
+			invalidCredential();
+		}
         if (!response.ok) {
-			throw new Error("Login failed with : ", response.statusText);
+			throw new Error("Login failed with : ", response.status);
 		}
 
 		localStorage.setItem("access_token", data.access_token);
@@ -57,7 +66,6 @@ const loginUser = async () => {
 		console.log("Login successful!");
     } catch (error) {
         console.error('Error:', error.message);
-        alert('Something went wrong. Please try again.');
     }
 };
 
@@ -66,7 +74,6 @@ const logoutUser = async () => {
 	try {
 		const refreshToken = localStorage.getItem('refresh_token');
 		const accessToken = localStorage.getItem('access_token');
-		console.log("refresh token: ", refreshToken);
 
 		const response = await fetch('http://localhost:8000/backend/api/logout/', {
 			method: 'POST',
@@ -94,4 +101,32 @@ const logoutUser = async () => {
 	}
 };
 
+function invalidCredential() {
+	// Shake the login form
+	const loginBtn = document.querySelector('.btn-login');
+	const inputs = document.querySelectorAll(".form-control");
+	// Display error message
+	const errorBox = document.querySelector("#errorBox");
+	const errorMessage = document.createElement("p");
+	const small = document.createElement("small");
 
+	inputs.forEach(input => {
+		input.classList.add('shake');
+	});
+
+	small.textContent = "Username or password is incorrect. Please try again.";
+
+	errorMessage.classList.add('text-danger', 'fw-light', 'text-center');
+	errorMessage.appendChild(small);
+	errorBox.appendChild(errorMessage);
+
+	setInterval(() => {
+		loginBtn.disabled = false;
+		
+		inputs.forEach(input => {
+			input.classList.remove('shake');
+		});
+
+		errorBox.innerHTML = "";
+	}, 3000);
+}
