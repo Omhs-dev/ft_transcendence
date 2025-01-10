@@ -1,3 +1,4 @@
+import { appSection } from "./utils/domUtils.js"
 import HomeView from "./views/HomeView.js";
 import DashboardView from "./views/DashboardView.js";
 import LoginView from "./views/LoginView.js";
@@ -7,6 +8,7 @@ import TournamentView from "./views/TournamentView.js";
 import UsersOnlineview from "./views/UsersOnlineview.js";
 import SettingsView from "./views/SettingsView.js";
 import LeaderboardView from "./views/LeaderboardView.js";
+import RequestsView from "./views/RequestsView.js";
 
 const navigateTo = (url) => {
     history.pushState(null, null, url);
@@ -20,6 +22,7 @@ const routes = [
     { path: "/profile", view: ProfileView },
     { path: "/tournaments", view: TournamentsView },
     { path: "/tournament", view: TournamentView },
+    { path: "/requests", view: RequestsView },
     { path: "/usersonline", view: UsersOnlineview },
     { path: "/leaderboard", view: LeaderboardView },
     { path: "/settings", view: SettingsView }
@@ -30,7 +33,7 @@ const router = async () => {
 
     const view = new match.view();
 
-    document.querySelector("#app").innerHTML = await view.loadHtml();
+    appSection.innerHTML = await view.loadHtml();
 };
 
 window.addEventListener("popstate", router);

@@ -4,68 +4,82 @@
 		<span class="fs-3">Ping Pong</span>
 	</a>
 	<hr>
-	<ul class="nav nav-pills flex-column mb-auto d-flex flex-column" id="navlist">
-		<li class="nav-item flex-grow-1">
-			<a href="/" class="nav-link active fw-bolder" aria-current="page">
-				<i class="fa-solid fa-house"></i>
-				Home
-			</a>
-		</li>
-		<li class="nav-item flex-grow-1">
-			<a href="/dashboard" class="nav-link text-white fw-bolder" data-link>
-				<i class="fa-solid fa-gauge"></i>
-				Dashboard
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="/leaderboard" class="nav-link text-white fw-bolder" data-link>
-				<i class="fa-solid fa-ranking-star"></i>
-				Leaderboard
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="/tournaments" class="nav-link text-white fw-bolder" data-link>
-				<i class="fa-solid fa-trophy"></i>
-				Tournaments
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="/usersonline" class="nav-link text-white fw-bolder" data-link>
-				<i class="fa-solid fa-user-group"></i>
-				Users Online
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="/settings" class="nav-link text-white fw-bolder" data-link>
-				<i class="fa-solid fa-gear"></i>
-				Settings
-			</a>
-		</li>
-	</ul>
+	<!-- <div class="menuBlock"> -->
 
-	<ul class="nav nav-pills flex-column">
-	<li class="nav-item mb-auto">
-		<a href="#" class="nav-link text-white fw-bolder" data-link>
-			<i class="fa-solid fa-moon"></i>
-			Dark Mode
+		<ul class="nav nav-pills flex-column mb-auto d-flex flex-column ul1" id="navlist">
+			<li class="nav-item flex-grow-1">
+				<a href="/" class="nav-link active fw-bolder" aria-current="page" data-link>
+					<i class="fa-solid fa-house"></i>
+					Home
+				</a>
+			</li>
+			<li class="nav-item flex-grow-1">
+				<a href="/dashboard" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-gauge"></i>
+					Dashboard
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/leaderboard" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-ranking-star"></i>
+					Leaderboard
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/tournaments" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-trophy"></i>
+					Tournaments
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/requests" class="nav-link text-white fw-bolder requests" data-link>
+					<i class="fa-solid fa-user-check"></i>
+					Friend Requests
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/usersonline" class="nav-link text-white fw-bolder users" data-link>
+					<i class="fa-solid fa-user-group"></i>
+					Users Online
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="/settings" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-gear"></i>
+					Settings
+				</a>
+			</li>
+		</ul>
+		
+		<ul class="nav nav-pills flex-column ul2">
+			<li class="nav-item mb-auto">
+				<a href="#" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-moon"></i>
+					Dark Mode
+				</a>
+			</li>
+			<li class="nav-item">
+				<button class="btn text-white fw-bolder logoutbtn" id="logoutBtn">
+					<i class="fa-solid fa-right-from-bracket"></i>
+					Logout
+				</button>
+			</li>
+			<!-- <li >
+				<a href="#" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-right-to-bracket"></i>
+					Login
+				</a>
+			</li> -->
+		</ul>
+		
+		<hr>
+		<div class="dropdown">
+			<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+			id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+			<img src="./assets/user1.png" alt="" width="32" height="32" class="rounded-circle me-2">
+			<strong>user</strong>
 		</a>
-	</li>
-	<li >
-		<a href="#" class="nav-link text-white fw-bolder" data-link>
-			<i class="fa-solid fa-right-to-bracket"></i>
-			Login
-		</a>
-	</li>
-	</ul>
-
-	<hr>
-	<div class="dropdown">
-		<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-		id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-		<img src="./assets/user1.png" alt="" width="32" height="32" class="rounded-circle me-2">
-		<strong>mdo</strong>
-		</a>
-		<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+		<ul class="dropdown-menu dropdown-menu-dark text-small shadow ul3" aria-labelledby="dropdownUser1">
 			<li><a class="dropdown-item" href="#" data-link>New project...</a></li>
 			<li><a class="dropdown-item" href="#" data-link>Settings</a></li>
 			<li><a class="dropdown-item" href="/profile" data-link>Profile</a></li>
@@ -74,5 +88,6 @@
 			</li>
 			<li><a class="dropdown-item" href="#">Sign out</a></li>
 		</ul>
-	</div>
+		</div>
+	<!-- </div> -->
 </div>

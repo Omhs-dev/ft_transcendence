@@ -3,14 +3,14 @@
 		<div class="col-12 col-md-6 d-flex justify-content-center image">
 			<img src="assets/pong.png" alt="pong_img" class="img-fluid">
 		</div>
-		<div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
-			<button type="button" class="btn btn-success homebtn mb-3">
+		<div class="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center homesection">
+			<button type="button" class="btn btn-success homebtn mb-3 game-action" id="startbtn" data-action="start">
 				<div class="d-flex flex-column">
 					<span class="fs-2">Start Game</span>
 					<small class="fw-light">Play with a training AI</small>
 				</div>
 			</button>
-		
+			
 			<a href="#" type="button" class="btn homebtn text-decoration-none register" data-bs-toggle="modal" data-bs-target="#registerMod">
 				<div class="d-flex flex-column align-items-center">
 					<span class="fs-2">Register</span>
@@ -44,36 +44,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-12">
-					<div class="card">
-						<div class="card-bg">
-
-						</div>
-						<div>
-							<h2 class="text-center mt-4 fw-bold">
-								LOGIN
-							</h2>
-						</div>
-						<div class="card-body p-4">
-							<form id="loginForm">
-								<div class="mb-4">
-									<!-- <label for="username" class="form-label">Username</label> -->
-									<input type="text" class="form-control" id="username" placeholder="Enter your username"
-										required>
-								</div>
-								<div class="mb-4">
-									<!-- <label for="password" class="form-label">Password</label> -->
-									<input type="password" class="form-control" id="password"
-										placeholder="Enter your password" required>
-								</div>
-								<div class="d-grid">
-									<button type="submit" class="btn btn-register">LOGIN</button>
-								</div>
-							</form>
-						</div>
-						<div class="card-footer text-secondary">
-							Don't have an account? <a href="#" data-bs-target="#registerMod" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</a>
-						</div>
-					</div>
+					<login-card></login-card>
 				</div>
 			</div>
 		</div>
@@ -94,46 +65,7 @@
 			<div class="container">
 				<div class="row justify-content-center">
 					<div class="col-md-12">
-						<div class="card">
-							<div class="card-bg">
-		
-							</div>
-							<div>
-								<h2 class="text-center mt-4 fw-bold">
-									REGISTER
-								</h2>
-							</div>
-							<div class="card-body p-4">
-								<form id="registerForm">
-									<div class="mb-4">
-										<!-- <label for="username" class="form-label">Username</label> -->
-										<input type="text" class="form-control" id="username" placeholder="Enter your username"
-											required>
-									</div>
-									<div class="mb-4">
-										<!-- <label for="email" class="form-label">Email Address</label> -->
-										<input type="email" class="form-control" id="email" placeholder="Enter your email"
-											required>
-									</div>
-									<div class="mb-4">
-										<!-- <label for="password" class="form-label">Password</label> -->
-										<input type="password" class="form-control" id="password"
-											placeholder="Enter your password" required>
-									</div>
-									<div class="mb-4">
-										<!-- <label for="confirmPassword" class="form-label">Confirm Password</label> -->
-										<input type="password" class="form-control" id="confirmPassword"
-											placeholder="Confirm your password" required>
-									</div>
-									<div class="d-grid">
-										<button type="submit" class="btn btn-register">REGISTER</button>
-									</div>
-								</form>
-							</div>
-							<div class="card-footer text-secondary">
-								Already have an account? <a href="#" data-bs-target="#loginMod" data-bs-toggle="modal" data-bs-dismiss="modal">Sign In<a>
-							</div>
-						</div>
+						<register-card></register-card>
 					</div>
 				</div>
 			</div>
