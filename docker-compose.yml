@@ -20,7 +20,7 @@ services:
 
   django:
     container_name: django_container
-    build: ./backend
+    build: ./backend/Django_Docker_files/
     ports:
       - "8000:8000"
     volumes:
@@ -29,6 +29,8 @@ services:
       - postgres  # Ensure Django waits for PostgreSQL to be ready
     env_file: 
       - ./.env    # Load environment variables from .env file
+    stdin_open: true # Keep stdin open, so we can attach to the container for debugging with dpd in the django
+    tty: true 
 
   redis:
     container_name: redis_container
