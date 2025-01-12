@@ -195,5 +195,3 @@ class CustomTokenRefreshView(TokenRefreshView):
         )
         logger.debug("Response for Access token in CustomTokenRefreshView: %s", response.data)
         return response
-
-#refactor: provide the microservice with creation of different apps and models
