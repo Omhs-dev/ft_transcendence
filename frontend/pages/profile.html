@@ -2,7 +2,7 @@
 <div class="container my-5">
 	<!-- Profile Header -->
 	<div class="row">
-		<div class="container">
+		<div class="container profileInfo" id="profileInfo">
 			<div class="row justify-content-center">
 				<div class="col-md-3 text-center">
 					<img src="../assets/user.png" alt="Profile Picture"
@@ -21,23 +21,21 @@
 							</div>
 						</div>
 						<div class="card-text d-flex justify-content-between">
-							<div class="text-center">
+							<div class="text-center"  id="statusDiv">
 								<i class="fa-regular fa-circle"></i>
-								<a href="#" type="button" class="">Status</a>
-								<p class="text-success">Active</p>
+								<span class="mt-2">Status</span>
 							</div>
-							<div class="text-center">
+							<div class="text-center" id="friendListDiv">
 								<i class="fa-regular fa-user"></i>
 								<button class="btn text-white friends" type="button" data-bs-toggle="modal"
 									data-bs-target="#staticBackdrop" id="friendListBtn">
 									Friend List
 								</button>
-								<p class="text-success">8</p>
 							</div>
 							<div class="text-center">
 								<i class="fa-regular fa-message"></i>
 								<a href="#">Send Message</a>
-								<p class="text-success">Start</p>
+								<p class="text-success  class="mt-2"">Start</p>
 							</div>
 						</div>
 					</div>

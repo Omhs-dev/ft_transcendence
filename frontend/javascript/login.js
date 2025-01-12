@@ -56,7 +56,7 @@ const loginUser = async () => {
         if (!response.ok) {
 			throw new Error("Login failed with : ", response.status);
 		}
-
+		console.log("data: ", data);
 		localStorage.setItem("access_token", data.access_token);
 		localStorage.setItem("refresh_token", data.refresh_token);
 

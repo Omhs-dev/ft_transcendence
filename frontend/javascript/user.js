@@ -1,5 +1,6 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
+import { authSection } from "./utils/authSection.js";
 
 const token = localStorage.getItem("access_token");
 
@@ -190,13 +191,22 @@ const fetchFriendList = async () => {
 		const data = await response.json();
 
 		const friendList = document.getElementById("friendList");
-
+		const friendListSection = document.getElementById("friendListDiv");
+		const statusSection = document.getElementById("statusDiv");
+		console.log("status section: ", statusSection);
 		data.forEach((user, index) => {
 			console.log("User: ", user.from_user);
 			console.log("Index: ", index);
 			// Create a new <tr> element
 			const tr = document.createElement("tr");
-		
+			const para = document.createElement("p");
+			const para2 = document.createElement("p");
+
+			para2.classList.add("text-success");
+			para2.textContent = token ? "Online" : "Offline";
+
+			para.classList.add("text-success");
+			para.textContent = data.length > 0 ? data.length : "0";
 			// Create <th> for the index
 			const th = document.createElement("th");
 			th.setAttribute("scope", "row");
@@ -224,6 +234,8 @@ const fetchFriendList = async () => {
 		
 			// Append <tr> to the <tbody> (userList)
 			friendList.appendChild(tr);
+			friendListSection.appendChild(para);
+			statusSection.appendChild(para2);
 		});
 
 		console.log("Friend List: ", data);
@@ -267,34 +279,10 @@ window.addEventListener("load", () => {
     }
 
 	if (token) {
-		const homeSection = appSection.querySelector(".homesection");
-		const registerBtn = appSection.querySelector(".register");
-		const loginBtn = appSection.querySelector(".login");
-		const separator = appSection.querySelector(".separator");
-
-		const gameMode = document.createElement("div");
-
-		console.log("Register Button: ", registerBtn);
-		console.log("Login Button: ", loginBtn);
-		console.log("home section: ", homeSection);
-
-		gameMode.innerHTML = `
-			<button type="button" class="btn homebtn mb-3 game-action game-mode" data-action="mode">
-				<div class="d-flex flex-column">
-					<span class="fs-2">Game Mode</span>
-					<small class="fw-light">Select game mode to play</small>
-				</div>
-			</button>
-		`;
-
-		homeSection.appendChild(gameMode);
-
-		registerBtn.style.display = "none";
-		loginBtn.style.display = "none";
-		separator.style.display = "none";
-
+		// authSection(token);
 		getOnlineUsers();
 	} else {
+		// authSection(token);
 		// alert("Please log in to access this page");
 		const ulElement = sideNavSection.getElementsByClassName("ul1").item(0);
 		const ulElement2 = sideNavSection.getElementsByClassName("ul2").item(0);
@@ -330,12 +318,15 @@ sideNavSection.addEventListener("click", (e) => {
 	} else if (e.target.classList.contains("requests")) {
 		console.log("friend requests found");
 		fetchFriendRequests();
-	}
-});
-
-appSection.addEventListener("click", (e) => {
-	if (e.target.classList.contains("friends")) {
+	} else if (e.target.classList.contains("profile")) {
 		console.log("friends found");
 		fetchFriendList();
 	}
 });
+
+// appSection.addEventListener("click", (e) => {
+// 	if (e.target.classList.contains("friends")) {
+// 		console.log("friends found");
+// 		fetchFriendList();
+// 	}
+// });

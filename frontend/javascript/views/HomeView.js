@@ -1,4 +1,5 @@
 import AbsractView from "./AbsractView.js";
+import { authSection } from "../utils/loginCheck.js";
 
 export default class extends AbsractView {
 	constructor(params) {
@@ -13,9 +14,17 @@ export default class extends AbsractView {
 			if (!response.ok) {
 				throw new Error(`Error fetching page: ${response.statusText}`);
 			}
-			console.log("fetching informations");
+
 			const htmlContent = await response.text();
-			return htmlContent;
+
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(htmlContent, "text/html");
+
+			const authSec = doc.querySelector(".homesection");
+			authSection(authSec);
+
+			const containt = doc.body.innerHTML;
+			return containt;
 		} catch(error) {
 			console.log(error.message);
 		}
