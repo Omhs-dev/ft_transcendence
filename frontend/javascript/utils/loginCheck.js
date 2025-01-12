@@ -1,5 +1,6 @@
+const token = localStorage.getItem("access_token");
+
 export function authSection(authSectionDiv) {
-	const token = localStorage.getItem("access_token");
 	console.log("token ----- : ", token);
 	console.log("auth section: ", authSectionDiv);
 	if (token) {
@@ -51,5 +52,36 @@ export function authSection(authSectionDiv) {
 					</div>
 				</a>
 			`;
+	}
+}
+
+export function sideNavLoad(sideNavDiv) {
+	if (!sideNavDiv) {
+		console.error("Error: sideNavDiv not found!");
+		return;
+	}
+
+	if (!token) {
+		const ulElement = sideNavDiv.getElementsByClassName("ul1").item(0);
+		const ulElement2 = sideNavDiv.getElementsByClassName("ul2").item(0);
+		const ulElement3 = sideNavDiv.getElementsByClassName("ul3").item(0);
+
+		ulElement.innerHTML = `
+			<li class="nav-item flex-grow-1">
+				<a href="/history" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-book"></i>
+					Pong History
+				</a>
+			</li>
+			<li class="nav-item flex-grow-1">
+				<a href="/rules" class="nav-link text-white fw-bolder" data-link>
+					<i class="fa-solid fa-file-lines"></i>
+					Pong Rules
+				</a>
+			</li>
+		`;
+
+		ulElement2.innerHTML = "";
+		ulElement3.innerHTML = "";
 	}
 }

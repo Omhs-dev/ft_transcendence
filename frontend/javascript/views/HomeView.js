@@ -23,8 +23,8 @@ export default class extends AbsractView {
 			const authSec = doc.querySelector(".homesection");
 			authSection(authSec);
 
-			const containt = doc.body.innerHTML;
-			return containt;
+			const content = doc.body.innerHTML;
+			return content;
 		} catch(error) {
 			console.log(error.message);
 		}

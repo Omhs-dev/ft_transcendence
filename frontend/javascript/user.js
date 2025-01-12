@@ -1,6 +1,5 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
-import { authSection } from "./utils/authSection.js";
 
 const token = localStorage.getItem("access_token");
 
@@ -191,52 +190,46 @@ const fetchFriendList = async () => {
 		const data = await response.json();
 
 		const friendList = document.getElementById("friendList");
-		const friendListSection = document.getElementById("friendListDiv");
-		const statusSection = document.getElementById("statusDiv");
-		console.log("status section: ", statusSection);
-		data.forEach((user, index) => {
-			console.log("User: ", user.from_user);
-			console.log("Index: ", index);
-			// Create a new <tr> element
-			const tr = document.createElement("tr");
-			const para = document.createElement("p");
-			const para2 = document.createElement("p");
+		const friendNumber = document.querySelector(".friendNumber");
 
-			para2.classList.add("text-success");
-			para2.textContent = token ? "Online" : "Offline";
+		if (data.length >= 0) {
+			// friendNumber.textContent = data.length > 0 ? data.length : "0";
+			data.forEach((user, index) => {
+				console.log("User: ", user.from_user);
+				console.log("Index: ", index);
+				// Create a new <tr> element
+				const tr = document.createElement("tr");
 
-			para.classList.add("text-success");
-			para.textContent = data.length > 0 ? data.length : "0";
-			// Create <th> for the index
-			const th = document.createElement("th");
-			th.setAttribute("scope", "row");
-			th.textContent = index + 1; // Row number
-		
-			// Create <td> for username
-			const tdUsername = document.createElement("td");
-			tdUsername.textContent = user.username;
-		
-			// Create <td> for button
-			const tdButton = document.createElement("td");
-			const button = document.createElement("button");
-			button.classList.add("btn", "btn-primary", "rounded-pill");
-			button.textContent = "block";
+				friendNumber.textContent = data.length > 0 ? data.length : "0";
+				// Create <th> for the index
+				const th = document.createElement("th");
+				th.setAttribute("scope", "row");
+				th.textContent = index + 1; // Row number
+			
+				// Create <td> for username
+				const tdUsername = document.createElement("td");
+				tdUsername.textContent = user.username;
+			
+				// Create <td> for button
+				const tdButton = document.createElement("td");
+				const button = document.createElement("button");
+				button.classList.add("btn", "btn-primary", "rounded-pill");
+				button.textContent = "block";
 
-			button.addEventListener("click", () => blockFriend(user.id));
-		
-			// Append button inside <td>
-			tdButton.appendChild(button);
-		
-			// Append all elements to the <tr>
-			tr.appendChild(th);
-			tr.appendChild(tdUsername);
-			tr.appendChild(tdButton);
-		
-			// Append <tr> to the <tbody> (userList)
-			friendList.appendChild(tr);
-			friendListSection.appendChild(para);
-			statusSection.appendChild(para2);
-		});
+				button.addEventListener("click", () => blockFriend(user.id));
+			
+				// Append button inside <td>
+				tdButton.appendChild(button);
+			
+				// Append all elements to the <tr>
+				tr.appendChild(th);
+				tr.appendChild(tdUsername);
+				tr.appendChild(tdButton);
+			
+				// Append <tr> to the <tbody> (userList)
+				friendList.appendChild(tr);
+			});
+		}
 
 		console.log("Friend List: ", data);
 	}
@@ -272,42 +265,19 @@ const blockFriend = async (userId) => {
 	}
 }
 
-window.addEventListener("load", () => {
-	if (!sideNavSection) {
-        console.error("Error: sideNavSection not found!");
-        return;
-    }
+// window.addEventListener("load", () => {
+// 	if (!sideNavSection) {
+//         console.error("Error: sideNavSection not found!");
+//         return;
+//     }
 
-	if (token) {
-		// authSection(token);
-		getOnlineUsers();
-	} else {
-		// authSection(token);
-		// alert("Please log in to access this page");
-		const ulElement = sideNavSection.getElementsByClassName("ul1").item(0);
-		const ulElement2 = sideNavSection.getElementsByClassName("ul2").item(0);
-		const ulElement3 = sideNavSection.getElementsByClassName("ul3").item(0);
-
-		ulElement.innerHTML = `
-			<li class="nav-item flex-grow-1">
-				<a href="/history" class="nav-link text-white fw-bolder" data-link>
-					<i class="fa-solid fa-book"></i>
-					Pong History
-				</a>
-			</li>
-			<li class="nav-item flex-grow-1">
-				<a href="/rules" class="nav-link text-white fw-bolder" data-link>
-					<i class="fa-solid fa-file-lines"></i>
-					Pong Rules
-				</a>
-			</li>
-		`;
-
-		ulElement2.innerHTML = "";
-		ulElement3.innerHTML = "";
-		console.log("after loop");
-	}
-});
+// 	if (token) {
+// 		// authSection(token);
+// 		getOnlineUsers();
+// 	} else {
+// 		console.error("No access token found. Please log in.");
+// 	}
+// });
 
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
