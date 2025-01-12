@@ -1,5 +1,5 @@
 all:
-	docker compose up --build 
+	docker compose up --build -d
 	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost:80 $(ORG)-----$(RESET)"
 
 stop:
@@ -7,8 +7,9 @@ stop:
 	docker compose down
 	@rm -f ./backend/Django_backend_project/logs.txt
 
-init_script:
-	@./script/init_docker.sh
+init_docker:
+	@echo "$(ORG)----- Start Script-----$(RESET)"
+	./script/init_docker.sh
 
 reload: stop all
 

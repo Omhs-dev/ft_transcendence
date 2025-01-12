@@ -121,8 +121,8 @@ MIDDLEWARE = [
 	'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
 	'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -259,6 +259,11 @@ SIMPLE_JWT = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8000",  # Ensure this matches your frontend's origin
+#     "http://localhost", 
+# ]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 # sends the cookies to the frontend
@@ -273,13 +278,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 APPEND_SLASH = True
 
+
+# DEBUG TOOLBAR CONFIGURATION
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
     # ...
 ]
-
-
 
 DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
