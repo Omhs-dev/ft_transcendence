@@ -190,41 +190,46 @@ const fetchFriendList = async () => {
 		const data = await response.json();
 
 		const friendList = document.getElementById("friendList");
+		const friendNumber = document.querySelector(".friendNumber");
 
-		data.forEach((user, index) => {
-			console.log("User: ", user.from_user);
-			console.log("Index: ", index);
-			// Create a new <tr> element
-			const tr = document.createElement("tr");
-		
-			// Create <th> for the index
-			const th = document.createElement("th");
-			th.setAttribute("scope", "row");
-			th.textContent = index + 1; // Row number
-		
-			// Create <td> for username
-			const tdUsername = document.createElement("td");
-			tdUsername.textContent = user.username;
-		
-			// Create <td> for button
-			const tdButton = document.createElement("td");
-			const button = document.createElement("button");
-			button.classList.add("btn", "btn-primary", "rounded-pill");
-			button.textContent = "block";
+		if (data.length >= 0) {
+			// friendNumber.textContent = data.length > 0 ? data.length : "0";
+			data.forEach((user, index) => {
+				console.log("User: ", user.from_user);
+				console.log("Index: ", index);
+				// Create a new <tr> element
+				const tr = document.createElement("tr");
 
-			button.addEventListener("click", () => blockFriend(user.id));
-		
-			// Append button inside <td>
-			tdButton.appendChild(button);
-		
-			// Append all elements to the <tr>
-			tr.appendChild(th);
-			tr.appendChild(tdUsername);
-			tr.appendChild(tdButton);
-		
-			// Append <tr> to the <tbody> (userList)
-			friendList.appendChild(tr);
-		});
+				friendNumber.textContent = data.length > 0 ? data.length : "0";
+				// Create <th> for the index
+				const th = document.createElement("th");
+				th.setAttribute("scope", "row");
+				th.textContent = index + 1; // Row number
+			
+				// Create <td> for username
+				const tdUsername = document.createElement("td");
+				tdUsername.textContent = user.username;
+			
+				// Create <td> for button
+				const tdButton = document.createElement("td");
+				const button = document.createElement("button");
+				button.classList.add("btn", "btn-primary", "rounded-pill");
+				button.textContent = "block";
+
+				button.addEventListener("click", () => blockFriend(user.id));
+			
+				// Append button inside <td>
+				tdButton.appendChild(button);
+			
+				// Append all elements to the <tr>
+				tr.appendChild(th);
+				tr.appendChild(tdUsername);
+				tr.appendChild(tdButton);
+			
+				// Append <tr> to the <tbody> (userList)
+				friendList.appendChild(tr);
+			});
+		}
 
 		console.log("Friend List: ", data);
 	}
@@ -260,66 +265,19 @@ const blockFriend = async (userId) => {
 	}
 }
 
-window.addEventListener("load", () => {
-	if (!sideNavSection) {
-        console.error("Error: sideNavSection not found!");
-        return;
-    }
+// window.addEventListener("load", () => {
+// 	if (!sideNavSection) {
+//         console.error("Error: sideNavSection not found!");
+//         return;
+//     }
 
-	if (token) {
-		const homeSection = appSection.querySelector(".homesection");
-		const registerBtn = appSection.querySelector(".register");
-		const loginBtn = appSection.querySelector(".login");
-		const separator = appSection.querySelector(".separator");
-
-		const gameMode = document.createElement("div");
-
-		console.log("Register Button: ", registerBtn);
-		console.log("Login Button: ", loginBtn);
-		console.log("home section: ", homeSection);
-
-		gameMode.innerHTML = `
-			<button type="button" class="btn homebtn mb-3 game-action game-mode" data-action="mode">
-				<div class="d-flex flex-column">
-					<span class="fs-2">Game Mode</span>
-					<small class="fw-light">Select game mode to play</small>
-				</div>
-			</button>
-		`;
-
-		homeSection.appendChild(gameMode);
-
-		registerBtn.style.display = "none";
-		loginBtn.style.display = "none";
-		separator.style.display = "none";
-
-		getOnlineUsers();
-	} else {
-		// alert("Please log in to access this page");
-		const ulElement = sideNavSection.getElementsByClassName("ul1").item(0);
-		const ulElement2 = sideNavSection.getElementsByClassName("ul2").item(0);
-		const ulElement3 = sideNavSection.getElementsByClassName("ul3").item(0);
-
-		ulElement.innerHTML = `
-			<li class="nav-item flex-grow-1">
-				<a href="/history" class="nav-link text-white fw-bolder" data-link>
-					<i class="fa-solid fa-book"></i>
-					Pong History
-				</a>
-			</li>
-			<li class="nav-item flex-grow-1">
-				<a href="/rules" class="nav-link text-white fw-bolder" data-link>
-					<i class="fa-solid fa-file-lines"></i>
-					Pong Rules
-				</a>
-			</li>
-		`;
-
-		ulElement2.innerHTML = "";
-		ulElement3.innerHTML = "";
-		console.log("after loop");
-	}
-});
+// 	if (token) {
+// 		// authSection(token);
+// 		getOnlineUsers();
+// 	} else {
+// 		console.error("No access token found. Please log in.");
+// 	}
+// });
 
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
@@ -330,12 +288,15 @@ sideNavSection.addEventListener("click", (e) => {
 	} else if (e.target.classList.contains("requests")) {
 		console.log("friend requests found");
 		fetchFriendRequests();
-	}
-});
-
-appSection.addEventListener("click", (e) => {
-	if (e.target.classList.contains("friends")) {
+	} else if (e.target.classList.contains("profile")) {
 		console.log("friends found");
 		fetchFriendList();
 	}
 });
+
+// appSection.addEventListener("click", (e) => {
+// 	if (e.target.classList.contains("friends")) {
+// 		console.log("friends found");
+// 		fetchFriendList();
+// 	}
+// });
