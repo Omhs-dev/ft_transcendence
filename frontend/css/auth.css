@@ -1,14 +1,3 @@
-body {
-	background: linear-gradient(135deg, #2F5760, #0F3E60);
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin: 0;
-	font-family: Arial, sans-serif;
-}
-
-/* Card styling */
 .card {
 	background-color: #2D3E50;
 	color: #ffffff;
@@ -39,7 +28,7 @@ body {
 }
 
 /* Gradient button */
-.btn-register {
+.btn-register, .btn-login {
 	background: #138F97;
 	color: #fff;
 	border: none;

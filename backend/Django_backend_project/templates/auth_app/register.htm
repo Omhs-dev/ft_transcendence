@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register / Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 id="welcomeMessage">Welcome</h1>
+        <div id="authSection">
+            <!-- Registration Form -->
+            <div id="registerSection">
+                <h2>Register</h2>
+                <form id="registerForm">
+                    <label for="reg_username">Username:</label>
+                    <input type="text" id="reg_username" name="username" required>
+                    
+                    <label for="reg_email">Email:</label>
+                    <input type="email" id="reg_email" name="email" required>
+                    
+                    <label for="reg_password">Password:</label>
+                    <input type="password" id="reg_password" name="password" required>
+                    
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginSection">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <label for="login_username">Username:</label>
+                    <input type="text" id="login_username" name="username" required>
+                    
+                    <label for="login_password">Password:</label>
+                    <input type="password" id="login_password" name="password" required>
+                    
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" style="display: none;">
+            <h2>Dashboard</h2>
+            <button id="logoutButton">Logout</button>
+            
+            <!-- Online Users -->
+            <div id="onlineUsers">
+                <h3>Online Users</h3>
+                <ul id="userList"></ul>
+            </div>
+
+            <!-- Friends Requests -->
+            <div id="friendreq">
+                <h3>My Friends Requests</h3>
+                <ul id="friendRequests"></ul>
+            </div>
+
+            <!-- Friends List -->
+            <div id="friendLists">
+                <h3>My Friends :</h3>
+                <ul id="friendList"></ul>
+            </div>
+
+
+			<!-- Profile Section -->
+			<div id="profileSection">
+				<h2>Profile</h2>
+				<form id="profileForm">
+					<label for="profileBio">Bio:</label>
+					<textarea id="profileBio" name="bio"></textarea>
+			
+					<label for="profilePicture">Upload Profile Picture:</label>
+					<input type="file" id="profilePicture" name="profile_picture" accept="image/*">
+					
+					<!-- Profile Picture Preview -->
+					<img id="profilePicturePreview" src="{{ profile.profile_picture.url }}" alt="Profile Picture" style="display: none; width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-top: 10px;">
+			
+					<button type="submit">Update Profile</button>
+				</form>
+			</div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+		let refreshTimer;
+		
+
+		// Function to get the CSRF token from the cookie
+		function getCookie(name) {
+			let cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				const cookies = document.cookie.split(';');
+				for (let i = 0; i < cookies.length; i++) {
+					const cookie = cookies[i].trim();
+					console.log("cookie: ", cookie);
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+
+		function startTokenRefreshTimer() {
+			const refreshInterval = 4 * 60 * 1000; // 1 minute in milliseconds
+
+			console.log('Starting token refresh timer');
+			refreshTimer = setInterval(() => {
+				// Use absolute path to avoid relative path issues
+				const apiUrl = '/auth/api/renew-access/';
+				console.log(`API URL being called: ${apiUrl}`);
+
+				fetch(apiUrl, {
+					method: 'POST',
+					credentials: 'include',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
+					},
+				})
+				.then(response => {
+					if (response.ok) {
+						console.log('Token refreshed successfully');
+					} else {
+						console.error('Failed to refresh token. Logging out.');
+						logoutUser(); // Call the logout logic
+					}
+				})
+				.catch(error => {
+					console.error('Error refreshing token:', error);
+				});
+			}, refreshInterval);
+		}
+
+		function stopTokenRefreshTimer() {
+			if (refreshTimer) {
+				clearInterval(refreshTimer);
+				console.log('Token refresh timer stopped');
+			}
+		}
+
+
+		// Register User
+		document.getElementById('registerForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const username = document.getElementById('reg_username').value;
+			const email = document.getElementById('reg_email').value;
+			const password = document.getElementById('reg_password').value;
+
+			try {
+				const response = await fetch(`/auth/api/register/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ username, email, password }),
+				});
+				if (response.ok) {
+					const data = await response.json();
+					alert(data.message || 'Registration successful!');
+					document.getElementById('registerForm').reset();
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Registration failed!');
+				}
+				
+			} catch (error) {
+				alert('An error occurred during registration.');
+			}
+		});
+
+		// Login User
+		document.getElementById('loginForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+
+			const username = document.getElementById('login_username').value;
+			const password = document.getElementById('login_password').value;
+
+			try {
+				const response = await fetch(`/auth/api/login/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ username, password }),
+					credentials: 'include' // To include cookies in the request
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					// Store username in local storage 
+					localStorage.setItem('username', username);
+					localStorage.setItem('isAuthenticated', 'true');
+                    console.log('${username} Login successful:', data);
+					loadDashboard();
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Login failed!');
+				}
+			} catch (error) {
+				alert('An error occurred during login.');
+                console.error('Error during login:', error);
+			}
+		});
+
+
+		async function logoutUser() {
+			stopTokenRefreshTimer(); // Stop the refresh timer
+			try {
+				const response = await fetch(`/auth/api/logout/`, {
+					method: 'POST',
+					credentials: 'include',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
+					},
+				});
+
+				if (response.ok) {
+					// Logout succeeded
+					alert('You have been logged out.');
+				} else {
+					console.error('Failed to notify server about logout:', response.status);
+				}
+			} catch (error) {
+				console.error('Error during logout request:', error);
+			} finally {
+				// Cleanup local data and redirect to login page
+				localStorage.removeItem('username');
+				localStorage.removeItem('isAuthenticated');
+				showAuthSection(); // Redirect to authentication page
+			}
+		}
+
+		// Bind the logout button to the reusable logout logic
+		document.getElementById('logoutButton').addEventListener('click', logoutUser);
+
+
+
+		// // Logout User
+		// // this logout consist of access token refresh in case of blocking the timer interval of token refresh automatically
+		// document.getElementById('logoutButton').addEventListener('click', async function () {
+		// 	stopTokenRefreshTimer();
+		// 	try {
+		// 		// Send logout request
+		// 		const response = await fetch(`/auth/api/logout/`, {
+		// 			method: 'POST',
+		// 			credentials: 'include',
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 				'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
+		// 			},
+		// 		});
+
+		// 		if (response.ok) {
+		// 			// Logout succeeded
+		// 			alert('You have been logged out.');
+		// 			localStorage.removeItem('username');
+		// 			localStorage.removeItem('isAuthenticated');
+		// 			showAuthSection();
+		// 		// renew access token
+		// 		} else if (response.status === 401) {
+		// 			// Logout failed due to an expired token; attempt token refresh
+		// 			const refreshResponse = await fetch('/auth/api/renew-access/', {
+		// 				method: 'POST',
+		// 				credentials: 'include',
+		// 				headers: { 
+		// 					'Content-Type': 'application/json',
+		// 					'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+		// 				},
+		// 			});
+		// 			// attempt to logout again with the refreshed token
+		// 			if (refreshResponse.ok) {
+		// 				console.log("Access token refreshed. Retrying logout.");
+		// 				// Retry logout after refreshing the token
+		// 				const retryResponse = await fetch(`/auth/api/logout/`, {
+		// 					method: 'POST',
+		// 					credentials: 'include',
+		// 					headers: {
+		// 						'Content-Type': 'application/json',
+		// 						'X-CSRFToken': getCookie('csrftoken'),
+		// 					},
+		// 				});
+		// 				// check if the tokens are refreshed and logout
+		// 				if (retryResponse.ok) {
+		// 					alert('You have been logged out after refreshing the token.');
+		// 					localStorage.removeItem('username');
+		// 					localStorage.removeItem('isAuthenticated');
+		// 					showAuthSection();
+		// 				} else {
+		// 					const retryErrorData = await retryResponse.json();
+		// 					console.error('Logout failed after refreshing token:', retryErrorData);
+		// 					alert(retryErrorData.error || 'Failed to log out after token refresh.');
+		// 				}
+		// 			// if the token is not refreshed or refresh token is expired
+		// 			} else {
+		// 				console.log('Refresh token expired or invalid.');
+		// 				alert('Session expired. Please log in again.');
+		// 				localStorage.removeItem('username');
+		// 				localStorage.removeItem('isAuthenticated');
+		// 				showAuthSection();
+		// 			}
+		// 		} else {
+		// 			// Other errors
+		// 			const errorData = await response.json();
+		// 			console.error('Logout failed:', errorData);
+		// 			alert(errorData.error || 'Failed to log out. Please try again.');
+		// 		}
+		// 	} catch (error) {
+		// 		console.error('Error logging out:', error);
+		// 		alert('An error occurred while logging out. Please try again.');
+		// 	}
+		// });
+
+
+		window.addEventListener('load', function () {
+			const isAuthenticated = localStorage.getItem('isAuthenticated');
+			const username = localStorage.getItem('username');
+			if (isAuthenticated === 'true' && username) {
+				loadDashboard();
+			} else {
+				showAuthSection();
+			}
+		});
+
+
+		function showAuthSection() {
+			console.log("in showAuthSection");
+			document.getElementById('authSection').style.display = 'block';
+			document.getElementById('dashboard').style.display = 'none';
+		}
+
+		// Load Dashboard
+		function loadDashboard() {
+			startTokenRefreshTimer(); // Start refreshing tokens
+			const username = localStorage.getItem('username'); // Retrieve username from localStorage
+			document.getElementById('welcomeMessage').textContent = `Welcome, ${username}!`;
+			document.getElementById('authSection').style.display = 'none';
+			document.getElementById('dashboard').style.display = 'block';
+			fetchOnlineUsers();
+			fetchFriendRequests();
+			fetchFriends();
+			fetchProfile(); // Fetch profile details when the dashboard loads
+		}
+
+
+		document.getElementById('profilePicture').addEventListener('change', function (event) {
+			const file = event.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					document.getElementById('profilePicturePreview').src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		});
+
+		async function fetchProfile() {
+			try {
+				const response = await fetch('/chat/api/profile/');
+				if (response.ok) {
+					const profile = await response.json();
+
+					// Update bio
+					document.getElementById('profileBio').value = profile.bio || '';
+
+					// Display profile picture if it exists
+					if (profile.profile_picture) {
+						const profileImage = document.getElementById('profilePicturePreview');
+						profileImage.src = profile.profile_picture;
+						profileImage.style.display = 'block'; // Show the image
+					} else {
+						// Hide the image if no profile picture is available
+						document.getElementById('profilePicturePreview').style.display = 'none';
+					}
+				} else {
+					console.error('Failed to fetch profile:', response.status);
+				}
+			} catch (error) {
+				console.error('Error fetching profile:', error);
+			}
+		}
+
+
+		document.getElementById('profileForm').addEventListener('submit', async function (event) {
+			event.preventDefault();
+			const bio = document.getElementById('profileBio').value;
+			const profilePicture = document.getElementById('profilePicture').files[0];
+
+			const formData = new FormData();
+			formData.append('bio', bio);
+			if (profilePicture) {
+				formData.append('profile_picture', profilePicture);
+			}
+
+			try {
+				const response = await fetch('/chat/api/profile/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
+					},
+					body: formData
+				});
+				if (response.ok) {
+					const updatedProfile = await response.json();
+					alert('Profile updated successfully!');
+				} else {
+					console.error('Failed to update profile:', response.status);
+				}
+			} catch (error) {
+				console.error('Error updating profile:', error);
+			}
+		});
+
+
+		// Fetch Online Users
+		async function fetchOnlineUsers() {
+			try {
+				const response = await fetch('/chat/api/online-users/');
+
+				const data = await response.json();
+				const userList = document.getElementById('userList');
+				userList.innerHTML = '';
+	
+				data.forEach(user => {
+					const userItem = document.createElement('li');
+					userItem.textContent = user.username;
+					userItem.dataset.userId = user.id;
+	
+					const friendButton = document.createElement('button');
+					friendButton.textContent = 'Send Friend Request';
+					friendButton.addEventListener('click', () => sendFriendRequest(user.id));
+	
+					userItem.appendChild(friendButton);
+					userList.appendChild(userItem);
+				});
+			} catch (error) {
+				console.error('Error fetching users:', error);
+			}
+		}
+
+
+		async function sendFriendRequest(userId) {
+			try {
+				const response = await fetch(`/chat/api/send-friend-request/${userId}/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',  // Ensure content type is set
+						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
+					},
+					credentials: 'include'  // Ensure cookies are sent with the request
+				});
+				const data = await response.json();
+				alert(data.message || 'Friend request sent.');
+			} catch (error) {
+				console.error('Error sending friend request:', error);
+			}
+		}
+
+
+		// Fetch Friend Requests
+		async function fetchFriendRequests() {
+			console.log("in fetchFrindRequests");
+			try {
+				console.log("before response");
+				const response = await fetch('/chat/api/friend-requests/');
+	
+				const data = await response.json();
+				const requestsList = document.getElementById('friendRequests');
+				requestsList.innerHTML = '';
+				console.log("section: ", requestsList);
+				
+				data.forEach(request => {
+					const requestItem = document.createElement('li');
+					requestItem.textContent = `${request.from_user} wants to be your friend`;
+	
+					const acceptButton = document.createElement('button');
+					acceptButton.textContent = 'Accept';
+					acceptButton.addEventListener('click', () => acceptFriendRequest(request.id));
+	
+					requestItem.appendChild(acceptButton);
+					requestsList.appendChild(requestItem);
+				});
+			} catch (error) {
+				console.error('Error fetching friend requests:', error);
+			}
+		}
+
+		// Accept Friend Request
+		async function acceptFriendRequest(requestId) {
+			try {
+				const response = await fetch(`/chat/api/accept-friend-request/${requestId}/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json', // Ensure content type is set
+						'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
+					},
+					credentials: 'include', // Ensure cookies are sent with the request
+				});
+				const data = await response.json();
+				alert(data.message || 'Friend request accepted.');
+				fetchFriendRequests();
+			} catch (error) {
+				console.error('Error accepting friend request:', error);
+			}
+		}
+
+		// Fetch Friend List
+		async function fetchFriends() {
+			try {
+				const response = await fetch('/chat/api/friends/');
+	
+				const data = await response.json();
+				const friendList = document.getElementById('friendList');
+				friendList.innerHTML = '';
+	
+				data.forEach(friend => {
+					const friendItem = document.createElement('li');
+					friendItem.textContent = friend.username;
+					friendItem.dataset.userId = friend.id;
+					friendItem.addEventListener('click', () => startChat(friend.id, friend.username));
+					friendList.appendChild(friendItem);
+				});
+			} catch (error) {
+				console.error('Error fetching friends:', error);
+			}
+		}
+
+		
+		// // Refresh access token
+		// async function apiRequest(url, options = {}) {
+		// 	let response = await fetch(url, { ...options, credentials: 'include' });
+
+		// 	if (response.status === 401) {
+		// 		// Attempt to refresh the token
+		// 		const refreshResponse = await fetch('/api/token/refresh/', {
+		// 			method: 'POST',
+		// 			credentials: 'include',
+		// 			headers: { 
+		// 				'Content-Type': 'application/json',
+		// 				'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+		// 			},
+		// 		});
+
+		// 		if (refreshResponse.ok) {
+		// 			// Retry the original request
+		// 			response = await fetch(url, { ...options, credentials: 'include' });
+		// 		} else {
+		// 			console.error('Token refresh failed. Redirecting to login.');
+		// 			window.location.href = '/login/';
+		// 		}
+		// 	}
+
+		// 	return response;
+		// }
+
+
+
+		// chat section
+
+		document.addEventListener('DOMContentLoaded', function () {
+			// Attach event listeners to chat items once the DOM is fully loaded
+			const chatItems = document.querySelectorAll('.chatItem');
+			chatItems.forEach(item => {
+				item.addEventListener('click', function () {
+					const userId = item.getAttribute('data-user-id');
+					const username = item.getAttribute('data-username');
+					startChat(userId, username);
+				});
+			});
+		});
+
+		function startChat(userId, username) {
+			const chatArea = document.getElementById('chatArea');
+			const chatWith = document.getElementById('chatWith');
+			const chatMessages = document.getElementById('chatMessages');
+
+			if (chatArea && chatWith && chatMessages) {
+				chatArea.style.display = 'block';
+				chatWith.textContent = username;
+
+				chatMessages.innerHTML = '';
+
+				fetch(`/chat/api/chat/${userId}/`, {
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+					},
+					credentials: 'include'  // Include cookies with the request
+				})
+				.then(response => response.json())
+				.then(data => {
+					data.forEach(message => {
+						const msg = document.createElement('div');
+						msg.textContent = `${message.sender}: ${message.message}`;
+						chatMessages.appendChild(msg);
+					});
+				})
+				.catch(error => console.error('Error fetching chat messages:', error));
+
+				document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+			} else {
+				console.error('Required chat elements not found in the DOM');
+			}
+		}
+
+		async function sendMessage(userId) {
+			const message = document.getElementById('chatInput').value;
+			try {
+				const response = await fetch(`chat/api/chat/${userId}/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+					},
+					credentials: 'include',  // Include cookies with the request
+					body: JSON.stringify({ message })
+				});
+
+				if (response.ok) {
+					const chatMessages = document.getElementById('chatMessages');
+					const msg = document.createElement('div');
+					msg.textContent = `You: ${message}`;
+					chatMessages.appendChild(msg);
+					document.getElementById('chatInput').value = '';
+				} else {
+					const errorData = await response.json();
+					console.error('Error sending message:', errorData);
+				}
+			} catch (error) {
+				console.error('Error sending message:', error);
+			}
+		}
+
+	</script>
+	

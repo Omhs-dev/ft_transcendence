@@ -51,12 +51,25 @@
                 <h3>Online Users</h3>
                 <ul id="userList"></ul>
             </div>
-            <div id="chatArea" style="display: none;">
+			<div id="friendreq">
+				<h3>My Friends Requests</h3>
+                <ul id="friendRequests"></ul>
+			</div>
+			<div id="friendLists">
+				<h3>My Friends :</h3>
+                <ul id="friendList"></ul>
+			</div>
+            <!-- <div id="chatArea" style="display: none;">
                 <h3>Chat with <span id="chatWith"></span></h3>
                 <div id="chatMessages" style="border: 1px solid #ccc; height: 200px; overflow-y: scroll;"></div>
-                <textarea id="chatInput" placeholder="Type your message"></textarea>
+                <textarea id="chatInput" placeholder="Type your message">Hello</textarea>
                 <button id="sendMessage">Send</button>
-            </div>
+            </div> -->
+
+			<h1>Chat Room</h1>
+    <div id="chat-log" style="height:300px; border:1px solid black; overflow-y:scroll;"></div>
+    <input id="chat-message-input" type="text" placeholder="Enter your message">
+    <button id="chat-message-send">Send</button>
         </div>
     </div>
 
@@ -70,9 +83,11 @@
 			const username = document.getElementById('reg_username').value;
 			const email = document.getElementById('reg_email').value;
 			const password = document.getElementById('reg_password').value;
-	
+			console.log("username: ", username);
+			console.log("email: ", email);
+			console.log("password: ", password);
 			try {
-				const response = await fetch(`${baseUrl}/register/`, {
+				const response = await fetch(`/auth/api/register/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -123,7 +138,7 @@
 		document.getElementById('logoutButton').addEventListener('click', async function () {
 			try {
 				const refreshToken = localStorage.getItem('refreshToken'); // Retrieve refresh token
-				const response = await fetch(`/backend/api/logout/`, {
+				const response = await fetch(`/auth/api/logout/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -152,7 +167,7 @@
 				alert('An error occurred while logging out. Please try again.');
 			}
 		});
-	
+
 		// Check for Token on Page Load
 		window.addEventListener('load', () => {
 			const token = localStorage.getItem('accessToken');
@@ -162,13 +177,13 @@
 				showAuthSection();
 			}
 		});
-	
+
 		// Function to Show Auth Section (Login/Register)
 		function showAuthSection() {
 			document.getElementById('authSection').style.display = 'block';
 			document.getElementById('dashboard').style.display = 'none';
 		}
-	
+
 		// Load Dashboard
 		function loadDashboard() {
 			document.getElementById('authSection').style.display = 'none';
@@ -186,7 +201,7 @@
 				const response = await fetch('/chat/api/online-users/', {
 					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 				});
-	
+
 				const data = await response.json();
 				const userList = document.getElementById('userList');
 				userList.innerHTML = '';
@@ -222,10 +237,12 @@
 				console.error('Error sending friend request:', error);
 			}
 		}
-	
+
 		// Fetch Friend Requests
 		async function fetchFriendRequests() {
+			console.log("in fetchFrindRequests");
 			try {
+				console.log("before response");
 				const response = await fetch('/chat/api/friend-requests/', {
 					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
 				});
@@ -233,7 +250,8 @@
 				const data = await response.json();
 				const requestsList = document.getElementById('friendRequests');
 				requestsList.innerHTML = '';
-	
+				console.log("section: ", requestsList);
+				
 				data.forEach(request => {
 					const requestItem = document.createElement('li');
 					requestItem.textContent = `${request.from_user} wants to be your friend`;
@@ -249,7 +267,7 @@
 				console.error('Error fetching friend requests:', error);
 			}
 		}
-	
+
 		// Accept Friend Request
 		async function acceptFriendRequest(requestId) {
 			try {
@@ -288,5 +306,52 @@
 				console.error('Error fetching friends:', error);
 			}
 		}
+
+		// chat section
+		// Start Chat
+        function startChat(userId, username) {
+            document.getElementById('chatArea').style.display = 'block';
+            document.getElementById('chatWith').textContent = username;
+
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+
+            fetch(`${baseUrl}/chat/${userId}/`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(message => {
+                        const msg = document.createElement('div');
+                        msg.textContent = `${message.sender}: ${message.message}`;
+                        chatMessages.appendChild(msg);
+                    });
+                });
+
+            document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+        }
+
+        // Send Message
+        function sendMessage(userId) {
+            const message = document.getElementById('chatInput').value;
+            fetch(`${baseUrl}/chat/${userId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+                body: JSON.stringify({ message }),
+            })
+                .then(() => {
+                    const chatMessages = document.getElementById('chatMessages');
+                    const msg = document.createElement('div');
+                    msg.textContent = `You: ${message}`;
+                    chatMessages.appendChild(msg);
+                    document.getElementById('chatInput').value = '';
+                })
+                .catch(error => console.error('Error sending message:', error));
+        }
+
 	</script>
 	
+

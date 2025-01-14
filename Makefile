@@ -1,16 +1,22 @@
 all:
-	docker compose up --build 
+	docker compose up --build -d
 	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost:80 $(ORG)-----$(RESET)"
 
 stop:
 	@echo "$(ORG)----- Stoping containers$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
 	docker compose down
+	@rm -f ./backend/Django_backend_project/logs.txt
+
+init_docker:
+	@echo "$(ORG)----- Start Script-----$(RESET)"
+	./script/init_docker.sh
 
 reload: stop all
 
 clean:
 	@echo "$(ORG)----- Cleaning stopped containers... -----$(RESET)"
 	@docker compose rm 
+	@rm -f ./backend/Django_backend_project/logs.txt
 	
 	@echo "$(ORG)----- Cleaning unused images... -----$(RESET)"	# @docker image prune -f
 	@docker container prune -f
@@ -22,6 +28,7 @@ fclean:
 	@echo "$(ORG)----- Cleaning project docker initioation$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
 	docker system prune -f
 	docker image prune -af
+	@rm -f ./backend/Django_backend_project/logs.txt
 
 re: fclean all
 

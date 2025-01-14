@@ -1,0 +1,14 @@
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.02, 192.168.0.1:64980][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczNjk2MTc2MywiaWF0IjoxNzM2ODc1MzYzLCJqdGkiOiI4NDgzMjNkNWZmOWQ0YWNkYmVlMWYyNjUyN2MwZGVlZSIsInVzZXJfaWQiOjJ9.6QLNYdM1CZVb8ov1YQr6emh18bHKznphzKT5S3wFAPE
+DEBUG User found in refresh token in logout: omhs
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User omhs logged out
+INFO [mHTTP POST /auth/api/logout/ 200 [0.11, 192.168.0.1:64982][0m

@@ -1,0 +1,1 @@
+export const sideNavSection = document.querySelector("#sidenav");

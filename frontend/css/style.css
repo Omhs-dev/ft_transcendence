@@ -1,3 +1,14 @@
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	25% { transform: translateX(-5px); }
+	50% { transform: translateX(5px); }
+	75% { transform: translateX(-5px); }
+}
+
+.shake {
+	animation: shake 0.3s ease-in-out;
+}
+
 body {
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
@@ -9,20 +20,6 @@ html {
 }
 
 main {
-}
-
-a {
-	color: inherit;
-	text-decoration: none;
-}
-
-.modal-content {
-	background-color: #f0f8ff !important; /* Light blue */
-}
-
-/* Change modal backdrop color (semi-transparent) */
-.modal-backdrop {
-background-color: rgba(0, 123, 255, 0.5); /* Light blue with transparency */
 }
 
 .sidenav {
@@ -41,7 +38,7 @@ background-color: rgba(0, 123, 255, 0.5); /* Light blue with transparency */
     /* font-size: 24px; /* Font size */
     font-weight: bold; */
     line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transitions */
     cursor: pointer; /* Pointer cursor on hover */
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
@@ -64,7 +61,7 @@ background-color: rgba(0, 123, 255, 0.5); /* Light blue with transparency */
     border-radius: 10px; /* Rounded corners */
 	font-weight: bold; */
     line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transitions */
     cursor: pointer; /* Pointer cursor on hover */
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -73,6 +70,35 @@ background-color: rgba(0, 123, 255, 0.5); /* Light blue with transparency */
 	color: black;
 	transform: translateY(-5px); /* Slightly lift the button on hover */
     box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+.game-mode {
+	color: #DFE3E7;
+	height: 80px;
+	width: 400px;
+	background-color: inherit;
+	border: 2px solid rgb(199, 227, 255);
+	border-radius: 10px; /* Rounded corners */
+	font-weight: bold; */
+	line-height: 80px; /* Vertically center the text */
+	transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transitions */
+	cursor: pointer; /* Pointer cursor on hover */
+	box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.game-mode:hover {
+	color: white;
+	transform: translateY(-5px); /* Slightly lift the button on hover */
+	box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+.modal-dialog
+.modal-content{
+	background-color: inherit;
+}
+
+.btn-close {
+	background-color: gray;
 }
 
 i {
