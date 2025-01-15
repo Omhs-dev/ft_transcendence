@@ -13,5 +13,6 @@ urlpatterns = [
     path('api/login/', views.LoginView.as_view(), name='LoginView'),  # Login API
     path('api/logout/', views.LogoutView.as_view(), name='LogoutView'),  # Logout API
     path('api/renew-access/', views.CustomTokenRefreshView.as_view(), name='custom_token_refresh'),
+	path('api/profile/', views.ProfileView.as_view(), name='profile'),
 ]
 

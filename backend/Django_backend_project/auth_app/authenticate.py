@@ -25,6 +25,7 @@ def enforce_csrf(request):
         logger.debug(f"CSRF Failed in enforce_CSRF: {reason}")
         raise exceptions.PermissionDenied('CSRF Failed: %s' % reason)
 
+
 class CustomAuthentication(JWTAuthentication):
     def authenticate(self, request):
         logger.debug(f"received Request in authentication: {request}")
@@ -60,6 +61,4 @@ class AllowRefreshToken(BasePermission):
             return True
         logger.debug(f"Allowing refresh token request in allowRefreshToken is failed")
         return request.user and request.user.is_authenticated
-
-
 

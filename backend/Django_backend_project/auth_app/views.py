@@ -5,8 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
+# from .models import Profile
 from django.contrib.auth import authenticate
-from .serializers import RegisterSerializer
+from .serializers import RegisterSerializer, ProfileSerializer
 from django.db.utils import IntegrityError
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
@@ -155,6 +156,26 @@ class LogoutView(APIView):
         return response
 
 
+class ProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """Retrieve the authenticated user's profile."""
+        profile = request.user.profile
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data, status=200)
+
+    def post(self, request):
+        """Update or fill in the profile details."""
+        profile = request.user.profile
+        serializer = ProfileSerializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+
+
+
 def handle_expired_refresh_token(user_id):
     user = User.objects.get(id=user_id)
     user.is_online = False
@@ -195,3 +216,38 @@ class CustomTokenRefreshView(TokenRefreshView):
         )
         logger.debug("Response for Access token in CustomTokenRefreshView: %s", response.data)
         return response
+
+
+class Select2FAMethodView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Allow the user to select a 2FA method."""
+        method = request.data.get('method')
+        if method not in ['authenticator', 'sms', 'email']:
+            return Response({"error": "Invalid 2FA method selected."}, status=400)
+
+        profile = request.user.profile
+        profile.is_2fa_enabled = False  # Disable existing 2FA during setup
+        profile.otp_secret = None  # Clear the OTP secret if switching methods
+        profile.save()
+
+        if method == 'authenticator':
+            profile.generate_otp_secret()
+            totp_uri = profile.get_totp_uri()
+            return Response({
+                "message": "Authenticator app 2FA selected.",
+                "totp_uri": totp_uri
+            })
+
+        elif method == 'sms':
+            # Generate and send an SMS verification code
+            code = generate_otp_code()  # Implement a function to generate OTP
+            send_sms(request.user.phone_number, code)  # Use an SMS API
+            return Response({"message": "SMS 2FA selected. Verification code sent."})
+
+        elif method == 'email':
+            # Generate and send an email verification code
+            code = generate_otp_code()  # Implement a function to generate OTP
+            send_email(request.user.email, code)  # Use an email API
+            return Response({"message": "Email 2FA selected. Verification code sent."})
