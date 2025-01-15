@@ -368,7 +368,7 @@
 
 		async function fetchProfile() {
 			try {
-				const response = await fetch('/chat/api/profile/');
+				const response = await fetch('/auth/api/profile/');
 				if (response.ok) {
 					const profile = await response.json();
 
@@ -405,7 +405,7 @@
 			}
 
 			try {
-				const response = await fetch('/chat/api/profile/', {
+				const response = await fetch('/auth/api/profile/', {
 					method: 'POST',
 					headers: {
 						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
