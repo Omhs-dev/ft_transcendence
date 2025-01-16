@@ -5,9 +5,3 @@ DEBUG CustomTokenRefreshView request received
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
-INFO [mHTTP OPTIONS /chat/api/friend-requests/ 200 [0.05, 172.28.0.1:56812][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friend-requests/'>
-DEBUG Header in authenticate: b'Bearer null'
-DEBUG Raw token from header in authenticate: b'null'
-WARNING Unauthorized: /chat/api/friend-requests/
-WARNING [31;1mHTTP GET /chat/api/friend-requests/ 401 [0.03, 172.28.0.1:56812][0m

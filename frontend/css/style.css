@@ -139,6 +139,11 @@ i {
     color: #ccc;
 }
 
+#userPicture {
+	width: 200px;
+	height: 200px;
+}
+
 @media (max-width: 868px) {
     .homebtn {
         height: 60px;

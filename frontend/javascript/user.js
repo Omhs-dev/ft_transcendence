@@ -286,12 +286,23 @@ sideNavSection.addEventListener("click", (e) => {
 
 appSection.addEventListener("change", (e) => {
     const file = e.target.files[0];
-    if (!file) return;
+	console.log("file infos: ", file);
+	
+    if (!file)
+		return;
+
+	if (!file.type.startsWith("image/"))
+		return;
+
+	if (file.size > 2 * 1024 * 1024)
+		return;
 
     const reader = new FileReader();
 	reader.onload = (event) => {
 		const pic = document.getElementById("userPicture");
 		pic.src = event.target.result;
+		pic.style.height = "200px";
+		pic.style.width = "200px";
 	};
 
 	reader.readAsDataURL(file);
