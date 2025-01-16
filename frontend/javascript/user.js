@@ -1,5 +1,6 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
+import { UpdateUserName } from "./utils/loginCheck.js";
 
 const token = localStorage.getItem("access_token");
 
@@ -183,6 +184,9 @@ const fetchFriendList = async () => {
 			},
 		});
 
+		if (response.status === 401) {
+			console.log("Unauthorized");
+		}
 		if (!response.ok) {
 			throw new Error(`Failed to fetch friend list: ${response.statusText}`);
 		}
@@ -265,20 +269,6 @@ const blockFriend = async (userId) => {
 	}
 }
 
-// window.addEventListener("load", () => {
-// 	if (!sideNavSection) {
-//         console.error("Error: sideNavSection not found!");
-//         return;
-//     }
-
-// 	if (token) {
-// 		// authSection(token);
-// 		getOnlineUsers();
-// 	} else {
-// 		console.error("No access token found. Please log in.");
-// 	}
-// });
-
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
 	
@@ -294,9 +284,15 @@ sideNavSection.addEventListener("click", (e) => {
 	}
 });
 
-// appSection.addEventListener("click", (e) => {
-// 	if (e.target.classList.contains("friends")) {
-// 		console.log("friends found");
-// 		fetchFriendList();
-// 	}
-// });
+appSection.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+	reader.onload = (event) => {
+		const pic = document.getElementById("userPicture");
+		pic.src = event.target.result;
+	};
+
+	reader.readAsDataURL(file);
+});

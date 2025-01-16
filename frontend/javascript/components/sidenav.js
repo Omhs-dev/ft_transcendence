@@ -1,4 +1,5 @@
-import { sideNavLoad } from "../utils/loginCheck.js";
+import { unloggedSideNav } from "../utils/loginCheck.js";
+import { UpdateUserName } from "../utils/loginCheck.js";
 
 class Sidenav extends HTMLElement {
 	constructor() {
@@ -32,8 +33,9 @@ class Sidenav extends HTMLElement {
 			// Check if user is logged in
 			if (isAuthenticated && username) {
 				this.innerHTML = sideNavHtml;
+				UpdateUserName();
 			} else {
-				sideNavLoad(sideNav);
+				unloggedSideNav(sideNav);
 				this.innerHTML = doc.body.innerHTML;
 			}
 		} catch (error) {

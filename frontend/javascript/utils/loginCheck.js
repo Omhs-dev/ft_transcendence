@@ -1,8 +1,8 @@
 const isAuthenticated = localStorage.getItem("isAuthenticated");
-const username = localStorage.getItem("username");
+const userName = localStorage.getItem("username");
 
 export function authSection(authSectionDiv) {
-	if (isAuthenticated && username) {
+	if (isAuthenticated && userName) {
 		// console.log("user is logged in");
 		return	authSectionDiv.innerHTML += `
 				<button type="button" class="btn btn-success homebtn mb-3 game-action"
@@ -54,7 +54,7 @@ export function authSection(authSectionDiv) {
 	}
 }
 
-export function sideNavLoad(sideNavDiv) {
+export function unloggedSideNav(sideNavDiv) {
 	if (!sideNavDiv) {
 		console.error("Error: sideNavDiv not found!");
 		return;
@@ -81,4 +81,18 @@ export function sideNavLoad(sideNavDiv) {
 
 		ulElement2.innerHTML = "";
 		ulElement3.innerHTML = "";
+}
+
+export function UpdateUserName(loggedUserName1) {
+	const loggedUserName = document.getElementById("loggedUserName");
+
+	if (isAuthenticated && userName) {
+		if (loggedUserName) {
+			loggedUserName.textContent = userName;
+		}
+
+		if (loggedUserName1) {
+			loggedUserName1.textContent = userName;
+		}
+	}
 }

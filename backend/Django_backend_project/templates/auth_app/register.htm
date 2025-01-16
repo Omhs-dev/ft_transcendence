@@ -355,6 +355,8 @@
 
 
 		document.getElementById('profilePicture').addEventListener('change', function (event) {
+			// console.log("event : ");
+			
 			const file = event.target.files[0];
 			if (file) {
 				const reader = new FileReader();
