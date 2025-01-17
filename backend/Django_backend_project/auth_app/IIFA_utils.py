@@ -18,13 +18,12 @@ def send_sms(phone_number, code):
     return message.sid
 
 
-from django.core.mail import send_mail
 
-def send_email(email, code):
-    """Send an email verification code to the user."""
-    subject = "Your Verification Code"
-    message = f"Your verification code is: {code}"
-    send_mail(subject, message, "no-reply@yourapp.com", [email])
+# def send_email(email, code):
+#     """Send an email verification code to the user."""
+#     subject = "Your Verification Code"
+#     message = f"Your verification code is: {code}"
+#     send_mail(subject, message, "no-reply@yourapp.com", [email])
 
 
 from django.core.cache import cache
@@ -40,3 +39,18 @@ def verify_otp_code(user_id, code):
     return saved_code == code
 
 
+from django.core.mail import send_mail
+from django.conf import settings
+
+def send_2fa_email(email, otp_code):
+    subject = "Your 2FA Verification Code"
+    message = f"Your verification code is: {otp_code}. Please enter this code to complete your login."
+    from_email = settings.DEFAULT_FROM_EMAIL
+    recipient_list = [email]
+
+    try:
+        send_mail(subject, message, from_email, recipient_list)
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False

@@ -32,7 +32,7 @@ from chat_app.models import *
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'nickname', 'is_online', 'bio', 'is_2fa_enabled', 'selected_2fa_method']
+    list_display = ['user', 'nickname', 'phone_number', 'is_online', 'bio', 'is_2fa_enabled', 'selected_2fa_method']
     list_filter = ['is_2fa_enabled']  # Add a filter for 2FA status
 
     def accepted_friends(self, obj):
@@ -49,7 +49,8 @@ class ProfileAdmin(admin.ModelAdmin):
         # Logic to determine the 2FA method based on your implementation
         if obj.otp_secret:
             return "Authenticator App"
-        elif hasattr(obj.user, 'phone_number') and obj.user.phone_number:  # Assuming phone_number exists
+        # elif hasattr(obj.user, 'phone_number') and obj.user.phone_number:  # Assuming phone_number exists
+        elif obj.phone_number:
             return "SMS"
         elif obj.user.email:
             return "Email"
@@ -59,7 +60,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('user', 'nickname', 'is_online', 'bio', 'profile_picture', 'friends')
+            'fields': ('user', 'nickname', 'phone_number', 'is_online', 'bio', 'profile_picture', 'friends')
         }),
         ('2FA Status', {
             'fields': ('is_2fa_enabled', 'selected_2fa_method'),

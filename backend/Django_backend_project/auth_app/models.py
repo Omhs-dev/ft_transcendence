@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
@@ -20,6 +21,17 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     friends = models.ManyToManyField("self", symmetrical=True, blank=True)
+    phone_number = models.CharField(
+        max_length=15,
+        blank=True,
+        null=True,
+        validators=[
+            RegexValidator(
+                regex=r'^\+?1?\d{9,15}$',
+                message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed."
+            )
+        ]
+    )
     
 	# 2FA Fields
     otp_secret = models.CharField(max_length=32, blank=True, null=True)  # Stores the user's OTP secret
