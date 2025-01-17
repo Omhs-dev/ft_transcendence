@@ -14,5 +14,7 @@ urlpatterns = [
     path('api/logout/', views.LogoutView.as_view(), name='LogoutView'),  # Logout API
     path('api/renew-access/', views.CustomTokenRefreshView.as_view(), name='custom_token_refresh'),
 	path('api/profile/', views.ProfileView.as_view(), name='profile'),
+	path('api/select-2fa-method/', views.Select2FAMethodView.as_view(), name='select-2fa-method'),
+	path('api/verify-2fa-setup/', views.Verify2FASetupView.as_view(), name='verify-2fa-setup'),
 ]
 

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
+import pyotp
 
 # from chat_app.models import profile, BlockedUser, ChatMessage, PongInvitation
 
@@ -20,6 +21,18 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     friends = models.ManyToManyField("self", symmetrical=True, blank=True)
     
+	# 2FA Fields
+    otp_secret = models.CharField(max_length=32, blank=True, null=True)  # Stores the user's OTP secret
+    is_2fa_enabled = models.BooleanField(default=False)
+    two_fa_method = models.CharField(
+        max_length=20, 
+        choices=[('authenticator', 'Authenticator'), ('sms', 'SMS'), ('email', 'Email')], 
+        blank=True, 
+        null=True
+    )  # Store the user's chosen 2FA method
+    last_otp_sent_at = models.DateTimeField(blank=True, null=True)  # For rate-limiting SMS/Email OTPs
+
+    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.profile_picture:
@@ -31,5 +44,37 @@ class Profile(models.Model):
                 img.thumbnail(output_size)
                 img.save(self.profile_picture.path)
     
-    def __str(self):
-        return (self.user.username, self.is_online)
+
+    def generate_otp_secret(self):
+        """Generate a new OTP secret for the user."""
+        if not self.otp_secret:
+            self.otp_secret = pyotp.random_base32()
+            self.save()
+
+    def get_totp_uri(self):
+        """Generate the TOTP URI for QR code scanning."""
+        if not self.otp_secret:
+            self.generate_otp_secret()
+        return pyotp.totp.TOTP(self.otp_secret).provisioning_uri(
+            self.user.email,
+            issuer_name="YourAppName"
+        )
+
+    def verify_otp(self, token):
+        """Verify the provided OTP token for the authenticator app."""
+        if not self.otp_secret:
+            return False
+        totp = pyotp.TOTP(self.otp_secret)
+        return totp.verify(token)
+
+    def can_send_otp(self):
+        """Check if enough time has passed to send another SMS/email OTP."""
+        if not self.last_otp_sent_at:
+            return True
+        time_since_last_sent = timezone.now() - self.last_otp_sent_at
+        return time_since_last_sent.total_seconds() > 60  # At least 1 minute between sends
+
+    def __str__(self):
+        return f"{self.user.username} | Online: {self.is_online} | 2FA: {self.is_2fa_enabled}"
+    
+

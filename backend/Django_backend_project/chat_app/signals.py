@@ -14,17 +14,3 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     else:
         instance.profile.save()
-
-@receiver(user_logged_in)
-def user_logged_in_handler(sender, request, user, **kwargs):
-    logger.debug(f'Signal: User {user.username} logged in')
-    profile = Profile.objects.get(user=user)
-    profile.is_online = True
-    profile.save()
-
-@receiver(user_logged_out)
-def user_logged_out_handler(sender, request, user, **kwargs):
-    logger.debug(f'Signal: User {user.username} logged out')
-    profile = Profile.objects.get(user=user)
-    profile.is_online = False
-    profile.save()

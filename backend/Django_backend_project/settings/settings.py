@@ -113,6 +113,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'channels',
 	'debug_toolbar',
+	'django_otp',
+	'qrcode',
+	'pyotp',
 ]
 
 

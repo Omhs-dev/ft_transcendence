@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
-# from .models import Profile
+from .models import Profile
 from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer, ProfileSerializer
 from django.db.utils import IntegrityError
@@ -70,17 +70,32 @@ class LoginView(APIView):
     logger.debug("Login function request received")
     def post(self, request, format=None):
         data = request.data
-        response = Response()
+        # response = Response()
         username = data.get('username', None)
         password = data.get('password', None)
         user = authenticate(username=username, password=password)
 
         if user is not None:
+
+            # Check if 2FA is enabled for the user
+            if user.profile.is_2fa_enabled:
+                response = check_login_2fa(request, user)
+                if response:
+                    return response
+            
+            logger.debug("User %s is authenticated in the login class:", user.username)
+
+            # Check if the user is active and login
             if user.is_active:
                 tokens = RefreshToken.for_user(user)
                 access_token = str(tokens.access_token)
                 refresh_token = str(tokens)
+                logger.debug("Access token: %s", access_token)
 
+                response = Response({
+                    "Success": "Login successful",
+                    "data": {"access": access_token, "refresh": refresh_token},
+                })
                 response.set_cookie(
                     key=settings.SIMPLE_JWT['AUTH_COOKIE'],
                     value=access_token,
@@ -97,13 +112,16 @@ class LoginView(APIView):
                     httponly=settings.SIMPLE_JWT['AUTH_COOKIE_HTTP_ONLY'],
                     samesite=settings.SIMPLE_JWT['AUTH_COOKIE_SAMESITE']
                 )
+
                 #  Trigger user_logged_in signal
                 request.user = user
                 user_logged_in.send(sender=user.__class__, request=request, user=user)
 
+                # Set the CSRF token in the response
                 csrf.get_token(request)
-                response.data = {"Success": "Login successful", "data": {"access": access_token, "refresh": refresh_token}}
+
                 logger.debug("response.data: %s", response.data)
+
                 return response
             else:
                 return Response({"error": "This account is not active"}, status=status.HTTP_403_FORBIDDEN)
@@ -175,7 +193,6 @@ class ProfileView(APIView):
         return Response(serializer.errors, status=400)
 
 
-
 def handle_expired_refresh_token(user_id):
     user = User.objects.get(id=user_id)
     user.is_online = False
@@ -218,36 +235,193 @@ class CustomTokenRefreshView(TokenRefreshView):
         return response
 
 
+# class Select2FAMethodView(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def post(self, request):
+#         """Allow the user to select a 2FA method."""
+#         method = request.data.get('method')
+#         if method not in ['authenticator', 'sms', 'email']:
+#             return Response({"error": "Invalid 2FA method selected."}, status=400)
+
+#         profile = request.user.profile
+#         profile.is_2fa_enabled = False  # Disable existing 2FA during setup
+#         profile.otp_secret = None  # Clear the OTP secret if switching methods
+#         profile.save()
+
+#         if method == 'authenticator':
+#             profile.generate_otp_secret()
+#             totp_uri = profile.get_totp_uri()
+#             return Response({
+#                 "message": "Authenticator app 2FA selected.",
+#                 "totp_uri": totp_uri
+#             })
+
+#         elif method == 'sms':
+#             # Generate and send an SMS verification code
+#             code = generate_otp_code()  # Implement a function to generate OTP
+#             send_sms(request.user.phone_number, code)  # Use an SMS API
+#             return Response({"message": "SMS 2FA selected. Verification code sent."})
+
+#         elif method == 'email':
+#             # Generate and send an email verification code
+#             code = generate_otp_code()  # Implement a function to generate OTP
+#             send_email(request.user.email, code)  # Use an email API
+#             return Response({"message": "Email 2FA selected. Verification code sent."})
+
+
+
+
+# class Enable2FAView(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def get(self, request):
+#         """Generate and return a QR code for TOTP setup."""
+#         profile = request.user.profile
+#         profile.generate_otp_secret()
+#         totp_uri = profile.get_totp_uri()
+
+#         # Generate QR code
+#         qr = qrcode.QRCode()
+#         qr.add_data(totp_uri)
+#         qr.make(fit=True)
+#         img = qr.make_image(fill="black", back_color="white")
+        
+#         buffer = BytesIO()
+#         img.save(buffer)
+#         buffer.seek(0)
+
+#         return Response({
+#             "qr_code": buffer.getvalue().hex(),  # Send as hex or base64 for the frontend
+#             "totp_uri": totp_uri
+#         })
+
+
+
+def check_login_2fa(request, user):
+        method = request.data.get("method")  # authenticator, sms, or email
+        code = request.data.get("otp_code")
+        
+        logger.debug("2FA method: %s and the otp_code in the check_login_2fa: %s", method, code)
+        if not method or not code:
+            return Response({"error": "2FA verification required."}, headers={'X-2FA-Required': 'true'}, status=401)
+
+        if method == 'authenticator' and not user.profile.verify_otp(code):
+            return Response({"error": "Invalid OTP code for Authenticator."}, status=401)
+        elif method in ['sms', 'email'] and not verify_otp_code(user.id, code):
+        # elif method in ['sms', 'email'] and not user.profile.verify_otp(code):
+            return Response({"error": "Invalid OTP code."}, status=401)
+
+
+import qrcode
+from io import BytesIO
+from django.utils.timezone import now
+from .IIFA_utils import generate_otp_code, verify_otp_code, save_otp_code, send_sms, send_email  # Ensure these utilities are implemented
+
 class Select2FAMethodView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        """Allow the user to select a 2FA method."""
+        """Allow the user to select a preferred 2FA method."""
         method = request.data.get('method')
+        logger.debug("2FA method selected: %s", method)
         if method not in ['authenticator', 'sms', 'email']:
             return Response({"error": "Invalid 2FA method selected."}, status=400)
 
         profile = request.user.profile
-        profile.is_2fa_enabled = False  # Disable existing 2FA during setup
-        profile.otp_secret = None  # Clear the OTP secret if switching methods
+
+        # Reset previous 2FA settings
+        profile.is_2fa_enabled = False
+        profile.otp_secret = None
+        profile.two_fa_method = None
+        profile.last_otp_sent_at = None
         profile.save()
 
         if method == 'authenticator':
+            # Setup for authenticator app
             profile.generate_otp_secret()
             totp_uri = profile.get_totp_uri()
+
+            # Generate QR code for the TOTP URI
+            qr = qrcode.QRCode()
+            qr.add_data(totp_uri)
+            qr.make(fit=True)
+            img = qr.make_image(fill="black", back_color="white")
+
+            buffer = BytesIO()
+            img.save(buffer)
+            buffer.seek(0)
+
+            profile.two_fa_method = 'authenticator'
+            profile.save()
+
             return Response({
-                "message": "Authenticator app 2FA selected.",
-                "totp_uri": totp_uri
-            })
+                "qr_code": buffer.getvalue().hex(),  # Send as hex or base64 for the frontend
+                "totp_uri": totp_uri,
+                "message": "Authenticator 2FA selected. Scan the QR code with your app."
+            }, status=200)
 
         elif method == 'sms':
             # Generate and send an SMS verification code
-            code = generate_otp_code()  # Implement a function to generate OTP
-            send_sms(request.user.phone_number, code)  # Use an SMS API
-            return Response({"message": "SMS 2FA selected. Verification code sent."})
+            if not hasattr(request.user, 'phone_number') or not request.user.phone_number:
+                return Response({"error": "Phone number is not set for the user."}, status=400)
+
+            if not profile.can_send_otp():
+                return Response({"error": "Please wait before requesting another OTP."}, status=429)
+
+            code = generate_otp_code()  # Implement a secure OTP generator
+            save_otp_code(request.user.id, code)  # Save the OTP for later verification
+            send_sms(request.user.phone_number, code)  # Implement SMS sending logic
+
+            profile.two_fa_method = 'sms'
+            profile.last_otp_sent_at = now()
+            profile.save()
+
+            return Response({
+                "message": "SMS 2FA selected. Verification code sent to your phone."
+            }, status=200)
 
         elif method == 'email':
             # Generate and send an email verification code
-            code = generate_otp_code()  # Implement a function to generate OTP
-            send_email(request.user.email, code)  # Use an email API
-            return Response({"message": "Email 2FA selected. Verification code sent."})
+            if not request.user.email:
+                return Response({"error": "Email address is not set for the user."}, status=400)
+
+            if not profile.can_send_otp():
+                return Response({"error": "Please wait before requesting another OTP."}, status=429)
+
+            code = generate_otp_code()  # Implement a secure OTP generator
+            save_otp_code(request.user.id, code)  # Save the OTP for later verification
+            send_email(request.user.email, code)  # Implement email sending logic
+
+            profile.two_fa_method = 'email'
+            profile.last_otp_sent_at = now()
+            profile.save()
+
+            return Response({
+                "message": "Email 2FA selected. Verification code sent to your email."
+            }, status=200)
+
+
+
+class Verify2FASetupView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Verify the user's selected 2FA setup."""
+        method = request.data.get('method')
+        code = request.data.get('code')
+
+        profile = request.user.profile
+        if method == 'authenticator':
+            if not profile.verify_otp(code):
+                return Response({"error": "Invalid OTP code for Authenticator."}, status=400)
+            profile.is_2fa_enabled = True
+
+        elif method == 'sms' or method == 'email':
+            # Verify the OTP code sent via SMS or email
+            if not verify_otp_code(request.user.id, code):  # Implement OTP storage/verification
+                return Response({"error": "Invalid OTP code."}, status=400)
+            profile.is_2fa_enabled = True
+
+        profile.save()
+        return Response({"message": "2FA setup complete."})
