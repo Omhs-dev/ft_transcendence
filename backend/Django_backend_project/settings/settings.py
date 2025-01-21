@@ -227,9 +227,11 @@ EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email provider's SMTP server
 EMAIL_PORT = 587  # Port for TLS
 EMAIL_USE_TLS = True  # Use TLS (secure connection)
 EMAIL_HOST_USER = 'transcendence.42institute@gmail.com'  # Your email address
-# EMAIL_HOST_PASSWORD = 'Tr@nscendence@42'  # Your email password or app password
 EMAIL_HOST_PASSWORD = 'tmsw qfws foxe xhbm'  # Your email password or app password
 DEFAULT_FROM_EMAIL = 'Transcendence'
+
+
+# twilio settings
 
 
 STATICFILES_DIRS = [

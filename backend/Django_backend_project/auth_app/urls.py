@@ -19,4 +19,3 @@ urlpatterns = [
 	path('api/change-2fa-method/', views.change_2fa_method, name='change-2fa-method'),
 	path('api/disable-2fa/', views.disable_2fa, name='disable-2fa'),
 ]
-

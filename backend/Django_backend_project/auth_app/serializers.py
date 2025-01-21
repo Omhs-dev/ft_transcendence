@@ -22,7 +22,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 
-
 class ProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(
         source='user.username',
@@ -50,7 +49,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['nickname', 'bio', 'profile_picture', 'username', 'email', 'password', 'phone_number']
+        fields = ['nickname', 'bio', 'profile_picture', 'username', 'email', 'password', 'phone_number', 'is_2fa_enabled']
 
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user', {})

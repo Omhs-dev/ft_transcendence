@@ -42,7 +42,7 @@
 					<div id="otpSection" style="display: none;">
 						<label for="otp_method">2FA Method:</label>
 						<select id="otp_method" name="method" required>
-							<option value="authenticator">Authenticator App</option>
+							<option value="totp">Authenticator App</option>
 							<option value="sms">SMS</option>
 							<option value="email">Email</option>
 						</select>
@@ -99,7 +99,7 @@
 				<!-- 2FA Section -->
 				<div id="twoFactorSection">
 					<h3>Two-Factor Authentication</h3>
-					<p>Enable 2FA for an extra layer of security.</p>
+					<p id="2famessage">Enable 2FA for an extra layer of security.</p>
 					<div id="2faOptions">
 						<button id="enable2FA">Enable 2FA</button>
 					</div>
@@ -108,7 +108,7 @@
 					<div id="2faSetup" style="display: none;">
 						<label for="method">Select a 2FA Method:</label>
 						<select id="method">
-							<option value="authenticator">Authenticator App</option>
+							<option value="totp">Authenticator App</option>
 							<option value="sms">SMS</option>
 							<option value="email">Email</option>
 						</select>
@@ -262,9 +262,11 @@
 				payload.method = otpMethod;
 				payload.otp_code = otpCode;
 			}
-			console.log("payload in login: ", payload);
-
+			
 			try {
+				document.getElementById('loginButton').disabled = true; // Disable button
+				console.log("payload in login: ", payload);
+
 				const response = await fetch(`/auth/api/login/`, {
 					method: 'POST',
 					headers: {
@@ -279,8 +281,15 @@
 					// Store username in local storage 
 					localStorage.setItem('username', username);
 					localStorage.setItem('isAuthenticated', 'true');
+					// if (otpMethod && otpCode) {
+					// 	localStorage.setItem('otpMethod', 'true');
+					// } else {
+					// 	localStorage.setItem('otpMethod', 'false');
+					// }
 					// alert('Login successful');
                     console.log(username, 'Login successful:', data);
+    				document.getElementById('otp_method').value = '';
+            		document.getElementById('otp_code').value = ''; // Clear OTP code
 					loadDashboard();
 				} else if (response.status === 401 && response.headers.get('X-2FA-Required')) {
             		// If 2FA is required, show OTP section
@@ -296,16 +305,21 @@
 					// Clear fields after failed login
 					document.getElementById('login_username').value = '';
             		document.getElementById('login_password').value = '';
+    				document.getElementById('otp_method').value = '';
             		document.getElementById('otp_code').value = ''; // Clear OTP code
 				}
 			} catch (error) {
 				alert('An error occurred during login.');
                 console.error('Error during login:', error);
-
+				
 				// Clear fields after error
 				document.getElementById('login_username').value = '';
         		document.getElementById('login_password').value = '';
+				document.getElementById('otp_method').value = '';
         		document.getElementById('otp_code').value = ''; // Clear OTP code
+			} 
+			finally {
+				document.getElementById('loginButton').disabled = false; // Re-enable button
 			}
 		});
 
@@ -334,6 +348,7 @@
 				// Cleanup local data and redirect to login page
 				localStorage.removeItem('username');
 				localStorage.removeItem('isAuthenticated');
+				localStorage.removeItem('otpMethod');
 				showAuthSection(); // Redirect to authentication page
 			}
 		}
@@ -386,6 +401,36 @@
 			}
 		});
 
+		// Update the 2FA Section
+		function update2FASection(optMethod) {
+			const twoFactorSection = document.getElementById('twoFactorSection');
+			const twoFactorOptions = document.getElementById('2faOptions');
+			const twoFactorMwssage = document.getElementById('2famessage');
+
+			// Clear previous options
+			twoFactorOptions.innerHTML = '';
+
+			if (optMethod) {
+				// If 2FA is enabled
+				twoFactorOptions.innerHTML = `
+					<button id="disable2FA" style="margin-top: 10px;">Disable 2FA</button>
+					<button id="change2FA" style="margin-top: 10px;">Change 2FA Method</button>
+				`;
+				twoFactorMwssage.textContent = 'You can Disable or Change 2FA method as Follows:';
+				document.getElementById('disable2FA').addEventListener('click', disable2FA);
+				document.getElementById('change2FA').addEventListener('click', () => {
+					document.getElementById('2faSetup').style.display = 'block';
+				});
+			} else {
+				// If 2FA is not enabled
+				twoFactorOptions.innerHTML = `<button id="enable2FA">Enable 2FA</button>`;
+				twoFactorMwssage.textContent = 'Enable 2FA for an extra layer of security.';
+				document.getElementById('enable2FA').addEventListener('click', () => {
+					document.getElementById('2faSetup').style.display = 'block';
+				});
+			}
+		}
+
 		// Fetch Profile
 		async function fetchProfile() {
 			try {
@@ -405,6 +450,12 @@
 						// Hide the image if no profile picture is available
 						document.getElementById('profilePicturePreview').style.display = 'none';
 					}
+
+					// Determine if 2FA is enabled
+					const otpMethod = profile.is_2fa_enabled || false; //assume 2FA is disabled
+					console.log("otpMethod in the fetch profile: ", otpMethod);
+					// Update the 2FA section based on the status
+					update2FASection(otpMethod);
 				} else {
 					console.error('Failed to fetch profile:', response.status);
 				}
@@ -449,6 +500,31 @@
 			document.getElementById('2faSetup').style.display = 'block';
 		});
 
+
+		// Disable 2FA
+		async function disable2FA() {
+			try {
+				const response = await fetch('/auth/api/disable-2fa/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCookie('csrftoken'), // Use your CSRF token retrieval function
+					},
+					credentials: 'include'  // Ensure cookies are sent with the request
+				});
+
+				if (response.ok) {
+					alert('2FA has been disabled.');
+					fetchProfile(); // Refresh the profile
+				} else {
+					alert('Failed to disable 2FA.');
+				}
+			} catch (error) {
+				console.error('Error disabling 2FA:', error);
+			}
+		}
+
+		// Select 2FA Method
 		document.getElementById('selectMethod').addEventListener('click', async function () {
 			const method = document.getElementById('method').value;
 
@@ -465,7 +541,7 @@
 				if (response.ok) {
 					const data = await response.json();
 
-					if (method === 'authenticator') {
+					if (method === 'totp') {
 						// Convert the hexadecimal string to a Base64-encoded string
 						const hex = data.qr_code;
 						const binary = new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
@@ -489,6 +565,7 @@
 			}
 		});
 
+		// verify totp Method
 		document.getElementById('verifyAuthenticatorForm').addEventListener('submit', async function (event) {
 			event.preventDefault();
 
@@ -502,7 +579,7 @@
 						'Content-Type': 'application/json'
 					},
 					body: JSON.stringify({
-						method: 'authenticator',
+						method: 'totp',
 						code: otpCode
 					})
 				});
@@ -522,6 +599,46 @@
 				alert('An unexpected error occurred. Please try again.');
 			}
 		});
+
+		// Verify Email Code
+		document.getElementById('verifyEmail').addEventListener('click', async function () {
+			const emailCode = document.getElementById('emailCode').value;
+
+			if (!emailCode) {
+				alert('Please enter the verification code.');
+				return;
+			}
+
+			try {
+				const response = await fetch('/auth/api/verify-2fa-setup/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						method: 'email',
+						code: emailCode
+					})
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					alert(data.message || '2FA setup successfully verified!');
+					// Optionally, redirect the user or update the UI
+					document.getElementById('emailSetup').style.display = 'none';
+					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Failed to verify email code. Please try again.');
+				}
+			} catch (error) {
+				console.error('Error verifying email setup:', error);
+				alert('An unexpected error occurred. Please try again.');
+			}
+		});
+
+
 
 		// Fetch Online Users
 		async function fetchOnlineUsers() {

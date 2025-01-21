@@ -1,13 +1,20 @@
 import secrets
+from django.utils.timezone import now
+from django.core.mail import send_mail
+from django.conf import settings
+from twilio.rest import Client
+from django.core.cache import cache
+import logging
+
+logger = logging.getLogger("auth_app")
+
 
 def generate_otp_code():
     """Generate a random 6-digit OTP code."""
     return str(secrets.randbelow(10**6)).zfill(6)
 
 
-from twilio.rest import Client
-
-def send_sms(phone_number, code):
+def send_2fa_sms(phone_number, code):
     """Send an SMS verification code to the user's phone."""
     client = Client("TWILIO_ACCOUNT_SID", "TWILIO_AUTH_TOKEN")
     message = client.messages.create(
@@ -17,30 +24,6 @@ def send_sms(phone_number, code):
     )
     return message.sid
 
-
-
-# def send_email(email, code):
-#     """Send an email verification code to the user."""
-#     subject = "Your Verification Code"
-#     message = f"Your verification code is: {code}"
-#     send_mail(subject, message, "no-reply@yourapp.com", [email])
-
-
-from django.core.cache import cache
-
-def save_otp_code(user_id, code):
-    """Save OTP code to the cache with a 5-minute expiration."""
-    cache.set(f"otp_{user_id}", code, timeout=300)
-
-
-def verify_otp_code(user_id, code):
-    """Verify OTP code from the cache."""
-    saved_code = cache.get(f"otp_{user_id}")
-    return saved_code == code
-
-
-from django.core.mail import send_mail
-from django.conf import settings
 
 def send_2fa_email(email, otp_code):
     subject = "Your 2FA Verification Code"
@@ -54,3 +37,36 @@ def send_2fa_email(email, otp_code):
     except Exception as e:
         print(f"Error sending email: {e}")
         return False
+
+
+def save_otp_code(user_id, code):
+    """Save OTP code to the cache with a 5-minute expiration."""
+    cache.set(f"otp_{user_id}", code, timeout=300)
+
+
+def verify_otp_code(user_id, code):
+    """Verify OTP code from the cache."""
+    saved_code = cache.get(f"otp_{user_id}")
+    cache.delete(f"otp_{user_id}")  # Delete the code after verification
+    return saved_code == code
+
+
+def generate_and_send_Email_SMS_otp(user, method):
+    """
+    Generate a new OTP and send it via the specified method (email or SMS).
+    """
+    
+    logger.info("\n\n\n*****\n\tGenerating OTP and sending it via %s for user %s", method, user.username)
+    # Generate a 6-digit random OTP
+    otp_code = generate_otp_code()
+
+    # Save the OTP and its expiration in the database (assuming a model for this)
+    save_otp_code(user.id, otp_code)
+
+    # Send the OTP via the specified method
+    if method == 'email':
+        send_2fa_email(user.email, otp_code)
+        user.profile.last_otp_sent_at = now()
+    elif method == 'sms':
+        send_2fa_sms(user.profile.phone_number, otp_code)
+        user.profile.last_otp_sent_at = now()

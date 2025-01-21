@@ -1,5 +1,5 @@
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from PIL import Image
 import pyotp
@@ -38,7 +38,7 @@ class Profile(models.Model):
     is_2fa_enabled = models.BooleanField(default=False)
     two_fa_method = models.CharField(
         max_length=20, 
-        choices=[('authenticator', 'Authenticator'), ('sms', 'SMS'), ('email', 'Email')], 
+        choices=[('totp', 'Totp'), ('sms', 'SMS'), ('email', 'Email')], 
         blank=True, 
         null=True
     )  # Store the user's chosen 2FA method
@@ -72,8 +72,8 @@ class Profile(models.Model):
             issuer_name="YourAppName"
         )
 
-    def verify_otp(self, token):
-        """Verify the provided OTP token for the authenticator app."""
+    def verify_totp(self, token):
+        """Verify the provided OTP token for the authenticator app (totp)."""
         if not self.otp_secret:
             return False
         totp = pyotp.TOTP(self.otp_secret)
