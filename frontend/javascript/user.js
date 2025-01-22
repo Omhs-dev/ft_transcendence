@@ -269,6 +269,21 @@ const blockFriend = async (userId) => {
 	}
 }
 
+const updateProfilePicture = async () => {
+	try {
+		const response = await fetch('http://localhost:8000/chat/api/profile/');
+
+		if (!response.ok) {
+			throw new Error(`Failed to block friend: ${response.status}`);
+		}
+
+		console.log(response);
+
+	} catch(error) {
+		console.log(error.message);
+	}
+};
+
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
 	
@@ -306,4 +321,10 @@ appSection.addEventListener("change", (e) => {
 	};
 
 	reader.readAsDataURL(file);
+
+	try {
+		const response = await fetch("http://localhost:8000/chat/api/profile/", {
+			method: "POST",
+		});
+	}
 });
