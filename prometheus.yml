@@ -9,5 +9,5 @@ scrape_configs:
   - job_name: cadvisor
     metrics_path: /metrics
     static_configs:
-      - targets: ['cadvisor_container:8080']
+      - targets: ['transcendence-cadvisor-1:8080']
 

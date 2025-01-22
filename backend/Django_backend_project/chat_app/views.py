@@ -4,31 +4,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import ChatMessage, BlockedUser, PongInvitation, Profile, FriendRequest
 from django.contrib.auth.models import User
+from auth_app.models import Profile
 from rest_framework import status
-from .serializers import ProfileSerializer
 
 def index(request):
     return render(request, 'chat_app/index.htm')
-
-
-class ProfileView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        """Retrieve the authenticated user's profile."""
-        profile = request.user.profile
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data, status=200)
-
-    def post(self, request):
-        """Update or fill in the profile details."""
-        profile = request.user.profile
-        serializer = ProfileSerializer(profile, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=200)
-        return Response(serializer.errors, status=400)
-
 
 
 class ChatHistoryView(APIView):

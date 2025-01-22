@@ -113,6 +113,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'channels',
 	'debug_toolbar',
+	'django_otp',
+	'qrcode',
+	'pyotp',
 ]
 
 
@@ -217,6 +220,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email provider's SMTP server
+EMAIL_PORT = 587  # Port for TLS
+EMAIL_USE_TLS = True  # Use TLS (secure connection)
+EMAIL_HOST_USER = 'transcendence.42institute@gmail.com'  # Your email address
+EMAIL_HOST_PASSWORD = 'tmsw qfws foxe xhbm'  # Your email password or app password
+DEFAULT_FROM_EMAIL = 'Transcendence'
+
+
+# twilio settings
+
 
 STATICFILES_DIRS = [
     STATIC_DIR,

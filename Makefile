@@ -1,5 +1,5 @@
 all:
-	docker compose up --build -d
+	docker compose up --build
 	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost:80 $(ORG)-----$(RESET)"
 
 stop:
