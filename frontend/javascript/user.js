@@ -279,7 +279,7 @@ const blockFriend = async (userId) => {
 	}
 }
 
-const fetchProfileInfos = async () => {
+const fetchProfilePicture = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
 			method: 'GET',
@@ -294,16 +294,23 @@ const fetchProfileInfos = async () => {
 		console.log("User Information: ", data);
 		console.log("image: ", data.profile_picture);
 
-		const userImage = document.getElementById("userPicture");
-		console.log("User Pic: ", userImage);
+		const userPicture = document.getElementById("userPicture");
+		const userPicSideNav = document.getElementById("userImageSnav");
+		console.log("User Pic: ", userPicture);
+		console.log("User Pic2: ", userPicSideNav);
 		if (data.profile_picture) {
-			userImage.src = baseUrl + data.profile_picture;
-			userImage.style.height = "200px";
-			userImage.style.width = "200px";
-			console.log("user image2: ", userImage.src);
+			userPicSideNav.src = baseUrl + data.profile_picture;
+			console.log("pic 2: ", userPicSideNav.src);
+			if (userPicture) {
+
+				userPicture.src = baseUrl + data.profile_picture;
+				userPicture.style.height = "200px";
+				userPicture.style.width = "200px";
+			}
 		} else {
-			userImage.src = "../assets/user1.png";
-			console.log("user image3: ", userImage.src);
+			userPicture.src = "../assets/user1.png";
+			userPicSideNav.src = "../assets/user1.png";
+			console.log("user image3: ", userPicture.src);
 		}
 	} catch(error) {
 		console.log(error.message);
@@ -339,6 +346,11 @@ const updateProfilePicture = async (formData) => {
 	}
 };
 
+window.addEventListener("load", () => {
+	console.log("Dom content loaded");
+	fetchProfilePicture();
+});
+
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
 	
@@ -350,7 +362,7 @@ sideNavSection.addEventListener("click", (e) => {
 		fetchFriendRequests();
 	} else if (e.target.classList.contains("profile")) {
 		console.log("friends found");
-		fetchProfileInfos();
+		fetchProfilePicture();
 		fetchFriendList();
 	}
 });
@@ -372,7 +384,9 @@ appSection.addEventListener("change", (e) => {
 	reader.onload = (event) => {
 		console.log("this is the event: ");
 		const pic = document.getElementById("userPicture");
+		const picSideNav = document.getElementById("userImageSnav");
 		pic.src = event.target.result;
+		picSideNav.src = event.target.result;
 		// pic.style.height = "200px";
 		// pic.style.width = "200px";
 	};
