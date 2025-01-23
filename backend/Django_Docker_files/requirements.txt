@@ -11,4 +11,8 @@ channels==4.2.0
 channels-redis==4.2.1
 daphne==4.1.2
 Pillow==11.0.0
-django-debug-toolbar
+django-debug-toolbar==5.0.1
+django-otp==1.5.4
+qrcode==8.0 #Python library for generating QR codes
+pyotp==2.9.0  #Python library for TOTP generation and validation
+twilio==9.4.3  #Python library for sending SMS
