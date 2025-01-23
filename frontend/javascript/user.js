@@ -1,8 +1,10 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
 import { UpdateUserName } from "./utils/loginCheck.js";
+import { getCookie } from "./login.js";
 
 const token = localStorage.getItem("access_token");
+const baseUrl = "http://localhost:8000"
 
 const getOnlineUsers = async () => {
 	try {
@@ -10,12 +12,13 @@ const getOnlineUsers = async () => {
 			throw new Error("No access token found. Please log in.");
 		}
 
-		const response = await fetch('http://localhost:8000/chat/api/online-users/', {
+		const response = await fetch(`${baseUrl}/chat/api/online-users/`, {
 			method: "GET",
 			headers: {
-				"Authorization": `Bearer ${token}`,
+				"X-CSRFToken": getCookie('csrftoken'),
 				"Content-Type": "application/json"
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -70,12 +73,13 @@ const getOnlineUsers = async () => {
 //send Friend Request
 const sendFriendRequest = async (userId) => {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/send-friend-request/${userId}/`, {
+		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
 			method: "POST",
 			headers: {
-				"Authorization": `Bearer ${token}`,
+				"X-CSRFToken": getCookie('csrftoken'),
 				"Content-Type": "application/json"
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -92,12 +96,13 @@ const sendFriendRequest = async (userId) => {
 // Fetch Friend Request
 const fetchFriendRequests = async () => {
 	try {
-		const response = await fetch("http://localhost:8000/chat/api/friend-requests/", {
+		const response = await fetch(`${baseUrl}/chat/api/friend-requests/`, {
 			method: "GET",
 			headers: {
-				"Authorization": `Bearer ${token}`,
+				"X-CSRFToken": getCookie('csrftoken'),
 				"Content-Type": "application/json"
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -152,12 +157,13 @@ const fetchFriendRequests = async () => {
 // Accept Friend Request
 const acceptFriendRequest = async (userId) => {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/accept-friend-request/${userId}/`, {
+		const response = await fetch(`${baseUrl}/chat/api/accept-friend-request/${userId}/`, {
 			method: "POST",
 			headers: {
-				"Authorization": `Bearer ${token}`,
+				"X-CSRFToken": getCookie('csrftoken'),
 				"Content-Type": "application/json"
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -176,19 +182,23 @@ const acceptFriendRequest = async (userId) => {
 // Fetch friend List
 const fetchFriendList = async () => {
 	try {
-		const response = await fetch("http://localhost:8000/chat/api/friends/", {
+		const response = await fetch(`${baseUrl}/chat/api/friends/`, {
 			method: "GET",
 			headers: {
-				"Authorization": `Bearer ${token}`,
+				"X-CSRFToken": getCookie('csrftoken'),
 				"Content-Type": "application/json"
 			},
+			credentials: 'include',
 		});
 
-		if (response.status === 401) {
-			console.log("Unauthorized");
-		}
+		console.log("response status: ", response.status);
+
 		if (!response.ok) {
-			throw new Error(`Failed to fetch friend list: ${response.statusText}`);
+			if (response.status == 401) {
+				return;
+			} else {
+				throw new Error(`Failed to fetch friend list: ${response.statusText}`);
+			}
 		}
 
 		const data = await response.json();
@@ -245,11 +255,11 @@ const fetchFriendList = async () => {
 // Block Friend
 const blockFriend = async (userId) => {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/block-user/${userId}/`, {
+		const response = await fetch(`${baseUrl}/chat/api/block-user/${userId}/`, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${token}`
+				"X-CSRFToken": getCookie('csrftoken'),
+				"X-CFRSToken": getCookie('crfstoken')
 			},
 			body: JSON.stringify({ user_id: userId }),
 		});
@@ -269,18 +279,63 @@ const blockFriend = async (userId) => {
 	}
 }
 
-const updateProfilePicture = async () => {
+const fetchProfileInfos = async () => {
 	try {
-		const response = await fetch('http://localhost:8000/chat/api/profile/');
+		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
+			method: 'GET',
+			credentials: 'include',
+		});
 
-		if (!response.ok) {
-			throw new Error(`Failed to block friend: ${response.status}`);
+		if(!response.ok) {
+			throw new Error(`Failed to upload profile picture: ${response.statusText}`);
 		}
 
-		console.log(response);
+		const data = await response.json();
+		console.log("User Information: ", data);
+		console.log("image: ", data.profile_picture);
 
+		const userImage = document.getElementById("userPicture");
+		console.log("User Pic: ", userImage);
+		if (data.profile_picture) {
+			userImage.src = baseUrl + data.profile_picture;
+			userImage.style.height = "200px";
+			userImage.style.width = "200px";
+			console.log("user image2: ", userImage.src);
+		} else {
+			userImage.src = "../assets/user1.png";
+			console.log("user image3: ", userImage.src);
+		}
 	} catch(error) {
 		console.log(error.message);
+	}
+};
+
+const updateProfilePicture = async (formData) => {
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
+			method: 'POST',
+			headers: {
+				"X-CSRFToken": getCookie('csrftoken'),
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+			body: formData,
+		});
+
+		console.log("csrf token: ", getCookie("csrftoken"));
+
+		console.log("response: ", response);
+
+		if (!response.ok) {
+			throw new Error(`Failed to upload profile picture: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+
+		console.log("file uploaded");
+		console.log("Data: ", data);
+	} catch(error) {
+		console.log("Error: ", error);
 	}
 };
 
@@ -295,6 +350,7 @@ sideNavSection.addEventListener("click", (e) => {
 		fetchFriendRequests();
 	} else if (e.target.classList.contains("profile")) {
 		console.log("friends found");
+		fetchProfileInfos();
 		fetchFriendList();
 	}
 });
@@ -314,17 +370,18 @@ appSection.addEventListener("change", (e) => {
 
     const reader = new FileReader();
 	reader.onload = (event) => {
+		console.log("this is the event: ");
 		const pic = document.getElementById("userPicture");
 		pic.src = event.target.result;
-		pic.style.height = "200px";
-		pic.style.width = "200px";
+		// pic.style.height = "200px";
+		// pic.style.width = "200px";
 	};
 
 	reader.readAsDataURL(file);
 
-	try {
-		const response = await fetch("http://localhost:8000/chat/api/profile/", {
-			method: "POST",
-		});
-	}
+	const formData = new FormData();
+	const userImage = document.getElementById("selectPicture").files[0];
+	console.log("user image: ", userImage);
+	formData.append("profile_picture", userImage);
+	updateProfilePicture(formData);
 });

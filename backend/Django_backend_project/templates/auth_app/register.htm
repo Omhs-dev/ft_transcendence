@@ -172,6 +172,7 @@
 					}
 				}
 			}
+			console.log("cookie value: ", cookieValue);
 			return cookieValue;
 		}
 
@@ -484,8 +485,11 @@
 					headers: {
 						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
 					},
-					body: formData
+					body: formData,
 				});
+
+				console.log("cookie in selectMethod: ", getCookie('csrftoken'));
+
 				if (response.ok) {
 					const updatedProfile = await response.json();
 					alert('Profile updated successfully!');
@@ -539,6 +543,8 @@
 					},
 					body: JSON.stringify({ method })
 				});
+
+				
 
 				if (response.ok) {
 					const data = await response.json();
