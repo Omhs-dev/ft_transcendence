@@ -240,14 +240,18 @@ def check_login_2fa(request, user):
     # If no code provided, generate a new code for email or SMS and send it
     if not method or not code:
         user_method = user.profile.two_fa_method
-        if user_method in ['sms', 'email']:
+        if user_method in ['sms', 'email', 'totp']:
             generate_and_send_Email_SMS_otp(user, user_method)
             return Response(
-                {"error": "2FA verification required. A new code has been sent to your {}.".format(user_method)},
+                {
+                	"method": "{}".format(user_method),
+                	"message": "2FA verification required. A new code has been sent.",
+					"detail": "Please enter the verification code sent to your {}".format(user_method)
+				},
                 headers={'X-2FA-Required': 'true'},
                 status=401
             )
-        return Response({"error": "2FA verification required."}, headers={'X-2FA-Required': 'true'}, status=401)
+        # return Response({"error": "2FA verification required."}, headers={'X-2FA-Required': 'true'}, status=401)
 
     # if method in ['sms', 'email'] and not code:
 
@@ -257,20 +261,6 @@ def check_login_2fa(request, user):
     elif method in ['sms', 'email'] and not verify_otp_code(user.id, code):
         return Response({"error": "Invalid OTP code."}, status=401)
 
-
-# def check_login_2fa(request, user):
-#         method = request.data.get("method")  # authenticator(totp), sms, or email
-#         code = request.data.get("otp_code")
-        
-#         logger.debug("2FA method: %s and the otp_code in the check_login_2fa: %s", method, code)
-#         if not method or not code:
-#             return Response({"error": "2FA verification required."}, headers={'X-2FA-Required': 'true'}, status=401)
-
-#         if method == 'totp' and not user.profile.verify_totp(code):
-#             return Response({"error": "Invalid OTP code for Authenticator."}, status=401)
-#         elif method in ['sms', 'email'] and not verify_otp_code(user.id, code):
-#         # elif method in ['sms', 'email'] and not user.profile.verify_totp(code):
-#             return Response({"error": "Invalid OTP code."}, status=401)
 
 
 class Select2FAMethodView(APIView):
@@ -286,11 +276,11 @@ class Select2FAMethodView(APIView):
         profile = request.user.profile
 
         # Reset previous 2FA settings
-        profile.is_2fa_enabled = False
-        profile.otp_secret = None # later I should remove this attribute of profile model
-        profile.two_fa_method = None
-        profile.last_otp_sent_at = None
-        profile.save()
+        # profile.is_2fa_enabled = False
+        # profile.otp_secret = None # later I should remove this attribute of profile model
+        # profile.two_fa_method = None
+        # profile.last_otp_sent_at = None
+        # profile.save()
 
         if method == 'totp':
             # Setup for authenticator app
@@ -328,7 +318,6 @@ class Select2FAMethodView(APIView):
 
             generate_and_send_Email_SMS_otp(request.user, 'sms')
             profile.two_fa_method = 'sms'
-            # profile.last_otp_sent_at = now()
             profile.save()
 
             return Response({

@@ -3,16 +3,10 @@ from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from PIL import Image
 import pyotp
-
-# from chat_app.models import profile, BlockedUser, ChatMessage, PongInvitation
+from django.utils import timezone
 
 # Create your models here.
 
-# class User(models.Model):
-#     username = models.CharField(max_length=150, unique=True)
-#     email = models.EmailField(unique=True)
-#     password = models.CharField(max_length=128)
-#     # Add other fields as needed
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
