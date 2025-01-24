@@ -244,10 +244,10 @@ def check_login_2fa(request, user):
             generate_and_send_Email_SMS_otp(user, user_method)
             return Response(
                 {
-                	"method": "{}".format(user_method),
-                	"message": "2FA verification required. A new code has been sent.",
-					"detail": "Please enter the verification code sent to your {}".format(user_method)
-				},
+                    "method": "{}".format(user_method),
+                    "message": "2FA verification required. A new code has been sent.",
+                    "detail": "Please enter the verification code sent to your {}".format(user_method)
+                },
                 headers={'X-2FA-Required': 'true'},
                 status=401
             )
@@ -310,20 +310,21 @@ class Select2FAMethodView(APIView):
 
         elif method == 'sms':
             # Generate and send an SMS verification code
-            if not hasattr(request.user, 'phone_number') or not request.user.phone_number:
+            if not hasattr(request.user.profile, 'phone_number') or not request.user.profile.phone_number:
                 return Response({"error": "Phone number is not set for the user."}, status=400)
 
             if not profile.can_send_otp():
                 return Response({"error": "Please wait before requesting another OTP."}, status=429)
 
-            generate_and_send_Email_SMS_otp(request.user, 'sms')
-            profile.two_fa_method = 'sms'
-            profile.save()
-
-            return Response({
-                "message": "SMS 2FA selected. Verification code sent to your phone."
-            }, status=200)
-
+            logger.info("Phone number for the user: %s according to the received request: %s", request.user, request.user.profile.phone_number)
+            
+            try:
+                generate_and_send_Email_SMS_otp(request.user, 'sms')
+                profile.two_fa_method = 'sms'
+                profile.save()
+                return Response({"message": "SMS 2FA selected. Verification code sent to your phone."}, status=200)
+            except TwilioRestException as e:
+                return Response({"error": str(e)}, status=400)
 
 
         elif method == 'email':

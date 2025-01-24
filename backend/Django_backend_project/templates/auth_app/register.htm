@@ -87,6 +87,9 @@
 					<label for="profileBio">Bio:</label>
 					<textarea id="profileBio" name="bio"></textarea>
 					<br>
+					<label for="profilePhone">Phone:</label>
+					<textarea id="profilePhone" name="Phone"></textarea>
+					<br>
 
 					<label for="profilePicture">Upload Profile Picture:</label>
 					<input type="file" id="profilePicture" name="profile_picture" accept="image/*">
@@ -138,13 +141,13 @@
 
 					<!-- SMS Setup -->
 					<div id="smsSetup" style="display: none;">
-						<div id="enterPhoneNum">
+						<div id="enterPhoneNum" style="display: inherit;">
 							<label for="phoneNumber">Enter your phone number:</label>
 							<input type="text" id="phoneNumber">
 							<button id="savePhoneNumber">Save</button>
 						</div>
-						<div id="sendSMSCodeButton" style="display: none;">
-							<button id="sendSmsCode">Send Code</button>
+						<div id="sendSMSCodeButton" style="display: inherit;">
+							<!-- <button id="sendSmsCode">Send Code</button> -->
 							<label for="smsCode">Enter the received code:</label>
 							<input type="text" id="smsCode">
 							<button id="verifySms">Verify</button>
@@ -429,6 +432,44 @@
 			return phonePattern.test(phoneNumber);
 		}
 
+		// select sms method
+		async function selectSMS2FAMethod(method, phoneNumber) {
+			document.getElementById('smsSetup').style.display = 'block';
+
+			try {
+				const response = await fetch('/auth/api/select-2fa-method/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ method, phone_number: phoneNumber })
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					document.getElementById('sendSMSCodeButton').style.display = 'block';
+					document.getElementById('enterPhoneNum').style.display = 'none';
+					alert('Your code is sent. Please enter the received code.');
+					document.getElementById('2faSetup').style.display = 'none';
+				} else if (response.status === 400) {
+					const errorData = await response.json();
+					if (errorData.phone_number) {
+						alert(errorData.phone_number.join('\n'));
+						document.getElementById('phoneNumber').value = ''; // Clear the input box
+						document.getElementById('sendSMSCodeButton').style.display = 'none';
+						document.getElementById('enterPhoneNum').style.display = 'block';
+					} else if (errorData.error) { // Twilio error
+						alert(errorData.error);
+					}
+				} else {
+					console.error('Failed to select 2FA method:', response.status);
+				}
+			} catch (error) {
+				console.error('Error selecting 2FA method:', error);
+			}
+		}
+
 		// Select and change 2FA Method
 		async function change2FAMethod() {
 			document.getElementById('2faSetup').style.display = 'block';
@@ -447,42 +488,18 @@
 					let phoneNumber = document.getElementById('phoneNumber').value;
 
 					if (isValidPhoneNumber(phoneNumber)) {
-						document.getElementById('sendSMSCodeButton').style.display = 'block';
-
-						try {
-							const response = await fetch('/auth/api/select-2fa-method/', {
-								method: 'POST',
-								headers: {
-									'X-CSRFToken': getCookie('csrftoken'),
-									'Content-Type': 'application/json'
-								},
-								body: JSON.stringify({ method })
-							});
-
-							if (response.ok) {
-								const data = await response.json();
-								document.getElementById('sendSmsCodeButton').style.display = 'block';
-								alert('Your code is sent. Please enter the received code.');
-							} else if (response.status === 400) {
-								const errorData = await response.json();
-								if (errorData.phone_number) {
-									alert(errorData.phone_number.join('\n'));
-									document.getElementById('phoneNumber').value = ''; // Clear the input box
-								}
-							} else {
-								console.error('Failed to select 2FA method:', response.status);
-							}
-						} catch (error) {
-							console.error('Error selecting 2FA method:', error);
-						}
+						selectSMS2FAMethod(method, phoneNumber);
 					} 
 					else {
 						alert('Please add a valid phone number to enable SMS 2FA.');
+						document.getElementById("smsSetup").style.display = 'block';
 						document.getElementById('enterPhoneNum').style.display = 'block';
+						document.getElementById('sendSMSCodeButton').style.display = 'none';
 
 						document.getElementById('savePhoneNumber').addEventListener('click', async function () {
 							phoneNumber = document.getElementById('phoneNumber').value;
 							if (isValidPhoneNumber(phoneNumber)) {
+								// phoneNumber = localStorage.getItem('phoneNumber');
 								try {
 									const response = await fetch('/auth/api/profile/', {
 										method: 'POST',
@@ -495,8 +512,9 @@
 
 									if (response.ok) {
 										document.getElementById('enterPhoneNum').style.display = 'none';
-										document.getElementById('sendSmsCodeButton').style.display = 'block';
+										document.getElementById('sendSMSCodeButton').style.display = 'block';
 										alert('Your phone number is saved. Your code is sent. Please enter the received code.');
+										selectSMS2FAMethod(method, phoneNumber);
 									} else if (response.status === 400) {
 										const errorData = await response.json();
 										if (errorData.phone_number) {
@@ -514,9 +532,7 @@
 								document.getElementById('phoneNumber').value = ''; // Clear the input box
 							}
 						});
-						// }, { once: true });
 					}
-					// document.getElementById('smsSetup').style.display = 'block';
 				}
 				else {
 					try {
@@ -593,6 +609,7 @@
 
 					// Update bio
 					document.getElementById('profileBio').value = profile.bio || '';
+					document.getElementById('profilePhone').value = profile.phone_number || '';
 
 					// Display profile picture if it exists
 					if (profile.profile_picture) {
@@ -627,9 +644,12 @@
 			event.preventDefault();
 			const bio = document.getElementById('profileBio').value;
 			const profilePicture = document.getElementById('profilePicture').files[0];
+			const phone = document.getElementById('profilePhone').value;
 
+			console.log("phone in profile: ", phone);
 			const formData = new FormData();
 			formData.append('bio', bio);
+			formData.append('phone_number', phone);
 			if (profilePicture) {
 				formData.append('profile_picture', profilePicture);
 			}
@@ -713,6 +733,45 @@
 				console.error('Error verifying 2FA setup:', error);
 				alert('An unexpected error occurred. Please try again.');
 			}
+		});
+		
+		// verify SMS Code
+		document.getElementById('verifySms').addEventListener('click', async function () {
+			const smsCode = document.getElementById('smsCode').value;
+
+			if (!smsCode) {
+				alert('Please enter the received code.');
+				return;
+			}
+
+			try {
+				const response = await fetch('/auth/api/verify-2fa-setup/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						method: 'sms',
+						 code: smsCode
+					})
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					alert(data.message || 'SMS verification successful!');
+					// Refresh the screen after successful verification
+					document.getElementById('smsSetup').style.display = 'none';
+					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
+					fetchProfile();
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Failed to verify email code. Please try again.');
+				}
+			} catch(error) {
+					console.error('Error verifying SMS code:', error);
+					alert('An unexpected error occurred. Please try again.');
+				}
 		});
 
 		// Verify Email Code
