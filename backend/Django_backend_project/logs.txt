@@ -179,3 +179,11 @@ INFO /app/Django_backend_project/auth_app/migrations/0001_initial.py changed, re
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/migrations/0001_initial.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/chat_app/migrations/0001_initial.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
