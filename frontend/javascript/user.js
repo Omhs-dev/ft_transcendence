@@ -16,7 +16,6 @@ const getOnlineUsers = async () => {
 			method: "GET",
 			headers: {
 				"X-CSRFToken": getCookie('csrftoken'),
-				"Content-Type": "application/json"
 			},
 			credentials: 'include',
 		});
@@ -76,8 +75,8 @@ const sendFriendRequest = async (userId) => {
 		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
 			method: "POST",
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			credentials: 'include',
 		});
@@ -97,10 +96,9 @@ const sendFriendRequest = async (userId) => {
 const fetchFriendRequests = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/friend-requests/`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
-				"Content-Type": "application/json"
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			credentials: 'include',
 		});
@@ -158,10 +156,10 @@ const fetchFriendRequests = async () => {
 const acceptFriendRequest = async (userId) => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/accept-friend-request/${userId}/`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			credentials: 'include',
 		});
@@ -183,10 +181,9 @@ const acceptFriendRequest = async (userId) => {
 const fetchFriendList = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/friends/`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
-				"Content-Type": "application/json"
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			credentials: 'include',
 		});
@@ -258,8 +255,8 @@ const blockFriend = async (userId) => {
 		const response = await fetch(`${baseUrl}/chat/api/block-user/${userId}/`, {
 			method: "POST",
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
-				"X-CFRSToken": getCookie('crfstoken')
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			body: JSON.stringify({ user_id: userId }),
 		});
@@ -279,10 +276,14 @@ const blockFriend = async (userId) => {
 	}
 }
 
+// Profile Picture
 const fetchProfilePicture = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
 			method: 'GET',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
 			credentials: 'include',
 		});
 
@@ -309,7 +310,7 @@ const fetchProfilePicture = async () => {
 			}
 		} else {
 			userPicture.src = "../assets/user1.png";
-			userPicSideNav.src = "../assets/user1.png";
+			// userPicSideNav.src = "../assets/user1.png";
 			console.log("user image3: ", userPicture.src);
 		}
 	} catch(error) {
@@ -322,16 +323,11 @@ const updateProfilePicture = async (formData) => {
 		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
 			method: 'POST',
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
 				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			credentials: 'include',
 			body: formData,
 		});
-
-		console.log("csrf token: ", getCookie("csrftoken"));
-
-		console.log("response: ", response);
 
 		if (!response.ok) {
 			throw new Error(`Failed to upload profile picture: ${response.statusText}`);
@@ -347,7 +343,7 @@ const updateProfilePicture = async (formData) => {
 };
 
 window.addEventListener("load", () => {
-	console.log("Dom content loaded");
+
 	fetchProfilePicture();
 });
 
@@ -361,7 +357,6 @@ sideNavSection.addEventListener("click", (e) => {
 		console.log("friend requests found");
 		fetchFriendRequests();
 	} else if (e.target.classList.contains("profile")) {
-		console.log("friends found");
 		fetchProfilePicture();
 		fetchFriendList();
 	}

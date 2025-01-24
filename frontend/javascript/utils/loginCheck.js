@@ -96,3 +96,16 @@ export function UpdateUserName(loggedUserName1) {
 		}
 	}
 }
+
+export function loadDefaultPic(userPicOne, userPicTwo) {
+	if (userPicOne) {
+		console.log("this is sidnav pic");
+		
+		userPicOne.src = "../assets/user1.png";
+	}
+	if (userPicTwo) {
+		console.log("this is profile pic");
+
+		userPicTwo.src = "../assets/user1.png";
+	}
+}

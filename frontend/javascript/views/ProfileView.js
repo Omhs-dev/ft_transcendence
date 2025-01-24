@@ -1,5 +1,6 @@
 import AbsractView from "./AbsractView.js";
 import { UpdateUserName } from "../utils/loginCheck.js";
+import { loadDefaultPic } from "../utils/loginCheck.js";
 
 export default class extends AbsractView {
 	constructor(params) {
@@ -22,18 +23,15 @@ export default class extends AbsractView {
 			const doc = parse.parseFromString(htmlContent, "text/html");
 
 			const loggedUserName1 = doc.getElementById("loggedUserName1");
-
-			const changeProfilePicture = doc.getElementById("userPicture");
-			const selectPicture = doc.getElementById("selectPicture");
-
-			console.log("profile pic: ", changeProfilePicture.src);
-			console.log("selectPicture pic: ", selectPicture);
+			const userPicture = doc.getElementById("userPicture");
+			const userPicSideNav = doc.getElementById("userImageSnav");
 			
-			selectPicture.addEventListener("change", (e) => {
-				console.log("event target: ", e.target);
-			});
-
 			UpdateUserName(loggedUserName1);
+			// Load default user pic
+			if (!userPicture)
+			{
+				loadDefaultPic(userPicSideNav, userPicture);
+			}
 
             return doc.body.innerHTML;
         } catch (error) {
