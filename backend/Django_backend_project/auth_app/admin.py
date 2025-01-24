@@ -27,8 +27,8 @@ class ProfileAdmin(admin.ModelAdmin):
         return "None"
 
     def email(self, obj):
-            return obj.user.email
-    
+        return obj.user.email
+
     selected_2fa_method.short_description = "2FA Method"  # Admin display column title
 
     fieldsets = (
@@ -43,6 +43,11 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ('accepted_friends', 'blocked_users', 'selected_2fa_method')
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        form.base_fields['friends'].label = 'Registered Users'  # Change the label
+        return form
 
 
 admin.site.register(Profile, ProfileAdmin)
