@@ -28,10 +28,7 @@ export default class extends AbsractView {
 			
 			UpdateUserName(loggedUserName1);
 			// Load default user pic
-			if (!userPicture)
-			{
-				loadDefaultPic(userPicSideNav, userPicture);
-			}
+			loadDefaultPic(userPicSideNav, userPicture);
 
             return doc.body.innerHTML;
         } catch (error) {

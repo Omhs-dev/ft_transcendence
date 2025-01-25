@@ -309,9 +309,8 @@ const fetchProfilePicture = async () => {
 				userPicture.style.width = "200px";
 			}
 		} else {
-			userPicture.src = "../assets/user1.png";
+			// userPicture.src = "../assets/user1.png";
 			// userPicSideNav.src = "../assets/user1.png";
-			console.log("user image3: ", userPicture.src);
 		}
 	} catch(error) {
 		console.log(error.message);

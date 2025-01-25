@@ -32,14 +32,14 @@ class Sidenav extends HTMLElement {
 			// Get the sidenav element
 			const sideNav = doc.querySelector(".sidenav");
 			
-			const userPicture = doc.getElementById("userPicture");
+			// const userPicture = doc.getElementById("userPicture");
 			const userPicSideNav = doc.getElementById("userImageSnav");
-			// Load default user pic
-			loadDefaultPic(userPicSideNav, userPicture);
+			console.log("side nave pic: ", userPicSideNav);
+			userPicSideNav.src = "../assets/user1.png";
 
 			// Check if user is logged in
 			if (isAuthenticated && username) {
-				this.innerHTML = sideNavHtml;
+				this.innerHTML = doc.body.innerHTML;
 				UpdateUserName();
 			} else {
 				unloggedSideNav(sideNav);
