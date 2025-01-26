@@ -1,7 +1,10 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
+import { UpdateUserName } from "./utils/loginCheck.js";
+import { getCookie } from "./login.js";
 
 const token = localStorage.getItem("access_token");
+const baseUrl = "http://localhost:8000"
 
 const getOnlineUsers = async () => {
 	try {
@@ -9,12 +12,12 @@ const getOnlineUsers = async () => {
 			throw new Error("No access token found. Please log in.");
 		}
 
-		const response = await fetch('http://localhost:8000/chat/api/online-users/', {
+		const response = await fetch(`${baseUrl}/chat/api/online-users/`, {
 			method: "GET",
 			headers: {
-				"Authorization": `Bearer ${token}`,
-				"Content-Type": "application/json"
+				"X-CSRFToken": getCookie('csrftoken'),
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -69,12 +72,13 @@ const getOnlineUsers = async () => {
 //send Friend Request
 const sendFriendRequest = async (userId) => {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/send-friend-request/${userId}/`, {
+		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
 			method: "POST",
 			headers: {
-				"Authorization": `Bearer ${token}`,
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -91,12 +95,12 @@ const sendFriendRequest = async (userId) => {
 // Fetch Friend Request
 const fetchFriendRequests = async () => {
 	try {
-		const response = await fetch("http://localhost:8000/chat/api/friend-requests/", {
-			method: "GET",
+		const response = await fetch(`${baseUrl}/chat/api/friend-requests/`, {
+			method: 'GET',
 			headers: {
-				"Authorization": `Bearer ${token}`,
-				"Content-Type": "application/json"
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -151,12 +155,13 @@ const fetchFriendRequests = async () => {
 // Accept Friend Request
 const acceptFriendRequest = async (userId) => {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/accept-friend-request/${userId}/`, {
-			method: "POST",
+		const response = await fetch(`${baseUrl}/chat/api/accept-friend-request/${userId}/`, {
+			method: 'POST',
 			headers: {
-				"Authorization": `Bearer ${token}`,
-				"Content-Type": "application/json"
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
@@ -175,16 +180,22 @@ const acceptFriendRequest = async (userId) => {
 // Fetch friend List
 const fetchFriendList = async () => {
 	try {
-		const response = await fetch("http://localhost:8000/chat/api/friends/", {
-			method: "GET",
+		const response = await fetch(`${baseUrl}/chat/api/friends/`, {
+			method: 'GET',
 			headers: {
-				"Authorization": `Bearer ${token}`,
-				"Content-Type": "application/json"
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
+			credentials: 'include',
 		});
 
+		console.log("response status: ", response.status);
+
 		if (!response.ok) {
-			throw new Error(`Failed to fetch friend list: ${response.statusText}`);
+			if (response.status == 401) {
+				return;
+			} else {
+				throw new Error(`Failed to fetch friend list: ${response.statusText}`);
+			}
 		}
 
 		const data = await response.json();
@@ -241,11 +252,11 @@ const fetchFriendList = async () => {
 // Block Friend
 const blockFriend = async (userId) => {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/block-user/${userId}/`, {
+		const response = await fetch(`${baseUrl}/chat/api/block-user/${userId}/`, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${token}`
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
 			body: JSON.stringify({ user_id: userId }),
 		});
@@ -265,19 +276,79 @@ const blockFriend = async (userId) => {
 	}
 }
 
-// window.addEventListener("load", () => {
-// 	if (!sideNavSection) {
-//         console.error("Error: sideNavSection not found!");
-//         return;
-//     }
+// Profile Picture
+const fetchProfileInfo = async () => {
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
+			method: 'GET',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
 
-// 	if (token) {
-// 		// authSection(token);
-// 		getOnlineUsers();
-// 	} else {
-// 		console.error("No access token found. Please log in.");
-// 	}
-// });
+		if(!response.ok) {
+			throw new Error(`Failed to upload profile picture: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+		console.log("User Information: ", data);
+		console.log("image: ", data.profile_picture);
+
+		const userPicture = document.getElementById("userPicture");
+		const userPicSideNav = document.getElementById("userImageSnav");
+		console.log("User Pic: ", userPicture);
+		console.log("User Pic2: ", userPicSideNav);
+		if (data.profile_picture) {
+			userPicSideNav.src = baseUrl + data.profile_picture;
+			console.log("pic 2: ", userPicSideNav.src);
+			if (userPicture) {
+
+				userPicture.src = baseUrl + data.profile_picture;
+				userPicture.style.height = "200px";
+				userPicture.style.width = "200px";
+			}
+		} else {
+			// userPicture.src = "../assets/user1.png";
+			// userPicSideNav.src = "../assets/user1.png";
+		}
+
+		const twoFa = data.is_2fa_enabled;
+		localStorage.setItem("twoFa", twoFa);
+		console.log("2fa: ", twoFa);
+	} catch(error) {
+		console.log(error.message);
+	}
+};
+
+const updateProfilePicture = async (formData) => {
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
+			method: 'POST',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+			body: formData,
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to upload profile picture: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+
+		console.log("file uploaded");
+		console.log("Data: ", data);
+	} catch(error) {
+		console.log("Error: ", error);
+	}
+};
+
+window.addEventListener("load", () => {
+
+	fetchProfileInfo();
+});
 
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
@@ -289,14 +360,40 @@ sideNavSection.addEventListener("click", (e) => {
 		console.log("friend requests found");
 		fetchFriendRequests();
 	} else if (e.target.classList.contains("profile")) {
-		console.log("friends found");
+		fetchProfileInfo();
 		fetchFriendList();
 	}
 });
 
-// appSection.addEventListener("click", (e) => {
-// 	if (e.target.classList.contains("friends")) {
-// 		console.log("friends found");
-// 		fetchFriendList();
-// 	}
-// });
+appSection.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+	console.log("file infos: ", file);
+	
+    if (!file)
+		return;
+
+	if (!file.type.startsWith("image/"))
+		return;
+
+	if (file.size > 2 * 1024 * 1024)
+		return;
+
+    const reader = new FileReader();
+	reader.onload = (event) => {
+		console.log("this is the event: ");
+		const pic = document.getElementById("userPicture");
+		const picSideNav = document.getElementById("userImageSnav");
+		pic.src = event.target.result;
+		picSideNav.src = event.target.result;
+		// pic.style.height = "200px";
+		// pic.style.width = "200px";
+	};
+
+	reader.readAsDataURL(file);
+
+	const formData = new FormData();
+	const userImage = document.getElementById("selectPicture").files[0];
+	console.log("user image: ", userImage);
+	formData.append("profile_picture", userImage);
+	updateProfilePicture(formData);
+});

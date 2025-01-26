@@ -112,7 +112,7 @@
 					</div>
 
 					<!-- 2FA Method Selection -->
-					<div id="2faSetup" style="display: none;">
+					<div id="2faSetup">
 						<label for="method">Select a 2FA Method:</label>
 						<select id="method">
 							<option value="totp">Authenticator App</option>
@@ -184,6 +184,7 @@
 					}
 				}
 			}
+			console.log("cookie value: ", cookieValue);
 			return cookieValue;
 		}
 
@@ -411,6 +412,8 @@
 
 		// Profile Picture Preview
 		document.getElementById('profilePicture').addEventListener('change', function (event) {
+			// console.log("event : ");
+			
 			const file = event.target.files[0];
 			if (file) {
 				const reader = new FileReader();
@@ -584,6 +587,7 @@
 		}
 
 		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
+
 		// Fetch Profile
 		async function fetchProfile() {
 			try {
@@ -640,8 +644,11 @@
 					headers: {
 						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
 					},
-					body: formData
+					body: formData,
 				});
+
+				console.log("cookie in selectMethod: ", getCookie('csrftoken'));
+
 				if (response.ok) {
 					const updatedProfile = await response.json();
 					alert('Profile updated successfully!');

@@ -139,6 +139,24 @@ i {
     color: #ccc;
 }
 
+#userPicture {
+	width: 200px;
+	height: 200px;
+}
+
+#v-pills-tab {
+	padding-right: 50px !important;
+	height: 40vh;
+}
+
+#v-pills-tabContent {
+	padding-left: 50px !important;
+}
+
+#tabsContainer {
+	height: 40vh;
+}
+
 @media (max-width: 868px) {
     .homebtn {
         height: 60px;

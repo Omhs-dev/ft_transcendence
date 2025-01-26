@@ -9,7 +9,6 @@ export default class extends AbsractView {
 
 	async loadHtml() {
 		try {
-			console.log("before fetching");
 			const response = await fetch("./pages/home.html");
 			if (!response.ok) {
 				throw new Error(`Error fetching page: ${response.statusText}`);

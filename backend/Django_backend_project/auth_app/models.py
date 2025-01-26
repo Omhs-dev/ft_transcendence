@@ -38,7 +38,6 @@ class Profile(models.Model):
     )  # Store the user's chosen 2FA method
     last_otp_sent_at = models.DateTimeField(blank=True, null=True)  # For rate-limiting SMS/Email OTPs
 
-    
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.profile_picture:

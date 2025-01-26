@@ -1,4 +1,6 @@
-import { sideNavLoad } from "../utils/loginCheck.js";
+import { unloggedSideNav } from "../utils/loginCheck.js";
+import { UpdateUserName } from "../utils/loginCheck.js";
+import { loadDefaultPic } from "../utils/loginCheck.js";
 
 class Sidenav extends HTMLElement {
 	constructor() {
@@ -18,21 +20,29 @@ class Sidenav extends HTMLElement {
 				this.appendChild(errorMessage);
 				throw new Error(`Error: could not fetch: ${response.status}`);
 			}
-			const token = localStorage.getItem("access_token");
 
 			const sideNavHtml = await response.text();
-
+			
+			const username = localStorage.getItem("username");
+			const isAuthenticated = localStorage.getItem("isAuthenticated");
+			
 			// Parse the HTML string into a document
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(sideNavHtml, "text/html");
 			// Get the sidenav element
 			const sideNav = doc.querySelector(".sidenav");
+			
+			// const userPicture = doc.getElementById("userPicture");
+			const userPicSideNav = doc.getElementById("userImageSnav");
+			console.log("side nave pic: ", userPicSideNav);
+			userPicSideNav.src = "../assets/user1.png";
 
 			// Check if user is logged in
-			if (token) {
-				this.innerHTML = sideNavHtml;
+			if (isAuthenticated && username) {
+				this.innerHTML = doc.body.innerHTML;
+				UpdateUserName();
 			} else {
-				sideNavLoad(sideNav);
+				unloggedSideNav(sideNav);
 				this.innerHTML = doc.body.innerHTML;
 			}
 		} catch (error) {

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register / Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 id="welcomeMessage">Welcome</h1>
+        <div id="authSection">
+            <!-- Registration Form -->
+            <div id="registerSection">
+                <h2>Register</h2>
+                <form id="registerForm">
+                    <label for="reg_username">Username:</label>
+                    <input type="text" id="reg_username" name="username" required>
+                    
+                    <label for="reg_email">Email:</label>
+                    <input type="email" id="reg_email" name="email" required>
+                    
+                    <label for="reg_password">Password:</label>
+                    <input type="password" id="reg_password" name="password" required>
+                    
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginSection">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <label for="login_username">Username:</label>
+                    <input type="text" id="login_username" name="username" required>
+                    
+                    <label for="login_password">Password:</label>
+                    <input type="password" id="login_password" name="password" required>
+                    
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard" style="display: none;">
+            <h2>Dashboard</h2>
+            <button id="logoutButton">Logout</button>
+            <div id="onlineUsers">
+                <h3>Online Users</h3>
+                <ul id="userList"></ul>
+            </div>
+			<div id="friendreq">
+				<h3>My Friends Requests</h3>
+                <ul id="friendRequests"></ul>
+			</div>
+			<div id="friendLists">
+				<h3>My Friends :</h3>
+                <ul id="friendList"></ul>
+			</div>
+            <!-- <div id="chatArea" style="display: none;">
+                <h3>Chat with <span id="chatWith"></span></h3>
+                <div id="chatMessages" style="border: 1px solid #ccc; height: 200px; overflow-y: scroll;"></div>
+                <textarea id="chatInput" placeholder="Type your message">Hello</textarea>
+                <button id="sendMessage">Send</button>
+            </div> -->
+
+			<h1>Chat Room</h1>
+    <div id="chat-log" style="height:300px; border:1px solid black; overflow-y:scroll;"></div>
+    <input id="chat-message-input" type="text" placeholder="Enter your message">
+    <button id="chat-message-send">Send</button>
+        </div>
+    </div>
+
+	<script>
+		const baseUrl = '/api';
+	
+		// Register User
+		document.getElementById('registerForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+	
+			const username = document.getElementById('reg_username').value;
+			const email = document.getElementById('reg_email').value;
+			const password = document.getElementById('reg_password').value;
+			console.log("username: ", username);
+			console.log("email: ", email);
+			console.log("password: ", password);
+			try {
+				const response = await fetch(`/auth/api/register/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ username, email, password }),
+				});
+	
+				const data = await response.json();
+				alert(data.message || 'Registration successful!');
+				document.getElementById('registerForm').reset();
+			} catch (error) {
+				alert(error.message || 'An error occurred.');
+			}
+		});
+	
+		// Login User
+		document.getElementById('loginForm').addEventListener('submit', async function (e) {
+			e.preventDefault();
+	
+			const username = document.getElementById('login_username').value;
+			const password = document.getElementById('login_password').value;
+	
+			try {
+				const response = await fetch(`/backend${baseUrl}/login/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ username, password }),
+				});
+	
+				const data = await response.json();
+	
+				if (data.access_token) {
+					localStorage.setItem('accessToken', data.access_token);
+					localStorage.setItem('refreshToken', data.refresh_token);
+					localStorage.setItem('username', username); // Store the username
+					loadDashboard();
+				} else {
+					alert('Login failed!');
+				}
+			} catch (error) {
+				alert('Invalid username or password.');
+			}
+		});
+	
+		// Logout User
+		document.getElementById('logoutButton').addEventListener('click', async function () {
+			try {
+				const refreshToken = localStorage.getItem('refreshToken'); // Retrieve refresh token
+				const response = await fetch(`/auth/api/logout/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${localStorage.getItem('accessToken')}`, // Optional
+					},
+					body: JSON.stringify({ refresh_token: refreshToken }),
+				});
+	
+				if (response.ok) {
+					// Clear tokens and user data from localStorage
+					localStorage.removeItem('accessToken');
+					localStorage.removeItem('refreshToken');
+					localStorage.removeItem('username');
+	
+					alert('You have been logged out.');
+	
+					// Redirect to login/register page
+					showAuthSection();
+				} else {
+					const errorData = await response.json();
+					console.error('Logout failed:', errorData);
+					alert('Failed to log out. Please try again.');
+				}
+			} catch (error) {
+				console.error('Error logging out:', error);
+				alert('An error occurred while logging out. Please try again.');
+			}
+		});
+
+		// Check for Token on Page Load
+		window.addEventListener('load', () => {
+			const token = localStorage.getItem('accessToken');
+			if (token) {
+				loadDashboard();
+			} else {
+				showAuthSection();
+			}
+		});
+
+		// Function to Show Auth Section (Login/Register)
+		function showAuthSection() {
+			document.getElementById('authSection').style.display = 'block';
+			document.getElementById('dashboard').style.display = 'none';
+		}
+
+		// Load Dashboard
+		function loadDashboard() {
+			document.getElementById('authSection').style.display = 'none';
+			document.getElementById('dashboard').style.display = 'block';
+			const username = localStorage.getItem('username');
+			document.getElementById('welcomeMessage').textContent = `Welcome, ${username}!`;
+			fetchOnlineUsers();
+			fetchFriendRequests();
+			fetchFriends();
+		}
+	
+		// Fetch Online Users
+		async function fetchOnlineUsers() {
+			try {
+				const response = await fetch('/chat/api/online-users/', {
+					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+				});
+
+				const data = await response.json();
+				const userList = document.getElementById('userList');
+				userList.innerHTML = '';
+	
+				data.forEach(user => {
+					const userItem = document.createElement('li');
+					userItem.textContent = user.username;
+					userItem.dataset.userId = user.id;
+	
+					const friendButton = document.createElement('button');
+					friendButton.textContent = 'Send Friend Request';
+					friendButton.addEventListener('click', () => sendFriendRequest(user.id));
+	
+					userItem.appendChild(friendButton);
+					userList.appendChild(userItem);
+				});
+			} catch (error) {
+				console.error('Error fetching users:', error);
+			}
+		}
+	
+		// Send Friend Request
+		async function sendFriendRequest(userId) {
+			try {
+				const response = await fetch(`/chat/api/send-friend-request/${userId}/`, {
+					method: 'POST',
+					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+				});
+	
+				const data = await response.json();
+				alert(data.message || 'Friend request sent.');
+			} catch (error) {
+				console.error('Error sending friend request:', error);
+			}
+		}
+
+		// Fetch Friend Requests
+		async function fetchFriendRequests() {
+			console.log("in fetchFrindRequests");
+			try {
+				console.log("before response");
+				const response = await fetch('/chat/api/friend-requests/', {
+					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+				});
+	
+				const data = await response.json();
+				const requestsList = document.getElementById('friendRequests');
+				requestsList.innerHTML = '';
+				console.log("section: ", requestsList);
+				
+				data.forEach(request => {
+					const requestItem = document.createElement('li');
+					requestItem.textContent = `${request.from_user} wants to be your friend`;
+	
+					const acceptButton = document.createElement('button');
+					acceptButton.textContent = 'Accept';
+					acceptButton.addEventListener('click', () => acceptFriendRequest(request.id));
+	
+					requestItem.appendChild(acceptButton);
+					requestsList.appendChild(requestItem);
+				});
+			} catch (error) {
+				console.error('Error fetching friend requests:', error);
+			}
+		}
+
+		// Accept Friend Request
+		async function acceptFriendRequest(requestId) {
+			try {
+				const response = await fetch(`/chat/api/accept-friend-request/${requestId}/`, {
+					method: 'POST',
+					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+				});
+	
+				const data = await response.json();
+				alert(data.message || 'Friend request accepted.');
+				fetchFriendRequests(); // Refresh the list
+			} catch (error) {
+				console.error('Error accepting friend request:', error);
+			}
+		}
+	
+		// Fetch Friend List
+		async function fetchFriends() {
+			try {
+				const response = await fetch('/chat/api/friends/', {
+					headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+				});
+	
+				const data = await response.json();
+				const friendList = document.getElementById('friendList');
+				friendList.innerHTML = '';
+	
+				data.forEach(friend => {
+					const friendItem = document.createElement('li');
+					friendItem.textContent = friend.username;
+					friendItem.dataset.userId = friend.id;
+					friendItem.addEventListener('click', () => startChat(friend.id, friend.username));
+					friendList.appendChild(friendItem);
+				});
+			} catch (error) {
+				console.error('Error fetching friends:', error);
+			}
+		}
+
+		// chat section
+		// Start Chat
+        function startChat(userId, username) {
+            document.getElementById('chatArea').style.display = 'block';
+            document.getElementById('chatWith').textContent = username;
+
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+
+            fetch(`${baseUrl}/chat/${userId}/`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(message => {
+                        const msg = document.createElement('div');
+                        msg.textContent = `${message.sender}: ${message.message}`;
+                        chatMessages.appendChild(msg);
+                    });
+                });
+
+            document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+        }
+
+        // Send Message
+        function sendMessage(userId) {
+            const message = document.getElementById('chatInput').value;
+            fetch(`${baseUrl}/chat/${userId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+                body: JSON.stringify({ message }),
+            })
+                .then(() => {
+                    const chatMessages = document.getElementById('chatMessages');
+                    const msg = document.createElement('div');
+                    msg.textContent = `You: ${message}`;
+                    chatMessages.appendChild(msg);
+                    document.getElementById('chatInput').value = '';
+                })
+                .catch(error => console.error('Error sending message:', error));
+        }
+
+	</script>
+	
+

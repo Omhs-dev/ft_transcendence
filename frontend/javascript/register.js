@@ -14,31 +14,44 @@ appSection.addEventListener('submit', (e) => {
 });
 
 const registerUser = async () => {
-    const username = document.getElementById('registerUsername').value.trim();
-    const email = document.getElementById('registerEmail').value.trim();
-    const password = document.getElementById('registerPassword').value.trim();
+	const username = document.getElementById('registerUsername').value.trim();
+	const email = document.getElementById('registerEmail').value.trim();
+	const password = document.getElementById('registerPassword').value.trim();
 	const confirmPassword = document.getElementById('confirmPassword').value.trim();
+	const registerBtn = document.getElementById("registerBtn");
+
+	console.log("username: ", username);
+	console.log("email: ", email);
+	console.log("Password: ", password);
+	console.log("Confirm Password: ", confirmPassword);
+	console.log("registerBtn: ", registerBtn);
 
 	if (!username || !email || !password) {
-		console.log("Username, email, or password is empty!");
-		alert("Please fill out all required fields.");
+		console.log("Empty fields !");
 		return;
 	}
 	console.log("password length: ", password.length)
 	if (password.length < 8) {
-		console.log("Password too short!");
-		alert("Password must be at least 8 characters long.");
+		let errorBox = document.querySelector("#errorBox1");
+		console.log("errorBox for pass < 8: ", errorBox);
+		errorBox.innerHTML = `
+			<p class="text-danger fw-light text-center">
+				Password must be at least 8 characters long.
+			</p>
+		`;
+		setInterval(() => {
+			errorBox.innerHTML = "";
+		}, 1000);
 		return;
 	}
 	
 	if (password !== confirmPassword) {
-		console.log("Passwords do not match!");
-		alert("Passwords do not match. Please confirm your password.");
+		unmatchedPass();
 		return;
 	}	
 
     try {
-        const response = await fetch('http://localhost:8000/backend/api/register/', {
+        const response = await fetch('http://localhost:8000/auth/api/register/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, email, password }),
@@ -59,8 +72,10 @@ const registerUser = async () => {
 		
 			alert(message.trim());
 			throw new Error(message.trim());
-		}		
+		}
 		
+		registerBtn.disabled = true;
+
 		closeModal();
 
 		// alert('User registered successfully!');
@@ -79,6 +94,41 @@ function closeModal() {
 	setTimeout(() => {
 		closeBtn.click();
 	}, 3000);
+}
+
+function unmatchedPass() {
+	//register form fields
+	const password = document.getElementById('registerPassword')
+	const confirmPassword = document.getElementById('confirmPassword')
+	const registerBtn = document.getElementById("registerBtn");
+
+	//error box
+	const errorBox = document.querySelector("#errorBox1");
+	const errorMessage = document.createElement("p");
+	const small = document.createElement("small");
+
+	console.log("registerBtn: ", registerBtn);
+	console.log("errorBox: ", errorBox);
+	console.log("errorMessage: ", errorMessage);
+	console.log("small: ", small);
+
+	password.classList.add('shake');
+	confirmPassword.classList.add('shake');
+
+	small.textContent = "Passwords do not match!";
+
+	errorMessage.classList.add('text-danger', 'fw-light', 'text-center');
+	errorMessage.appendChild(small);
+	errorBox.appendChild(errorMessage);
+
+	setInterval(() => {
+		registerBtn.disabled = false;
+		
+		password.classList.remove('shake');
+		confirmPassword.classList.remove('shake');
+
+		errorBox.innerHTML = "";
+	}, 2000);
 }
 
 function successfullyRegistered() {
