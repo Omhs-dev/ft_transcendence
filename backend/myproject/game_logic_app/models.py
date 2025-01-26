@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
     
-# # Create your models here.
+# Create your models here.
 # class User(models.Model):
 #     username = models.CharField(max_length=150, unique=True)
 #     email = models.EmailField(unique=True)
@@ -17,6 +17,7 @@ class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player')
     total_wins = models.PositiveIntegerField(default=0)
     total_losses = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0)
 
     @property
     def win_rate(self):
@@ -44,7 +45,7 @@ class Tournament(models.Model):
     end_time = models.DateTimeField(null=True, blank=True)  # Allow custom end times
     max_players = models.PositiveIntegerField(default=8)
     players = models.ManyToManyField(Player, related_name='tournaments')
-
+    games = models.ManyToManyField('Game', related_name='tournaments', default=None, blank=True)
     def __str__(self):
         return f"{self.name} - {self.status}"
 
@@ -60,12 +61,11 @@ class Game(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    players = models.ManyToManyField(Player, related_name='games')
-    score = models.CharField(max_length=50, blank=True)  # Adjusted to accommodate larger scores
+    player1_score = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player1', null=True, blank=True)
+    player2_score = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player2', null=True, blank=True)
     start_time = models.DateTimeField(default=timezone.now)
-    end_time = models.DateTimeField(null=True, blank=True)  # Allow null for ongoing games
+    end_time = models.DateTimeField(null=True, blank=True, default=timezone.now)  # Allow null for ongoing games
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='not_started')
-    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='games')
 
     def __str__(self):
         return f"Game {self.id} - {self.state}"
@@ -75,6 +75,8 @@ class Game(models.Model):
 #player1 and player2 are foreign keys to the player model, on delete is cascade, if a player is deleted, all the matches related to that player will be deleted
 #winner and loser are foreign keys to the player model, on delete is cascade, if a player is deleted, all the matches related to that player will be deleted
 #result is a string that contains the result of the match, eg. "11-9, 11-5, 11-7"
+
+#player-->game
 
 class MatchHistory(models.Model):
     id = models.AutoField(primary_key=True)

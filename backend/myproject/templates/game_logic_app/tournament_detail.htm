@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>{{ tournament.name }}</h2>
+        <p>{{ tournament.description }}</p>
+        <p>Status: {{ tournament.get_status_display }}</p>
+        <p>Players: {{ tournament.players.count }} / {{ tournament.max_players }}</p>
+
+        {% if tournament.status == 'pending' %}
+            <button id="registerButton" class="btn btn-success">Register for Tournament</button>
+            {% if tournament.players.count >= 2 %}
+                <form method="post" action="{% url 'start_tournament' tournament.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary mt-3">Start Tournament</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        {% if error %}
+            <div class="alert alert-danger mt-3">{{ error }}</div>
+        {% endif %}
+
+        <h3 class="mt-5">Participants</h3>
+        <ul class="list-group">
+            {% for player in tournament.players.all %}
+                <li class="list-group-item">{{ player.user.username }} - Win Rate: {{ player.win_rate }}%</li>
+            {% empty %}
+                <li class="list-group-item">No participants yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('registerButton').addEventListener('click', function() {
+            fetch("{% url 'register_player' tournament.id %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    location.reload();
+                } else if (data.error) {
+                    alert(data.error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -66,19 +66,25 @@ LOGGING = {
         },
         'console': {
             'class': 'logging.StreamHandler',
+            'formatter': 'simple'
         },
     },
     'loggers': {
         'django': {
             'handlers': ['file'],
-            'level': 'DEBUG',
+            'level': 'INFO',
             'propagate': True,
         },
         'chat_app': {
             'handlers': ['file'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
         },
+        'game_logic_app': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+            },
         # Add other loggers as needed
     },
 }
@@ -205,11 +211,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    BASE_DIR / "static",  # Adjust this based on your project structure
 ]
+
 
 
 REST_FRAMEWORK = {
