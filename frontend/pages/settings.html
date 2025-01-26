@@ -30,15 +30,15 @@
 				</div>
 
 				<div class="mb-4">
-					<label for="otp_method" class="form-label">Choose 2FA Method:</label>
-					<select id="otp_method" class="form-select" required>
+					<label for="twoFaMethod" class="form-label">Choose 2FA Method:</label>
+					<select id="twoFaMethod" class="form-select" required>
 						<option value="sms">SMS</option>
 						<option value="email">Email</option>
 						<option value="auth_app">Authenticator App</option>
 					</select>
 				</div>
 
-				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveOtpMode">
+				<button class="btn btn-primary" id="save" data-bs-toggle="modal" data-bs-target="#saveOtpMode">
 					Save
 				</button>
 		  </div>

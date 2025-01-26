@@ -277,7 +277,7 @@ const blockFriend = async (userId) => {
 }
 
 // Profile Picture
-const fetchProfilePicture = async () => {
+const fetchProfileInfo = async () => {
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
 			method: 'GET',
@@ -312,6 +312,10 @@ const fetchProfilePicture = async () => {
 			// userPicture.src = "../assets/user1.png";
 			// userPicSideNav.src = "../assets/user1.png";
 		}
+
+		const twoFa = data.is_2fa_enabled;
+		localStorage.setItem("twoFa", twoFa);
+		console.log("2fa: ", twoFa);
 	} catch(error) {
 		console.log(error.message);
 	}
@@ -343,7 +347,7 @@ const updateProfilePicture = async (formData) => {
 
 window.addEventListener("load", () => {
 
-	fetchProfilePicture();
+	fetchProfileInfo();
 });
 
 sideNavSection.addEventListener("click", (e) => {
@@ -356,7 +360,7 @@ sideNavSection.addEventListener("click", (e) => {
 		console.log("friend requests found");
 		fetchFriendRequests();
 	} else if (e.target.classList.contains("profile")) {
-		fetchProfilePicture();
+		fetchProfileInfo();
 		fetchFriendList();
 	}
 });
