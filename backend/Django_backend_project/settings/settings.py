@@ -225,11 +225,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-<<<<<<< HEAD:backend/myproject/settings/settings.py
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-=======
-STATIC_URL = 'static/'
 
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -244,7 +241,6 @@ DEFAULT_FROM_EMAIL = 'Transcendence'
 # twilio settings
 
 
->>>>>>> 42/master:backend/Django_backend_project/settings/settings.py
 STATICFILES_DIRS = [
     BASE_DIR / "static",  # Adjust this based on your project structure
 ]
