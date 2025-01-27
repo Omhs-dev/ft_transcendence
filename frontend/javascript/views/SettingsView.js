@@ -7,8 +7,22 @@ export default class extends AbsractView {
 	}
 
 	async loadHtml() {
-		return `
-			<h1>This is the settings page</h1>
-		`;
+		try {
+			const response = await fetch("./pages/settings.html");
+
+			if (!response.ok) {
+				throw new Error(`Could not fetch api ${response.status}`)
+			}
+
+			const htmlContent = await response.text();
+
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(htmlContent, "text/html");
+			console.log("dom doc: ", doc);
+
+			return doc.body.innerHTML;
+		} catch(error) {
+			console.error(error.message)
+		}
 	}
 }

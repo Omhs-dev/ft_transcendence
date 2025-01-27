@@ -83,9 +83,11 @@
 			const username = document.getElementById('reg_username').value;
 			const email = document.getElementById('reg_email').value;
 			const password = document.getElementById('reg_password').value;
-	
+			console.log("username: ", username);
+			console.log("email: ", email);
+			console.log("password: ", password);
 			try {
-				const response = await fetch(`/backend/api/register/`, {
+				const response = await fetch(`/auth/api/register/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -136,7 +138,7 @@
 		document.getElementById('logoutButton').addEventListener('click', async function () {
 			try {
 				const refreshToken = localStorage.getItem('refreshToken'); // Retrieve refresh token
-				const response = await fetch(`/backend/api/logout/`, {
+				const response = await fetch(`/auth/api/logout/`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',

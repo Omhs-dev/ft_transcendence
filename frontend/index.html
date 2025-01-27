@@ -15,8 +15,8 @@
 </head>
 
 <body>
-	<div class="d-flex">
-		<side-nav></side-nav>
+	<div class="d-flex" id="content">
+		<side-nav id="sidenav"></side-nav>
 
 		<div class="container d-flex justify-content-center align-items-center" id="app">
 			<!-- App load -->
@@ -25,7 +25,14 @@
 
 	<!-- My scripts -->
 	<script type="module" src="javascript/app.js"></script>
+	<script type="module" src="javascript/login.js?v=1.0.1"></script>
+	<script type="module" src="javascript/register.js?v=1.0.1"></script>
+	<script type="module" src="javascript/user.js?v=1.0.1"></script>
+	<script type="module" src="javascript/2fa.js?v=1.0.1"></script>
+	<script type="module" src="javascript/startgame.js"></script>
 	<script type="module" src="javascript/components/sidenav.js"></script>
+	<script type="module" src="javascript/components/loginCard.js"></script>
+	<script type="module" src="javascript/components/registerCard.js"></script>
 
 	<!-- Bootstrap Elements -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

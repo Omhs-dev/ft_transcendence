@@ -2,41 +2,44 @@
 <div class="container my-5">
 	<!-- Profile Header -->
 	<div class="row">
-		<div class="container">
+		<div class="container profileInfo" id="profileInfo">
 			<div class="row justify-content-center">
 				<div class="col-md-3 text-center">
-					<img src="../assets/user.png" alt="Profile Picture"
-						class="rounded-circle img-thumbnail">
+					<img src="" alt="Profile Picture"
+						class="rounded-circle img-thumbnail" id="userPicture">
+					<label for="formFile" class="form-label">Default file input example</label>
+					<input class="form-control" type="file" id="selectPicture" name="picture" accept="image/*">
 				</div>
 				<!-- user infos -->
 				<div class="card col-md-7  d-flex text-white bg-dark mb-3">
 					<div class="card-body">
 						<div class="d-flex justify-content-between">
 							<div>
-								<h2 class="card-title fw-bold">John Doe</h2>
-								<p class="text-muted">@johndoe</p>
+								<h2 class="card-title fw-bold" id="loggedUserName1">John Doe</h2>
+								<p class="text-muted" id="userNickName">@johndoe</p>
 							</div>
 							<div>
 								<button class="btn btn-primary rounded-pill">Add +</button>
 							</div>
 						</div>
 						<div class="card-text d-flex justify-content-between">
-							<div class="text-center">
+							<div class="text-center"  id="statusDiv">
 								<i class="fa-regular fa-circle"></i>
-								<a href="#" type="button" class="">Status</a>
-								<p class="text-success">Active</p>
+								<span class="mt-2">Status</span>
+								<p class="userStatus text-success">Online</p>
 							</div>
-							<div class="text-center">
+							<div class="text-center" id="friendListDiv">
 								<i class="fa-regular fa-user"></i>
-								<a href="#" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+								<button class="btn text-white friends" type="button" data-bs-toggle="modal"
+									data-bs-target="#staticBackdrop" id="friendListBtn">
 									Friend List
-								</a>
-								<p class="text-success">8</p>
+								</button>
+								<p class="friendNumber">0</p>
 							</div>
 							<div class="text-center">
 								<i class="fa-regular fa-message"></i>
 								<a href="#">Send Message</a>
-								<p class="text-success">Start</p>
+								<p class="text-success  class="mt-2"">Start</p>
 							</div>
 						</div>
 					</div>
@@ -190,7 +193,7 @@
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+				<h5 class="modal-title" id="staticBackdropLabel">Friend List</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -204,94 +207,8 @@
 										<th scope="col">Game Type</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">2</th>
-										<td>Apex Legends Finals</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Rocket League Weekly</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Call of Duty Warzone</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Fortnite Championship</td>
-									</tr>
-									<tr>
-										<th scope="row">6</th>
-										<td>Valorant Masters</td>
-									</tr>
-									<tr>
-										<th scope="row">7</th>
-										<td>Dota 2 Invitational</td>
-									</tr>
-									<tr>
-										<th scope="row">7</th>
-										<td>Dota 2 Invitational</td>
-									</tr>
-								</tbody>
-							</table>
-
-						</div>
-					</div>
-				</div>
-				<div class="card bg-dark shadow-2-strong mt-2">
-					<div class="card-body">
-						<div class="table-responsive">
-							<table class="table table-hover table-dark table-borderless mb-0">
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col text-success">Add New Friends</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">2</th>
-										<td>Apex Legends Finals</td>
-										<td>
-											<button class="btn btn-primary rounded-pill">Add +</button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Rocket League Weekly</td>
-										<td>
-											<button class="btn btn-primary rounded-pill">Add +</button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Call of Duty Warzone</td>
-										<td>
-											<button class="btn btn-primary rounded-pill">Add +</button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Fortnite Championship</td>
-										<td>
-											<button class="btn btn-primary rounded-pill">Add +</button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">6</th>
-										<td>Valorant Masters</td>
-										<td>
-											<button class="btn btn-primary rounded-pill">Add +</button>
-										</td>
-									</tr>
-									<tr>
-										<th scope="row">7</th>
-										<td>Dota 2 Invitational</td>
-										<td>
-											<button class="btn btn-primary rounded-pill">Add +</button>
-										</td>
-									</tr>
+								<tbody id="friendList">
+									<!-- friend list -->
 								</tbody>
 							</table>
 
@@ -301,7 +218,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Understood</button>
 			</div>
 		</div>
 	</div>

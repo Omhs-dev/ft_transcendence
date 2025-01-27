@@ -1,3 +1,14 @@
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	25% { transform: translateX(-5px); }
+	50% { transform: translateX(5px); }
+	75% { transform: translateX(-5px); }
+}
+
+.shake {
+	animation: shake 0.3s ease-in-out;
+}
+
 body {
 	min-height: 100vh;
 	min-height: -webkit-fill-available;
@@ -9,8 +20,6 @@ html {
 }
 
 main {
-}
-
 }
 
 .sidenav {
@@ -29,7 +38,7 @@ main {
     /* font-size: 24px; /* Font size */
     font-weight: bold; */
     line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transitions */
     cursor: pointer; /* Pointer cursor on hover */
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2); /* Shadow effect */
 }
@@ -52,7 +61,7 @@ main {
     border-radius: 10px; /* Rounded corners */
 	font-weight: bold; */
     line-height: 80px; /* Vertically center the text */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transitions */
     cursor: pointer; /* Pointer cursor on hover */
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -61,6 +70,26 @@ main {
 	color: black;
 	transform: translateY(-5px); /* Slightly lift the button on hover */
     box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+.game-mode {
+	color: #DFE3E7;
+	height: 80px;
+	width: 400px;
+	background-color: inherit;
+	border: 2px solid rgb(199, 227, 255);
+	border-radius: 10px; /* Rounded corners */
+	font-weight: bold; */
+	line-height: 80px; /* Vertically center the text */
+	transition: transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transitions */
+	cursor: pointer; /* Pointer cursor on hover */
+	box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.game-mode:hover {
+	color: white;
+	transform: translateY(-5px); /* Slightly lift the button on hover */
+	box-shadow: 2px 8px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
 }
 
 .modal-dialog
@@ -108,6 +137,24 @@ i {
     white-space: nowrap;
     font-size: 14px;
     color: #ccc;
+}
+
+#userPicture {
+	width: 200px;
+	height: 200px;
+}
+
+#v-pills-tab {
+	padding-right: 50px !important;
+	height: 40vh;
+}
+
+#v-pills-tabContent {
+	padding-left: 50px !important;
+}
+
+#tabsContainer {
+	height: 40vh;
 }
 
 @media (max-width: 868px) {
