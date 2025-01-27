@@ -1,4 +1,5 @@
-from .models import Tournament, Player, Game
+from .models import Tournament, Player, Game, MatchHistory
+from asgiref.sync import sync_to_async
 from django.utils import timezone
 import itertools
 import random
@@ -49,6 +50,14 @@ def update_game_state(game, data):
     # Implement game logic such as collision detection, scoring, etc.
     pass
 
+
+
+@sync_to_async
+def finalize_game_sync(game, winner, loser, result):
+	finalize_game(game, winner, loser, result)
+
+
+
 def finalize_game(game, winner, loser, result):
     # Update game and player stats
     game.state = 'finished'
@@ -64,16 +73,16 @@ def finalize_game(game, winner, loser, result):
 
     MatchHistory.objects.create(
         game=game,
-        player1=game.players.all()[0],
-        player2=game.players.all()[1],
+        player1=game.player1_score,
+        player2=game.player2_score,
         winner=winner,
         loser=loser,
         result=result
     )
 
     # Check if tournament needs to be updated
-    tournament = game.tournament
-    if all(g.state == 'finished' for g in tournament.games.all()):
-        tournament.status = 'finished'
-        tournament.end_time = timezone.now()
-        tournament.save()
+    # tournament = game.tournament
+    # if all(g.state == 'finished' for g in tournament.games.all()):
+    #     tournament.status = 'finished'
+    #     tournament.end_time = timezone.now()
+    #     tournament.save()

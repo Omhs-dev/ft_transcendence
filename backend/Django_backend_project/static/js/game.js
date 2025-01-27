@@ -97,9 +97,10 @@ function resetBall() {
     sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
 }
 
+
 // Update and draw the game
 function updateGame() {
-    if (!gamePaused) {
+    if (!gamePaused && gameInProgress) {
         movePaddles();
         moveBall();
     }
@@ -108,6 +109,7 @@ function updateGame() {
 
 // WebSocket connection and event handlers
 document.getElementById("startGame").addEventListener("click", () => {
+	resetGameState();
     if (!websocket || websocket.readyState !== WebSocket.OPEN) {
         console.log("WebSocket not connected. Reconnecting...");
         setupWebSocket();
@@ -126,16 +128,9 @@ document.getElementById("startGame").addEventListener("click", () => {
 function setupWebSocket() {
     websocket = new WebSocket("ws://" + window.location.host + "/ws/game/");
 
-    // websocket.onopen = function () {
-    //     console.log("WebSocket connected");
-    //     console.log("Hello World 1");
-
-    // };
-
     websocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
         console.log("Message from server: ", data);
-        console.log("Hello World 2");
 
         if (data.type === "game_update") {
             if (data.player1) player1 = data.player1;
@@ -157,14 +152,32 @@ function setupWebSocket() {
         }
         console.log("Hello World 4");
 
+		if (data.type === "game_paused") {
+			gamePaused = true;
+			console.log("Game paused");
+		}
 
-        if (data.type === "game_ended") {
-            gameInProgress = false;
-            console.log("Game ended");
+		if (data.type === "game_resumed") {
+			gamePaused = false;
+			console.log("Game resumed");
+		}
+
+		if (data.type === "game_restarted") {
+			resetGameState();
+			console.log("Game restarted");
+		}
+
+		if (data.type === "game_ended") {
+            gameInProgress = false; // Prevent game updates
             alert(`Game Over! Winner: Player ${data.winner}`);
+            clearInterval(gameLoopInterval);  // Stop the game loop
+            cancelAnimationFrame(animationFrame);  // Stop any ongoing animation
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+            document.getElementById("restartGame").style.display = "block";
+            document.getElementById("startGame").style.display = "none";
+            websocket.close();  // Close the WebSocket connection
         }
-        console.log("Hello World 5");
-
     };
 
     websocket.onerror = function (e) {
@@ -177,6 +190,7 @@ function setupWebSocket() {
     };
 }
 
+
 function startGameLoop() {
     if (!gameInProgress) {
         gameInProgress = true;
@@ -185,76 +199,74 @@ function startGameLoop() {
 }
 
 
-
 // Send paddle position to server
 function sendPaddlePosition(y, player) {
-    websocket.send(
-        JSON.stringify({
-            action: "move_paddle",
-            player: player,
-            position: y,
-            game_id: 1,  // Example game ID
-        })
-    );
+	if (websocket.readyState === WebSocket.OPEN) {
+		websocket.send(
+			JSON.stringify({
+				action: "move_paddle",
+				player: player,
+				position: y,
+				game_id: 1,  // Example game ID
+			})
+		);
+	}
 }
 
 // Send ball position to server (optional)
 function sendBallPosition(x, y, dx, dy) {
-    websocket.send(
-        JSON.stringify({
-            action: "update_ball",
-            ball: { x: x, y: y, dx: dx, dy: dy },
-            game_id: 1,  // Example game ID
-        })
-    );
+	if (websocket.readyState === WebSocket.OPEN) {
+		websocket.send(
+			JSON.stringify({
+				action: "update_ball",
+				ball: { x: x, y: y, dx: dx, dy: dy },
+				game_id: 1,  // Example game ID
+			})
+		);
+	}
 }
 
 // Send score update to server
 function sendScoreUpdate() {
     console.log("Sending score update");
-    websocket.send(
-        JSON.stringify({
-            action: "update_score",
-            player1_score: player1.score,
-            player2_score: player2.score,
-            game_id: 1,  // Example game ID
-        })
-    );
+	if (websocket.readyState === WebSocket.OPEN) {
+		websocket.send(
+			JSON.stringify({
+				action: "update_score",
+				player1_score: player1.score,
+				player2_score: player2.score,
+				game_id: 1,  // Example game ID
+			})
+		);
+	}
 }
-
-// // Start game loop
-// document.getElementById("startGame").addEventListener("click", () => {
-//     if (!websocket || websocket.readyState !== WebSocket.OPEN) {
-//         console.log("WebSocket not connected. Reconnecting...");
-//         setupWebSocket();
-//     }
-//     if (!gameInProgress) {
-//         websocket.send(JSON.stringify({ action: "start_game", game_id: 1 }));
-//         setInterval(updateGame, 1000 / 60); // 60 FPS
-//     }
-// });
 
 
 // Pause game
 document.getElementById("pauseGame").addEventListener("click", () => {
     if (gameInProgress) {
         websocket.send(JSON.stringify({ action: "pause_game", game_id: 1 }));
+
     }
 });
 
-// // Resume game
-// document.getElementById("resumeGame").addEventListener("click", () => {
-//     if (gameInProgress && gamePaused) {
-//         websocket.send(JSON.stringify({ action: "resume_game", game_id: 1 }));
-//     }
-// });
+// Resume game
+document.getElementById("resumeGame").addEventListener("click", () => {
+    if (gameInProgress && gamePaused) {
+        websocket.send(JSON.stringify({ action: "resume_game", game_id: 1 }));
+    }
+});
 
-// // Restart game
-// document.getElementById("restartGame").addEventListener("click", () => {
-//     if (gameInProgress) {
-//         websocket.send(JSON.stringify({ action: "restart_game", game_id: 1 }));
-//     }
-// });
+// Example: Restart Game button functionality
+document.getElementById("restartGame").addEventListener("click", () => {
+    if (gameInProgress) {
+        websocket.send(JSON.stringify({ action: "restart_game", game_id: 1 }));
+        // gameInProgress = false;
+		resetGameState();
+        document.getElementById("buttons").style.display = "block";
+    }
+});
+
 
 // Key event listeners
 window.addEventListener("keydown", (e) => {
@@ -263,3 +275,21 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     keys[e.key] = false;
 });
+
+
+function resetGameState() {
+    // Reset player scores and positions
+	if (gameInProgress) {
+		player1.score = 0;
+		player2.score = 0;
+		player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
+		if (websocket)
+			websocket.close();
+		clearInterval(updateGame);
+	}
+	gameInProgress = false;
+    player1.score = 0;
+    player2.score = 0;
+}

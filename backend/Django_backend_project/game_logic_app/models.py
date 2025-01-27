@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 #     # Add other fields as needed
 
 #Player model
-# win rate functionn is made to calculate the win rate of the player
+# win rate function is made to calculate the win rate of the player
 #player has a one to one relationship with the user model, profile of the player is linked to the user, 
 #if a user is deleted, the player will be deleted
 class Player(models.Model):
@@ -56,6 +56,7 @@ class Game(models.Model):
     STATE_CHOICES = [
         ('not_started', 'Not Started'),
         ('in_progress', 'In Progress'),
+        ('paused', 'Paused'),
         ('finished', 'Finished'),
         ('cancelled', 'Cancelled'),
     ]
@@ -66,6 +67,20 @@ class Game(models.Model):
     start_time = models.DateTimeField(default=timezone.now)
     end_time = models.DateTimeField(null=True, blank=True, default=timezone.now)  # Allow null for ongoing games
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='not_started')
+
+
+    def reset(self):
+        self.state = 'not_started'
+        self.start_time = timezone.now()
+        self.end_time = None
+        if self.player1_score:
+            self.player1_score.score = 0
+            self.player1_score.save(update_fields=['score'])
+        if self.player2_score:
+            self.player2_score.score = 0
+            self.player2_score.save(update_fields=['score'])
+        self.save()
+
 
     def __str__(self):
         return f"Game {self.id} - {self.state}"
