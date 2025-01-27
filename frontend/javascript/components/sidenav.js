@@ -34,7 +34,7 @@ class Sidenav extends HTMLElement {
 			
 			// const userPicture = doc.getElementById("userPicture");
 			const userPicSideNav = doc.getElementById("userImageSnav");
-			console.log("side nave pic: ", userPicSideNav);
+			// console.log("side nave pic: ", userPicSideNav);
 			userPicSideNav.src = "../assets/user1.png";
 
 			// Check if user is logged in

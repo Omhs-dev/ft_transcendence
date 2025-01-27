@@ -18,7 +18,9 @@ export default class extends AbsractView {
 
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(htmlContent, "text/html");
-			console.log("dom doc: ", doc);
+			// console.log("dom doc: ", doc);
+
+			
 
 			return doc.body.innerHTML;
 		} catch(error) {
