@@ -84,6 +84,11 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+        'game_logic_app': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+            },
         'auth_app': {
             'handlers': ['file'],
             'level': 'DEBUG',
@@ -108,6 +113,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_app',
     'chat_app',
+    'game_logic_app',
 	'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -219,7 +225,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
 
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -235,12 +242,13 @@ DEFAULT_FROM_EMAIL = 'Transcendence'
 
 
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    BASE_DIR / "static",  # Adjust this based on your project structure
 ]
 
 # Media files
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
