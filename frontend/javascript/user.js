@@ -365,35 +365,35 @@ sideNavSection.addEventListener("click", (e) => {
 	}
 });
 
-appSection.addEventListener("change", (e) => {
-    const file = e.target.files[0];
-	console.log("file infos: ", file);
+// appSection.addEventListener("change", (e) => {
+//     const file = e.target.files[0];
+// 	console.log("file infos: ", file);
 	
-    if (!file)
-		return;
+//     if (!file)
+// 		return;
 
-	if (!file.type.startsWith("image/"))
-		return;
+// 	if (!file.type.startsWith("image/"))
+// 		return;
 
-	if (file.size > 2 * 1024 * 1024)
-		return;
+// 	if (file.size > 2 * 1024 * 1024)
+// 		return;
 
-    const reader = new FileReader();
-	reader.onload = (event) => {
-		console.log("this is the event: ");
-		const pic = document.getElementById("userPicture");
-		const picSideNav = document.getElementById("userImageSnav");
-		pic.src = event.target.result;
-		picSideNav.src = event.target.result;
-		// pic.style.height = "200px";
-		// pic.style.width = "200px";
-	};
+//     const reader = new FileReader();
+// 	reader.onload = (event) => {
+// 		console.log("this is the event: ");
+// 		const pic = document.getElementById("userPicture");
+// 		const picSideNav = document.getElementById("userImageSnav");
+// 		pic.src = event.target.result;
+// 		picSideNav.src = event.target.result;
+// 		// pic.style.height = "200px";
+// 		// pic.style.width = "200px";
+// 	};
 
-	reader.readAsDataURL(file);
+// 	reader.readAsDataURL(file);
 
-	const formData = new FormData();
-	const userImage = document.getElementById("selectPicture").files[0];
-	console.log("user image: ", userImage);
-	formData.append("profile_picture", userImage);
-	updateProfilePicture(formData);
-});
+// 	const formData = new FormData();
+// 	const userImage = document.getElementById("selectPicture").files[0];
+// 	console.log("user image: ", userImage);
+// 	formData.append("profile_picture", userImage);
+// 	updateProfilePicture(formData);
+// });
