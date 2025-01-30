@@ -3,6 +3,9 @@ from asgiref.sync import sync_to_async
 from django.utils import timezone
 import itertools
 import random
+import logging
+
+logger = logging.getLogger(__name__)
 
 def create_tournament(name, description, max_players=8):
     tournament = Tournament.objects.create(
@@ -51,38 +54,41 @@ def update_game_state(game, data):
     pass
 
 
-
 @sync_to_async
-def finalize_game_sync(game, winner, loser, result):
-	finalize_game(game, winner, loser, result)
+def finalize_game_sync(game):
+    winner, loser = None, None
 
+    try:
+        if game.state != 'finished':  # Ensure the game is actually being finalized
+            game.state = 'finished'
+            game.end_time = timezone.now()
 
+            # Determine winner and loser based on scores
+            if game.player1_score > game.player2_score:
+                winner, loser = game.player1, game.player2
+            elif game.player2_score > game.player1_score:
+                winner, loser = game.player2, game.player1
 
-def finalize_game(game, winner, loser, result):
-    # Update game and player stats
-    game.state = 'finished'
-    game.end_time = timezone.now()
-    game.score = result
-    game.save()
+            # Update player stats if there is a winner
+            if winner and loser:
+                winner.total_wins += 1
+                loser.total_losses += 1
+                winner.save(update_fields=['total_wins'])
+                loser.save(update_fields=['total_losses'])
 
-    winner.total_wins += 1
-    winner.save()
+            game.save()
+            # Save match history
+            MatchHistory.objects.create(
+                game=game,
+                player1=game.player1,
+                player2=game.player2,
+                winner=winner,
+                loser=loser,
+                result=f"{game.player1_score} - {game.player2_score}"
+            )
 
-    loser.total_losses += 1
-    loser.save()
+    except Exception as e:
+        logger.error(f"Error finalizing game {game.id}: {str(e)}")
 
-    MatchHistory.objects.create(
-        game=game,
-        player1=game.player1_score,
-        player2=game.player2_score,
-        winner=winner,
-        loser=loser,
-        result=result
-    )
+    return winner, loser  # Return both winner and loser, or None if something went wrong
 
-    # Check if tournament needs to be updated
-    # tournament = game.tournament
-    # if all(g.state == 'finished' for g in tournament.games.all()):
-    #     tournament.status = 'finished'
-    #     tournament.end_time = timezone.now()
-    #     tournament.save()

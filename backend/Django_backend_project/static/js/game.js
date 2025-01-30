@@ -148,8 +148,6 @@ function setupWebSocket() {
             if (data.player2_score !== undefined) {
                 player2.score = data.player2_score;
             }
-            console.log("Hello World 3");
-
         }
 
         if (data.type === "game_started") {
@@ -157,7 +155,6 @@ function setupWebSocket() {
             gameInProgress = true;
             console.log("Game started");
         }
-        console.log("Hello World 4");
 
 		if (data.type === "game_paused") {
 			gamePaused = true;

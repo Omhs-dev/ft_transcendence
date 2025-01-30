@@ -38,7 +38,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         try:
             data = json.loads(text_data)
             action = data.get("action")
-            loggers.info(f"\n\n Received data in receive function: {data}")
+            # loggers.info(f"\n\n Received data in receive function: {data}")
 
             if action == 'start_game':
                 user2_id = data.get("user2_id")
@@ -111,7 +111,7 @@ class GameConsumer(AsyncWebsocketConsumer):
     @sync_to_async
     def save_game(self, game):
         game.save()
-        loggers.info(f"This is saved game: {game}")
+        # loggers.info(f"This is saved game: {game}")
 
     
     @sync_to_async
@@ -141,7 +141,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         game = await sync_to_async(Game.objects.filter(id=game_id).first)()
         if not game:
             game = await sync_to_async(Game.objects.create)(
-                id=game_id, player1_score=player1, player2_score=player2, state="in_progress"
+                id=game_id, player1=player1, player2=player2, state="in_progress"
             )
             loggers.info(f"Game {game_id} created with state 'in_progress'")
         else:
@@ -208,15 +208,27 @@ class GameConsumer(AsyncWebsocketConsumer):
         await self.save_game(game)
     
     
-    async def end_game(self, game_id, winner_id, loser_id, result):
+    async def end_game(self, game_id):
         game = await self.get_game(game_id)
-        winner = await sync_to_async(Player.objects.get)(id=winner_id)
-        loser = await sync_to_async(Player.objects.get)(id=loser_id)
-        await finalize_game_sync(game, winner, loser, result)
-        await self.channel_layer.group_send(
-            self.room_group_name,
-            {"type": "game_update", "data": {"type": "game_ended", "winner": winner_id, "game_id": game_id}},
-        )
+        winner, loser = await finalize_game_sync(game)  # Receive both winner and loser
+
+        if winner and loser:
+            # Proceed only if both winner and loser are available
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    "type": "game_update",
+                    "data": {
+                        "type": "game_ended",
+                        "winner": winner.id if winner else None,  # Send winner ID
+                        "loser": loser.id if loser else None,  # Send loser ID
+                        "game_id": game_id
+                    },
+                },
+            )
+        else:
+            loggers.error(f"Game {game_id} has no winner or loser. Skipping game update.")
+
 
 
     @sync_to_async
@@ -226,31 +238,18 @@ class GameConsumer(AsyncWebsocketConsumer):
         try:
             game = Game.objects.get(id=game_id)
 
-            # Update scores if players exist
-            if game.player1_score:
-                game.player1_score.score = player1_score
-                game.player1_score.save(update_fields=['score'])
-            else:
-                loggers.warning(f"Game {game_id}: Player 1 is not assigned.")
+            # Store scores in the Game model instead of Player
+            game.player1_score = player1_score
+            game.player2_score = player2_score
+            game.save(update_fields=['player1_score', 'player2_score'])
 
-            if game.player2_score:
-                game.player2_score.score = player2_score
-                game.player2_score.save(update_fields=['score'])
-            else:
-                loggers.warning(f"Game {game_id}: Player 2 is not assigned.")
+            if player1_score >= 3 or player2_score >= 3:  # Win condition
+                async_to_sync(self.end_game)(game_id)
 
-            if player1_score >= 3 or player2_score >= 3:
-                winner_id = game.player1_score.user.id if player1_score >= 3 else game.player2_score.user.id
-                loser_id = game.player2_score.user.id if player1_score >= 3 else game.player1_score.user.id
-                result = f"{player1_score}-{player2_score}"
-                # Corrected call to end_game
-                async_to_sync(self.end_game)(game_id, winner_id, loser_id, result)
-            
             loggers.info(f"Updated score for game {game_id}: Player1={player1_score}, Player2={player2_score}")
 
         except Game.DoesNotExist:
             loggers.error(f"Game with ID {game_id} does not exist.")
         except Exception as e:
             loggers.error(f"Error updating game {game_id} scores: {e}")
-
 
