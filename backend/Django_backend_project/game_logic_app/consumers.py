@@ -1,12 +1,14 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from .models import Game, Player
+from django.contrib.auth.models import User
 from .utils import *
 from django.utils import timezone
 from asgiref.sync import sync_to_async, async_to_sync
 import logging
 import asyncio
-
+import random
+import string
 
 loggers = logging.getLogger('game_logic_app')
 
@@ -32,45 +34,50 @@ class GameConsumer(AsyncWebsocketConsumer):
         loggers.info(f"WebSocket disconnected: {self.channel_name}")
 
 
-
     async def receive(self, text_data):
         try:
             data = json.loads(text_data)
             action = data.get("action")
-            game_id = data.get("game_id")
-            # loggers.info(f"\n\n Received action in receive function: {action} for game: {game_id}")
+            loggers.info(f"\n\n Received data in receive function: {data}")
 
-            if not game_id:
-                raise ValueError("Missing game_id")
-
-            if  action== "start_game":
-                await self.start_game(game_id)
+            if action == 'start_game':
+                user2_id = data.get("user2_id")
+                if not user2_id:
+                    raise ValueError("Missing user2_id")
+                game_id = await self.generate_unique_game_id()
+                await self.start_game(game_id, user2_id)
 
             elif action == "update_score":
-                # loggers.info(f"\n\nReceived update_score action for game: {game_id} ")
+                game_id = data.get('game_id')
                 player1_score = data.get('player1_score')
                 player2_score = data.get('player2_score')
                 await self.update_score(game_id, player1_score, player2_score)
 
             elif action == "move_paddle":
+                game_id = data.get('game_id')
                 player = data.get("player")
                 position = data.get("position")
                 await self.update_paddle(game_id, player, position)
            
             elif action == "update_ball":
+                game_id = data.get('game_id')
                 ball = data.get("ball")
                 await self.update_ball(game_id, ball)
            
             elif action == "pause_game":
+                game_id = data.get('game_id')
                 await self.pause_game(game_id)
             
             elif action == "resume_game":
+                game_id = data.get('game_id')
                 await self.resume_game(game_id)
             
             elif action == "restart_game":
+                game_id = data.get('game_id')
                 await self.restart_game(game_id)
             
             elif action == "end_game":
+                game_id = data.get('game_id')
                 winner_id = data.get("winner_id")
                 loser_id = data.get("loser_id")
                 result = data.get("result")
@@ -106,22 +113,41 @@ class GameConsumer(AsyncWebsocketConsumer):
         game.save()
         loggers.info(f"This is saved game: {game}")
 
+    
+    @sync_to_async
+    def generate_unique_game_id(self):
+        # Generate a random 6-digit number
+        game_id = ''.join(random.choices(string.digits, k=6))
+        
+        # Check if the game_id already exists in the Game model
+        if Game.objects.filter(id=game_id).exists():
+            # If it exists, recursively generate a new ID
+            return self.generate_unique_game_id()
+        
+        # Return the unique game_id
+        return game_id     
 
-    async def start_game(self, game_id):
-        loggers.info(f"Starting game inside ... {game_id}")
+    async def start_game(self, game_id, user2_id):
+    # async def start_game(self, game_id):
+        loggers.info(f"Starting game inside ... gID: {game_id} and the user2ID:{user2_id} ")
+        user1 = await sync_to_async(User.objects.filter(id=1).first)()
+        user2 = await sync_to_async(User.objects.filter(id=user2_id).first)()
+        loggers.info(f"User 1: {user1}, User 2: {user2}")
+    
+        player1 = await sync_to_async(Player.objects.get)(user=user1)
+        player2 = await sync_to_async(Player.objects.get)(user=user2)
 
-        # Using get_or_create to fetch or create the game asynchronously
-        game, created = await sync_to_async(Game.objects.get_or_create)(
-            # id=game_id, state="in_progress"
-            id=game_id, defaults={"state": "in_progress"}
-        )
 
-        if not created:
-            loggers.info(f"Game {game_id} already exists, updating state to 'in_progress'")
-            game.state = 'in_progress'
-            await self.save_game(game)
-        else:
+        game = await sync_to_async(Game.objects.filter(id=game_id).first)()
+        if not game:
+            game = await sync_to_async(Game.objects.create)(
+                id=game_id, player1_score=player1, player2_score=player2, state="in_progress"
+            )
             loggers.info(f"Game {game_id} created with state 'in_progress'")
+        else:
+            game.state = "in_progress"
+            await sync_to_async(game.save)()
+            loggers.info(f"Game {game_id} already existed, updated state to 'in_progress'")
 
         # Fetch the game after potential update to ensure consistency
         game = await self.get_game(game_id)
