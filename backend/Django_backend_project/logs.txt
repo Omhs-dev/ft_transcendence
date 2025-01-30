@@ -1,0 +1,14 @@
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.16, 192.168.0.1:59456][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MjAwNTYzLCJpYXQiOjE3MzgyMDAyNjMsImp0aSI6IjA4MWJkMTIzNWJiNzQwNDI4ZDNmNjM1ZDFmNzc5MjQ0IiwidXNlcl9pZCI6N30.zbpTnf6XBe91r-wYcZ6R8AkysWMX_UO_nCP8OizMT5g
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI4NjY2MywiaWF0IjoxNzM4MjAwMjYzLCJqdGkiOiIwZjQ1YTQ2OTYzYTk0ZGQyYmNjZDU0MjA1MzA0YzZhNCIsInVzZXJfaWQiOjd9.ajJ3ly0XMWrYGXzEu_Lg_dlRhyVHWTMOsvRdWEnwTDU
+WARNING Unauthorized: /auth/api/profile/
+WARNING [31;1mHTTP GET /auth/api/profile/ 401 [0.03, 192.168.0.1:59458][0m

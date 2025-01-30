@@ -1,7 +1,11 @@
 import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
+import { successfullyVerifiedOTP } from "./utils/2faUtils.js";
+import { closeModal } from "./utils/2faUtils.js";
 
 const baseUrl = "http://localhost:8000";
+const twoFa = localStorage.getItem('twoFa');
+console.log("2fa: ", twoFa);
 
 appSection.addEventListener("click", (e) => {
 	const method = document.getElementById('twoFaMethod').value;
@@ -21,10 +25,28 @@ appSection.addEventListener("click", (e) => {
 		}
 	}
 
-	if (e.target.id === 'verify') {
-		if (method === 'sms') {
-			verifyWithNumber();
+	if (e.target.id === 'verifyOTP') {
+		if (method === 'sms' || method === 'totp') {
+			console.log("verify with sms or totp");
+			verifyWithTopt();
+		} else if (method === 'email') {
+			console.log("verify with email");
+			verifyWithEmail();
 		}
+	}
+});
+
+appSection.addEventListener('change', (e) => {
+	const chooseMethod = document.getElementById('choose2FaMehtod');
+	console.log("chooseMethod: ", chooseMethod);
+
+	if (e.target.checked) {
+		console.log("checked");
+		chooseMethod.style.display = "block";
+	} else {
+		console.log("unchecked");
+		disabled2FA();
+		chooseMethod.style.display = "none";
 	}
 });
 
@@ -214,6 +236,122 @@ const updateUserNumber = async (number) => {
 		const data = response.json();
 		
 		localStorage.setItem('phone_number', number);
+	} catch(error) {
+		console.log(error.message);
+	}
+}
+
+const verifyWithEmail = async () => {
+	const otpCode = document.getElementById('otpCode').value;
+	const otpInput = document.getElementById('otpInput');
+	console.log("otpCode: ", otpCode);
+
+	if (!isValidPhoneNumber(otpCode)) {
+		console.log("Invalid code");
+		const errorBox = document.createElement('p');
+		errorBox.classList.add('text-danger');
+		errorBox.textContent = "Invalid code";
+		otpInput.appendChild(errorBox);
+		setInterval(() => {
+			errorBox.innerHTML = "";
+		}, 1000);
+		return;
+	}
+
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/verify-2fa-setup/`, {
+			method: 'POST',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+				'Content-Type': 'application/json',
+			},
+			credentials: 'include',
+			body: JSON.stringify({ 
+				method: 'email',
+				code: otpCode }),
+		});
+
+		if (!response.ok) {
+			throw new Error(`Could not fetch api ${response.status}`);
+		}
+
+		const data = response.json();
+
+		closeModal();
+
+		console.log("data: ", data);
+		console.log("Email verified successfully");
+	} catch(error) {
+		console.log(error.message);
+	}
+}
+
+const verifyWithTopt = async () => {
+	const otpCode = document.getElementById('otpCode').value;
+	const otpInput = document.getElementById('otpInput');
+	console.log("otpCode: ", otpCode);
+
+	if (!isValidPhoneNumber(otpCode)) {
+		console.log("Invalid code");
+		const errorBox = document.createElement('p');
+		errorBox.classList.add('text-danger');
+		errorBox.textContent = "Invalid code";
+		otpInput.appendChild(errorBox);
+		setInterval(() => {
+			errorBox.innerHTML = "";
+		}, 1000);
+		return;
+	}
+
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/verify-2fa-setup/`, {
+			method: 'POST',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+				'Content-Type': 'application/json',
+			},
+			credentials: 'include',
+			body: JSON.stringify({ 
+				method: 'totp',
+				code: otpCode }),
+		});
+
+		if (!response.ok) {
+			throw new Error(`Could not fetch api ${response.status}`);
+		}
+
+		const data = response.json();
+
+		closeModal();
+
+		console.log("data: ", data);
+		console.log("TOTP verified successfully");
+	} catch(error) {
+		console.log(error.message);
+	}
+}
+
+const disabled2FA = async () => {
+	const enableLabel = document.querySelector('.form-check-label');
+
+	enableLabel.textContent = "Disabled";
+
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/disable-2fa/`, {
+			method: 'POST',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+				'Content-Type': 'application/json',
+			},
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			throw new Error(`Could not fetch api ${response.status}`);
+		}
+
+		const data = response.json();
+		console.log("data: ", data);
 	} catch(error) {
 		console.log(error.message);
 	}
