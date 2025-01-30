@@ -1,4 +1,4 @@
-
+const enable2FA = localStorage.getItem("enable2Fa");
 
 export function successfullyVerifiedOTP() {
 	const otpCard = document.getElementById("otpCard");
@@ -27,4 +27,40 @@ export function closeModal() {
 	setTimeout(() => {
 		closeBtn.click();
 	}, 2000);
+}
+
+export function choose2FaMethod() {
+	const choose2FaMethod = document.getElementById("choose2FaMethod");
+	console.log("choose2FaMethod: ", choose2FaMethod);
+
+	if (enable2FA === "true") {
+		console.log("2fa already enabled");
+		twoFaAlreadyEnabled();
+	} else {
+		console.log("chossing 2fa method");
+		choose2FaMethod.innerHTML = `
+			<div class="mb-4">
+				<label for="twoFaMethod" class="form-label">Choose 2FA Method:</label>
+				<select id="twoFaMethod" class="form-select" required>
+					<option value="sms">SMS</option>
+					<option value="email">Email</option>
+					<option value="totp">Authenticator App</option>
+				</select>
+			</div>
+
+			<button class="btn btn-primary" id="save" data-bs-toggle="modal" data-bs-target="#saveOtpMode">
+				Save
+			</button>
+		`;
+	}
+}
+
+export function twoFaAlreadyEnabled() {
+	const choose2FaMethod = document.getElementById("choose2FaMethod");
+
+	choose2FaMethod.innerHTML = `
+		<div class="mb-4">
+			<p class="text-muted">2FA is <strong>enabled</strong></p>
+		</div>
+	`;
 }

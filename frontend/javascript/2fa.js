@@ -2,16 +2,18 @@ import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
 import { successfullyVerifiedOTP } from "./utils/2faUtils.js";
 import { closeModal } from "./utils/2faUtils.js";
+import { choose2FaMethod } from "./utils/2faUtils.js";
+import { twoFaAlreadyEnabled } from "./utils/2faUtils.js";
 
 const baseUrl = "http://localhost:8000";
 const twoFa = localStorage.getItem('twoFa');
+
 console.log("2fa: ", twoFa);
 
 appSection.addEventListener("click", (e) => {
-	const method = document.getElementById('twoFaMethod').value;
-
+	
 	if (e.target.id === 'save' ) {
-		console.log("save button have been clicked!");
+		const method = document.getElementById('twoFaMethod').value;
 
 		if (method === 'totp') {
 			console.log("this is auth app method");
@@ -37,16 +39,18 @@ appSection.addEventListener("click", (e) => {
 });
 
 appSection.addEventListener('change', (e) => {
-	const chooseMethod = document.getElementById('choose2FaMehtod');
-	console.log("chooseMethod: ", chooseMethod);
+	const chooseMethod = document.getElementById('choose2FaMethod');
+	console.log("e.target id: ", e.target.id);
 
-	if (e.target.checked) {
-		console.log("checked");
-		chooseMethod.style.display = "block";
-	} else {
-		console.log("unchecked");
-		disabled2FA();
-		chooseMethod.style.display = "none";
+	if (e.target.id === 'enable2FA') {
+		console.log("enable2FA clicked");
+		if (e.target.checked) {
+			console.log("checked");
+			choose2FaMethod();
+		} else {
+			console.log("unchecked");
+			disabled2FA();
+		}
 	}
 });
 
@@ -277,7 +281,10 @@ const verifyWithEmail = async () => {
 
 		const data = response.json();
 
+		localStorage.setItem('enable2Fa', 'true');
+		console.log("enable2Fa: ", localStorage.getItem('enable2Fa'));
 		closeModal();
+		twoFaAlreadyEnabled();
 
 		console.log("data: ", data);
 		console.log("Email verified successfully");
@@ -322,7 +329,10 @@ const verifyWithTopt = async () => {
 
 		const data = response.json();
 
+		localStorage.setItem('enable2Fa', 'true');
+		console.log("enable2Fa: ", localStorage.getItem('enable2Fa'));
 		closeModal();
+		twoFaAlreadyEnabled();
 
 		console.log("data: ", data);
 		console.log("TOTP verified successfully");
@@ -351,6 +361,9 @@ const disabled2FA = async () => {
 		}
 
 		const data = response.json();
+
+		localStorage.setItem('enable2Fa', 'false');
+		console.log("enable2Fa: ", localStorage.getItem('enable2Fa'));
 		console.log("data: ", data);
 	} catch(error) {
 		console.log(error.message);
