@@ -8,8 +8,9 @@ export function successfullyVerifiedOTP() {
 		<div class="card text-center shadow-lg p-4">
 			<div class="card-body p-4">
 				<div class="mb-3">
-					<div class="bg-success text-white rounded-circle d-flex justify-content-center
-						align-items-center mx-auto" style="width: 80px; height: 80px;">
+					<div class="bg-success text-white rounded-circle d-flex
+						justify-content-center align-items-center mx-auto"
+						style="width: 80px; height: 80px;">
 						<i class="fa-solid fa-check fa-2x"></i>
 					</div>
 				</div>
@@ -29,30 +30,25 @@ export function closeModal() {
 	}, 2000);
 }
 
-export function choose2FaMethod() {
+export function choose2FaMethodSection() {
 	const choose2FaMethod = document.getElementById("choose2FaMethod");
 	console.log("choose2FaMethod: ", choose2FaMethod);
 
-	if (enable2FA === "true") {
-		console.log("2fa already enabled");
-		twoFaAlreadyEnabled();
-	} else {
-		console.log("chossing 2fa method");
-		choose2FaMethod.innerHTML = `
-			<div class="mb-4">
-				<label for="twoFaMethod" class="form-label">Choose 2FA Method:</label>
-				<select id="twoFaMethod" class="form-select" required>
-					<option value="sms">SMS</option>
-					<option value="email">Email</option>
-					<option value="totp">Authenticator App</option>
-				</select>
-			</div>
+	choose2FaMethod.innerHTML = `
+		<div class="mb-4">
+			<label for="twoFaMethod" class="form-label">Choose 2FA Method:</label>
+			<select id="twoFaMethod" class="form-select" required>
+				<option value="sms">SMS</option>
+				<option value="email">Email</option>
+				<option value="totp">Authenticator App</option>
+			</select>
+		</div>
 
-			<button class="btn btn-primary" id="save" data-bs-toggle="modal" data-bs-target="#saveOtpMode">
-				Save
-			</button>
-		`;
-	}
+		<button class="btn btn-primary" id="save" data-bs-toggle="modal" 
+			data-bs-target="#saveOtpMode">
+			Save
+		</button>
+	`;
 }
 
 export function twoFaAlreadyEnabled() {
@@ -60,7 +56,7 @@ export function twoFaAlreadyEnabled() {
 
 	choose2FaMethod.innerHTML = `
 		<div class="mb-4">
-			<p class="text-muted">2FA is <strong>enabled</strong></p>
+			<p class="text-success">2FA is <strong>enabled</strong></p>
 		</div>
 	`;
 }

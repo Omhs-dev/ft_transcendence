@@ -1,9 +1,8 @@
 import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
 import { closeModal } from "./utils/2faUtils.js";
-import { choose2FaMethod } from "./utils/2faUtils.js";
 import { twoFaAlreadyEnabled } from "./utils/2faUtils.js";
-import { successfullyVerifiedOTP } from "./utils/2faUtils.js";
+import { choose2FaMethodSection } from "./utils/2faUtils.js";
 
 const baseUrl = "http://localhost:8000";
 const twoFa = localStorage.getItem('twoFa');
@@ -47,7 +46,7 @@ appSection.addEventListener('change', (e) => {
 		console.log("enable2FA clicked");
 		if (e.target.checked) {
 			console.log("checked");
-			choose2FaMethod();
+			// choose2FaMethod();
 		} else {
 			console.log("unchecked");
 			disabled2FA();
@@ -364,8 +363,11 @@ const disabled2FA = async () => {
 		const data = response.json();
 
 		localStorage.setItem('enable2Fa', 'false');
-		console.log("enable2Fa: ", localStorage.getItem('enable2Fa'));
+
+		choose2FaMethodSection();
+
 		console.log("data: ", data);
+		console.log("2FA disabled successfully");
 	} catch(error) {
 		console.log(error.message);
 	}
