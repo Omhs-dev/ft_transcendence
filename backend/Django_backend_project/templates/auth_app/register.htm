@@ -52,6 +52,7 @@
 					</div>
 
 					<button type="submit" id="loginButton">Login</button>
+					<button onclick="loginWith42()" style="margin-top: 2%;">Login with 42</button>
 				</form>
 			</div>
 		</div>
@@ -169,9 +170,81 @@
 
 
 <script>
-		let refreshTimer;
-		
+	
 
+	// *********************************** Global Variables ***********************************
+
+		let refreshTimer;
+		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
+		
+	// *********************************** Helper Functions ***********************************
+		// Ensure this function is called once the DOM is fully loaded
+		document.addEventListener("DOMContentLoaded", function() {
+			update2FASection(TwoFA); // Call the function with the appropriate TwoFA status
+		});
+
+	// *********************************** OAuth Login Logic ***********************************
+		// Login with 42
+		function loginWith42() {
+			localStorage.setItem('oauthLogin', 'true');
+			window.location.href = "/auth/api/42/login/"; // Redirects to 42 OAuth login
+		}
+	
+		// Check if the user came back from OAuth login
+		window.onload = function() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const accessToken = urlParams.get('access_token');
+			const refreshToken = urlParams.get('refresh_token');
+			
+			if (accessToken && refreshToken) {
+				// Store the tokens in cookies
+				document.cookie = `access_token=${accessToken}; path=/; secure; HttpOnly; SameSite=Strict`;
+				document.cookie = `refresh_token=${refreshToken}; path=/; secure; HttpOnly; SameSite=Strict`;
+
+				// Redirect to the dashboard
+				loadDashboard();
+				// window.location.href = "/dashboard";
+			}
+		};
+		
+		// OAuth Login
+		document.addEventListener("DOMContentLoaded", async function () {
+			// Check if user came back from OAuth login
+			if (localStorage.getItem('oauthLogin') === 'true') {
+				alert("page is loaded");
+				localStorage.removeItem('oauthLogin'); // Remove flag
+
+				// Check if the user is authenticated by making a request to a protected endpoint
+				try {
+					const response = await fetch('/auth/api/profile/', {
+						method: 'GET',
+						credentials: 'include' // Include cookies in the request
+					});
+
+					if (response.ok) {
+						const userData = await response.json();
+						console.log("OAuth Login successful:", userData);
+
+						// Store username in local storage
+						localStorage.setItem('username', userData.username);
+						
+						localStorage.setItem('isAuthenticated', 'true');
+
+						// Load dashboard
+						loadDashboard();
+					} else {
+						console.error("OAuth login failed or user not authenticated.");
+					}
+				} catch (error) {
+					console.error("Error checking OAuth authentication:", error);
+				}
+			}
+		});
+
+
+
+	// *********************************** Token Refresh Logic ***********************************
+	
 		// Function to get the CSRF token from the cookie
 		function getCookie(name) {
 			let cookieValue = null;
@@ -230,6 +303,8 @@
 			}
 		}
 
+
+	// *********************************** Authentication Logic ***********************************
 		// Register User
 		document.getElementById('registerForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
@@ -397,6 +472,8 @@
 			document.getElementById('dashboard').style.display = 'none';
 		}
 
+// *********************************** Dashboard Logic ***********************************
+
 		// Load Dashboard
 		function loadDashboard() {
 			startTokenRefreshTimer(); // Start refreshing tokens
@@ -412,6 +489,122 @@
 			fetchProfile(); // Fetch profile details when the dashboard loads
 		}
 
+	// *********************************** Fetch Online Users ***********************************
+	
+		// Fetch Online Users
+		async function fetchOnlineUsers() {
+			try {
+				const response = await fetch('/chat/api/online-users/');
+
+				const data = await response.json();
+				const userList = document.getElementById('userList');
+				userList.innerHTML = '';
+	
+				data.forEach(user => {
+					const userItem = document.createElement('li');
+					userItem.textContent = user.username;
+					userItem.dataset.userId = user.id;
+	
+					const friendButton = document.createElement('button');
+					friendButton.textContent = 'Send Friend Request';
+					friendButton.addEventListener('click', () => sendFriendRequest(user.id));
+	
+					userItem.appendChild(friendButton);
+					userList.appendChild(userItem);
+				});
+			} catch (error) {
+				console.error('Error fetching users:', error);
+			}
+		}
+
+	// *********************************** Fetch Friend Request and Friends Logic ***********************************
+		async function sendFriendRequest(userId) {
+			try {
+				const response = await fetch(`/chat/api/send-friend-request/${userId}/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',  // Ensure content type is set
+						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
+					},
+					credentials: 'include'  // Ensure cookies are sent with the request
+				});
+				const data = await response.json();
+				alert(data.message || 'Friend request sent.');
+			} catch (error) {
+				console.error('Error sending friend request:', error);
+			}
+		}
+
+		// Fetch Friend Requests
+		async function fetchFriendRequests() {
+			try {
+				const response = await fetch('/chat/api/friend-requests/');
+	
+				const data = await response.json();
+				const requestsList = document.getElementById('friendRequests');
+				requestsList.innerHTML = '';
+				console.log("section: ", requestsList);
+				
+				data.forEach(request => {
+					const requestItem = document.createElement('li');
+					requestItem.textContent = `${request.from_user} wants to be your friend`;
+	
+					const acceptButton = document.createElement('button');
+					acceptButton.textContent = 'Accept';
+					acceptButton.addEventListener('click', () => acceptFriendRequest(request.id));
+	
+					requestItem.appendChild(acceptButton);
+					requestsList.appendChild(requestItem);
+				});
+			} catch (error) {
+				console.error('Error fetching friend requests:', error);
+			}
+		}
+
+		// Accept Friend Request
+		async function acceptFriendRequest(requestId) {
+			try {
+				const response = await fetch(`/chat/api/accept-friend-request/${requestId}/`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json', // Ensure content type is set
+						'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
+					},
+					credentials: 'include', // Ensure cookies are sent with the request
+				});
+				const data = await response.json();
+				alert(data.message || 'Friend request accepted.');
+				fetchFriendRequests();
+			} catch (error) {
+				console.error('Error accepting friend request:', error);
+			}
+		}
+
+	// *********************************** Fetch Friends ***********************************
+		// Fetch Friend List
+		async function fetchFriends() {
+			try {
+				const response = await fetch('/chat/api/friends/');
+	
+				const data = await response.json();
+				const friendList = document.getElementById('friendList');
+				friendList.innerHTML = '';
+	
+				data.forEach(friend => {
+					const friendItem = document.createElement('li');
+					friendItem.textContent = friend.username;
+					friendItem.dataset.userId = friend.id;
+					friendItem.addEventListener('click', () => startChat(friend.id, friend.username));
+					friendList.appendChild(friendItem);
+				});
+			} catch (error) {
+				console.error('Error fetching friends:', error);
+			}
+		}
+
+	// *********************************** Profile and 2FA Logic ***********************************
+
+		// *********************************** Profile Logic ***********************************
 		// Profile Picture Preview
 		document.getElementById('profilePicture').addEventListener('change', function (event) {
 			const file = event.target.files[0];
@@ -424,7 +617,81 @@
 			}
 		});
 
+		// Fetch Profile
+		async function fetchProfile() {
+			try {
+				const response = await fetch('/auth/api/profile/');
+				if (response.ok) {
+					const profile = await response.json();
 
+					// Update bio
+					document.getElementById('profileBio').value = profile.bio || '';
+					document.getElementById('profilePhone').value = profile.phone_number || '';
+
+					// Display profile picture if it exists
+					if (profile.profile_picture) {
+						const profileImage = document.getElementById('profilePicturePreview');
+						profileImage.src = profile.profile_picture;
+						profileImage.style.display = 'block'; // Show the image
+					} else {
+						// Hide the image if no profile picture is available
+						document.getElementById('profilePicturePreview').style.display = 'none';
+					}
+
+					// Determine if 2FA is enabled
+					TwoFA = profile.is_2fa_enabled || false;
+					localStorage.setItem('TwoFA', TwoFA); //assume 2FA is disabled
+					console.log("otpMethod in the fetch profile: ", TwoFA);
+					// Update the 2FA section based on the status
+					update2FASection(TwoFA);
+
+					const phoneNumber = profile.phone_number || '';
+					localStorage.setItem('phoneNumber', phoneNumber);
+					console.log("phoneNumber: ", phoneNumber);
+				} else {
+					console.error('Failed to fetch profile:', response.status);
+				}
+			} catch (error) {
+				console.error('Error fetching profile:', error);
+			}
+		}
+
+		// Update Profile
+		document.getElementById('profileForm').addEventListener('submit', async function (event) {
+			event.preventDefault();
+			const bio = document.getElementById('profileBio').value;
+			const profilePicture = document.getElementById('profilePicture').files[0];
+			const phone = document.getElementById('profilePhone').value;
+
+			console.log("phone in profile: ", phone);
+			const formData = new FormData();
+			formData.append('bio', bio);
+			formData.append('phone_number', phone);
+			if (profilePicture) {
+				formData.append('profile_picture', profilePicture);
+			}
+
+			try {
+				const response = await fetch('/auth/api/profile/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
+					},
+					body: formData
+				});
+				if (response.ok) {
+					const updatedProfile = await response.json();
+					alert('Profile updated successfully!');
+				} else {
+					console.error('Failed to update profile:', response.status);
+				}
+			} catch (error) {
+				console.error('Error updating profile:', error);
+			}
+		});
+
+
+		// *********************************** 2FA Logic ***********************************
 		// phone number validation
 		function isValidPhoneNumber(phoneNumber) {
 			// Regex pattern to validate phone number (adjust as needed)
@@ -576,13 +843,6 @@
 			}); // Ensure the event listener is added only once
 		}
 
-
-		// Ensure this function is called once the DOM is fully loaded
-		document.addEventListener("DOMContentLoaded", function() {
-            update2FASection(TwoFA); // Call the function with the appropriate TwoFA status
-        });
-
-
 		// Update the 2FA Section
 		function update2FASection(TwoFA) {
 			console.debug("2FA in update2FASection: ", TwoFA);
@@ -598,81 +858,6 @@
 				document.getElementById('enable2FA').addEventListener('click', change2FAMethod);
 			}
 		}
-
-		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
-		// Fetch Profile
-		async function fetchProfile() {
-			try {
-				const response = await fetch('/auth/api/profile/');
-				if (response.ok) {
-					const profile = await response.json();
-
-					// Update bio
-					document.getElementById('profileBio').value = profile.bio || '';
-					document.getElementById('profilePhone').value = profile.phone_number || '';
-
-					// Display profile picture if it exists
-					if (profile.profile_picture) {
-						const profileImage = document.getElementById('profilePicturePreview');
-						profileImage.src = profile.profile_picture;
-						profileImage.style.display = 'block'; // Show the image
-					} else {
-						// Hide the image if no profile picture is available
-						document.getElementById('profilePicturePreview').style.display = 'none';
-					}
-
-					// Determine if 2FA is enabled
-					TwoFA = profile.is_2fa_enabled || false;
-					localStorage.setItem('TwoFA', TwoFA); //assume 2FA is disabled
-					console.log("otpMethod in the fetch profile: ", TwoFA);
-					// Update the 2FA section based on the status
-					update2FASection(TwoFA);
-
-					const phoneNumber = profile.phone_number || '';
-					localStorage.setItem('phoneNumber', phoneNumber);
-					console.log("phoneNumber: ", phoneNumber);
-				} else {
-					console.error('Failed to fetch profile:', response.status);
-				}
-			} catch (error) {
-				console.error('Error fetching profile:', error);
-			}
-		}
-
-		// Update Profile
-		document.getElementById('profileForm').addEventListener('submit', async function (event) {
-			event.preventDefault();
-			const bio = document.getElementById('profileBio').value;
-			const profilePicture = document.getElementById('profilePicture').files[0];
-			const phone = document.getElementById('profilePhone').value;
-
-			console.log("phone in profile: ", phone);
-			const formData = new FormData();
-			formData.append('bio', bio);
-			formData.append('phone_number', phone);
-			if (profilePicture) {
-				formData.append('profile_picture', profilePicture);
-			}
-
-			try {
-				const response = await fetch('/auth/api/profile/', {
-					method: 'POST',
-					headers: {
-						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
-					},
-					body: formData
-				});
-				if (response.ok) {
-					const updatedProfile = await response.json();
-					alert('Profile updated successfully!');
-				} else {
-					console.error('Failed to update profile:', response.status);
-				}
-			} catch (error) {
-				console.error('Error updating profile:', error);
-			}
-		});
-
 
 		// Disable 2FA
 		async function disable2FA() {
@@ -697,7 +882,6 @@
 				console.error('Error disabling 2FA:', error);
 			}
 		}
-
 
 		// verify totp Method
 		document.getElementById('verifyAuthenticatorForm').addEventListener('submit', async function (event) {
@@ -814,115 +998,7 @@
 		});
 
 
-		// Fetch Online Users
-		async function fetchOnlineUsers() {
-			try {
-				const response = await fetch('/chat/api/online-users/');
-
-				const data = await response.json();
-				const userList = document.getElementById('userList');
-				userList.innerHTML = '';
-	
-				data.forEach(user => {
-					const userItem = document.createElement('li');
-					userItem.textContent = user.username;
-					userItem.dataset.userId = user.id;
-	
-					const friendButton = document.createElement('button');
-					friendButton.textContent = 'Send Friend Request';
-					friendButton.addEventListener('click', () => sendFriendRequest(user.id));
-	
-					userItem.appendChild(friendButton);
-					userList.appendChild(userItem);
-				});
-			} catch (error) {
-				console.error('Error fetching users:', error);
-			}
-		}
-
-		async function sendFriendRequest(userId) {
-			try {
-				const response = await fetch(`/chat/api/send-friend-request/${userId}/`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',  // Ensure content type is set
-						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
-					},
-					credentials: 'include'  // Ensure cookies are sent with the request
-				});
-				const data = await response.json();
-				alert(data.message || 'Friend request sent.');
-			} catch (error) {
-				console.error('Error sending friend request:', error);
-			}
-		}
-
-		// Fetch Friend Requests
-		async function fetchFriendRequests() {
-			try {
-				const response = await fetch('/chat/api/friend-requests/');
-	
-				const data = await response.json();
-				const requestsList = document.getElementById('friendRequests');
-				requestsList.innerHTML = '';
-				console.log("section: ", requestsList);
-				
-				data.forEach(request => {
-					const requestItem = document.createElement('li');
-					requestItem.textContent = `${request.from_user} wants to be your friend`;
-	
-					const acceptButton = document.createElement('button');
-					acceptButton.textContent = 'Accept';
-					acceptButton.addEventListener('click', () => acceptFriendRequest(request.id));
-	
-					requestItem.appendChild(acceptButton);
-					requestsList.appendChild(requestItem);
-				});
-			} catch (error) {
-				console.error('Error fetching friend requests:', error);
-			}
-		}
-
-		// Accept Friend Request
-		async function acceptFriendRequest(requestId) {
-			try {
-				const response = await fetch(`/chat/api/accept-friend-request/${requestId}/`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json', // Ensure content type is set
-						'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
-					},
-					credentials: 'include', // Ensure cookies are sent with the request
-				});
-				const data = await response.json();
-				alert(data.message || 'Friend request accepted.');
-				fetchFriendRequests();
-			} catch (error) {
-				console.error('Error accepting friend request:', error);
-			}
-		}
-
-		// Fetch Friend List
-		async function fetchFriends() {
-			try {
-				const response = await fetch('/chat/api/friends/');
-	
-				const data = await response.json();
-				const friendList = document.getElementById('friendList');
-				friendList.innerHTML = '';
-	
-				data.forEach(friend => {
-					const friendItem = document.createElement('li');
-					friendItem.textContent = friend.username;
-					friendItem.dataset.userId = friend.id;
-					friendItem.addEventListener('click', () => startChat(friend.id, friend.username));
-					friendList.appendChild(friendItem);
-				});
-			} catch (error) {
-				console.error('Error fetching friends:', error);
-			}
-		}
-
+	// *********************************** Chat Logic ***********************************
 		// chat section
 		document.addEventListener('DOMContentLoaded', function () {
 			// Attach event listeners to chat items once the DOM is fully loaded

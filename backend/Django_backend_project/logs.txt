@@ -6,129 +6,441 @@ DEBUG Signal: create_or_update_user_profile triggered
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
-INFO [mHTTP GET /auth/register/ 200 [0.06, 172.18.0.1:35604][0m
-INFO [mHTTP GET /static/css/register_style.css 200 [0.00, 172.18.0.1:35604][0m
-DEBUG Request data: {'username': 'aaa', 'email': 'nnavidd.00@gmail.com', 'password': '12345678'}
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/urls.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/urls.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=6bf98a0fb08f49f7a580a4ce2b460f1d 200 [0.08, 172.18.0.1:39040][0m
+INFO [mHTTP GET /auth/register/ 200 [0.04, 172.18.0.1:39040][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:39040][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:39036][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:58168][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:58178][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:58178][0m
+INFO [36mHTTP GET /static/images/favicon.ico 304 [0.01, 172.18.0.1:58178][0m
+INFO [mHTTP GET /auth/register/ 200 [0.02, 172.18.0.1:58178][0m
+INFO [mHTTP GET /auth/register/ 200 [0.03, 172.18.0.1:58178][0m
+INFO [mHTTP GET /auth/register/ 200 [0.03, 172.18.0.1:58178][0m
+WARNING Not Found: /auth/42/login/
+WARNING [33mHTTP GET /auth/42/login/ 404 [0.12, 172.18.0.1:33044][0m
+INFO [36mHTTP GET /static/debug_toolbar/css/toolbar.css 304 [0.02, 172.18.0.1:33044][0m
+INFO [36mHTTP GET /static/debug_toolbar/js/toolbar.js 304 [0.02, 172.18.0.1:33042][0m
+INFO [36mHTTP GET /static/debug_toolbar/css/print.css 304 [0.01, 172.18.0.1:33060][0m
+INFO [36mHTTP GET /static/debug_toolbar/js/utils.js 304 [0.00, 172.18.0.1:33060][0m
+INFO /app/Django_backend_project/auth_app/urls.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/urls.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO [mHTTP GET /auth/register/ 200 [0.05, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.03, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:42170][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42180][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:42180][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:42180][0m
+INFO [mHTTP GET /auth/register/ 200 [0.02, 172.18.0.1:42180][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:42170][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:42180][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:42168][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:42168][0m
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.02, 172.18.0.1:42168][0m
+WARNING Not Found: /auth/api/42/callback/
+WARNING [33mHTTP GET /auth/api/42/callback/?code=2444d61e885ff36d59141c0b5f2e2844ed50eb7aaa1ad6d37b30b1477699e1ee 404 [0.04, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42170][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:42168][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:42170][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:42170][0m
+INFO /app/Django_backend_project/auth_app/urls.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Received OAuth code from 42: 2444d61e885ff36d59141c0b5f2e2844ed50eb7aaa1ad6d37b30b1477699e1ee
 DEBUG Signal: create_or_update_user_profile triggered
-INFO [mHTTP POST /auth/api/register/ 201 [0.40, 172.18.0.1:35604][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=4b26c1a6da8842a8854eea1fff77451c 200 [0.01, 172.18.0.1:35604][0m
-INFO User aaa is authenticated in the login class:
-INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzI4MDU3LCJpYXQiOjE3MzgzMjc3NTcsImp0aSI6ImMxYWIwN2U5NWYyYzQwNTZiZGYxNWE1YTMyYTlmMWU2IiwidXNlcl9pZCI6Mn0.08qFGT3R9HHdN4j7aiMpYLBfhkXBArhGSR9UfpM_Exo
 DEBUG Signal: create_or_update_user_profile triggered
-DEBUG Signal: User aaa logged in
-DEBUG response.data: {'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk'}}
-INFO [mHTTP POST /auth/api/login/ 200 [0.66, 172.18.0.1:35604][0m
+DEBUG Signal: User nnabaeei logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [mHTTP GET /auth/api/42/callback/?code=2444d61e885ff36d59141c0b5f2e2844ed50eb7aaa1ad6d37b30b1477699e1ee 200 [0.98, 172.18.0.1:45606][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:45606][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:45606][0m
+DEBUG Received OAuth code from 42: 2444d61e885ff36d59141c0b5f2e2844ed50eb7aaa1ad6d37b30b1477699e1ee
+ERROR Failed to exchange code for token: 401 Client Error: Unauthorized for url: https://api.intra.42.fr/oauth/token
+INFO [32mHTTP GET /auth/api/42/callback/?code=2444d61e885ff36d59141c0b5f2e2844ed50eb7aaa1ad6d37b30b1477699e1ee 302 [0.17, 172.18.0.1:45606][0m
+INFO [32mHTTP GET /auth/register?error=TokenExchangeFailed 301 [0.05, 172.18.0.1:45606][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:45606][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:45606][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:45616][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:45626][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:45626][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:45626][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:45626][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:45626][0m
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.02, 172.18.0.1:45626][0m
+DEBUG Received OAuth code from 42: 5c457ee7bcb649ee9d2aea909ff6714148d69d438455b89e59ecd8e664ed8449
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzI4MDY2LCJpYXQiOjE3MzgzMjc3NjYsImp0aSI6ImZiMWU0ZjA4NzNkZTQ2Njk5YzAwODlkMTQ4MWY4Y2EwIiwidXNlcl9pZCI6Mn0.AAZTynRC-Uol2tyMX0z_55jHxld3WmcSHy2zjYauju0
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User nnabaeei logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [mHTTP GET /auth/api/42/callback/?code=5c457ee7bcb649ee9d2aea909ff6714148d69d438455b89e59ecd8e664ed8449 200 [0.75, 172.18.0.1:45626][0m
+DEBUG Received OAuth code from 42: 5c457ee7bcb649ee9d2aea909ff6714148d69d438455b89e59ecd8e664ed8449
+ERROR Failed to exchange code for token: 401 Client Error: Unauthorized for url: https://api.intra.42.fr/oauth/token
+INFO [32mHTTP GET /auth/api/42/callback/?code=5c457ee7bcb649ee9d2aea909ff6714148d69d438455b89e59ecd8e664ed8449 302 [0.15, 172.18.0.1:45626][0m
+INFO [32mHTTP GET /auth/register?error=TokenExchangeFailed 301 [0.03, 172.18.0.1:45626][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:45626][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:45626][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:45606][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:45616][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:45616][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:45606][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:45606][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:45606][0m
+INFO [32mHTTP GET /admin/game_logic_app/matchhistory/ 302 [0.05, 172.18.0.1:53176][0m
+INFO [mHTTP GET /admin/login/?next=/admin/game_logic_app/matchhistory/ 200 [0.04, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/css/base.css 200 [0.02, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/css/dark_mode.css 200 [0.02, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/admin/css/nav_sidebar.css 200 [0.02, 172.18.0.1:53192][0m
+INFO [mHTTP GET /static/admin/css/login.css 200 [0.01, 172.18.0.1:53206][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:53230][0m
+INFO [mHTTP GET /static/admin/css/responsive.css 200 [0.02, 172.18.0.1:53222][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/admin/js/theme.js 200 [0.01, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/js/nav_sidebar.js 200 [0.01, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:53248][0m
+INFO [mHTTP GET /static/admin/js/theme.js 200 [0.01, 172.18.0.1:53240][0m
+INFO [mHTTP GET /static/admin/js/nav_sidebar.js 200 [0.01, 172.18.0.1:53252][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:53252][0m
+INFO [36mHTTP GET /static/images/favicon.ico 304 [0.00, 172.18.0.1:53182][0m
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User admin logged in
+INFO [32mHTTP POST /admin/login/?next=/admin/game_logic_app/matchhistory/ 302 [0.46, 172.18.0.1:53182][0m
+WARNING Not Found: /admin/game_logic_app/matchhistory/
+WARNING [33mHTTP GET /admin/game_logic_app/matchhistory/ 404 [0.05, 172.18.0.1:53182][0m
+INFO [mHTTP GET /admin/ 200 [0.08, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/admin/css/dashboard.css 200 [0.01, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/admin/img/icon-addlink.svg 200 [0.01, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/img/icon-changelink.svg 200 [0.01, 172.18.0.1:53222][0m
+INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.12, 172.18.0.1:53222][0m
+INFO [mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 200 [0.02, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/js/vendor/jquery/jquery.js 200 [0.02, 172.18.0.1:53230][0m
+INFO [mHTTP GET /static/admin/js/actions.js 200 [0.02, 172.18.0.1:53192][0m
+INFO [mHTTP GET /static/admin/js/jquery.init.js 200 [0.02, 172.18.0.1:53182][0m
+INFO [mHTTP GET /static/admin/js/urlify.js 200 [0.02, 172.18.0.1:53206][0m
+INFO [mHTTP GET /static/admin/css/changelists.css 200 [0.02, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/img/icon-yes.svg 200 [0.02, 172.18.0.1:53230][0m
+INFO [mHTTP GET /static/admin/js/prepopulate.js 200 [0.02, 172.18.0.1:53206][0m
+INFO [mHTTP GET /static/admin/js/core.js 200 [0.02, 172.18.0.1:53192][0m
+INFO [mHTTP GET /static/admin/js/vendor/xregexp/xregexp.js 200 [0.03, 172.18.0.1:53182][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.09, 172.18.0.1:53222][0m
+INFO [mHTTP GET /static/admin/img/icon-no.svg 200 [0.04, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/js/actions.js 200 [0.02, 172.18.0.1:53248][0m
+INFO [mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 200 [0.02, 172.18.0.1:53252][0m
+INFO [mHTTP GET /static/admin/js/urlify.js 200 [0.02, 172.18.0.1:48844][0m
+INFO [mHTTP GET /static/admin/js/vendor/jquery/jquery.js 200 [0.02, 172.18.0.1:53240][0m
+INFO [mHTTP GET /static/admin/js/jquery.init.js 200 [0.02, 172.18.0.1:48846][0m
+INFO [mHTTP GET /static/admin/js/filters.js 200 [0.00, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/img/icon-viewlink.svg 200 [0.00, 172.18.0.1:53222][0m
+INFO [mHTTP GET /static/admin/img/tooltag-add.svg 200 [0.01, 172.18.0.1:53176][0m
+INFO [mHTTP GET /static/admin/js/prepopulate.js 200 [0.01, 172.18.0.1:48846][0m
+INFO [mHTTP GET /static/admin/js/core.js 200 [0.01, 172.18.0.1:53240][0m
+INFO [mHTTP GET /static/admin/js/vendor/xregexp/xregexp.js 200 [0.01, 172.18.0.1:48844][0m
+INFO [mHTTP GET /static/admin/js/filters.js 200 [0.01, 172.18.0.1:53248][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.06, 172.18.0.1:53252][0m
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.03, 172.18.0.1:52246][0m
+DEBUG Received OAuth code from 42: 8621e8de5c052eb9df6ab5af3a704cf7d0b2d397b2dbfcbae704077be81d3356
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzI5MDI2LCJpYXQiOjE3MzgzMjg3MjYsImp0aSI6IjY4MzgwZjQ5MTM1ZDQxYTE5OWE4NDdmNDM4MTdmMmM5IiwidXNlcl9pZCI6Mn0.Mk8Hr8P23wEKCKL2599ezCzHwTX_iANAC9gGKUZFWIc
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User nnabaeei logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [mHTTP GET /auth/api/42/callback/?code=8621e8de5c052eb9df6ab5af3a704cf7d0b2d397b2dbfcbae704077be81d3356 200 [0.83, 172.18.0.1:52246][0m
+INFO [mHTTP GET /auth/register/ 200 [0.02, 172.18.0.1:50318][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:50318][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:50326][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:50320][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:50320][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:50326][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:50320][0m
+DEBUG Received OAuth code from 42: 8621e8de5c052eb9df6ab5af3a704cf7d0b2d397b2dbfcbae704077be81d3356
+ERROR Failed to exchange code for token: 401 Client Error: Unauthorized for url: https://api.intra.42.fr/oauth/token
+INFO [32mHTTP GET /auth/api/42/callback/?code=8621e8de5c052eb9df6ab5af3a704cf7d0b2d397b2dbfcbae704077be81d3356 302 [0.18, 172.18.0.1:42874][0m
+INFO [32mHTTP GET /auth/register?error=TokenExchangeFailed 301 [0.12, 172.18.0.1:42874][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.03, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:42890][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.02, 172.18.0.1:42890][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:42884][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:42890][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:42874][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:42874][0m
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.02, 172.18.0.1:42874][0m
+DEBUG Received OAuth code from 42: 7fc3d6953df7054f8fc110a23112e3a304a1d0dadec10bd12c4dfa8be1b5a933
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzI5MjgwLCJpYXQiOjE3MzgzMjg5ODAsImp0aSI6ImI4ZmM2ZmYzMDE4OTRiMTk5NmVhNTJjMTkyZmY3OGFkIiwidXNlcl9pZCI6Mn0.kmebvJ5lgmBrUB4g5uiXB8u07ElCp4xBk2TXJL0BM_c
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User nnabaeei logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [mHTTP GET /auth/api/42/callback/?code=7fc3d6953df7054f8fc110a23112e3a304a1d0dadec10bd12c4dfa8be1b5a933 200 [0.73, 172.18.0.1:42874][0m
+DEBUG Received OAuth code from 42: 7fc3d6953df7054f8fc110a23112e3a304a1d0dadec10bd12c4dfa8be1b5a933
+ERROR Failed to exchange code for token: 401 Client Error: Unauthorized for url: https://api.intra.42.fr/oauth/token
+INFO [32mHTTP GET /auth/api/42/callback/?code=7fc3d6953df7054f8fc110a23112e3a304a1d0dadec10bd12c4dfa8be1b5a933 302 [0.18, 172.18.0.1:42874][0m
+INFO [32mHTTP GET /auth/register?error=TokenExchangeFailed 301 [0.04, 172.18.0.1:42874][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.02, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:42890][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:42890][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:42884][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:42884][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:42890][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:42884][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:42874][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:42874][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:42874][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.04, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.04, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.03, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:60572][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:60572][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.03, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.03, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:60586][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:60586][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:60578][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:60578][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.01, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:60572][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:60572][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.00, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:60578][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:60578][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.02, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.03, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:60572][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:60572][0m
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.03, 172.18.0.1:60572][0m
+DEBUG Received OAuth code from 42: 26f1521686c0e11a590a42981f3a8811a8c894607cd6b12285e73ebfa3fdc697
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User nnabaeei logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [mHTTP GET /auth/api/42/callback/?code=26f1521686c0e11a590a42981f3a8811a8c894607cd6b12285e73ebfa3fdc697 200 [1.07, 172.18.0.1:60572][0m
+DEBUG Received OAuth code from 42: 26f1521686c0e11a590a42981f3a8811a8c894607cd6b12285e73ebfa3fdc697
+ERROR Failed to exchange code for token: 401 Client Error: Unauthorized for url: https://api.intra.42.fr/oauth/token
+INFO [32mHTTP GET /auth/api/42/callback/?code=26f1521686c0e11a590a42981f3a8811a8c894607cd6b12285e73ebfa3fdc697 302 [0.15, 172.18.0.1:60572][0m
+INFO [32mHTTP GET /auth/register?error=TokenExchangeFailed 301 [0.04, 172.18.0.1:60572][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.00, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:60586][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.00, 172.18.0.1:60586][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjc5NSwiaWF0IjoxNzM4MzMwMzk1LCJqdGkiOiIzZmE2Mzc3MzJhYmI0OGUwODM5OThiNmEzOGQyOTlmNiIsInVzZXJfaWQiOjJ9.zsckUnJtDNAlqYdpatsnyKP_Gp1_YFQxsYNF_leLl1A
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO [mHTTP GET /auth/api/profile/ 200 [0.04, 172.18.0.1:60586][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friend-requests/'>
+DEBUG Header in authenticate: None
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friends/'>
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjc5NSwiaWF0IjoxNzM4MzMwMzk1LCJqdGkiOiIzZmE2Mzc3MzJhYmI0OGUwODM5OThiNmEzOGQyOTlmNiIsInVzZXJfaWQiOjJ9.zsckUnJtDNAlqYdpatsnyKP_Gp1_YFQxsYNF_leLl1A
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
 DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/online-users/'>
 DEBUG Header in authenticate: None
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friend-requests/'>
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjc5NSwiaWF0IjoxNzM4MzMwMzk1LCJqdGkiOiIzZmE2Mzc3MzJhYmI0OGUwODM5OThiNmEzOGQyOTlmNiIsInVzZXJfaWQiOjJ9.zsckUnJtDNAlqYdpatsnyKP_Gp1_YFQxsYNF_leLl1A
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
 DEBUG Header in authenticate: None
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjc5NSwiaWF0IjoxNzM4MzMwMzk1LCJqdGkiOiIzZmE2Mzc3MzJhYmI0OGUwODM5OThiNmEzOGQyOTlmNiIsInVzZXJfaWQiOjJ9.zsckUnJtDNAlqYdpatsnyKP_Gp1_YFQxsYNF_leLl1A
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjc5NSwiaWF0IjoxNzM4MzMwMzk1LCJqdGkiOiIzZmE2Mzc3MzJhYmI0OGUwODM5OThiNmEzOGQyOTlmNiIsInVzZXJfaWQiOjJ9.zsckUnJtDNAlqYdpatsnyKP_Gp1_YFQxsYNF_leLl1A
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNjk1LCJpYXQiOjE3MzgzMzAzOTUsImp0aSI6IjBkMmU4ODVlYjk4ZjQ0ODFhYTJhYWY4NjVmNTZlMTUxIiwidXNlcl9pZCI6Mn0.PmjGHXpgy5ThquFifRlC_RnABkTpx0A4UNx8CHA-viA
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO [32mHTTP GET /favicon.ico 301 [0.07, 172.18.0.1:46412][0m
+INFO [mHTTP GET /chat/api/friend-requests/ 200 [0.11, 172.18.0.1:60578][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.03, 172.18.0.1:46412][0m
+INFO [mHTTP GET /chat/api/online-users/ 200 [0.14, 172.18.0.1:60586][0m
+INFO [mHTTP GET /auth/api/profile/ 200 [0.15, 172.18.0.1:46428][0m
+INFO [mHTTP GET /chat/api/friends/ 200 [0.17, 172.18.0.1:60572][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=d8202b66a86f45d88f8ec461d600a37f 200 [0.02, 172.18.0.1:60572][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjc5NSwiaWF0IjoxNzM4MzMwMzk1LCJqdGkiOiIzZmE2Mzc3MzJhYmI0OGUwODM5OThiNmEzOGQyOTlmNiIsInVzZXJfaWQiOjJ9.zsckUnJtDNAlqYdpatsnyKP_Gp1_YFQxsYNF_leLl1A
+DEBUG User found in refresh token in logout: nnabaeei
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User nnabaeei logged out
+INFO [mHTTP POST /auth/api/logout/ 200 [0.07, 172.18.0.1:60572][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=846d5599202a4c569d4f787aa845aa09 200 [0.01, 172.18.0.1:60572][0m
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.02, 172.18.0.1:60572][0m
+DEBUG Received OAuth code from 42: 79c96b0654a79e5b14ac5c26518d51d28014984da08e7d59a18809cc6626ca67
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User nnabaeei logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [mHTTP GET /auth/api/42/callback/?code=79c96b0654a79e5b14ac5c26518d51d28014984da08e7d59a18809cc6626ca67 200 [0.80, 172.18.0.1:60572][0m
+DEBUG Received OAuth code from 42: 79c96b0654a79e5b14ac5c26518d51d28014984da08e7d59a18809cc6626ca67
+ERROR Failed to exchange code for token: 401 Client Error: Unauthorized for url: https://api.intra.42.fr/oauth/token
+INFO [32mHTTP GET /auth/api/42/callback/?code=79c96b0654a79e5b14ac5c26518d51d28014984da08e7d59a18809cc6626ca67 302 [0.21, 172.18.0.1:60572][0m
+INFO [32mHTTP GET /auth/register?error=TokenExchangeFailed 301 [0.04, 172.18.0.1:60572][0m
+INFO [mHTTP GET /auth/register/?error=TokenExchangeFailed 200 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/css/register_style.css 200 [0.00, 172.18.0.1:60572][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:46428][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:46412][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:46412][0m
 DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friends/'>
 DEBUG Header in authenticate: None
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=a21a1dd12d2740bd84b8fcae27cfaf69 200 [0.03, 172.18.0.1:52260][0m
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-INFO CSRF reason in enforce_CSRF: None
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-INFO CSRF reason in enforce_CSRF: None
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjgyNSwiaWF0IjoxNzM4MzMwNDI1LCJqdGkiOiI4MTUwMThhZWIyMzY0MWY2OTIwZDg3M2QyODdmYWU5NyIsInVzZXJfaWQiOjJ9.RZR9B7nodwq_Oe_rbVCFpn66afSWZ1CD8Z2l2Yk_xUQ
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
 INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
 INFO CSRF reason in enforce_CSRF: None
-INFO CSRF reason in enforce_CSRF: None
-INFO [mHTTP GET /chat/api/online-users/ 200 [0.10, 172.18.0.1:35604][0m
-INFO [mHTTP GET /chat/api/friends/ 200 [0.11, 172.18.0.1:52244][0m
-INFO [mHTTP GET /chat/api/friend-requests/ 200 [0.14, 172.18.0.1:35614][0m
-INFO [mHTTP GET /auth/api/profile/ 200 [0.15, 172.18.0.1:52232][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=d4922a1037a748cab90f56e808e9688f 200 [0.01, 172.18.0.1:52232][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI0MzkxNCwiaWF0IjoxNzM4MTU3NTE0LCJqdGkiOiI2MzQxZWJhNDFkYjY0NGIxODRiNzUxZGUxM2ZlM2MxZCIsInVzZXJfaWQiOjJ9.m254E4KfBYv8oswdOw7Mh0iRrwY4MQOnha9acUhdLlI
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MTQ5LCJpYXQiOjE3MzgxNTc1MTQsImp0aSI6ImQyODJlNjVmNDljNzRhZjA5M2IzOTk1YzVmZWY5MWQ1IiwidXNlcl9pZCI6Mn0.SUwS1mWue5yQ9gkfC2ODvkWFTkNOoheC11H5vePEvxs'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.09, 172.18.0.1:47420][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=fd04c7242c52492d805bdfbe99e61839 200 [0.02, 172.18.0.1:47420][0m
-INFO [mHTTP GET /auth/register/ 200 [0.02, 172.18.0.1:57914][0m
-INFO [36mHTTP GET /static/css/register_style.css 304 [0.00, 172.18.0.1:57914][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46428][0m
+INFO [mHTTP GET /auth/api/profile/ 200 [0.05, 172.18.0.1:46412][0m
 DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/online-users/'>
 DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friend-requests/'>
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Header in authenticate: None
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-INFO CSRF reason in enforce_CSRF: None
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjgyNSwiaWF0IjoxNzM4MzMwNDI1LCJqdGkiOiI4MTUwMThhZWIyMzY0MWY2OTIwZDg3M2QyODdmYWU5NyIsInVzZXJfaWQiOjJ9.RZR9B7nodwq_Oe_rbVCFpn66afSWZ1CD8Z2l2Yk_xUQ
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
 INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
 INFO CSRF reason in enforce_CSRF: None
 DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friends/'>
+DEBUG Header in authenticate: None
 DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friend-requests/'>
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
 DEBUG Header in authenticate: None
 DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0MDQxLCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjJkMDRhZDVhYTJlZjQ2NDdhMGMwZDZiOGZkNTAxMzEwIiwidXNlcl9pZCI6Mn0.6WT63765Ry9wSj4kPiSMvmM2eSnruwBJjUw3WJiy-po
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjgyNSwiaWF0IjoxNzM4MzMwNDI1LCJqdGkiOiI4MTUwMThhZWIyMzY0MWY2OTIwZDg3M2QyODdmYWU5NyIsInVzZXJfaWQiOjJ9.RZR9B7nodwq_Oe_rbVCFpn66afSWZ1CD8Z2l2Yk_xUQ
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjgyNSwiaWF0IjoxNzM4MzMwNDI1LCJqdGkiOiI4MTUwMThhZWIyMzY0MWY2OTIwZDg3M2QyODdmYWU5NyIsInVzZXJfaWQiOjJ9.RZR9B7nodwq_Oe_rbVCFpn66afSWZ1CD8Z2l2Yk_xUQ
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODQxNjgyNSwiaWF0IjoxNzM4MzMwNDI1LCJqdGkiOiI4MTUwMThhZWIyMzY0MWY2OTIwZDg3M2QyODdmYWU5NyIsInVzZXJfaWQiOjJ9.RZR9B7nodwq_Oe_rbVCFpn66afSWZ1CD8Z2l2Yk_xUQ
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MzMwNzI1LCJpYXQiOjE3MzgzMzA0MjUsImp0aSI6IjI4NGNjNzc5MWI4NDRkODFhNmU3YTllMzdmNTNkNzQ1IiwidXNlcl9pZCI6Mn0.WT_ZB9PGFLEg2n2ej9HbShePCKe5bLJQ-aChrFLjWhU
+INFO CSRF reason in enforce_CSRF: None
 INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
 INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
 INFO CSRF reason in enforce_CSRF: None
 INFO CSRF reason in enforce_CSRF: None
-INFO [mHTTP GET /chat/api/online-users/ 200 [0.08, 172.18.0.1:57914][0m
-INFO [mHTTP GET /chat/api/friend-requests/ 200 [0.09, 172.18.0.1:57930][0m
-INFO [mHTTP GET /auth/api/profile/ 200 [0.09, 172.18.0.1:57954][0m
-INFO [mHTTP GET /chat/api/friends/ 200 [0.11, 172.18.0.1:57938][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=efa9fba800f24de38f5f9387d3348c7b 200 [0.01, 172.18.0.1:57938][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI0MzkxNCwiaWF0IjoxNzM4MTU3NTE0LCJqdGkiOiI2MzQxZWJhNDFkYjY0NGIxODRiNzUxZGUxM2ZlM2MxZCIsInVzZXJfaWQiOjJ9.m254E4KfBYv8oswdOw7Mh0iRrwY4MQOnha9acUhdLlI
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0Mzg5LCJpYXQiOjE3MzgxNTc1MTQsImp0aSI6IjZiODllY2UwODQwMjQ4ZDI5YjM4MmE5ZTVlNTVmYmIzIiwidXNlcl9pZCI6Mn0.Wkcd-LBGPwucz5yYaQaH9ypDWrq82SCa1le4S6uKBCM'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 172.18.0.1:50140][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=b07db489654048b0983b3f4cb2446238 200 [0.01, 172.18.0.1:50140][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0NDk4LCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6ImMwMjc5MGI4YzUxNDRjZDliZTVjMGU1YmM5Y2UxZTdjIiwidXNlcl9pZCI6Mn0.iqFFYPPJPzy9oRP33yKrfrg47rV8Dz32Zd8e7FKMHro'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.08, 172.18.0.1:46642][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=645df26b4e6f4dbd972f699dfb7e1ef9 200 [0.02, 172.18.0.1:46642][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI0MzkxNCwiaWF0IjoxNzM4MTU3NTE0LCJqdGkiOiI2MzQxZWJhNDFkYjY0NGIxODRiNzUxZGUxM2ZlM2MxZCIsInVzZXJfaWQiOjJ9.m254E4KfBYv8oswdOw7Mh0iRrwY4MQOnha9acUhdLlI
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0NjI5LCJpYXQiOjE3MzgxNTc1MTQsImp0aSI6ImMxOTAwOWIxZGMxMDQ3YTY4NDQyZjQ5ZTJiMmFiOTdmIiwidXNlcl9pZCI6Mn0.-mNvrjlik4CBKwtR2mlkoyr29xX756Jlc-frs_eWrWg'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 172.18.0.1:39220][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=a70a021c74544689bbd47a7adea869be 200 [0.02, 172.18.0.1:39220][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0NzM4LCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6IjNiM2VkOGUzNzMzNjQ0OTg4MjQyOTZhZjBhZGE1OTViIiwidXNlcl9pZCI6Mn0.zmK0v0lKjrCqoNWBO7QxmYABQVAP4nSCRnTXXCLUut8'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 172.18.0.1:35470][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=7ef0f94362b6479992ec7f09e3378b7f 200 [0.02, 172.18.0.1:35470][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI0MzkxNCwiaWF0IjoxNzM4MTU3NTE0LCJqdGkiOiI2MzQxZWJhNDFkYjY0NGIxODRiNzUxZGUxM2ZlM2MxZCIsInVzZXJfaWQiOjJ9.m254E4KfBYv8oswdOw7Mh0iRrwY4MQOnha9acUhdLlI
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0ODY5LCJpYXQiOjE3MzgxNTc1MTQsImp0aSI6IjNkNzI3M2UwMDZjMzQ0MWM5NGE2NGUzZWE2Nzk0OWFmIiwidXNlcl9pZCI6Mn0.AnXbuAubeaGKB868ENPje2Q6QmRqJtB2FYG7fI7jNtA'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 172.18.0.1:57778][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=e2ac66f1daf34f85a067b2df9e135f18 200 [0.02, 172.18.0.1:57778][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY0OTc4LCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6Ijk1NDVmOThmM2IzYzQ4YmJhYmMwMDk3ZTRjMTg3ZTE4IiwidXNlcl9pZCI6Mn0.-QAyyqxwwEah0uz7TC3wJNhW6HQxzg3mx3MLB4O30Js'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.07, 172.18.0.1:47986][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=dda4ea22cf6d40d0870598920f198390 200 [0.02, 172.18.0.1:47986][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI0MzkxNCwiaWF0IjoxNzM4MTU3NTE0LCJqdGkiOiI2MzQxZWJhNDFkYjY0NGIxODRiNzUxZGUxM2ZlM2MxZCIsInVzZXJfaWQiOjJ9.m254E4KfBYv8oswdOw7Mh0iRrwY4MQOnha9acUhdLlI
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY1MTA5LCJpYXQiOjE3MzgxNTc1MTQsImp0aSI6IjlhYzIwM2RmODUwMTQ0MDg4YThlYjMwYTBkMTExMGU0IiwidXNlcl9pZCI6Mn0.qw3zdfL97fUnH298vajUKthljV2dBE0lLgKfPxmtyEs'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.06, 172.18.0.1:40390][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=519de7269381443484bc4e47722b410c 200 [0.02, 172.18.0.1:40390][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODI1MDE0MSwiaWF0IjoxNzM4MTYzNzQxLCJqdGkiOiIzYzc5NTZjZmU5YTk0ODIyYTA3MWI5ZGJiMTlkYmFhOSIsInVzZXJfaWQiOjJ9.sLlYVw6p6wHfMhwZj0t4_jOjH62l-i8MVwyXg4eggUk
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4MTY1MjE4LCJpYXQiOjE3MzgxNjM3NDEsImp0aSI6ImQ2NTE5YWE0YTc4ZjQwZTY5ZDY4NzAxM2IyYWU1ZWVmIiwidXNlcl9pZCI6Mn0.G1Eck1_No4sDd9sFUaYXxIWcADcrogciLQ_aHNoBQx4'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 172.18.0.1:56080][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=ed956106b34d4103b288de324adf64e8 200 [0.02, 172.18.0.1:56080][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.06, 172.18.0.1:60578][0m
+INFO [mHTTP GET /chat/api/online-users/ 200 [0.09, 172.18.0.1:46412][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.03, 172.18.0.1:60578][0m
+INFO [mHTTP GET /auth/api/profile/ 200 [0.11, 172.18.0.1:60586][0m
+INFO [mHTTP GET /chat/api/friend-requests/ 200 [0.13, 172.18.0.1:46428][0m
+INFO [mHTTP GET /chat/api/friends/ 200 [0.15, 172.18.0.1:60572][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=dc3a72340c214cb69667bde1cfeb4e1b 200 [0.02, 172.18.0.1:60572][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=daa6d0d2218b44a39f7dfd405fceaf35 200 [0.02, 172.18.0.1:60572][0m
