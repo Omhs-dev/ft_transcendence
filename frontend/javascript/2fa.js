@@ -1,9 +1,9 @@
 import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
-import { successfullyVerifiedOTP } from "./utils/2faUtils.js";
 import { closeModal } from "./utils/2faUtils.js";
 import { choose2FaMethod } from "./utils/2faUtils.js";
 import { twoFaAlreadyEnabled } from "./utils/2faUtils.js";
+import { successfullyVerifiedOTP } from "./utils/2faUtils.js";
 
 const baseUrl = "http://localhost:8000";
 const twoFa = localStorage.getItem('twoFa');
@@ -28,6 +28,7 @@ appSection.addEventListener("click", (e) => {
 	}
 
 	if (e.target.id === 'verifyOTP') {
+		const method = document.getElementById('twoFaMethod').value;
 		if (method === 'sms' || method === 'totp') {
 			console.log("verify with sms or totp");
 			verifyWithTopt();
