@@ -245,7 +245,6 @@ DEFAULT_FROM_EMAIL = 'Transcendence'
 OAUTH_42_CLIENT_ID = 'u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8'
 FRONTEND_URL = "http://localhost:8000"
 OAUTH_42_CLIENT_SECRET = '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'
-# OAUTH_42_REDIRECT_URI = 'http://localhost:8000/auth/callback/'  # or your deployed URL
 OAUTH_42_REDIRECT_URI = 'http://localhost:8000/auth/api/42/callback/'  # or your deployed URL
 OAUTH_42_AUTHORIZE_URL = 'https://api.intra.42.fr/oauth/authorize'
 OAUTH_42_TOKEN_URL = 'https://api.intra.42.fr/oauth/token'

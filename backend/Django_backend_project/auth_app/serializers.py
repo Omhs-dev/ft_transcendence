@@ -23,11 +23,19 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(
+        source='user.id',
+        read_only=True
+    )  # Include user ID
     username = serializers.CharField(
         source='user.username',
         required=False,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
+    # id = serializers.IntegerField(
+	# 	source='user.id',
+	# 	read_only=True
+	# )
     email = serializers.EmailField(
         source='user.email',
         required=False,
@@ -49,7 +57,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['nickname', 'bio', 'profile_picture', 'username', 'email', 'password', 'phone_number', 'is_2fa_enabled']
+        fields = ['id', 'nickname', 'bio', 'profile_picture', 'username', 'email', 'password', 'phone_number', 'is_2fa_enabled']
 
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user', {})
@@ -73,16 +81,3 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.phone_number = validated_data.get('phone_number', instance.phone_number)  # Update phone number
         instance.save()
         return instance
-
-
-# The custom token serializer to make a possibility of adding the desired claim as 'is_admin'
-# to check the user in front-end into recognize the admin type users.
-# class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super().get_token(user)
-
-#         # Add custom claims
-#         token['is_admin'] = user.is_superuser
-
-#         return token

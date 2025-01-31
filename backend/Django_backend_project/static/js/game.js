@@ -7,6 +7,7 @@ const ballSize = 10;
 
 let game_id ='';
 let user2_id = '';
+let username = '';
 let player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
 let player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
 let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
@@ -15,6 +16,24 @@ let keys = {};
 let websocket;
 let gameInProgress = false; // Track if the game is in progress
 let gamePaused = false; // Track if the game is paused
+
+// Fetch Profile
+async function fetchProfile() {
+	try {
+		const response = await fetch('/auth/api/profile/');
+		if (response.ok) {
+			const profile = await response.json();
+			user2_id = profile.id;
+			username = profile.username;
+			console.log("username and user_id: ", username, user2_id);
+		} else {
+			console.error('Failed to fetch profile:', response.status);
+		}
+	} catch (error) {
+		console.error('Error fetching profile:', error);
+	}
+}
+
 
 // Draw paddles and ball
 function draw() {
@@ -34,8 +53,8 @@ function draw() {
 
     // Draw scores
     ctx.font = "20px Arial";
-    ctx.fillText(`Player 1: ${player1.score}`, 50, 20);
-    ctx.fillText(`Player 2: ${player2.score}`, canvas.width - 150, 20);
+    ctx.fillText(`Admin: ${player1.score}`, 50, 20);
+    ctx.fillText(`${username}: ${player2.score}`, canvas.width - 150, 20);
 }
 
 // Move paddles based on keys pressed
@@ -110,7 +129,8 @@ function updateGame() {
 }
 
 // WebSocket connection and event handlers
-document.getElementById("startGame").addEventListener("click", () => {
+document.getElementById("startGame").addEventListener("click", async () => {
+	await fetchProfile();
 	resetGameState();
     if (!websocket || websocket.readyState !== WebSocket.OPEN) {
         console.log("WebSocket not connected. Reconnecting...");
@@ -118,7 +138,8 @@ document.getElementById("startGame").addEventListener("click", () => {
         
         websocket.onopen = function () {
             console.log("WebSocket connected");
-			user2_id = localStorage.getItem("userId");
+			console.log("user_id: ", user2_id);
+			// user2_id = localStorage.getItem("userId");
 			console.log("user_id: ", user2_id);
             websocket.send(JSON.stringify({ action: "start_game", user2_id }));
             // websocket.send(JSON.stringify({ action: "start_game", userId, game_id: 1 }));
@@ -172,8 +193,10 @@ function setupWebSocket() {
 		}
 
 		if (data.type === "game_ended") {
+			winnerID = data.winner;
+			if (winnerID === user2_id ? winner = username:'Admin');
             gameInProgress = false; // Prevent game updates
-            alert(`Game Over! Winner: Player ${data.winner}`);
+            alert(`MATCH RESULT \n WINNER: <<<****${winner}****>>>\n SCORE: ${player1.score} - ${player2.score}`);
             clearInterval(gameLoopInterval);  // Stop the game loop
             cancelAnimationFrame(animationFrame);  // Stop any ongoing animation
             window.removeEventListener("keydown", handleKeyDown);

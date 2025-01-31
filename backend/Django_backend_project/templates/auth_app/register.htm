@@ -52,8 +52,10 @@
 					</div>
 
 					<button type="submit" id="loginButton">Login</button>
-					<button onclick="loginWith42()" style="margin-top: 2%;">Login with 42</button>
 				</form>
+			</div>
+			<div>
+				<button onclick="loginWith42()" style="margin-top: 2%;">Login with 42</button>
 			</div>
 		</div>
 
@@ -177,6 +179,7 @@
 	// *********************************** Global Variables ***********************************
 
 		let refreshTimer;
+		let user_id = '';
 		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
 		
 	// *********************************** Helper Functions ***********************************
@@ -192,54 +195,40 @@
 			window.location.href = "/auth/api/42/login/"; // Redirects to 42 OAuth login
 		}
 	
-		// Check if the user came back from OAuth login
-		window.onload = function() {
-			const urlParams = new URLSearchParams(window.location.search);
-			const accessToken = urlParams.get('access_token');
-			const refreshToken = urlParams.get('refresh_token');
-			
-			if (accessToken && refreshToken) {
-				// Store the tokens in cookies
-				document.cookie = `access_token=${accessToken}; path=/; secure; HttpOnly; SameSite=Strict`;
-				document.cookie = `refresh_token=${refreshToken}; path=/; secure; HttpOnly; SameSite=Strict`;
+		// ✅ Optimized: Check authentication and load dashboard
+		async function checkAuthAndLoadDashboard() {
+			try {
+				const response = await fetch('/auth/api/profile/', {
+					method: 'GET',
+					credentials: 'include' // ✅ Sends HTTP-only cookies
+				});
 
-				// Redirect to the dashboard
-				loadDashboard();
-				// window.location.href = "/dashboard";
+				if (response.ok) {
+					const userData = await response.json();
+					console.log("OAuth Login successful:", userData);
+
+					// ✅ Store authentication state in local storage
+					localStorage.setItem('username', userData.username);
+					localStorage.setItem('isAuthenticated', 'true');
+					localStorage.setItem('oauthLogin', 'true');
+
+					// ✅ Load dashboard
+					loadDashboard();
+				} else {
+					console.warn("User not authenticated, redirecting...");
+				}
+			} catch (error) {
+				console.error("Error checking OAuth authentication:", error);
+				window.location.href = "/auth/register";
 			}
-		};
+		}
 		
 		// OAuth Login
 		document.addEventListener("DOMContentLoaded", async function () {
 			// Check if user came back from OAuth login
 			if (localStorage.getItem('oauthLogin') === 'true') {
-				alert("page is loaded");
 				localStorage.removeItem('oauthLogin'); // Remove flag
-
-				// Check if the user is authenticated by making a request to a protected endpoint
-				try {
-					const response = await fetch('/auth/api/profile/', {
-						method: 'GET',
-						credentials: 'include' // Include cookies in the request
-					});
-
-					if (response.ok) {
-						const userData = await response.json();
-						console.log("OAuth Login successful:", userData);
-
-						// Store username in local storage
-						localStorage.setItem('username', userData.username);
-						
-						localStorage.setItem('isAuthenticated', 'true');
-
-						// Load dashboard
-						loadDashboard();
-					} else {
-						console.error("OAuth login failed or user not authenticated.");
-					}
-				} catch (error) {
-					console.error("Error checking OAuth authentication:", error);
-				}
+				checkAuthAndLoadDashboard();
 			}
 		});
 
@@ -455,6 +444,9 @@
 				localStorage.removeItem('isAuthenticated');
 				localStorage.removeItem('otpMethod');
 				localStorage.removeItem('userId');
+				localStorage.removeItem('phoneNumber');
+				localStorage.removeItem('TwoFA');
+				localStorage.removeItem('oauthLogin');
 				showAuthSection(); // Redirect to authentication page
 			}
 		}
@@ -484,6 +476,9 @@
 
 		// Load Dashboard
 		function loadDashboard() {
+			if (localStorage.getItem('oauthLogin') == 'true') {
+				document.getElementById('twoFactorSection').style.display = 'none';				
+			}
 			startTokenRefreshTimer(); // Start refreshing tokens
 			document.getElementById('login_username').value = '';
         	document.getElementById('login_password').value = '';
@@ -859,6 +854,7 @@
 				document.getElementById('2fa_is_enabled').style.display = 'block';
 				document.getElementById('disable2FA').addEventListener('click', disable2FA);
 				document.getElementById('change2FA').addEventListener('click', change2FAMethod);
+				document.getElementById('2faSetup').style.display = 'none';
 			} else {
 				document.getElementById('2fa_is_enabled').style.display = 'none';
 				document.getElementById('2fa_not_enabled').style.display = 'block';

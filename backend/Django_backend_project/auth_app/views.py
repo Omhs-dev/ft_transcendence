@@ -191,14 +191,7 @@ class ProfileView(APIView):
             return Response(serializer.data, status=200)
         return Response(serializer.errors, status=400)
 
-
-def handle_expired_refresh_token(user_id):
-    user = User.objects.get(id=user_id)
-    user.is_online = False
-    user.last_logout_time = now()
-    user.save()
-    logger.debug("User %s is now offline with handle_expired_refresh_token function", user.username)
-
+# ----------------- Token Refresh View ----------------- #
 
 class CustomTokenRefreshView(TokenRefreshView):
     permission_classes = [AllowRefreshToken]
@@ -231,38 +224,15 @@ class CustomTokenRefreshView(TokenRefreshView):
         logger.debug("Response for Access token in CustomTokenRefreshView: %s", response.data)
         return response
 
-
-def check_login_2fa(request, user):
-    method = request.data.get("method")  # 'totp', 'sms', or 'email'
-    code = request.data.get("otp_code")
-    
-    logger.debug("2FA method: %s and the otp_code in the check_login_2fa: %s", method, code)
-    
-    # If no code provided, generate a new code for email or SMS and send it
-    if not method or not code:
-        user_method = user.profile.two_fa_method
-        if user_method in ['sms', 'email', 'totp']:
-            generate_and_send_Email_SMS_otp(user, user_method)
-            return Response(
-                {
-                    "method": "{}".format(user_method),
-                    "message": "2FA verification required. A new code has been sent.",
-                    "detail": "Please enter the verification code sent to your {}".format(user_method)
-                },
-                headers={'X-2FA-Required': 'true'},
-                status=401
-            )
-        # return Response({"error": "2FA verification required."}, headers={'X-2FA-Required': 'true'}, status=401)
-
-    # if method in ['sms', 'email'] and not code:
-
-    # Validate the provided OTP code
-    if method == 'totp' and not user.profile.verify_totp(code):
-        return Response({"error": "Invalid OTP code for Authenticator."}, status=401)
-    elif method in ['sms', 'email'] and not verify_otp_code(user.id, code):
-        return Response({"error": "Invalid OTP code."}, status=401)
+def handle_expired_refresh_token(user_id):
+    user = User.objects.get(id=user_id)
+    user.is_online = False
+    user.last_logout_time = now()
+    user.save()
+    logger.debug("User %s is now offline with handle_expired_refresh_token function", user.username)
 
 
+# ----------------- 2FA Views ----------------- #
 
 class Select2FAMethodView(APIView):
     permission_classes = [IsAuthenticated]
@@ -275,13 +245,6 @@ class Select2FAMethodView(APIView):
             return Response({"error": "Invalid 2FA method selected."}, status=400)
 
         profile = request.user.profile
-
-        # Reset previous 2FA settings
-        # profile.is_2fa_enabled = False
-        # profile.otp_secret = None # later I should remove this attribute of profile model
-        # profile.two_fa_method = None
-        # profile.last_otp_sent_at = None
-        # profile.save()
 
         if method == 'totp':
             # Setup for authenticator app
@@ -306,7 +269,6 @@ class Select2FAMethodView(APIView):
                 "totp_uri": totp_uri,
                 "message": "Authenticator(totp) 2FA selected. Scan the QR code with your app."
             }, status=200)
-
 
 
         elif method == 'sms':
@@ -367,6 +329,34 @@ class Verify2FASetupView(APIView):
             return Response({"error": "Invalid 2FA method selected."}, status=400)
         profile.save()
         return Response({"message": "2FA setup complete."})
+
+
+def check_login_2fa(request, user):
+    method = request.data.get("method")  # 'totp', 'sms', or 'email'
+    code = request.data.get("otp_code")
+    
+    logger.debug("2FA method: %s and the otp_code in the check_login_2fa: %s", method, code)
+    
+    # If no code provided, generate a new code for email or SMS and send it
+    if not method or not code:
+        user_method = user.profile.two_fa_method
+        if user_method in ['sms', 'email', 'totp']:
+            generate_and_send_Email_SMS_otp(user, user_method)
+            return Response(
+                {
+                    "method": "{}".format(user_method),
+                    "message": "2FA verification required. A new code has been sent.",
+                    "detail": "Please enter the verification code sent to your {}".format(user_method)
+                },
+                headers={'X-2FA-Required': 'true'},
+                status=401
+            )
+
+    # Validate the provided OTP code
+    if method == 'totp' and not user.profile.verify_totp(code):
+        return Response({"error": "Invalid OTP code for Authenticator."}, status=401)
+    elif method in ['sms', 'email'] and not verify_otp_code(user.id, code):
+        return Response({"error": "Invalid OTP code."}, status=401)
 
 
 @api_view(['POST'])

@@ -15,18 +15,6 @@ def generate_otp_code():
     return str(secrets.randbelow(10**6)).zfill(6)
 
 
-# account_sid = 'AC8b0da30ea0e35dbf2d3594bcc7dabf51'
-# auth_token = '[AuthToken]'
-# client = Client(account_sid, auth_token)
-
-# verification = client.verify \
-#     .v2 \
-#     .services('VA696120a11fa1c6301925f7a54aa1481a') \
-#     .verifications \
-#     .create(to='', channel='sms')
-
-# print(verification.sid)
-
 def send_2fa_sms(phone_number, code):
     """Send an SMS verification code to the user's phone."""
    
