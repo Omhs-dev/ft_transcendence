@@ -11,7 +11,8 @@ init_docker:
 	@echo "$(ORG)----- Start Script-----$(RESET)"
 	./script/init_docker.sh
 
-reload: stop all
+reload: stop all 
+
 
 clean:
 	@echo "$(ORG)----- Cleaning stopped containers... -----$(RESET)"

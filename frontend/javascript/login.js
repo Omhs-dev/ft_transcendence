@@ -1,7 +1,7 @@
 import { appSection } from "./utils/domUtils.js"
 import { sideNavSection } from "./utils/sideNavUtil.js";
 
-const logoutBtn = sideNavSection.querySelector(".logoutbtn");
+let refreshTimer;
 
 // Add event listener to the login form
 appSection.addEventListener('submit', (e) => {
@@ -35,12 +35,13 @@ const loginUser = async () => {
 
 	console.log("login button: ", loginBtn);
     try {
-        const response = await fetch('http://localhost:8000/backend/api/login/', {
+        const response = await fetch('http://localhost:8000/auth/api/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, password }),
+			credentials: 'include',
         });
 
         const data = await response.json();
@@ -57,8 +58,9 @@ const loginUser = async () => {
 			throw new Error("Login failed with : ", response.status);
 		}
 		console.log("data: ", data);
-		localStorage.setItem("access_token", data.access_token);
-		localStorage.setItem("refresh_token", data.refresh_token);
+		localStorage.setItem("username", username);
+		localStorage.setItem("isAuthenticated", "true");
+		console.log("username: ", username);
 
 		window.location.href = "/";
 
@@ -71,17 +73,15 @@ const loginUser = async () => {
 
 // Logout functionality
 const logoutUser = async () => {
+	stopTokenRefreshTimer();
 	try {
-		const refreshToken = localStorage.getItem('refresh_token');
-		const accessToken = localStorage.getItem('access_token');
-
-		const response = await fetch('http://localhost:8000/backend/api/logout/', {
+		const response = await fetch('http://localhost:8000/auth/api/logout/', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${accessToken}`,
+				'X-CSRFToken': getCookie('csrftoken'),
 			},
-			body: JSON.stringify({ refresh_token: refreshToken }),
+			credentials: 'include',
 		});
 		console.log("response: ", response);
 		if (!response.ok) {
@@ -89,8 +89,8 @@ const logoutUser = async () => {
 			throw new Error("could not fetch api...", response.statusText);
 		}
 
-		localStorage.removeItem("access_token");
-		localStorage.removeItem("refresh_token");
+		localStorage.removeItem("username");
+		localStorage.removeItem("isAuthenticated");
 
 		window.location.href = "/";
 
@@ -100,6 +100,61 @@ const logoutUser = async () => {
 		console.log(error.message);
 	}
 };
+
+function stopTokenRefreshTimer() {
+	if (refreshTimer) {
+		clearInterval(refreshTimer);
+		console.log('Token refresh timer stopped');
+	}
+}
+
+function startTokenRefreshTimer() {
+	const refreshInterval = 4 * 60 * 1000; // 1 minute in milliseconds
+
+	console.log('Starting token refresh timer');
+	refreshTimer = setInterval(() => {
+		// Use absolute path to avoid relative path issues
+		const apiUrl = '/auth/api/renew-access/';
+		console.log(`API URL being called: ${apiUrl}`);
+
+		fetch(apiUrl, {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
+			},
+		})
+		.then(response => {
+			if (response.ok) {
+				console.log('Token refreshed successfully');
+			} else {
+				console.error('Failed to refresh token. Logging out.');
+				logoutUser(); // Call the logout logic
+			}
+		})
+		.catch(error => {
+			console.error('Error refreshing token:', error);
+		});
+	}, refreshInterval);
+}
+
+export function getCookie(name) {
+	let cookieValue = null;
+	if (document.cookie && document.cookie !== '') {
+		const cookies = document.cookie.split(';');
+		for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+			console.log("cookie: ", cookie);
+			// Does this cookie string begin with the name we want?
+			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
+			}
+		}
+	}
+	return cookieValue;
+}
 
 function invalidCredential() {
 	// Shake the login form

@@ -91,6 +91,7 @@ class LoginView(APIView):
                 logger.info("Access token: %s", access_token)
 
                 response = Response({
+                    "user_id": user.id,
                     "Success": "Login successful",
                     "data": {"access": access_token, "refresh": refresh_token},
                 })

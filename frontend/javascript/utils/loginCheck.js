@@ -1,10 +1,9 @@
-const token = localStorage.getItem("access_token");
+const isAuthenticated = localStorage.getItem("isAuthenticated");
+const userName = localStorage.getItem("username");
 
 export function authSection(authSectionDiv) {
-	console.log("token ----- : ", token);
-	console.log("auth section: ", authSectionDiv);
-	if (token) {
-		console.log("user is logged in");
+	if (isAuthenticated && userName) {
+		// console.log("user is logged in");
 		return	authSectionDiv.innerHTML += `
 				<button type="button" class="btn btn-success homebtn mb-3 game-action"
 					id="startbtn" data-action="start">
@@ -22,7 +21,7 @@ export function authSection(authSectionDiv) {
 				</button>
 			`;
 	} else {
-		console.log("user is not logged in");
+		// console.log("user is not logged in");
 		return	authSectionDiv.innerHTML += `
 				<button type="button" class="btn btn-success homebtn mb-3 game-action"
 					id="startbtn" data-action="start">
@@ -55,13 +54,12 @@ export function authSection(authSectionDiv) {
 	}
 }
 
-export function sideNavLoad(sideNavDiv) {
+export function unloggedSideNav(sideNavDiv) {
 	if (!sideNavDiv) {
 		console.error("Error: sideNavDiv not found!");
 		return;
 	}
 
-	if (!token) {
 		const ulElement = sideNavDiv.getElementsByClassName("ul1").item(0);
 		const ulElement2 = sideNavDiv.getElementsByClassName("ul2").item(0);
 		const ulElement3 = sideNavDiv.getElementsByClassName("ul3").item(0);
@@ -83,5 +81,31 @@ export function sideNavLoad(sideNavDiv) {
 
 		ulElement2.innerHTML = "";
 		ulElement3.innerHTML = "";
+}
+
+export function UpdateUserName(loggedUserName1) {
+	const loggedUserName = document.getElementById("loggedUserName");
+
+	if (isAuthenticated && userName) {
+		if (loggedUserName) {
+			loggedUserName.textContent = userName;
+		}
+
+		if (loggedUserName1) {
+			loggedUserName1.textContent = userName;
+		}
+	}
+}
+
+export function loadDefaultPic(userPicOne, userPicTwo) {
+	if (userPicOne) {
+		console.log("this is sidnav pic");
+		
+		userPicOne.src = "../assets/user1.png";
+	}
+	if (userPicTwo) {
+		console.log("this is profile pic");
+
+		userPicTwo.src = "../assets/user1.png";
 	}
 }
