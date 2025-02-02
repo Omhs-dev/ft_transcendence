@@ -25,7 +25,7 @@ clean:
 
 fclean:
 	@echo "$(ORG)----- Stoping containers$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
-	docker compose down -v
+	docker-compose down -v
 	@echo "$(ORG)----- Cleaning project docker initioation$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"
 	docker system prune -f
 	docker image prune -af
