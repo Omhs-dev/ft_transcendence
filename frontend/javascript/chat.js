@@ -1,58 +1,72 @@
-// const chatIcon = document.getElementById('chatIcon');
-// const chatBox = document.getElementById('chatBox');
-// const closeChat = document.getElementById('closeChat');
-// const chatInput = document.getElementById('chatInput');
+document.addEventListener('DOMContentLoaded', () => {
+    const chatIcon = document.getElementById('chatIcon');
+    const chatBox = document.getElementById('chatBox');
+    const closeChat = document.getElementById('closeChat');
+    const chatInput = document.getElementById('chatInput');
+    const messageContainer = document.getElementById('messages');
+    const sendButton = document.getElementById('sendButton');
+    
+    let chatSocket;
+    const roomName = 'general';
 
-// // Show Chatbox on Icon Click
-// chatIcon.addEventListener('click', () => {
-// 	console.log("chatIcon clicked");
-// 	chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
-// });
+    const protocol = 'wss://';
+	const wsUrl = `${protocol}${window.location.hostname}/ws/chat/${roomName}/`;
 
-// // Close Chatbox
-// closeChat.addEventListener('click', () => {
-// 	chatBox.style.display = 'none';
-// });
 
-// const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-// const roomName = 'general';
-// const wsUrl = `${protocol}${window.location.hostname}:8000/ws/chat/${roomName}/`;
+    // Show or Hide Chatbox on Icon Click
+    chatIcon.addEventListener('click', () => {
+        chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+        if (chatBox.style.display === 'block' && !chatSocket) {
+            connectWebSocket();  // Connect to WebSocket when the chat box opens
+        }
+    });
 
-// // Create WebSocket connection
-// const chatSocket = new WebSocket(wsUrl);
+    // Close Chatbox
+    closeChat.addEventListener('click', () => {
+        chatBox.style.display = 'none';
+        if (chatSocket) {
+            chatSocket.close();  // Close WebSocket when chat box is closed
+        }
+    });
 
-// // Listen for WebSocket connection events
-// chatSocket.onopen = function () {
-// 	console.log('Connected to chat WebSocket');
-// };
+    // Connect WebSocket
+    function connectWebSocket() {
+        chatSocket = new WebSocket(wsUrl);
 
-// // Display received messages
-// chatSocket.onmessage = function (e) {
-// 	const data = JSON.parse(e.data);
-// 	const messageElement = document.createElement('div');
-// 	messageElement.textContent = `${data.username}: ${data.message}`;
-// 	document.getElementById('messages').appendChild(messageElement);
-// };
+        chatSocket.onopen = () => {
+            console.log('Connected to chat WebSocket');
+        };
 
-// // Handle WebSocket errors
-// chatSocket.onerror = function (e) {
-// 	console.error('WebSocket error:', e);
-// };
+        chatSocket.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+            const messageElement = document.createElement('div');
+            messageElement.textContent = `${data.username}: ${data.message}`;
+            messageContainer.appendChild(messageElement);
+        };
 
-// // Close WebSocket
-// chatSocket.onclose = function () {
-// 	console.log('WebSocket closed');
-// };
+        chatSocket.onerror = (e) => {
+            console.error('WebSocket error:', e);
+        };
 
-// // Handle message sending
-// document.getElementById('sendButton').onclick = function () {
-// 	const inputElement = document.getElementById('chatInput');
-// 	const message = inputElement.value.trim();
+        chatSocket.onclose = () => {
+            console.log('WebSocket closed');
+            chatSocket = null; // Clear reference to WebSocket
+        };
+    }
 
-// 	if (message) {
-// 		chatSocket.send(JSON.stringify({
-// 			message: message
-// 		}));
-// 		inputElement.value = '';
-// 	}
-// };
+    // Handle message sending
+    sendButton.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message && chatSocket) {
+            chatSocket.send(JSON.stringify({ message: message }));
+            chatInput.value = '';
+        }
+    }
+});
