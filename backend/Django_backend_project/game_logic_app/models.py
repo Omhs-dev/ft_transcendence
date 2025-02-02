@@ -17,15 +17,19 @@ class Player(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='player')
     total_wins = models.PositiveIntegerField(default=0)
     total_losses = models.PositiveIntegerField(default=0)
-    score = models.PositiveIntegerField(default=0)
+    total_points_scored = models.PositiveIntegerField(default=0)  # ✅ NEW
+    total_games_played = models.PositiveIntegerField(default=0)  # ✅ NEW
+
+
 
     @property
     def win_rate(self):
-        total_matches = self.total_wins + self.total_losses
-        return round(self.total_wins / total_matches * 100, 2) if total_matches > 0 else 0
+        return round(self.total_wins / self.total_games_played * 100, 2) if self.total_games_played > 0 else 0
+        # total_matches = self.total_wins + self.total_losses
+        # return round(self.total_wins / total_matches * 100, 2) if total_matches > 0 else 0
 
     def __str__(self):
-        return self.user.username  #
+        return self.user.username
 
 #Tournament model
 #a tournament can have many players, and a player can be in many tournaments (many to many relationship)
@@ -62,8 +66,10 @@ class Game(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    player1_score = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player1', null=True, blank=True)
-    player2_score = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player2', null=True, blank=True)
+    player1 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player1', null=True, blank=True)
+    player2 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player2', null=True, blank=True)
+    player1_score = models.PositiveIntegerField(default=0)  # ✅ NEW
+    player2_score = models.PositiveIntegerField(default=0)  # ✅ NEW
     start_time = models.DateTimeField(default=timezone.now)
     end_time = models.DateTimeField(null=True, blank=True, default=timezone.now)  # Allow null for ongoing games
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='not_started')
@@ -73,12 +79,8 @@ class Game(models.Model):
         self.state = 'not_started'
         self.start_time = timezone.now()
         self.end_time = None
-        if self.player1_score:
-            self.player1_score.score = 0
-            self.player1_score.save(update_fields=['score'])
-        if self.player2_score:
-            self.player2_score.score = 0
-            self.player2_score.save(update_fields=['score'])
+        self.player1.score = 0
+        self.player2.score = 0
         self.save()
 
 

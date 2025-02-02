@@ -24,6 +24,10 @@ export default class extends AbsractView {
 			const checkbox = doc.getElementById("enable2FA");
 			const choose2FaMethod = doc.getElementById("choose2FaMethod");
 
+			if (!checkbox.setAttribute('checked', '')) {
+				console.log("checkbox not checked");
+			}
+
 			if (enable2Fa === "true") {
 				checkbox.setAttribute('checked', '');
 				choose2FaMethod.innerHTML = `

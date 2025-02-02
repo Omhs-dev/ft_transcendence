@@ -8,7 +8,7 @@ from chat_app.models import *
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'nickname', 'phone_number', 'email', 'is_online', 'is_2fa_enabled', 'selected_2fa_method']
+    list_display = ['user', 'nickname', 'id', 'phone_number', 'email', 'is_online', 'is_2fa_enabled', 'selected_2fa_method']
     list_filter = ['is_2fa_enabled']  # Add a filter for 2FA status
 
     def accepted_friends(self, obj):
@@ -26,6 +26,9 @@ class ProfileAdmin(admin.ModelAdmin):
             return obj.two_fa_method
         return "None"
 
+    def id(self, obj):
+        return obj.user.id
+
     def email(self, obj):
         return obj.user.email
 
@@ -33,7 +36,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('user', 'nickname', 'phone_number', 'is_online', 'bio', 'profile_picture', 'friends')
+            'fields': ('user','id', 'nickname', 'phone_number', 'is_online', 'bio', 'profile_picture', 'friends')
         }),
         ('2FA Status', {
             'fields': ('is_2fa_enabled', 'selected_2fa_method'),

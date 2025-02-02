@@ -28,7 +28,10 @@ appSection.addEventListener("click", (e) => {
 
 	if (e.target.id === 'verifyOTP') {
 		const method = document.getElementById('twoFaMethod').value;
-		if (method === 'sms' || method === 'totp') {
+		if (method === 'sms') {
+			console.log("verify with sms");
+			verifyWithSms();
+		} else if (method === 'totp') {
 			console.log("verify with sms or totp");
 			verifyWithTopt();
 		} else if (method === 'email') {
@@ -46,7 +49,7 @@ appSection.addEventListener('change', (e) => {
 		console.log("enable2FA clicked");
 		if (e.target.checked) {
 			console.log("checked");
-			// choose2FaMethod();
+			choose2FaMethodSection();
 		} else {
 			console.log("unchecked");
 			disabled2FA();
@@ -135,7 +138,7 @@ const handleEmail = async (method) => {
 };
 
 const handleSMS = (method) => {
-	const userPhoneNumber = localStorage.getItem("phone_number");
+	let userPhoneNumber = "+4917687524055";
 	console.log("Phone number in localstorage: ", userPhoneNumber);
 
 	const totpContainer = document.getElementById('totpContainer');
@@ -146,14 +149,15 @@ const handleSMS = (method) => {
 
 	if (userPhoneNumber) {
 		console.log("has a number");
-		hasAnumber(method);
+		hasAnumber(method, userPhoneNumber);
 	} else {
 		console.log("has no number");
-		hasNoNumber();
+		hasNoNumber(method);
 	}
 };
 
-const hasAnumber = async (method) => {
+const hasAnumber = async (method, userPhoneNumber) => {
+	console.log("user phone number: ", userPhoneNumber);
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/select-2fa-method/`, {
 			method: 'POST',
@@ -162,25 +166,31 @@ const hasAnumber = async (method) => {
 				'Content-Type': 'application/json',
 			},
 			credentials: 'include',
-			body: JSON.stringify({ method }),
+			body: JSON.stringify({ method, phone_number: userPhoneNumber }),
 		});
 
 		console.log("response details: ", response);
-
+		if (response.status === 400) {
+			console.log("Invalid phone number");
+			const errorData = response.json();
+			console.log("errorData: ", errorData);
+		}
 		if (!response.ok) {
 			throw new Error(`Could not fetch api ${response.status}`);
 		}
 
 		const data = response.json();
+
+		console.log("this is has a number");
 		console.log("data: ", data);
 	} catch(error) {
 		console.log(error.message);
 	}
 };
 
-const hasNoNumber = () => {
+const hasNoNumber = (method) => {
 	const smsContainer = document.getElementById('smsContainer');
-	
+
 	smsContainer.innerHTML = `
 		<div class="d-flex flex-column align-items-center">
 			<label id="phoneNumberLabel" for="otpCode"></label>
@@ -199,14 +209,7 @@ const hasNoNumber = () => {
 	updateNumber.addEventListener('click', async () => {
 		const enteredPhoneNumber = document.getElementById('phoneNumber');
 
-		if (isValidPhoneNumber(enteredPhoneNumber.value)) {
-			console.log("valid phone number");
-			updateUserNumber(enteredPhoneNumber.value);
-			smsContainer.innerHTML = "<p class=\"text-success\">Number updated successfully</p>";
-			setTimeout(() => {
-				smsContainer.innerHTML = "";
-			}, 1000);
-		} else {
+		if (!isValidPhoneNumber(enteredPhoneNumber.value)) {
 			console.log("Invalid phone number");
 			enteredPhoneNumber.classList.add('shake');
 			const errorBox = document.createElement('p');
@@ -218,10 +221,18 @@ const hasNoNumber = () => {
 				errorBox.remove();
 			}, 1000);
 		}
+
+		console.log("valid phone number");
+		updateUserNumber(method, enteredPhoneNumber.value);
+		hasAnumber(method, enteredPhoneNumber.value);
+		smsContainer.innerHTML = "<p class=\"text-success\">Number updated successfully</p>";
+		setTimeout(() => {
+			smsContainer.innerHTML = "";
+		}, 1000);
 	});
 };
 
-const updateUserNumber = async (number) => {
+const updateUserNumber = async (method, number) => {
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
 			method: 'POST',
@@ -239,6 +250,9 @@ const updateUserNumber = async (number) => {
 
 		const data = response.json();
 		
+		console.log("your number has been updated successfully");
+		// hasAnumber(method, number);
+
 		localStorage.setItem('phone_number', number);
 	} catch(error) {
 		console.log(error.message);
@@ -341,6 +355,54 @@ const verifyWithTopt = async () => {
 	}
 }
 
+const verifyWithSms = async () => {
+	const otpCode = document.getElementById('otpCode').value;
+	const otpInput = document.getElementById('otpInput');
+	console.log("otpCode: ", otpCode);
+
+	if (!isValidPhoneNumber(otpCode)) {
+		console.log("Invalid code");
+		const errorBox = document.createElement('p');
+		errorBox.classList.add('text-danger');
+		errorBox.textContent = "Invalid code";
+		otpInput.appendChild(errorBox);
+		setInterval(() => {
+			errorBox.innerHTML = "";
+		}, 1000);
+		return;
+	}
+
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/verify-2fa-setup/`, {
+			method: 'POST',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+				'Content-Type': 'application/json',
+			},
+			credentials: 'include',
+			body: JSON.stringify({ 
+				method: 'sms',
+				code: otpCode }),
+		});
+
+		if (!response.ok) {
+			throw new Error(`Could not fetch api ${response.status}`);
+		}
+
+		const data = response.json();
+
+		localStorage.setItem('enable2Fa', 'true');
+		console.log("enable2Fa: ", localStorage.getItem('enable2Fa'));
+		closeModal();
+		twoFaAlreadyEnabled();
+
+		console.log("data: ", data);
+		console.log("TOTP verified successfully");
+	} catch(error) {
+		console.log(error.message);
+	}
+}
+
 const disabled2FA = async () => {
 	const enableLabel = document.querySelector('.form-check-label');
 
@@ -362,6 +424,7 @@ const disabled2FA = async () => {
 
 		const data = response.json();
 
+		localStorage.removeItem('phone_number');
 		localStorage.setItem('enable2Fa', 'false');
 
 		choose2FaMethodSection();
