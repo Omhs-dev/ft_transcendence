@@ -1,5 +1,4 @@
 import AbsractView from "./AbsractView.js";
-import { twoFaAlreadyEnabled } from "../utils/2faUtils.js";
 
 export default class extends AbsractView {
 	constructor(params) {
@@ -25,12 +24,32 @@ export default class extends AbsractView {
 			const checkbox = doc.getElementById("enable2FA");
 			const choose2FaMethod = doc.getElementById("choose2FaMethod");
 
+			if (!checkbox.setAttribute('checked', '')) {
+				console.log("checkbox not checked");
+			}
+
 			if (enable2Fa === "true") {
 				checkbox.setAttribute('checked', '');
 				choose2FaMethod.innerHTML = `
 					<div class="mb-4">
-						<p class="text-muted">2FA is <strong>enabled</strong></p>
+						<p class="text-success">2FA is <strong>enabled</strong></p>
 					</div>
+				`;
+			} else {
+				choose2FaMethod.innerHTML = `
+					<div class="mb-4">
+					<label for="twoFaMethod" class="form-label">Choose 2FA Method:</label>
+					<select id="twoFaMethod" class="form-select" required>
+						<option value="sms">SMS</option>
+						<option value="email">Email</option>
+						<option value="totp">Authenticator App</option>
+					</select>
+					</div>
+
+					<button class="btn btn-primary" id="save" data-bs-toggle="modal"
+						data-bs-target="#saveOtpMode">
+						Save
+					</button>
 				`;
 			}
 

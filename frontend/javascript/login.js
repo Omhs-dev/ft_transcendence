@@ -17,14 +17,15 @@ appSection.addEventListener('submit', (e) => {
 
 sideNavSection.addEventListener("click", (e) => {
     e.preventDefault();
-    
+
     if (e.target.classList.contains("logoutbtn")) {
         console.log("we hit the logout button");
         logoutUser();
-    } else {
-        console.log("not found");
-		return;
     }
+});
+
+window.addEventListener('load', () => {
+	startTokenRefreshTimer();
 });
 
 // Login functionality
@@ -108,34 +109,46 @@ function stopTokenRefreshTimer() {
 	}
 }
 
-function startTokenRefreshTimer() {
-	const refreshInterval = 4 * 60 * 1000; // 1 minute in milliseconds
+const renewToken = async () => {
+	console.log("refresh token timer started");
+	const apiUrl = 'http://localhost:8000/auth/api/renew-access/';
+	console.log(`API URL being called: ${apiUrl}`);
+
+	console.log("after api url");
+	try {
+		const response = await fetch(apiUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			console.error('Token refresh failed');
+			logoutUser();
+			console.log("User logged out due to token refresh failure");
+			throw new Error('Token refresh failed');
+		}
+
+		const data = response.json();
+
+		console.log('Token refreshed:', data);
+
+		console.log('Token refreshed successfully');
+	} catch (error) {
+		console.log('Error:', error.message);
+	}
+};
+
+const startTokenRefreshTimer = async () => {
+	const refreshInterval = 4 * 60 * 1000;
 
 	console.log('Starting token refresh timer');
 	refreshTimer = setInterval(() => {
-		// Use absolute path to avoid relative path issues
-		const apiUrl = '/auth/api/renew-access/';
-		console.log(`API URL being called: ${apiUrl}`);
-
-		fetch(apiUrl, {
-			method: 'POST',
-			credentials: 'include',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the header
-			},
-		})
-		.then(response => {
-			if (response.ok) {
-				console.log('Token refreshed successfully');
-			} else {
-				console.error('Failed to refresh token. Logging out.');
-				logoutUser(); // Call the logout logic
-			}
-		})
-		.catch(error => {
-			console.error('Error refreshing token:', error);
-		});
+		renewToken();
+		console.log('Token refreshed');
 	}, refreshInterval);
 }
 
@@ -145,8 +158,7 @@ export function getCookie(name) {
 		const cookies = document.cookie.split(';');
 		for (let i = 0; i < cookies.length; i++) {
 			const cookie = cookies[i].trim();
-			console.log("cookie: ", cookie);
-			// Does this cookie string begin with the name we want?
+			// console.log("cookie: ", cookie);
 			if (cookie.substring(0, name.length + 1) === (name + '=')) {
 				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
 				break;

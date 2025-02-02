@@ -5,3 +5,365 @@ DEBUG CustomTokenRefreshView request received
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MDY0LCJpYXQiOjE3Mzg0OTc3NjQsImp0aSI6ImQ0ZTUyNjQxOGFiNjRkZGVhYTc4YThmZWYwYjMyNTdlIiwidXNlcl9pZCI6Mn0.2lZ4xC3xaRuWapfc8xG4l8BXkRWz6mHuqOitNHI7sqo
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDE2NCwiaWF0IjoxNzM4NDk3NzY0LCJqdGkiOiJhZDhmNWI2NzcwODU0MGQwYmJlNmE1MDE4ZWRkNTMzYSIsInVzZXJfaWQiOjJ9.T2y0OjqWzuPuF4haAYmxMHc4hyCKwAv6u2LSEuuqXwE
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MDY0LCJpYXQiOjE3Mzg0OTc3NjQsImp0aSI6ImQ0ZTUyNjQxOGFiNjRkZGVhYTc4YThmZWYwYjMyNTdlIiwidXNlcl9pZCI6Mn0.2lZ4xC3xaRuWapfc8xG4l8BXkRWz6mHuqOitNHI7sqo
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+WARNING Bad Request: /auth/api/select-2fa-method/
+WARNING [31;1mHTTP POST /auth/api/select-2fa-method/ 400 [0.31, 172.18.0.1:61784][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDE2NCwiaWF0IjoxNzM4NDk3NzY0LCJqdGkiOiJhZDhmNWI2NzcwODU0MGQwYmJlNmE1MDE4ZWRkNTMzYSIsInVzZXJfaWQiOjJ9.T2y0OjqWzuPuF4haAYmxMHc4hyCKwAv6u2LSEuuqXwE
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDE2NCwiaWF0IjoxNzM4NDk3NzY0LCJqdGkiOiJhZDhmNWI2NzcwODU0MGQwYmJlNmE1MDE4ZWRkNTMzYSIsInVzZXJfaWQiOjJ9.T2y0OjqWzuPuF4haAYmxMHc4hyCKwAv6u2LSEuuqXwE
+DEBUG User found in refresh token in logout: omhs
+DEBUG User found in refresh token in logout: omhs
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User omhs logged out
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User omhs logged out
+INFO [mHTTP POST /auth/api/logout/ 200 [0.22, 172.18.0.1:56942][0m
+INFO [mHTTP POST /auth/api/logout/ 200 [0.33, 172.18.0.1:61784][0m
+INFO User omhs is authenticated in the login class:
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImY0ZWYyYmZkMmEzYzQ3NDE5Yjc5MDMwZjNjNTVlOTE2IiwidXNlcl9pZCI6Mn0.QnRCfML5GzzJC8KK18NRKI73FKKtmGmAsDyWmPhYfg8
+INFO User omhs is authenticated in the login class:
+DEBUG Signal: create_or_update_user_profile triggered
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImVmYTRmNGNhYmEzMDQ0NmVhOTJkOWRjNzQyYzAxOTRhIiwidXNlcl9pZCI6Mn0.RoHCgEwChaU9FCMjto0qNb5O2beY5bcK2fepIxjEiTM
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User omhs logged in
+DEBUG Signal: User omhs logged in
+DEBUG response.data: {'user_id': 2, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImY0ZWYyYmZkMmEzYzQ3NDE5Yjc5MDMwZjNjNTVlOTE2IiwidXNlcl9pZCI6Mn0.QnRCfML5GzzJC8KK18NRKI73FKKtmGmAsDyWmPhYfg8', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws'}}
+DEBUG response.data: {'user_id': 2, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImVmYTRmNGNhYmEzMDQ0NmVhOTJkOWRjNzQyYzAxOTRhIiwidXNlcl9pZCI6Mn0.RoHCgEwChaU9FCMjto0qNb5O2beY5bcK2fepIxjEiTM', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiI5MTRjMjZkZWQ3OTA0NTllOGIzNjRlOWYzMjM4ZDYzYiIsInVzZXJfaWQiOjJ9.SqpXUzRPEPVDaYCNdmSqmuJ__NOOoOpPFA0vd8FHT8g'}}
+INFO [mHTTP POST /auth/api/login/ 200 [0.82, 172.18.0.1:61784][0m
+INFO [mHTTP POST /auth/api/login/ 200 [0.90, 172.18.0.1:56942][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImY0ZWYyYmZkMmEzYzQ3NDE5Yjc5MDMwZjNjNTVlOTE2IiwidXNlcl9pZCI6Mn0.QnRCfML5GzzJC8KK18NRKI73FKKtmGmAsDyWmPhYfg8
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImY0ZWYyYmZkMmEzYzQ3NDE5Yjc5MDMwZjNjNTVlOTE2IiwidXNlcl9pZCI6Mn0.QnRCfML5GzzJC8KK18NRKI73FKKtmGmAsDyWmPhYfg8
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+WARNING Bad Request: /auth/api/select-2fa-method/
+WARNING [31;1mHTTP POST /auth/api/select-2fa-method/ 400 [0.14, 172.18.0.1:61784][0m
+INFO /app/Django_backend_project/auth_app/views.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/views.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImY0ZWYyYmZkMmEzYzQ3NDE5Yjc5MDMwZjNjNTVlOTE2IiwidXNlcl9pZCI6Mn0.QnRCfML5GzzJC8KK18NRKI73FKKtmGmAsDyWmPhYfg8
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4MjU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImY0ZWYyYmZkMmEzYzQ3NDE5Yjc5MDMwZjNjNTVlOTE2IiwidXNlcl9pZCI6Mn0.QnRCfML5GzzJC8KK18NRKI73FKKtmGmAsDyWmPhYfg8
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+ERROR Internal Server Error: /auth/api/select-2fa-method/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 314, in post
+    if not hasattr(request.user.profile, 'phone_number') or not request.user.phone_number:
+AttributeError: 'User' object has no attribute 'phone_number'
+ERROR [35;1mHTTP POST /auth/api/select-2fa-method/ 500 [0.83, 172.18.0.1:61064][0m
+INFO /app/Django_backend_project/auth_app/views.py changed, reloading.
+INFO Watching for file changes with StatReloader
+INFO /app/Django_backend_project/auth_app/views.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/views.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjBlM2Y3ZDY3ZWJlOTQ0YzBiMjIyMzYwN2YwMTc4MWJkIiwidXNlcl9pZCI6Mn0.jA2Gxp5WH5vfOyOrmqBQCOLAa9YaJZ7YVi77Sf6U8Sc'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.71, 172.18.0.1:61234][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.74, 172.18.0.1:61238][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+DEBUG 
+
+2FA method selected for the user: omhs | Online: True | 2FA: False
+ERROR Internal Server Error: /auth/api/select-2fa-method/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 314, in post
+    if not hasattr(request.user.profile, 'phone_number') or not request.user.phone_number:
+AttributeError: 'User' object has no attribute 'phone_number'
+ERROR [35;1mHTTP POST /auth/api/select-2fa-method/ 500 [0.36, 172.18.0.1:61238][0m
+INFO /app/Django_backend_project/auth_app/views.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+DEBUG 
+
+2FA method selected for the user: omhs | Online: True | 2FA: False
+INFO 
+
+
+*****
+	Generating OTP and sending it via sms for user omhs
+ERROR Internal Server Error: /auth/api/select-2fa-method/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 320, in post
+    generate_and_send_Email_SMS_otp(request.user, 'sms')
+  File "/app/Django_backend_project/auth_app/IIFA_utils.py", line 88, in generate_and_send_Email_SMS_otp
+    send_2fa_sms(user.profile.phone_number, otp_code)
+  File "/app/Django_backend_project/auth_app/IIFA_utils.py", line 37, in send_2fa_sms
+    message = client.messages.create(
+  File "/usr/local/lib/python3.10/site-packages/twilio/rest/api/v2010/account/message/__init__.py", line 583, in create
+    payload = self._version.create(
+  File "/usr/local/lib/python3.10/site-packages/twilio/base/version.py", line 463, in create
+    return self._parse_create(method, uri, response)
+  File "/usr/local/lib/python3.10/site-packages/twilio/base/version.py", line 435, in _parse_create
+    raise self.exception(method, uri, response, "Unable to create record")
+twilio.base.exceptions.TwilioRestException: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/None/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authentication Error - No credentials provided[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+ERROR [35;1mHTTP POST /auth/api/select-2fa-method/ 500 [1.27, 172.18.0.1:65338][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk4NzU3LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjI5NDRlMDdmMmRhMDQzYjE4MDhkMWQ1NTBjYmQ3YjNmIiwidXNlcl9pZCI6Mn0.KDG6NLDPsbXgIhsAYHj_lboPM2UipIgxS6dYOWdYbKk
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+DEBUG 
+
+2FA method selected for the user: omhs | Online: True | 2FA: False
+INFO 
+
+
+*****
+	Generating OTP and sending it via sms for user omhs
+ERROR Internal Server Error: /auth/api/select-2fa-method/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 320, in post
+    generate_and_send_Email_SMS_otp(request.user, 'sms')
+  File "/app/Django_backend_project/auth_app/IIFA_utils.py", line 88, in generate_and_send_Email_SMS_otp
+    send_2fa_sms(user.profile.phone_number, otp_code)
+  File "/app/Django_backend_project/auth_app/IIFA_utils.py", line 37, in send_2fa_sms
+    message = client.messages.create(
+  File "/usr/local/lib/python3.10/site-packages/twilio/rest/api/v2010/account/message/__init__.py", line 583, in create
+    payload = self._version.create(
+  File "/usr/local/lib/python3.10/site-packages/twilio/base/version.py", line 463, in create
+    return self._parse_create(method, uri, response)
+  File "/usr/local/lib/python3.10/site-packages/twilio/base/version.py", line 435, in _parse_create
+    raise self.exception(method, uri, response, "Unable to create record")
+twilio.base.exceptions.TwilioRestException: 
+[31m[49mHTTP Error[0m [37m[49mYour request was:[0m
+
+[36m[49mPOST /Accounts/None/Messages.json[0m
+
+[37m[49mTwilio returned the following information:[0m
+
+[34m[49mUnable to create record: Authentication Error - No credentials provided[0m
+
+[37m[49mMore information may be available here:[0m
+
+[34m[49mhttps://www.twilio.com/docs/errors/20003[0m
+
+
+ERROR [35;1mHTTP POST /auth/api/select-2fa-method/ 500 [0.74, 172.18.0.1:65338][0m
+INFO /app/Django_backend_project/auth_app/IIFA_utils.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/auth_app/IIFA_utils.py changed, reloading.
+INFO Watching for file changes with StatReloader
+INFO /app/Django_backend_project/auth_app/IIFA_utils.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MTQ5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjUyMzliNTA5MTYxYjQ2NWM5ZTQ1NzdhZTAyMWYyYmViIiwidXNlcl9pZCI6Mn0.Kn7gr33zXl_2uOzRNaK2RzGokPiUkB2Revas-u3SRdE'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MTQ5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6Ijk2NGYzZDZjMGI1YTQ4MTM4NTc3YjczMmY4MGUyNjRjIiwidXNlcl9pZCI6Mn0.91YiftpYcMohD427gMP805Bf6pnr7wpepL1SeVqc2Yo'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.43, 172.18.0.1:55300][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.45, 172.18.0.1:55286][0m
+INFO /app/Django_backend_project/auth_app/IIFA_utils.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MTQ5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjUyMzliNTA5MTYxYjQ2NWM5ZTQ1NzdhZTAyMWYyYmViIiwidXNlcl9pZCI6Mn0.Kn7gr33zXl_2uOzRNaK2RzGokPiUkB2Revas-u3SRdE
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MTQ5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjUyMzliNTA5MTYxYjQ2NWM5ZTQ1NzdhZTAyMWYyYmViIiwidXNlcl9pZCI6Mn0.Kn7gr33zXl_2uOzRNaK2RzGokPiUkB2Revas-u3SRdE
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method selected: sms
+DEBUG 
+
+2FA method selected for the user: omhs | Online: True | 2FA: False
+INFO 
+
+
+*****
+	Generating OTP and sending it via sms for user omhs
+INFO 
+
+
+*****
+	Sending SMS to +4917687524055 with code 538642
+INFO [mHTTP POST /auth/api/select-2fa-method/ 200 [0.62, 172.18.0.1:61628][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/verify-2fa-setup/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MTQ5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjUyMzliNTA5MTYxYjQ2NWM5ZTQ1NzdhZTAyMWYyYmViIiwidXNlcl9pZCI6Mn0.Kn7gr33zXl_2uOzRNaK2RzGokPiUkB2Revas-u3SRdE
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MTQ5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjUyMzliNTA5MTYxYjQ2NWM5ZTQ1NzdhZTAyMWYyYmViIiwidXNlcl9pZCI6Mn0.Kn7gr33zXl_2uOzRNaK2RzGokPiUkB2Revas-u3SRdE
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+DEBUG 2FA method: sms and the otp_code in the Verify2FASetupView: 538642
+INFO [mHTTP POST /auth/api/verify-2fa-setup/ 200 [0.17, 172.18.0.1:61628][0m
+INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.41, 172.18.0.1:61628][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.09, 172.18.0.1:61628][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MzkwLCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImI2NmQyMGMxMDdiYTQ0MzZhMzFhZjc1NmJkMjFmOThjIiwidXNlcl9pZCI6Mn0.3kO3M1ZjyEhxUHWsuZekssWhX0l0rkSSQTkRWHv8aLs'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5MzkwLCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjA3NzJmNDkxYWZkYTQwM2JhN2MwYTNmMTNkZWE1ZDYyIiwidXNlcl9pZCI6Mn0.HY9r4coflKzK3HvWIgFs_7cQzFwHb_BUnnSrIb3l1aU'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.07, 172.18.0.1:55164][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.10, 172.18.0.1:55158][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODU4NDM1NywiaWF0IjoxNzM4NDk3OTU3LCJqdGkiOiJkNTMwNDhmYmUzYWM0NzZjOGQzMDYzN2U2MjgwYjliNyIsInVzZXJfaWQiOjJ9.QNKjDwkbqiK5itKnoOLsaBcc0LcqWXQ2HL89WkqP8Ws
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5NjI5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6ImE5YzMyNTVmZGRlOTRjYTViOGE1MWJmZDNkZTdlNTU2IiwidXNlcl9pZCI6Mn0.gWZ7ab5pIHgOSEWbWj5_gQxdyk9-wC2OUwpRKwdlo2U'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NDk5NjI5LCJpYXQiOjE3Mzg0OTc5NTcsImp0aSI6IjE0OTFmNDcxOWI2MDRhMWNiNTgyYmY2YTJhNGU4OTVlIiwidXNlcl9pZCI6Mn0.7yMGFheuCsQ_480LUZW8_Iz3tCnxKC_vETqpH-lJwG0'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.24, 172.18.0.1:58056][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.33, 172.18.0.1:58070][0m

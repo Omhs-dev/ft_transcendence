@@ -28,18 +28,19 @@ def generate_otp_code():
 
 def send_2fa_sms(phone_number, code):
     """Send an SMS verification code to the user's phone."""
-   
-    TWILIO_VERIFY_SERVICE_SID=""
-    TWILIO_ACCOUNT_SID=""
-    TWILIO_AUTH_TOKEN=""
+    logger.info("\n\n\n*****\n\tSending SMS to %s with code %s", phone_number, code)
+    return
+    # TWILIO_VERIFY_SERVICE_SID=""
+    # TWILIO_ACCOUNT_SID=""
+    # TWILIO_AUTH_TOKEN=""
 
-    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-    message = client.messages.create(
-        body=f"Your verification code is: {code}",
-        from_="+1234567890",  # Your Twilio phone number
-        to=phone_number
-    )
-    return message.sid
+    # client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    # message = client.messages.create(
+    #     body=f"Your verification code is: {code}",
+    #     from_="+1234567890",  # Your Twilio phone number
+    #     to=phone_number
+    # )
+    # return message.sid
 
 
 def send_2fa_email(email, otp_code):

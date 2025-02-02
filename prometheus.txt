@@ -7,7 +7,7 @@ docker compose up --build
 docker compose ps
 
 #check containers metrics scraped correctly
-http://localhost:8081/metrics   --- check for each container metrics
+172.23.0.6   --- check for each container metrics
 
 #Access prometheus and target container are up
 http://localhost:9090/targets          --- cadvisor and prometheus --- up

@@ -8,14 +8,11 @@ const baseUrl = "http://localhost:8000"
 
 const getOnlineUsers = async () => {
 	try {
-		if (!token) {
-			throw new Error("No access token found. Please log in.");
-		}
-
 		const response = await fetch(`${baseUrl}/chat/api/online-users/`, {
-			method: "GET",
+			method: 'GET',
 			headers: {
-				"X-CSRFToken": getCookie('csrftoken'),
+				'X-CSRFToken': getCookie('csrftoken'),
+				'Content-Type': 'application/json',
 			},
 			credentials: 'include',
 		});
@@ -48,6 +45,7 @@ const getOnlineUsers = async () => {
 			const tdButton = document.createElement("td");
 			const button = document.createElement("button");
 			button.classList.add("btn", "btn-primary", "rounded-pill");
+			button.id = "addFriend";
 			button.textContent = "Add +";
 
 			button.addEventListener("click", () => sendFriendRequest(user.id));
@@ -73,7 +71,7 @@ const getOnlineUsers = async () => {
 const sendFriendRequest = async (userId) => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				'X-CSRFToken': getCookie('csrftoken'),
@@ -86,6 +84,12 @@ const sendFriendRequest = async (userId) => {
 		}
 
 		const data = await response.json();
+
+		const btn = document.getElementById("addFriend");
+		console.log("Button: ", btn);
+
+		btn.textContent = "Request Sent";
+		btn.disabled = true;
 		alert(data.message || "Friend request sent");
 	} catch(error) {
 		console.log("Error: ", error);
@@ -316,6 +320,8 @@ const fetchProfileInfo = async () => {
 		const twoFa = data.is_2fa_enabled;
 		localStorage.setItem("twoFa", twoFa);
 		console.log("2fa: ", twoFa);
+
+		console.log("Data: ", data);
 	} catch(error) {
 		console.log(error.message);
 	}
@@ -345,10 +351,10 @@ const updateProfilePicture = async (formData) => {
 	}
 };
 
-window.addEventListener("load", () => {
+// window.addEventListener("load", () => {
 
-	fetchProfileInfo();
-});
+// 	fetchProfileInfo();
+// });
 
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
@@ -365,35 +371,37 @@ sideNavSection.addEventListener("click", (e) => {
 	}
 });
 
-// appSection.addEventListener("change", (e) => {
-//     const file = e.target.files[0];
-// 	console.log("file infos: ", file);
-	
-//     if (!file)
-// 		return;
+appSection.addEventListener("change", (e) => {
+	if (e.target.id === "selectPicture") {
+		console.log("file selected");
+		const file = e.target.files[0];
 
-// 	if (!file.type.startsWith("image/"))
-// 		return;
+		if (!file)
+			return;
 
-// 	if (file.size > 2 * 1024 * 1024)
-// 		return;
+		if (!file.type.startsWith("image/"))
+			return;
 
-//     const reader = new FileReader();
-// 	reader.onload = (event) => {
-// 		console.log("this is the event: ");
-// 		const pic = document.getElementById("userPicture");
-// 		const picSideNav = document.getElementById("userImageSnav");
-// 		pic.src = event.target.result;
-// 		picSideNav.src = event.target.result;
-// 		// pic.style.height = "200px";
-// 		// pic.style.width = "200px";
-// 	};
+		if (file.size > 2 * 1024 * 1024)
+			return;
 
-// 	reader.readAsDataURL(file);
+		const reader = new FileReader();
+		reader.onload = (event) => {
+			console.log("this is the event: ");
+			const pic = document.getElementById("userPicture");
+			const picSideNav = document.getElementById("userImageSnav");
+			pic.src = event.target.result;
+			picSideNav.src = event.target.result;
+			// pic.style.height = "200px";
+			// pic.style.width = "200px";
+		};
 
-// 	const formData = new FormData();
-// 	const userImage = document.getElementById("selectPicture").files[0];
-// 	console.log("user image: ", userImage);
-// 	formData.append("profile_picture", userImage);
-// 	updateProfilePicture(formData);
-// });
+		reader.readAsDataURL(file);
+
+		const formData = new FormData();
+		const userImage = document.getElementById("selectPicture").files[0];
+		// console.log("user image: ", userImage);
+		formData.append("profile_picture", userImage);
+		updateProfilePicture(formData);
+	}
+});

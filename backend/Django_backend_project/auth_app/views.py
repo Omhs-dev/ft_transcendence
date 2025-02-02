@@ -91,6 +91,7 @@ class LoginView(APIView):
                 logger.info("Access token: %s", access_token)
 
                 response = Response({
+                    "user_id": user.id,
                     "Success": "Login successful",
                     "data": {"access": access_token, "refresh": refresh_token},
                 })
@@ -274,7 +275,7 @@ class Select2FAMethodView(APIView):
             return Response({"error": "Invalid 2FA method selected."}, status=400)
 
         profile = request.user.profile
-
+        logger.debug("\n\n2FA method selected for the user: %s", profile)
         # Reset previous 2FA settings
         # profile.is_2fa_enabled = False
         # profile.otp_secret = None # later I should remove this attribute of profile model
@@ -310,7 +311,7 @@ class Select2FAMethodView(APIView):
 
         elif method == 'sms':
             # Generate and send an SMS verification code
-            if not hasattr(request.user, 'phone_number') or not request.user.phone_number:
+            if not hasattr(request.user.profile, 'phone_number') or not request.user.profile.phone_number:
                 return Response({"error": "Phone number is not set for the user."}, status=400)
 
             if not profile.can_send_otp():
