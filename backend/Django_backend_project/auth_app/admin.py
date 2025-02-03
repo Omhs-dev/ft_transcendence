@@ -36,7 +36,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('user','id', 'nickname', 'phone_number', 'is_online', 'bio', 'profile_picture', 'friends')
+            'fields': ('user', 'nickname', 'phone_number', 'is_online', 'bio', 'profile_picture', 'friends')
         }),
         ('2FA Status', {
             'fields': ('is_2fa_enabled', 'selected_2fa_method'),
@@ -45,7 +45,7 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('accepted_friends', 'blocked_users'),
         }),
     )
-    readonly_fields = ('accepted_friends', 'blocked_users', 'selected_2fa_method')
+    readonly_fields = ('id', 'accepted_friends', 'blocked_users', 'selected_2fa_method')
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)

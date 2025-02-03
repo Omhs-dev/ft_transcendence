@@ -8,6 +8,7 @@ import requests
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
+from .models import Profile
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.middleware import csrf
 from django.middleware.csrf import get_token
@@ -16,13 +17,29 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+import random
+import string
+
+def generate_random_string(length):
+    letters = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters) for i in range(length))
+
+random_string = generate_random_string(10)
+# print(random_string)
+
+
+state = None
 def initiate_42_oauth(request):
     # Build the URL for 42's authorization endpoint
+    global state
+    state = generate_random_string(64)
+    logger.debug("\n\nstate: \n%s", state)
     params = {
         'client_id': settings.OAUTH_42_CLIENT_ID,
         'redirect_uri': settings.OAUTH_42_REDIRECT_URI,
         'response_type': 'code',  # We want an authorization code
-        'scope': 'public'  # Request access to the user's public profile
+        'scope': 'public',  # Request access to the user's public profile
+        'state': state,
     }
     auth_url = f"{settings.OAUTH_42_AUTHORIZE_URL}?{urllib.parse.urlencode(params)}"
     logger.debug("\n\nauth_url created for the 42: \n %s\n", auth_url)
@@ -31,9 +48,11 @@ def initiate_42_oauth(request):
 
 def callback_42_auth(request):
     code = request.GET.get('code')
-    logger.debug("Received OAuth code from 42: %s", code)
+    check_state = request.GET.get('state')
+    logger.debug("Received OAuth code from 42: %s\n check_state:%s\n state:%s\n", request.GET, check_state, state)
 
-    if not code:
+    if not code or not check_state or check_state != state:
+        logger.error("\n\nAuthorization failed: %s\n", request.GET)
         return redirect(f"{settings.FRONTEND_URL}/auth/register?error=AuthorizationFailed")
 
     # Exchange the code for an access token
@@ -91,6 +110,7 @@ def exchange_code_for_token(code):
     
     try:
         response = requests.post(token_url, data=data)
+        logger.debug("\n\nToken exchange response: %s\n", response.json())
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:
@@ -104,6 +124,7 @@ def fetch_42_user_info(access_token):
     
     try:
         response = requests.get(settings.OAUTH_42_USER_INFO_URL, headers=headers)
+        logger.debug("\n\nUser info response: %s\n", response.json())
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:
@@ -121,6 +142,7 @@ def get_or_create_user(user_info):
         # defaults={'email': email, 'password': User.objects.make_random_password()}
         defaults={'email': email, 'password': 12345678}
     )
+    # user.profile.profile_picture = photo
     return user
 
 
