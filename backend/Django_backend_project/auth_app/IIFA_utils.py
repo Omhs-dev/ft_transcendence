@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from twilio.rest import Client
 from django.core.cache import cache
+from twilio.base.exceptions import TwilioRestException
 import logging
 
 logger = logging.getLogger("auth_app")
@@ -14,33 +15,28 @@ def generate_otp_code():
     return str(secrets.randbelow(10**6)).zfill(6)
 
 
-# account_sid = 'AC8b0da30ea0e35dbf2d3594bcc7dabf51'
-# auth_token = '[AuthToken]'
-# client = Client(account_sid, auth_token)
-
-# verification = client.verify \
-#     .v2 \
-#     .services('VA696120a11fa1c6301925f7a54aa1481a') \
-#     .verifications \
-#     .create(to='', channel='sms')
-
-# print(verification.sid)
-
 def send_2fa_sms(phone_number, code):
     """Send an SMS verification code to the user's phone."""
-    logger.info("\n\n\n*****\n\tSending SMS to %s with code %s", phone_number, code)
-    return
-    # TWILIO_VERIFY_SERVICE_SID=""
+   
     # TWILIO_ACCOUNT_SID=""
     # TWILIO_AUTH_TOKEN=""
+    # TWILIO_PHONE_NUMBER=""
 
-    # client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
-    # message = client.messages.create(
-    #     body=f"Your verification code is: {code}",
-    #     from_="+1234567890",  # Your Twilio phone number
-    #     to=phone_number
-    # )
-    # return message.sid
+
+    logger.info("Sending SMS to %s and the code is:", phone_number, code)
+    return
+
+    client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+    try:
+        message = client.messages.create(
+            body=f"Your verification code is: {code}",
+            from_= TWILIO_PHONE_NUMBER,  # My Twilio phone number
+            to= phone_number
+        )
+        return message.sid
+    except TwilioRestException as e:
+        logger.error("Failed to send SMS: %s", e)
+        raise
 
 
 def send_2fa_email(email, otp_code):
@@ -74,9 +70,9 @@ def generate_and_send_Email_SMS_otp(user, method):
     Generate a new OTP and send it via the specified method (email or SMS).
     """
     
-    logger.info("\n\n\n*****\n\tGenerating OTP and sending it via %s for user %s", method, user.username)
     # Generate a 6-digit random OTP
     otp_code = generate_otp_code()
+    logger.info("\n\n\n*****\n\tGenerating OTP and sending it via %s\n\n for user %s\n\n code:%s\n\n ", method, user.username, otp_code)
 
     # Save the OTP and its expiration in the database (assuming a model for this)
     save_otp_code(user.id, otp_code)

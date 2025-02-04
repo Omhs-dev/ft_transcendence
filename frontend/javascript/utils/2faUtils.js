@@ -21,6 +21,32 @@ export function successfullyVerifiedOTP() {
 	`;
 }
 
+export function loadSmsContainer(smsContainer) {
+	smsContainer.innerHTML = `
+		<div class="d-flex flex-column align-items-center">
+			<label id="phoneNumberLabel" for="otpCode"></label>
+				Enter your phone number to receive the code
+			</small></p>
+			<input class="form-control text-dark bg-light w-75" type="text" id="phoneNumber"
+				placeholder="Phone Number: 0176..." name="otpCode" required>
+			<button class="btn btn-outline-success mt-3 w-50" id="updateNumber">
+				Update Number
+			</button>
+		</div>
+	`;
+}
+
+export function sendOtpBySms(smsContainer) {
+	smsContainer.innerHTML = `
+		<div class="d-flex flex-column align-items-center">
+			<p class="text-muted">Click the button below to receive the code</p>
+			<button class="btn btn-outline-success mt-3 w-50" id="sendCode">
+				Send Code
+			</button>
+		</div>
+	`;
+}
+
 export function closeModal() {
 	const closeBtn = document.getElementById("closeBtn");
 	console.log("closeBtn: ", closeBtn);

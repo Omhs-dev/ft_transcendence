@@ -2,6 +2,8 @@ import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
 import { closeModal } from "./utils/2faUtils.js";
 import { twoFaDisabled } from "./utils/2faUtils.js";
+import { sendOtpBySms } from "./utils/2faUtils.js";
+import { loadSmsContainer } from "./utils/2faUtils.js";
 import { twoFaAlreadyEnabled } from "./utils/2faUtils.js";
 import { choose2FaMethodSection } from "./utils/2faUtils.js";
 
@@ -200,22 +202,12 @@ const hasAnumber = async (method, userPhoneNumber) => {
 	}
 };
 
-const hasNoNumber = (method) => {
+// User does not have a phone number, so we need to get the phone number
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const hasNoNumber = async (method) => {
 	const smsContainer = document.getElementById('smsContainer');
-
-	smsContainer.innerHTML = `
-		<div class="d-flex flex-column align-items-center">
-			<label id="phoneNumberLabel" for="otpCode"></label>
-				Enter your phone number to receive the code
-			</small></p>
-			<input class="form-control text-dark bg-light w-75" type="text" id="phoneNumber"
-				placeholder="Phone Number: 0176..." name="otpCode" required>
-			<button class="btn btn-outline-success mt-3 w-50" id="updateNumber">
-				Update Number
-			</button>
-		</div>
-	`;
-
+	loadSmsContainer(smsContainer);
 	const updateNumber = document.getElementById('updateNumber');
 
 	updateNumber.addEventListener('click', async () => {
@@ -236,11 +228,24 @@ const hasNoNumber = (method) => {
 
 		console.log("valid phone number");
 		updateUserNumber(method, enteredPhoneNumber.value);
-		hasAnumber(method, enteredPhoneNumber.value);
 		smsContainer.innerHTML = "<p class=\"text-success\">Number updated successfully</p>";
-		setTimeout(() => {
-			smsContainer.innerHTML = "";
-		}, 1000);
+
+		await wait(1000);
+
+		// send the code
+		sendOtpBySms(smsContainer);
+		// identify the send code button
+		const sendCode = document.getElementById('sendCode');
+
+		console.log("sendCode: ", sendCode);
+		// add event listener to the send code button
+		sendCode.addEventListener('click', async () => {
+			smsContainer.innerHTML = "<p class=\"text-success\">Code sent successfully</p>";
+			setTimeout(() => {
+				smsContainer.innerHTML = "";
+			}, 1000);
+			handleSMS(method);
+		});
 	});
 };
 

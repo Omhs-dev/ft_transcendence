@@ -45,7 +45,7 @@ class ProfileAdmin(admin.ModelAdmin):
             'fields': ('accepted_friends', 'blocked_users'),
         }),
     )
-    readonly_fields = ('accepted_friends', 'id', 'blocked_users', 'selected_2fa_method')
+    readonly_fields = ('id', 'accepted_friends', 'blocked_users', 'selected_2fa_method')
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
