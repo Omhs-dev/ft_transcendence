@@ -5,6 +5,14 @@ from . import views
 from django.shortcuts import render
 
 
+# urls.py
+from django.urls import path
+from .AuthII_utils import *
+
+urlpatterns = [
+]
+
+
 
 urlpatterns = [
     path('register/', views.registration_page, name='register'),  # HTML registration page
@@ -18,4 +26,6 @@ urlpatterns = [
 	path('api/verify-2fa-setup/', views.Verify2FASetupView.as_view(), name='verify-2fa-setup'),
 	path('api/change-2fa-method/', views.change_2fa_method, name='change-2fa-method'),
 	path('api/disable-2fa/', views.disable_2fa, name='disable-2fa'),
+    path('api/42/login/', initiate_42_oauth, name='initiate_42_auth'),
+    path('api/42/callback/', callback_42_auth, name='callback_42_auth'),
 ]

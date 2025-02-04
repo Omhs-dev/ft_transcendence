@@ -54,6 +54,9 @@
 					<button type="submit" id="loginButton">Login</button>
 				</form>
 			</div>
+			<div>
+				<button onclick="loginWith42()" style="margin-top: 2%;">Login with 42</button>
+			</div>
 		</div>
 
         <!-- Dashboard Section -->
@@ -88,6 +91,9 @@
 				<form id="profileForm">
 					<label for="profileBio">Bio:</label>
 					<textarea id="profileBio" name="bio"></textarea>
+					<br>
+					<label for="profilePhone">Phone:</label>
+					<textarea id="profilePhone" name="Phone"></textarea>
 					<br>
 
 					<label for="profilePicture">Upload Profile Picture:</label>
@@ -140,13 +146,13 @@
 
 					<!-- SMS Setup -->
 					<div id="smsSetup" style="display: none;">
-						<div id="enterPhoneNum">
+						<div id="enterPhoneNum" style="display: inherit;">
 							<label for="phoneNumber">Enter your phone number:</label>
 							<input type="text" id="phoneNumber">
 							<button id="savePhoneNumber">Save</button>
 						</div>
-						<div id="sendSMSCodeButton" style="display: none;">
-							<button id="sendSmsCode">Send Code</button>
+						<div id="sendSMSCodeButton" style="display: inherit;">
+							<!-- <button id="sendSmsCode">Send Code</button> -->
 							<label for="smsCode">Enter the received code:</label>
 							<input type="text" id="smsCode">
 							<button id="verifySms">Verify</button>
@@ -168,9 +174,68 @@
 
 
 <script>
-		let refreshTimer;
-		
+	
 
+	// *********************************** Global Variables ***********************************
+
+		let refreshTimer;
+		let user_id = '';
+		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
+		
+	// *********************************** Helper Functions ***********************************
+		// Ensure this function is called once the DOM is fully loaded
+		document.addEventListener("DOMContentLoaded", function() {
+			update2FASection(TwoFA); // Call the function with the appropriate TwoFA status
+		});
+
+	// *********************************** OAuth Login Logic ***********************************
+		// Login with 42
+		function loginWith42() {
+			localStorage.setItem('oauthLogin', 'true');
+			window.location.href = "/auth/api/42/login/"; // Redirects to 42 OAuth login
+		}
+	
+		// ✅ Optimized: Check authentication and load dashboard
+		async function checkAuthAndLoadDashboard() {
+			try {
+				const response = await fetch('/auth/api/profile/', {
+					method: 'GET',
+					credentials: 'include' // ✅ Sends HTTP-only cookies
+				});
+
+				if (response.ok) {
+					const userData = await response.json();
+					console.log("OAuth Login successful:", userData);
+
+					// ✅ Store authentication state in local storage
+					localStorage.setItem('username', userData.username);
+					localStorage.setItem('isAuthenticated', 'true');
+					localStorage.setItem('oauthLogin', 'true');
+
+					// ✅ Load dashboard
+					loadDashboard();
+				} else {
+					console.warn("User not authenticated, redirecting...");
+				}
+			} catch (error) {
+				console.error("Error checking OAuth authentication:", error);
+				window.location.href = "/auth/register";
+			}
+		}
+		
+		// OAuth Login
+		document.addEventListener("DOMContentLoaded", async function () {
+			// Check if user came back from OAuth login
+			if (localStorage.getItem('oauthLogin') === 'true') {
+				localStorage.removeItem('oauthLogin'); // Remove flag
+				checkAuthAndLoadDashboard();
+			}
+		});
+
+
+
+	// *********************************** Token Refresh Logic ***********************************
+	
 		// Function to get the CSRF token from the cookie
 		function getCookie(name) {
 			let cookieValue = null;
@@ -230,6 +295,8 @@
 			}
 		}
 
+
+	// *********************************** Authentication Logic ***********************************
 		// Register User
 		document.getElementById('registerForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
@@ -377,6 +444,9 @@
 				localStorage.removeItem('isAuthenticated');
 				localStorage.removeItem('otpMethod');
 				localStorage.removeItem('userId');
+				localStorage.removeItem('phoneNumber');
+				localStorage.removeItem('TwoFA');
+				localStorage.removeItem('oauthLogin');
 				showAuthSection(); // Redirect to authentication page
 			}
 		}
@@ -402,8 +472,13 @@
 			document.getElementById('dashboard').style.display = 'none';
 		}
 
+// *********************************** Dashboard Logic ***********************************
+
 		// Load Dashboard
 		function loadDashboard() {
+			if (localStorage.getItem('oauthLogin') == 'true') {
+				document.getElementById('twoFactorSection').style.display = 'none';				
+			}
 			startTokenRefreshTimer(); // Start refreshing tokens
 			document.getElementById('login_username').value = '';
         	document.getElementById('login_password').value = '';
@@ -417,358 +492,7 @@
 			fetchProfile(); // Fetch profile details when the dashboard loads
 		}
 
-		// Profile Picture Preview
-		document.getElementById('profilePicture').addEventListener('change', function (event) {
-			// console.log("event : ");
-			
-			const file = event.target.files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = function (e) {
-					document.getElementById('profilePicturePreview').src = e.target.result;
-				};
-				reader.readAsDataURL(file);
-			}
-		});
-
-
-		// phone number validation
-		function isValidPhoneNumber(phoneNumber) {
-			// Regex pattern to validate phone number (adjust as needed)
-			const phonePattern = /^\+?[1-9]\d{1,14}$/;
-			return phonePattern.test(phoneNumber);
-		}
-
-		// Select and change 2FA Method
-		async function change2FAMethod() {
-			document.getElementById('2faSetup').style.display = 'block';
-			document.getElementById('phoneNumber').value = localStorage.getItem('phoneNumber');
-
-			document.getElementById('selectMethod').addEventListener('click', async function () {
-				const method = document.getElementById('method').value;
-				console.log("Selected method: ", method);
-
-				// Hide all setups initially
-				document.getElementById('smsSetup').style.display = 'none';
-				document.getElementById('emailSetup').style.display = 'none';
-				document.getElementById('authenticatorSetup').style.display = 'none';
-
-				if (method === 'sms') {
-					let phoneNumber = document.getElementById('phoneNumber').value;
-
-					if (isValidPhoneNumber(phoneNumber)) {
-						document.getElementById('sendSMSCodeButton').style.display = 'block';
-
-						try {
-							const response = await fetch('/auth/api/select-2fa-method/', {
-								method: 'POST',
-								headers: {
-									'X-CSRFToken': getCookie('csrftoken'),
-									'Content-Type': 'application/json'
-								},
-								body: JSON.stringify({ method })
-							});
-
-							if (response.ok) {
-								const data = await response.json();
-								document.getElementById('sendSmsCodeButton').style.display = 'block';
-								alert('Your code is sent. Please enter the received code.');
-							} else if (response.status === 400) {
-								const errorData = await response.json();
-								if (errorData.phone_number) {
-									alert(errorData.phone_number.join('\n'));
-									document.getElementById('phoneNumber').value = ''; // Clear the input box
-								}
-							} else {
-								console.error('Failed to select 2FA method:', response.status);
-							}
-						} catch (error) {
-							console.error('Error selecting 2FA method:', error);
-						}
-					} 
-					else {
-						alert('Please add a valid phone number to enable SMS 2FA.');
-						document.getElementById('enterPhoneNum').style.display = 'block';
-
-						document.getElementById('savePhoneNumber').addEventListener('click', async function () {
-							phoneNumber = document.getElementById('phoneNumber').value;
-							if (isValidPhoneNumber(phoneNumber)) {
-								try {
-									const response = await fetch('/auth/api/profile/', {
-										method: 'POST',
-										headers: {
-											'X-CSRFToken': getCookie('csrftoken'),
-											'Content-Type': 'application/json'
-										},
-										body: JSON.stringify({ phone_number: phoneNumber })
-									});
-
-									if (response.ok) {
-										document.getElementById('enterPhoneNum').style.display = 'none';
-										document.getElementById('sendSmsCodeButton').style.display = 'block';
-										alert('Your phone number is saved. Your code is sent. Please enter the received code.');
-									} else if (response.status === 400) {
-										const errorData = await response.json();
-										if (errorData.phone_number) {
-											alert(errorData.phone_number.join('\n'));
-											document.getElementById('phoneNumber').value = ''; // Clear the input box
-										}
-									} else {
-										console.error('Failed to save phone number:', response.status);
-									}
-								} catch (error) {
-									console.error('Error saving phone number:', error);
-								}
-							} else {
-								alert('Please enter a valid phone number.');
-								document.getElementById('phoneNumber').value = ''; // Clear the input box
-							}
-						});
-						// }, { once: true });
-					}
-					// document.getElementById('smsSetup').style.display = 'block';
-				}
-				else {
-					try {
-						const response = await fetch('/auth/api/select-2fa-method/', {
-							method: 'POST',
-							headers: {
-								'X-CSRFToken': getCookie('csrftoken'),
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({ method })
-						});
-
-						if (response.ok) {
-							const data = await response.json();
-
-							if (method === 'totp') {
-								// Convert the hexadecimal string to a Base64-encoded string
-								const hex = data.qr_code;
-								const binary = new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
-								const base64 = btoa(String.fromCharCode.apply(null, binary));
-
-								// Create a data URI and display the QR code
-								const qrCodeImage = document.getElementById('qrCodeImage');
-								qrCodeImage.src = `data:image/png;base64,${base64}`;
-								document.getElementById('authenticatorSetup').style.display = 'block';
-								alert('Scan the QR code with your authenticator app.');
-							} else if (method === 'email') {
-								document.getElementById('emailSetup').style.display = 'block';
-								alert('We have sent a code to your email address.');
-							}
-							document.getElementById('2faSetup').style.display = 'none';
-						} else {
-							console.error('Failed to select 2FA method:', response.status);
-						}
-					} catch (error) {
-						console.error('Error selecting 2FA method:', error);
-					}
-				}
-
-			// }, { once: true }); // Ensure the event listener is added only once
-			}); // Ensure the event listener is added only once
-		}
-
-
-		// Ensure this function is called once the DOM is fully loaded
-		document.addEventListener("DOMContentLoaded", function() {
-            update2FASection(TwoFA); // Call the function with the appropriate TwoFA status
-        });
-
-
-		// Update the 2FA Section
-		function update2FASection(TwoFA) {
-			console.debug("2FA in update2FASection: ", TwoFA);
-			console.log("TwoFA: ", TwoFA);
-			if (TwoFA) {
-				document.getElementById('2fa_not_enabled').style.display = 'none';
-				document.getElementById('2fa_is_enabled').style.display = 'block';
-				document.getElementById('disable2FA').addEventListener('click', disable2FA);
-				document.getElementById('change2FA').addEventListener('click', change2FAMethod);
-			} else {
-				document.getElementById('2fa_is_enabled').style.display = 'none';
-				document.getElementById('2fa_not_enabled').style.display = 'block';
-				document.getElementById('enable2FA').addEventListener('click', change2FAMethod);
-			}
-		}
-
-		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
-
-		// Fetch Profile
-		async function fetchProfile() {
-			try {
-				const response = await fetch('/auth/api/profile/');
-				if (response.ok) {
-					const profile = await response.json();
-
-					// Update bio
-					document.getElementById('profileBio').value = profile.bio || '';
-
-					// Display profile picture if it exists
-					if (profile.profile_picture) {
-						const profileImage = document.getElementById('profilePicturePreview');
-						profileImage.src = profile.profile_picture;
-						profileImage.style.display = 'block'; // Show the image
-					} else {
-						// Hide the image if no profile picture is available
-						document.getElementById('profilePicturePreview').style.display = 'none';
-					}
-
-					// Determine if 2FA is enabled
-					TwoFA = profile.is_2fa_enabled || false;
-					localStorage.setItem('TwoFA', TwoFA); //assume 2FA is disabled
-					console.log("otpMethod in the fetch profile: ", TwoFA);
-					// Update the 2FA section based on the status
-					update2FASection(TwoFA);
-
-					const phoneNumber = profile.phone_number || '';
-					localStorage.setItem('phoneNumber', phoneNumber);
-					console.log("phoneNumber: ", phoneNumber);
-				} else {
-					console.error('Failed to fetch profile:', response.status);
-				}
-			} catch (error) {
-				console.error('Error fetching profile:', error);
-			}
-		}
-
-		// Update Profile
-		document.getElementById('profileForm').addEventListener('submit', async function (event) {
-			event.preventDefault();
-			const bio = document.getElementById('profileBio').value;
-			const profilePicture = document.getElementById('profilePicture').files[0];
-
-			const formData = new FormData();
-			formData.append('bio', bio);
-			if (profilePicture) {
-				formData.append('profile_picture', profilePicture);
-			}
-
-			try {
-				const response = await fetch('/auth/api/profile/', {
-					method: 'POST',
-					headers: {
-						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
-					},
-					body: formData,
-				});
-
-				console.log("cookie in selectMethod: ", getCookie('csrftoken'));
-
-				if (response.ok) {
-					const updatedProfile = await response.json();
-					alert('Profile updated successfully!');
-				} else {
-					console.error('Failed to update profile:', response.status);
-				}
-			} catch (error) {
-				console.error('Error updating profile:', error);
-			}
-		});
-
-
-		// Disable 2FA
-		async function disable2FA() {
-			try {
-				const response = await fetch('/auth/api/disable-2fa/', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'X-CSRFToken': getCookie('csrftoken'), // Use your CSRF token retrieval function
-					},
-					credentials: 'include'  // Ensure cookies are sent with the request
-				});
-
-				if (response.ok) {
-					alert('2FA has been disabled.');
-					document.getElementById('2faStatus').textContent = '';
-					fetchProfile(); // Refresh the profile
-				} else {
-					alert('Failed to disable 2FA.');
-				}
-			} catch (error) {
-				console.error('Error disabling 2FA:', error);
-			}
-		}
-
-
-		// verify totp Method
-		document.getElementById('verifyAuthenticatorForm').addEventListener('submit', async function (event) {
-			event.preventDefault();
-
-			const otpCode = document.getElementById('otpCode').value;
-
-			try {
-				const response = await fetch('/auth/api/verify-2fa-setup/', {
-					method: 'POST',
-					headers: {
-						'X-CSRFToken': getCookie('csrftoken'),
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						method: 'totp',
-						code: otpCode
-					})
-				});
-
-				if (response.ok) {
-					const data = await response.json();
-					alert(data.message || '2FA setup successfully verified!');
-					// Optionally, redirect the user or update the UI
-					document.getElementById('authenticatorSetup').style.display = 'none';
-					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
-					fetchProfile(); // Refresh the profile
-				} else {
-					const errorData = await response.json();
-					alert(errorData.error || 'Failed to verify 2FA setup. Please try again.');
-				}
-			} catch (error) {
-				console.error('Error verifying 2FA setup:', error);
-				alert('An unexpected error occurred. Please try again.');
-			}
-		});
-
-		// Verify Email Code
-		document.getElementById('verifyEmail').addEventListener('click', async function () {
-			const emailCode = document.getElementById('emailCode').value;
-
-			if (!emailCode) {
-				alert('Please enter the verification code.');
-				return;
-			}
-
-			try {
-				const response = await fetch('/auth/api/verify-2fa-setup/', {
-					method: 'POST',
-					headers: {
-						'X-CSRFToken': getCookie('csrftoken'),
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						method: 'email',
-						code: emailCode
-					})
-				});
-
-				if (response.ok) {
-					const data = await response.json();
-					alert(data.message || '2FA setup successfully verified!');
-					// Optionally, redirect the user or update the UI
-					document.getElementById('emailSetup').style.display = 'none';
-					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
-					fetchProfile(); // Refresh the profile
-				} else {
-					const errorData = await response.json();
-					alert(errorData.error || 'Failed to verify email code. Please try again.');
-				}
-			} catch (error) {
-				console.error('Error verifying email setup:', error);
-				alert('An unexpected error occurred. Please try again.');
-			}
-		});
-
-
+	// *********************************** Fetch Online Users ***********************************
 		// Fetch Online Users
 		async function fetchOnlineUsers() {
 			try {
@@ -795,6 +519,7 @@
 			}
 		}
 
+	// *********************************** Fetch Friend Request and Friends Logic ***********************************
 		async function sendFriendRequest(userId) {
 			try {
 				const response = await fetch(`/chat/api/send-friend-request/${userId}/`, {
@@ -857,6 +582,7 @@
 			}
 		}
 
+	// *********************************** Fetch Friends ***********************************
 		// Fetch Friend List
 		async function fetchFriends() {
 			try {
@@ -878,6 +604,404 @@
 			}
 		}
 
+	// *********************************** Profile and 2FA Logic ***********************************
+
+		// *********************************** Profile Logic ***********************************
+		// Profile Picture Preview
+		document.getElementById('profilePicture').addEventListener('change', function (event) {
+			const file = event.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function (e) {
+					document.getElementById('profilePicturePreview').src = e.target.result;
+				};
+				reader.readAsDataURL(file);
+			}
+		});
+
+		// Fetch Profile
+		async function fetchProfile() {
+			try {
+				const response = await fetch('/auth/api/profile/');
+				if (response.ok) {
+					const profile = await response.json();
+
+					// Update bio
+					document.getElementById('profileBio').value = profile.bio || '';
+					document.getElementById('profilePhone').value = profile.phone_number || '';
+
+					// Display profile picture if it exists
+					if (profile.profile_picture) {
+						const profileImage = document.getElementById('profilePicturePreview');
+						profileImage.src = profile.profile_picture;
+						profileImage.style.display = 'block'; // Show the image
+					} else {
+						// Hide the image if no profile picture is available
+						document.getElementById('profilePicturePreview').style.display = 'none';
+					}
+
+					// Determine if 2FA is enabled
+					TwoFA = profile.is_2fa_enabled || false;
+					localStorage.setItem('TwoFA', TwoFA); //assume 2FA is disabled
+					console.log("otpMethod in the fetch profile: ", TwoFA);
+					// Update the 2FA section based on the status
+					update2FASection(TwoFA);
+
+					const phoneNumber = profile.phone_number || '';
+					localStorage.setItem('phoneNumber', phoneNumber);
+					console.log("phoneNumber: ", phoneNumber);
+				} else {
+					console.error('Failed to fetch profile:', response.status);
+				}
+			} catch (error) {
+				console.error('Error fetching profile:', error);
+			}
+		}
+
+		// Update Profile
+		document.getElementById('profileForm').addEventListener('submit', async function (event) {
+			event.preventDefault();
+			const bio = document.getElementById('profileBio').value;
+			const profilePicture = document.getElementById('profilePicture').files[0];
+			const phone = document.getElementById('profilePhone').value;
+
+			console.log("phone in profile: ", phone);
+			const formData = new FormData();
+			formData.append('bio', bio);
+			formData.append('phone_number', phone);
+			if (profilePicture) {
+				formData.append('profile_picture', profilePicture);
+			}
+
+			try {
+				const response = await fetch('/auth/api/profile/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken')  // Include the CSRF token in the headers
+					},
+					body: formData
+				});
+				if (response.ok) {
+					const updatedProfile = await response.json();
+					alert('Profile updated successfully!');
+				} else {
+					console.error('Failed to update profile:', response.status);
+				}
+			} catch (error) {
+				console.error('Error updating profile:', error);
+			}
+		});
+
+
+		// *********************************** 2FA Logic ***********************************
+		// phone number validation
+		function isValidPhoneNumber(phoneNumber) {
+			// Regex pattern to validate phone number (adjust as needed)
+			const phonePattern = /^\+?[1-9]\d{1,14}$/;
+			return phonePattern.test(phoneNumber);
+		}
+
+		// select sms method
+		async function selectSMS2FAMethod(method, phoneNumber) {
+			document.getElementById('smsSetup').style.display = 'block';
+
+			try {
+				const response = await fetch('/auth/api/select-2fa-method/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ method, phone_number: phoneNumber })
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					document.getElementById('sendSMSCodeButton').style.display = 'block';
+					document.getElementById('enterPhoneNum').style.display = 'none';
+					alert('Your code is sent. Please enter the received code.');
+					document.getElementById('2faSetup').style.display = 'none';
+				} else if (response.status === 400) {
+					const errorData = await response.json();
+					if (errorData.phone_number) {
+						alert(errorData.phone_number.join('\n'));
+						document.getElementById('phoneNumber').value = ''; // Clear the input box
+						document.getElementById('sendSMSCodeButton').style.display = 'none';
+						document.getElementById('enterPhoneNum').style.display = 'block';
+					} else if (errorData.error) { // Twilio error
+						alert(errorData.error);
+					}
+				} else {
+					console.error('Failed to select 2FA method:', response.status);
+				}
+			} catch (error) {
+				console.error('Error selecting 2FA method:', error);
+			}
+		}
+
+		// Select and change 2FA Method
+		async function change2FAMethod() {
+			document.getElementById('2faSetup').style.display = 'block';
+			document.getElementById('phoneNumber').value = localStorage.getItem('phoneNumber');
+
+			document.getElementById('selectMethod').addEventListener('click', async function () {
+				const method = document.getElementById('method').value;
+				console.log("Selected method: ", method);
+
+				// Hide all setups initially
+				document.getElementById('smsSetup').style.display = 'none';
+				document.getElementById('emailSetup').style.display = 'none';
+				document.getElementById('authenticatorSetup').style.display = 'none';
+
+				if (method === 'sms') {
+					let phoneNumber = document.getElementById('phoneNumber').value;
+
+					if (isValidPhoneNumber(phoneNumber)) {
+						selectSMS2FAMethod(method, phoneNumber);
+					} 
+					else {
+						alert('Please add a valid phone number to enable SMS 2FA.');
+						document.getElementById("smsSetup").style.display = 'block';
+						document.getElementById('enterPhoneNum').style.display = 'block';
+						document.getElementById('sendSMSCodeButton').style.display = 'none';
+
+						document.getElementById('savePhoneNumber').addEventListener('click', async function () {
+							phoneNumber = document.getElementById('phoneNumber').value;
+							if (isValidPhoneNumber(phoneNumber)) {
+								// phoneNumber = localStorage.getItem('phoneNumber');
+								try {
+									const response = await fetch('/auth/api/profile/', {
+										method: 'POST',
+										headers: {
+											'X-CSRFToken': getCookie('csrftoken'),
+											'Content-Type': 'application/json'
+										},
+										body: JSON.stringify({ phone_number: phoneNumber })
+									});
+
+									if (response.ok) {
+										document.getElementById('enterPhoneNum').style.display = 'none';
+										document.getElementById('sendSMSCodeButton').style.display = 'block';
+										alert('Your phone number is saved. Your code is sent. Please enter the received code.');
+										selectSMS2FAMethod(method, phoneNumber);
+									} else if (response.status === 400) {
+										const errorData = await response.json();
+										if (errorData.phone_number) {
+											alert(errorData.phone_number.join('\n'));
+											document.getElementById('phoneNumber').value = ''; // Clear the input box
+										}
+									} else {
+										console.error('Failed to save phone number:', response.status);
+									}
+								} catch (error) {
+									console.error('Error saving phone number:', error);
+								}
+							} else {
+								alert('Please enter a valid phone number.');
+								document.getElementById('phoneNumber').value = ''; // Clear the input box
+							}
+						});
+					}
+				}
+				else {
+					try {
+						const response = await fetch('/auth/api/select-2fa-method/', {
+							method: 'POST',
+							headers: {
+								'X-CSRFToken': getCookie('csrftoken'),
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({ method })
+						});
+
+						if (response.ok) {
+							const data = await response.json();
+
+							if (method === 'totp') {
+								// Convert the hexadecimal string to a Base64-encoded string
+								const hex = data.qr_code;
+								const binary = new Uint8Array(hex.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+								const base64 = btoa(String.fromCharCode.apply(null, binary));
+
+								// Create a data URI and display the QR code
+								const qrCodeImage = document.getElementById('qrCodeImage');
+								qrCodeImage.src = `data:image/png;base64,${base64}`;
+								document.getElementById('authenticatorSetup').style.display = 'block';
+								alert('Scan the QR code with your authenticator app.');
+							} else if (method === 'email') {
+								document.getElementById('emailSetup').style.display = 'block';
+								alert('We have sent a code to your email address.');
+							}
+							document.getElementById('2faSetup').style.display = 'none';
+						} else {
+							console.error('Failed to select 2FA method:', response.status);
+						}
+					} catch (error) {
+						console.error('Error selecting 2FA method:', error);
+					}
+				}
+
+			// }, { once: true }); // Ensure the event listener is added only once
+			}); // Ensure the event listener is added only once
+		}
+
+		// Update the 2FA Section
+		function update2FASection(TwoFA) {
+			console.debug("2FA in update2FASection: ", TwoFA);
+			console.log("TwoFA: ", TwoFA);
+			if (TwoFA) {
+				document.getElementById('2fa_not_enabled').style.display = 'none';
+				document.getElementById('2fa_is_enabled').style.display = 'block';
+				document.getElementById('disable2FA').addEventListener('click', disable2FA);
+				document.getElementById('change2FA').addEventListener('click', change2FAMethod);
+				document.getElementById('2faSetup').style.display = 'none';
+			} else {
+				document.getElementById('2fa_is_enabled').style.display = 'none';
+				document.getElementById('2fa_not_enabled').style.display = 'block';
+				document.getElementById('enable2FA').addEventListener('click', change2FAMethod);
+			}
+		}
+
+		// Disable 2FA
+		async function disable2FA() {
+			try {
+				const response = await fetch('/auth/api/disable-2fa/', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'X-CSRFToken': getCookie('csrftoken'), // Use your CSRF token retrieval function
+					},
+					credentials: 'include'  // Ensure cookies are sent with the request
+				});
+
+				if (response.ok) {
+					alert('2FA has been disabled.');
+					document.getElementById('2faStatus').textContent = '';
+					fetchProfile(); // Refresh the profile
+				} else {
+					alert('Failed to disable 2FA.');
+				}
+			} catch (error) {
+				console.error('Error disabling 2FA:', error);
+			}
+		}
+
+		// verify totp Method
+		document.getElementById('verifyAuthenticatorForm').addEventListener('submit', async function (event) {
+			event.preventDefault();
+
+			const otpCode = document.getElementById('otpCode').value;
+
+			try {
+				const response = await fetch('/auth/api/verify-2fa-setup/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						method: 'totp',
+						code: otpCode
+					})
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					alert(data.message || '2FA setup successfully verified!');
+					// Optionally, redirect the user or update the UI
+					document.getElementById('authenticatorSetup').style.display = 'none';
+					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
+					fetchProfile(); // Refresh the profile
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Failed to verify 2FA setup. Please try again.');
+				}
+			} catch (error) {
+				console.error('Error verifying 2FA setup:', error);
+				alert('An unexpected error occurred. Please try again.');
+			}
+		});
+		
+		// verify SMS Code
+		document.getElementById('verifySms').addEventListener('click', async function () {
+			const smsCode = document.getElementById('smsCode').value;
+
+			if (!smsCode) {
+				alert('Please enter the received code.');
+				return;
+			}
+
+			try {
+				const response = await fetch('/auth/api/verify-2fa-setup/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ 
+						method: 'sms',
+						 code: smsCode
+					})
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					alert(data.message || 'SMS verification successful!');
+					// Refresh the screen after successful verification
+					document.getElementById('smsSetup').style.display = 'none';
+					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
+					fetchProfile();
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Failed to verify email code. Please try again.');
+				}
+			} catch(error) {
+					console.error('Error verifying SMS code:', error);
+					alert('An unexpected error occurred. Please try again.');
+				}
+		});
+
+		// Verify Email Code
+		document.getElementById('verifyEmail').addEventListener('click', async function () {
+			const emailCode = document.getElementById('emailCode').value;
+
+			if (!emailCode) {
+				alert('Please enter the verification code.');
+				return;
+			}
+
+			try {
+				const response = await fetch('/auth/api/verify-2fa-setup/', {
+					method: 'POST',
+					headers: {
+						'X-CSRFToken': getCookie('csrftoken'),
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						method: 'email',
+						code: emailCode
+					})
+				});
+
+				if (response.ok) {
+					const data = await response.json();
+					alert(data.message || '2FA setup successfully verified!');
+					// Optionally, redirect the user or update the UI
+					document.getElementById('emailSetup').style.display = 'none';
+					document.getElementById('2faStatus').textContent = '2FA is now enabled!';
+					fetchProfile(); // Refresh the profile
+				} else {
+					const errorData = await response.json();
+					alert(errorData.error || 'Failed to verify email code. Please try again.');
+				}
+			} catch (error) {
+				console.error('Error verifying email setup:', error);
+				alert('An unexpected error occurred. Please try again.');
+			}
+		});
+
+
+	// *********************************** Chat Logic ***********************************
 		// chat section
 		document.addEventListener('DOMContentLoaded', function () {
 			// Attach event listeners to chat items once the DOM is fully loaded
