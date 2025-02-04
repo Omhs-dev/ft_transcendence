@@ -60,3 +60,14 @@ export function twoFaAlreadyEnabled() {
 		</div>
 	`;
 }
+
+export function twoFaDisabled() {
+	const choose2FaMethod = document.getElementById("choose2FaMethod");
+
+	choose2FaMethod.innerHTML = `
+		<div class="mb-4">
+			<p class="text-danger"><smal>2FA is <strong>disabled</strong></small></p>
+			<p class="text-light">Please enable 2FA to secure your account</p>
+		</div>
+	`;
+}

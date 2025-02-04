@@ -1,6 +1,7 @@
 import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
 import { closeModal } from "./utils/2faUtils.js";
+import { twoFaDisabled } from "./utils/2faUtils.js";
 import { twoFaAlreadyEnabled } from "./utils/2faUtils.js";
 import { choose2FaMethodSection } from "./utils/2faUtils.js";
 
@@ -428,7 +429,7 @@ const disabled2FA = async () => {
 		localStorage.removeItem('phone_number');
 		localStorage.setItem('enable2Fa', 'false');
 
-		choose2FaMethodSection();
+		twoFaDisabled();
 
 		console.log("data: ", data);
 		console.log("2FA disabled successfully");

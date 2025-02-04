@@ -143,7 +143,7 @@ const renewToken = async () => {
 };
 
 const startTokenRefreshTimer = async () => {
-	const refreshInterval = 4 * 60 * 1000;
+	const refreshInterval = 2 * 60 * 1000; 
 
 	console.log('Starting token refresh timer');
 	refreshTimer = setInterval(() => {
