@@ -5,3 +5,70 @@ DEBUG CustomTokenRefreshView request received
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.11, 172.18.0.1:60730][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.15, 172.18.0.1:60728][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODczNzk5NiwiaWF0IjoxNzM4NjUxNTk2LCJqdGkiOiIxMGFhMWIyNzNkZmM0ODE3YTZmYzhmODk5ODQwN2E1YSIsInVzZXJfaWQiOjJ9.Ygb2aO98WcqI-pCPxRF8-icJmqwwIBU2vxfPDTC0K94
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODczNzk5NiwiaWF0IjoxNzM4NjUxNTk2LCJqdGkiOiIxMGFhMWIyNzNkZmM0ODE3YTZmYzhmODk5ODQwN2E1YSIsInVzZXJfaWQiOjJ9.Ygb2aO98WcqI-pCPxRF8-icJmqwwIBU2vxfPDTC0K94
+DEBUG User found in refresh token in logout: omhs
+DEBUG User found in refresh token in logout: omhs
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User omhs logged out
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User omhs logged out
+INFO [mHTTP POST /auth/api/logout/ 200 [0.51, 172.18.0.1:60740][0m
+INFO [mHTTP POST /auth/api/logout/ 200 [0.57, 172.18.0.1:60754][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.09, 172.18.0.1:60730][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.17, 172.18.0.1:60728][0m
+INFO 2FA is enabled for the user: omhs
+INFO 2FA is enabled for the user: omhs
+DEBUG 2FA method: None and the otp_code in the check_login_2fa: None
+INFO 
+
+
+*****
+	Generating OTP and sending it via sms for user omhs
+DEBUG 2FA method: None and the otp_code in the check_login_2fa: None
+INFO 
+
+
+*****
+	Generating OTP and sending it via sms for user omhs
+INFO 
+
+
+*****
+	Sending SMS to +4917687524055 with code 303766
+INFO 
+
+
+*****
+	Sending SMS to +4917687524055 with code 991669
+WARNING Unauthorized: /auth/api/login/
+WARNING [31;1mHTTP POST /auth/api/login/ 401 [0.79, 172.18.0.1:60740][0m
+WARNING Unauthorized: /auth/api/login/
+WARNING [31;1mHTTP POST /auth/api/login/ 401 [0.80, 172.18.0.1:60754][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.12, 172.18.0.1:60728][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.25, 172.18.0.1:60730][0m
+INFO 2FA is enabled for the user: omhs
+DEBUG 2FA method: sms and the otp_code in the check_login_2fa: 991669
+INFO User omhs is authenticated in the login class:
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjUyMDA1LCJpYXQiOjE3Mzg2NTE3MDUsImp0aSI6IjNlMDk3NWIwYzZhMTQwN2FhY2QyZTM4ZTQxMTg3ZjZmIiwidXNlcl9pZCI6Mn0.Doy-yU5B1JymOGRBb-0kSmzSyd7eh99rME8_HOghvu0
+DEBUG Signal: create_or_update_user_profile triggered
+INFO 2FA is enabled for the user: omhs
+DEBUG 2FA method: sms and the otp_code in the check_login_2fa: 991669
+DEBUG Signal: User omhs logged in
+DEBUG response.data: {'user_id': 2, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjUyMDA1LCJpYXQiOjE3Mzg2NTE3MDUsImp0aSI6IjNlMDk3NWIwYzZhMTQwN2FhY2QyZTM4ZTQxMTg3ZjZmIiwidXNlcl9pZCI6Mn0.Doy-yU5B1JymOGRBb-0kSmzSyd7eh99rME8_HOghvu0', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODczODEwNSwiaWF0IjoxNzM4NjUxNzA1LCJqdGkiOiIxM2UzM2MwMjJmNGQ0Y2NhODIxYmI5ZWIxODA4Y2VjYSIsInVzZXJfaWQiOjJ9.jjtiAiAhLfh9qywomf2AQWNXV5FYFMnTCye4YNICWVI'}}
+WARNING Unauthorized: /auth/api/login/
+WARNING [31;1mHTTP POST /auth/api/login/ 401 [0.58, 172.18.0.1:60754][0m
+INFO [mHTTP POST /auth/api/login/ 200 [0.63, 172.18.0.1:60740][0m
+INFO [mHTTP OPTIONS /chat/api/online-users/ 200 [0.08, 172.18.0.1:60730][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/online-users/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjUyMDA1LCJpYXQiOjE3Mzg2NTE3MDUsImp0aSI6IjNlMDk3NWIwYzZhMTQwN2FhY2QyZTM4ZTQxMTg3ZjZmIiwidXNlcl9pZCI6Mn0.Doy-yU5B1JymOGRBb-0kSmzSyd7eh99rME8_HOghvu0
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODczODEwNSwiaWF0IjoxNzM4NjUxNzA1LCJqdGkiOiIxM2UzM2MwMjJmNGQ0Y2NhODIxYmI5ZWIxODA4Y2VjYSIsInVzZXJfaWQiOjJ9.jjtiAiAhLfh9qywomf2AQWNXV5FYFMnTCye4YNICWVI
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjUyMDA1LCJpYXQiOjE3Mzg2NTE3MDUsImp0aSI6IjNlMDk3NWIwYzZhMTQwN2FhY2QyZTM4ZTQxMTg3ZjZmIiwidXNlcl9pZCI6Mn0.Doy-yU5B1JymOGRBb-0kSmzSyd7eh99rME8_HOghvu0
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO [mHTTP GET /chat/api/online-users/ 200 [0.17, 172.18.0.1:60740][0m

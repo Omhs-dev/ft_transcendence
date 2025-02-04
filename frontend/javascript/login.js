@@ -32,36 +32,70 @@ window.addEventListener('load', () => {
 const loginUser = async () => {
     const username = document.getElementById('loginUsername').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
+	const otpCode = document.getElementById("otpCode").value.trim();
+	const otpLabel = document.getElementById("otpLabel");
 	const loginBtn = document.querySelector('.btn-login');
+	const twoFaDiv = document.getElementById("twoFaDiv");
+	const twoFaMethod = localStorage.getItem("twoFaMethod");
 
-	console.log("login button: ", loginBtn);
+	const playload = { username, password };
+	if (twoFaMethod) {
+		console.log("2fa is enabled");
+		playload.method = twoFaMethod;
+		playload.otp_code = otpCode;
+	}
+
     try {
         const response = await fetch('http://localhost:8000/auth/api/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify(playload),
 			credentials: 'include',
         });
 
         const data = await response.json();
-		console.log(data);
 
-		loginBtn.disabled = true;
 		// implement logic to check user credentials
 		// check if token is valid
-		if (response.status === 401) {
-			console.log("error: ", data.error);
+		console.log("response: ", response);
+		if (response.status === 401 && data.error === "Invalid username or password") {
+			console.log("error here: ", data.error);
 			invalidCredential();
 		}
-        if (!response.ok) {
-			throw new Error("Login failed with : ", response.status);
+		if (response.status === 401 && data.message === "2FA verification required. A new code has been sent.") {
+			console.log("2fa is required");
+			twoFaDiv.style.display = "block";
+			otpLabel.textContent = `A new code has been sent by ${data.method}`;
+			localStorage.setItem("twoFaMethod", data.method);
+			return;
 		}
+		if (response.status === 401 && data.error === "Invalid OTP code.") {
+			setTimeout(() => {
+				invalidCredential();
+			}, 3000);
+
+			console.log("invalid otp code");
+		}
+        if (!response.ok) {
+			throw new Error(`Could not fetch api ${response.status}`);
+		}
+
+		loginBtn.disabled = true;
+		
 		console.log("data: ", data);
+
+		if (data.Success === "Login successful") {
+			console.log("login successful");
+			localStorage.setItem("enable2Fa", "true");
+		}
+
+		// check if 2fa is enabled
+		// check2FaStatus();
+		localStorage.removeItem("twoFaMethod");
 		localStorage.setItem("username", username);
 		localStorage.setItem("isAuthenticated", "true");
-		console.log("username: ", username);
 
 		window.location.href = "/";
 
@@ -71,6 +105,9 @@ const loginUser = async () => {
         console.error('Error:', error.message);
     }
 };
+
+// verify 2fa
+
 
 // Logout functionality
 const logoutUser = async () => {

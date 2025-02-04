@@ -311,7 +311,7 @@ class Select2FAMethodView(APIView):
 
         elif method == 'sms':
             # Generate and send an SMS verification code
-            if not hasattr(request.user.profile, 'phone_number') or not request.user.profile.phone_number:
+            if not hasattr(profile, 'phone_number') or not profile.phone_number:
                 return Response({"error": "Phone number is not set for the user."}, status=400)
 
             if not profile.can_send_otp():
