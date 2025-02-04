@@ -59,9 +59,6 @@ appSection.addEventListener('change', (e) => {
 });
 
 const handleAuthApp = async (method) => {
-	// const smsContainer = document.getElementById('smsContainer');
-	// smsContainer.innerHTML = "";
-
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/select-2fa-method/`, {
 			method: 'POST',
@@ -108,8 +105,6 @@ const handleEmail = async (method) => {
 	const totpContainer = document.getElementById('totpContainer');
 	const otpInputLabel = document.getElementById('otpInputLabel');
 	const smsContainer = document.getElementById('smsContainer');
-	// console.log("otp container: ", totpContainer);
-	// console.log("otpInputLabel: ", otpInputLabel);
 
 	smsContainer.innerHTML = "";
 	totpContainer.innerHTML = "";
@@ -138,28 +133,43 @@ const handleEmail = async (method) => {
 	}
 };
 
-const handleSMS = (method) => {
-	let userPhoneNumber = localStorage.getItem('phone_number');
-	console.log("Phone number in localstorage: ", userPhoneNumber);
-
+const handleSMS = async (method) => {
 	const totpContainer = document.getElementById('totpContainer');
 	const otpInputLabel = document.getElementById('otpInputLabel');
+
+	try {
+		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
+			method: 'GET',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
+
+		if(!response.ok) {
+			throw new Error(`Failed to fetch api ${response.status}`);
+		}
+
+		const data = await response.json();
+
+		if (data.phone_number !== null) {
+			console.log("has a number");
+			hasAnumber(method, data.phone_number);
+		} else {
+			console.log("has no number");
+			hasNoNumber(method);
+		}
+		console.log("data: ", data);
+	} catch(error) {
+		console.log(error.message);
+	}
 
 	// totpContainer.innerHTML = "";
 	// otpInputLabel.textContent = "Enter the Code sent to you by SMS";
 
-	if (userPhoneNumber) {
-		console.log("has a number");
-		hasAnumber(method, userPhoneNumber);
-	} else {
-		console.log("has no number");
-		hasNoNumber(method);
-	}
 };
 
 const hasAnumber = async (method, userPhoneNumber) => {
-	console.log("user phone number: ", userPhoneNumber);
-	console.log("method in hasanumber: ", method);
 	try {
 		const response = await fetch(`${baseUrl}/auth/api/select-2fa-method/`, {
 			method: 'POST',
@@ -253,9 +263,6 @@ const updateUserNumber = async (method, number) => {
 		const data = response.json();
 		
 		console.log("your number has been updated successfully");
-		// hasAnumber(method, number);
-
-		localStorage.setItem('phone_number', number);
 	} catch(error) {
 		console.log(error.message);
 	}
