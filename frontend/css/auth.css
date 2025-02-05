@@ -30,7 +30,7 @@
 /* Gradient button */
 .btn-register, .btn-login {
 	background: #138F97;
-	color: #fff;
+	color: #efefef;
 	border: none;
 	border-radius: 20px;
 	padding: 10px 0;
@@ -41,6 +41,10 @@
 .btn-register:hover {
 	color: #22313E;
 	background: #138F97;
+}
+
+.btn-login:hover {
+	background: #16a8af;
 }
 
 .form-control:focus {
@@ -69,4 +73,19 @@
 #twoFaDiv {
 	display: none;
 	border-top: 1px solid #6c757d;
+}
+
+.btn-42 {
+	/* background: #2a2a2a; */
+	color: #efefef;
+	border: 1px solid #1e1e1e;
+	border-radius: 20px;
+	padding: 10px 0;
+	font-weight: bold;
+	/* transition: background 0.3s ease; */
+}
+
+.btn-42:hover {
+	color: #2a2a2a;
+	background: #efefef;
 }

@@ -5,164 +5,402 @@ DEBUG CustomTokenRefreshView request received
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
-INFO [mHTTP GET /admin/auth_app/profile/2/change/ 200 [0.21, 172.18.0.1:62354][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.04, 172.18.0.1:62354][0m
-INFO [32mHTTP POST /admin/auth_app/profile/2/change/ 302 [0.13, 172.18.0.1:62354][0m
-INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.10, 172.18.0.1:62354][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.08, 172.18.0.1:62354][0m
-INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.11, 172.18.0.1:62354][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.03, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.04, 172.18.0.1:55644][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.05, 172.18.0.1:55656][0m
-INFO User omhs is authenticated in the login class:
-INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-DEBUG Signal: create_or_update_user_profile triggered
-INFO User omhs is authenticated in the login class:
-DEBUG Signal: User omhs logged in
-INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImNlNWNkYTdmZDAwNDRiYzk4ZTFmNDYzMDdkYmIxYTFhIiwidXNlcl9pZCI6Mn0.ujCmpg6cSHcrmtxV0vz6yJp-49uldD7VUHZcwmvFkwA
-DEBUG Signal: create_or_update_user_profile triggered
-DEBUG response.data: {'user_id': 2, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU'}}
-DEBUG Signal: User omhs logged in
-DEBUG response.data: {'user_id': 2, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImNlNWNkYTdmZDAwNDRiYzk4ZTFmNDYzMDdkYmIxYTFhIiwidXNlcl9pZCI6Mn0.ujCmpg6cSHcrmtxV0vz6yJp-49uldD7VUHZcwmvFkwA', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiJiNjIwMTcwY2Y1YTc0OWQyYmRiODdkNzlhYjA3NTE0YyIsInVzZXJfaWQiOjJ9.yR5vijeqpqNEuJzHziiSqpqHTkzl4rohqrn2DxPBRDc'}}
-INFO [mHTTP POST /auth/api/login/ 200 [1.57, 172.18.0.1:62354][0m
-INFO [mHTTP POST /auth/api/login/ 200 [1.70, 172.18.0.1:62356][0m
-INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.03, 172.18.0.1:55656][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-INFO [mHTTP GET /auth/api/profile/ 200 [0.08, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.03, 172.18.0.1:55656][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/profile/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-DEBUG Signal: create_or_update_user_profile triggered
-INFO [mHTTP POST /auth/api/profile/ 200 [0.06, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.03, 172.18.0.1:55656][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-INFO [mHTTP GET /auth/api/profile/ 200 [0.03, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/select-2fa-method/ 200 [0.01, 172.18.0.1:55656][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/select-2fa-method/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-DEBUG 2FA method selected: sms
-INFO Phone number for the user: omhs according to the received request: +4917687524055
-INFO 
-
-
-*****
-	Generating OTP and sending it via sms
-
- for user omhs
-
- code:557850
-
- 
-INFO [mHTTP POST /auth/api/select-2fa-method/ 200 [0.11, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/verify-2fa-setup/ 200 [0.03, 172.18.0.1:55656][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: POST '/auth/api/verify-2fa-setup/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczMzkwLCJpYXQiOjE3Mzg2NzMwOTAsImp0aSI6ImVlZWRmNWI3OTlmYTQxYTBiZTkyMTRiNmI3YWEzMWJlIiwidXNlcl9pZCI6Mn0.0ofAOjRO-jGNoKQv4rjZl5aTShtVdVJaSU1OIUdWfiY
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-DEBUG 2FA method: sms and the otp_code in the Verify2FASetupView: 557850
-INFO [mHTTP POST /auth/api/verify-2fa-setup/ 200 [0.06, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.02, 172.18.0.1:55656][0m
-INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.04, 172.18.0.1:55644][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.11, 172.18.0.1:62698][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.16, 172.18.0.1:62706][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: None
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.11, 172.18.0.1:62716][0m
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.09, 172.18.0.1:62722][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.02, 172.18.0.1:62706][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.02, 172.18.0.1:62698][0m
 DEBUG Logout request received for user: AnonymousUser
-DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
+DEBUG Refresh token found in cookies: None
 DEBUG Logout request received for user: AnonymousUser
-DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTQ5MCwiaWF0IjoxNzM4NjczMDkwLCJqdGkiOiIyMWU2OTVjYzJlZGI0MjYyOTFkYjVhMzc2NmFkNmE3NyIsInVzZXJfaWQiOjJ9.uoZYXo5s1_-sk0AXBlfNAOpDtT3Q39unDboVRykHMhU
-DEBUG User found in refresh token in logout: omhs
-DEBUG User found in refresh token in logout: omhs
-INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
-DEBUG Signal: User omhs logged out
-INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
-DEBUG Signal: User omhs logged out
-INFO [mHTTP POST /auth/api/logout/ 200 [0.09, 172.18.0.1:60982][0m
-INFO [mHTTP POST /auth/api/logout/ 200 [0.12, 172.18.0.1:62354][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.02, 172.18.0.1:55644][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.04, 172.18.0.1:55656][0m
-INFO 2FA is enabled for the user: omhs
-DEBUG 2FA method: None and the otp_code in the check_login_2fa: None
-INFO 
-
-
-*****
-	Generating OTP and sending it via sms
-
- for user omhs
-
- code:262331
-
- 
-WARNING Unauthorized: /auth/api/login/
-WARNING [31;1mHTTP POST /auth/api/login/ 401 [1.37, 172.18.0.1:62354][0m
-INFO 2FA is enabled for the user: omhs
-DEBUG 2FA method: None and the otp_code in the check_login_2fa: None
-INFO 
-
-
-*****
-	Generating OTP and sending it via sms
-
- for user omhs
-
- code:656030
-
- 
-WARNING Unauthorized: /auth/api/login/
-WARNING [31;1mHTTP POST /auth/api/login/ 401 [1.46, 172.18.0.1:60982][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.03, 172.18.0.1:55656][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.05, 172.18.0.1:55644][0m
-INFO 2FA is enabled for the user: omhs
-DEBUG 2FA method: sms and the otp_code in the check_login_2fa: 656030
-INFO User omhs is authenticated in the login class:
-INFO 2FA is enabled for the user: omhs
-DEBUG 2FA method: sms and the otp_code in the check_login_2fa: 656030
-WARNING Unauthorized: /auth/api/login/
-INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczNDUwLCJpYXQiOjE3Mzg2NzMxNTAsImp0aSI6IjkzZmViYzI3ZGY4MTQ4MTQ5MjUxNDFjYjY5NDk0MTdmIiwidXNlcl9pZCI6Mn0.DTlE963q7b5nL4uM8lm4wYk588cVMU_HRTPH3iNM4CI
-WARNING [31;1mHTTP POST /auth/api/login/ 401 [0.53, 172.18.0.1:62354][0m
-DEBUG Signal: create_or_update_user_profile triggered
-DEBUG Signal: User omhs logged in
-DEBUG response.data: {'user_id': 2, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczNDUwLCJpYXQiOjE3Mzg2NzMxNTAsImp0aSI6IjkzZmViYzI3ZGY4MTQ4MTQ5MjUxNDFjYjY5NDk0MTdmIiwidXNlcl9pZCI6Mn0.DTlE963q7b5nL4uM8lm4wYk588cVMU_HRTPH3iNM4CI', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTU1MCwiaWF0IjoxNzM4NjczMTUwLCJqdGkiOiJlMGEwMmJmNDgwOGM0ODk4Yjc1YzFiZDM5NjZhMzVmZSIsInVzZXJfaWQiOjJ9.6q-mc5zfMoPLraKWNS3WtPcB0XJYBARtwKPjWM9sil8'}}
-INFO [mHTTP POST /auth/api/login/ 200 [0.60, 172.18.0.1:60982][0m
-INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.08, 172.18.0.1:61776][0m
-INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.10, 172.18.0.1:61762][0m
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.14, 172.18.0.1:62722][0m
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.19, 172.18.0.1:62716][0m
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTU1MCwiaWF0IjoxNzM4NjczMTUwLCJqdGkiOiJlMGEwMmJmNDgwOGM0ODk4Yjc1YzFiZDM5NjZhMzVmZSIsInVzZXJfaWQiOjJ9.6q-mc5zfMoPLraKWNS3WtPcB0XJYBARtwKPjWM9sil8
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.09, 172.18.0.1:62716][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.29, 172.18.0.1:62716][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=065b9b2ea13145b389840f9db2e3a2bd 200 [0.05, 172.18.0.1:62716][0m
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTU1MCwiaWF0IjoxNzM4NjczMTUwLCJqdGkiOiJlMGEwMmJmNDgwOGM0ODk4Yjc1YzFiZDM5NjZhMzVmZSIsInVzZXJfaWQiOjJ9.6q-mc5zfMoPLraKWNS3WtPcB0XJYBARtwKPjWM9sil8
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczNTczLCJpYXQiOjE3Mzg2NzMxNTAsImp0aSI6IjFiZDA2ZTI2YTEyMTQ4YTBiNzQ1MjUzOTQzYjI1MzI1IiwidXNlcl9pZCI6Mn0.npOtMYsbRf5zL2tIS0MOX9aq2lMivEB-V59KTDzgKJs'}
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczNTczLCJpYXQiOjE3Mzg2NzMxNTAsImp0aSI6IjA3YzA5MjY3Njg5YTQyMTZhYTZjMmFkMzU1YjEyYmNkIiwidXNlcl9pZCI6Mn0.Q4expmfTLgsv5CpXHPRSxRq37vvsMyx4v1tDhbwPLzo'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 172.18.0.1:61780][0m
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 172.18.0.1:61786][0m
-INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.02, 172.18.0.1:58236][0m
-INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.03, 172.18.0.1:58246][0m
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.11, 172.18.0.1:65290][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.36, 172.18.0.1:65290][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=2c2a6c6c3aa041ea866ff9463a48eaed 200 [0.01, 172.18.0.1:65290][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.06, 172.18.0.1:61416][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.14, 172.18.0.1:61400][0m
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTU1MCwiaWF0IjoxNzM4NjczMTUwLCJqdGkiOiJlMGEwMmJmNDgwOGM0ODk4Yjc1YzFiZDM5NjZhMzVmZSIsInVzZXJfaWQiOjJ9.6q-mc5zfMoPLraKWNS3WtPcB0XJYBARtwKPjWM9sil8
+DEBUG Refresh token in CustomTokenRefreshView: None
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODc1OTU1MCwiaWF0IjoxNzM4NjczMTUwLCJqdGkiOiJlMGEwMmJmNDgwOGM0ODk4Yjc1YzFiZDM5NjZhMzVmZSIsInVzZXJfaWQiOjJ9.6q-mc5zfMoPLraKWNS3WtPcB0XJYBARtwKPjWM9sil8
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczNjkzLCJpYXQiOjE3Mzg2NzMxNTAsImp0aSI6IjI1ZDY5YjQyNDBjNzRhOGRiZDQ0NTFmN2VjYjlmM2QxIiwidXNlcl9pZCI6Mn0.E3kCJKadCLEJrNBuEaomVLCksGpDuAUSYagH5kEq1PI'}
-DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4NjczNjkzLCJpYXQiOjE3Mzg2NzMxNTAsImp0aSI6ImUzMDg2NWM3OWVhMjQ5Mzk4NTczNGQ0Y2RjMDEzMWNiIiwidXNlcl9pZCI6Mn0.Mq_-c-u1nKZ_EmjSxnyaYSkH4pyiQrd9GJds4JR6P80'}
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 172.18.0.1:58250][0m
-INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 172.18.0.1:58256][0m
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.18, 172.18.0.1:61424][0m
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.17, 172.18.0.1:61440][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.08, 172.18.0.1:61400][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.13, 172.18.0.1:61416][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.11, 172.18.0.1:62796][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.10, 172.18.0.1:62796][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=5656fd0f823b46c7b5959bd4a21d2f51 200 [0.03, 172.18.0.1:62796][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: None
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.14, 172.18.0.1:63668][0m
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.14, 172.18.0.1:63670][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.21, 172.18.0.1:59642][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.10, 172.18.0.1:59642][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=41ccff63e1404adba8ad49def5eef1b2 200 [0.06, 172.18.0.1:59642][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: None
+WARNING Bad Request: /auth/api/renew-access/
+WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.22, 172.18.0.1:60630][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: None
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
+    elif user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.35, 172.18.0.1:60630][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=1ee102d44c91472e8835e5926e1403d2 200 [0.01, 172.18.0.1:60630][0m
