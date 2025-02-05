@@ -124,7 +124,7 @@ def fetch_42_user_info(access_token):
     
     try:
         response = requests.get(settings.OAUTH_42_USER_INFO_URL, headers=headers)
-        logger.debug("\n\nUser info response: %s\n", response.json())
+        # logger.debug("\n\nUser info response: %s\n", response.json())
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:

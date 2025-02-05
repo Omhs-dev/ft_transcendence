@@ -127,24 +127,61 @@ from asgiref.sync import sync_to_async
 #             'sender': sender,
 #         }))
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class ChatConsumer(AsyncWebsocketConsumer):
+    logger.debug('\n\nconnect received1111111\n')
+    # async def connect(self):
+    #     self.user = self.scope['user']
+    #     if self.user.is_authenticated:
+    #         profile = await database_sync_to_async(lambda: self.user.profile)()
+    #         profile.is_online = True
+    #         await database_sync_to_async(profile.save)()
+    #         await self.accept()
+    #     else:
+    #         await self.close()
+
     async def connect(self):
+        logger.debug('\n\nconnect received222222\n')
         self.user = self.scope['user']
+        # if user.is_authenticated:
+        #     logger.info(f"Authenticated user connected: {user.username}")
+        #     await self.accept()
+        # else:
+        #     logger.warning("Anonymous user tried to connect. Rejecting.")
+        #     await self.close()
+        self.receiver_id = self.scope['url_route']['kwargs']['user_id']  # Get the receiver ID from the URL
+
         if self.user.is_authenticated:
+            logger.info(f"\n\n\nUser {self.user} connected and the receiver id is {self.receiver_id}\n")
+            self.room_group_name = f'chat_{self.user.id}_{self.receiver_id}'  # Unique group for both users
+            await self.channel_layer.group_add(self.room_group_name, self.channel_name)
+            await self.accept()
+
             profile = await database_sync_to_async(lambda: self.user.profile)()
             profile.is_online = True
             await database_sync_to_async(profile.save)()
-            await self.accept()
         else:
             await self.close()
 
+    # async def disconnect(self, close_code):
+    #     if self.user.is_authenticated:
+    #         profile = await database_sync_to_async(lambda: self.user.profile)()
+    #         profile.is_online = False
+    #         await database_sync_to_async(profile.save)()
+    #     await self.close()
 
     async def disconnect(self, close_code):
         if self.user.is_authenticated:
+            await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
+            
             profile = await database_sync_to_async(lambda: self.user.profile)()
             profile.is_online = False
             await database_sync_to_async(profile.save)()
         await self.close()
+
 
 
     async def receive(self, text_data):
@@ -155,7 +192,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if message and receiver_id:
             receiver = await database_sync_to_async(User.objects.get)(id=receiver_id)
             is_blocked = await database_sync_to_async(BlockedUser.objects.filter)(
-                user=receiver, blocked_user=self.user
+                blocker=receiver, blocked=self.user
             ).exists()
 
             if is_blocked:
@@ -163,7 +200,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 return
 
             # Save message and send it
-            chat_message = await database_sync_to_async(ChatMessage.objects.create)(
+            chat_message = await database_sync_to_async(ChatMessage.objects.select_related('sender').create)(
                 sender=self.user, receiver=receiver, message=message
             )
             await self.channel_layer.group_send(
@@ -176,14 +213,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
             await self.send(json.dumps({'message': message, 'sender': self.user.username}))
 
-    async def chat_message(self, event):
-        message = event['message']
-        sender = event['sender']
-        print(f"Broadcasting message: {message} from {sender}")
+    # async def chat_message(self, event):
+    #     message = event['message']
+    #     sender = event['sender']
+    #     print(f"Broadcasting message: {message} from {sender}")
 
-        # Send message to WebSocket
+    #     # Send message to WebSocket
+    #     await self.send(text_data=json.dumps({
+    #         'message': message,
+    #         'sender': sender,
+    #     }))
+    async def chat_message(self, event):
+        message_id = event.get('message_id')
+        
+        # Mark message as read
+        if message_id:
+            await database_sync_to_async(ChatMessage.objects.filter(id=message_id).update)(is_read=True)
+
         await self.send(text_data=json.dumps({
-            'message': message,
-            'sender': sender,
+            'message': event['message'],
+            'sender': event['sender'],
         }))
+
 

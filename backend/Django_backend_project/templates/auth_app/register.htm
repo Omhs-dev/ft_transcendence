@@ -84,6 +84,13 @@
                 <ul id="friendList"></ul>
             </div>
 
+			<div id="chatArea" style="display:none;">
+				<h3 id="chatWith"></h3>
+				<div id="chatMessages"></div>
+				<input type="text" id="chatInput" placeholder="Type your message here...">
+				<button id="sendMessage">Send</button>
+			</div>
+			
 
 			<!-- Profile Section -->
 			<div id="profileSection">
@@ -596,6 +603,7 @@
 					const friendItem = document.createElement('li');
 					friendItem.textContent = friend.username;
 					friendItem.dataset.userId = friend.id;
+					console.log('friend username: %s and the friend id: %s', friend.username, friend.id);
 					friendItem.addEventListener('click', () => startChat(friend.id, friend.username));
 					friendList.appendChild(friendItem);
 				});
@@ -1010,72 +1018,120 @@
 				item.addEventListener('click', function () {
 					const userId = item.getAttribute('data-user-id');
 					const username = item.getAttribute('data-username');
+					console.log("userId: %s, username: %s", userId, username);
 					startChat(userId, username);
 				});
 			});
 		});
+
+
+		let chatSocket = null;
 
 		function startChat(userId, username) {
 			const chatArea = document.getElementById('chatArea');
 			const chatWith = document.getElementById('chatWith');
 			const chatMessages = document.getElementById('chatMessages');
 
-			if (chatArea && chatWith && chatMessages) {
-				chatArea.style.display = 'block';
-				chatWith.textContent = username;
+			chatArea.style.display = 'block';
+			chatWith.textContent = username;
+			chatMessages.innerHTML = '';
 
-				chatMessages.innerHTML = '';
+			// WebSocket connection
+			chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/${userId}/`);
 
-				fetch(`/chat/api/chat/${userId}/`, {
-					headers: {
-						'Content-Type': 'application/json',
-						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
-					},
-					credentials: 'include'  // Include cookies with the request
-				})
-				.then(response => response.json())
-				.then(data => {
-					data.forEach(message => {
-						const msg = document.createElement('div');
-						msg.textContent = `${message.sender}: ${message.message}`;
-						chatMessages.appendChild(msg);
-					});
-				})
-				.catch(error => console.error('Error fetching chat messages:', error));
+			chatSocket.onmessage = function(e) {
+				const data = JSON.parse(e.data);
+				const msg = document.createElement('div');
+				msg.textContent = `${data.sender}: ${data.message}`;
+				chatMessages.appendChild(msg);
+			};
 
-				document.getElementById('sendMessage').onclick = () => sendMessage(userId);
-			} else {
-				console.error('Required chat elements not found in the DOM');
+			chatSocket.onclose = function(e) {
+				console.error('Chat socket closed unexpectedly');
+			};
+
+			document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+		}
+
+		function sendMessage(userId) {
+			const messageInputDom = document.getElementById('chatInput');
+			const message = messageInputDom.value;
+
+			if (chatSocket && message.trim() !== '') {
+				chatSocket.send(JSON.stringify({
+					'message': message,
+					'receiver_id': userId
+				}));
+				const msg = document.createElement('div');
+				msg.textContent = `You: ${message}`;
+				document.getElementById('chatMessages').appendChild(msg);
+				messageInputDom.value = '';
 			}
 		}
 
-		async function sendMessage(userId) {
-			const message = document.getElementById('chatInput').value;
-			try {
-				const response = await fetch(`chat/api/chat/${userId}/`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
-					},
-					credentials: 'include',  // Include cookies with the request
-					body: JSON.stringify({ message })
-				});
 
-				if (response.ok) {
-					const chatMessages = document.getElementById('chatMessages');
-					const msg = document.createElement('div');
-					msg.textContent = `You: ${message}`;
-					chatMessages.appendChild(msg);
-					document.getElementById('chatInput').value = '';
-				} else {
-					const errorData = await response.json();
-					console.error('Error sending message:', errorData);
-				}
-			} catch (error) {
-				console.error('Error sending message:', error);
-			}
-		}
+
+		// function startChat(userId, username) {
+		// 	const chatArea = document.getElementById('chatArea');
+		// 	const chatWith = document.getElementById('chatWith');
+		// 	const chatMessages = document.getElementById('chatMessages');
+
+		// 	if (chatArea && chatWith && chatMessages) {
+		// 		chatArea.style.display = 'block';
+		// 		chatWith.textContent = username;
+
+		// 		chatMessages.innerHTML = '';
+
+		// 		fetch(`/chat/api/chat/${userId}/`, {
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 				'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+		// 			},
+		// 			credentials: 'include'  // Include cookies with the request
+		// 		})
+		// 		.then(response => response.json())
+		// 		.then(data => {
+		// 			data.forEach(message => {
+		// 				const msg = document.createElement('div');
+		// 				msg.textContent = `${message.sender}: ${message.message}`;
+		// 				chatMessages.appendChild(msg);
+		// 			});
+		// 		})
+		// 		.catch(error => console.error('Error fetching chat messages:', error));
+
+		// 		document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+		// 	} else {
+		// 		console.error('Required chat elements not found in the DOM');
+		// 	}
+		// }
+
+		// async function sendMessage(userId) {
+		// 	const message = document.getElementById('chatInput').value;
+		// 	try {
+		// 		const response = await fetch(`chat/api/chat/${userId}/`, {
+		// 			method: 'POST',
+		// 			headers: {
+		// 				'Content-Type': 'application/json',
+		// 				'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+		// 			},
+		// 			credentials: 'include',  // Include cookies with the request
+		// 			body: JSON.stringify({ message })
+		// 		});
+
+		// 		if (response.ok) {
+		// 			const chatMessages = document.getElementById('chatMessages');
+		// 			const msg = document.createElement('div');
+		// 			msg.textContent = `You: ${message}`;
+		// 			chatMessages.appendChild(msg);
+		// 			document.getElementById('chatInput').value = '';
+		// 		} else {
+		// 			const errorData = await response.json();
+		// 			console.error('Error sending message:', errorData);
+		// 		}
+		// 	} catch (error) {
+		// 		console.error('Error sending message:', error);
+		// 	}
+		// }
 
 	</script>
 	
