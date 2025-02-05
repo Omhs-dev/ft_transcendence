@@ -13,7 +13,6 @@ init_docker:
 
 reload: stop all 
 
-
 clean:
 	@echo "$(ORG)----- Cleaning stopped containers... -----$(RESET)"
 	@docker compose rm 

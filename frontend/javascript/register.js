@@ -93,7 +93,7 @@ function closeModal() {
 	successfullyRegistered();
 	setTimeout(() => {
 		closeBtn.click();
-	}, 3000);
+	}, 2000);
 }
 
 function unmatchedPass() {

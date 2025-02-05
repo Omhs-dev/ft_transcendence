@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" id="loginCard">
 	<div class="card-bg">
 
 	</div>
@@ -7,7 +7,7 @@
 			LOGIN
 		</h2>
 	</div>
-	<div class="card-body p-4">
+	<div class="card-body p-4" id="loginCardBody">
 		<form id="loginForm" class="loginClass">
 			<div class="mb-4">
 				<!-- <label for="username" class="form-label">Username</label> -->
@@ -16,6 +16,11 @@
 			<div class="mb-4">
 				<!-- <label for="password" class="form-label">Password</label> -->
 				<input type="password" class="form-control" id="loginPassword" placeholder="Enter your password" required>
+			</div>
+			<div class="mb-4" id="twoFaDiv">
+				<p class="text-center fw-bolder text-light mt-3">2FA Verification Required</p></strong>
+				<label for="password" class="form-label text-muted" id="otpLabel"></label>
+				<input type="text" class="form-control" id="otpCode" placeholder="Please Enter OTP Code">
 			</div>
 			<div id="errorBox"></div>
 			<div class="d-grid">
