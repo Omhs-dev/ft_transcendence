@@ -5,15 +5,55 @@ let refreshTimer;
 
 // Add event listener to the login form
 appSection.addEventListener('submit', (e) => {
-	console.log("submit button clicked");
     e.preventDefault();
 	console.log(e);
 	if (e.target.id === "loginForm"
 		&& e.target.className === "loginClass") {
 		console.log("login button found !");
 		loginUser();
+	} else if (e.target.id === "42Login"
+		&& e.target.className === "btn-42") {
+		console.log("login button found !");
 	}
 });
+
+appSection.addEventListener('click', (e) => {
+	if (e.target.id === "42Login") {
+		console.log("login with 42 button found !");
+		// loginWith42();
+		cheickOauth2Login();
+	}
+});
+
+const loginWith42 = async () => {
+	console.log("login with 42 button found !");
+	localStorage.setItem("isOauthLogged", "true");
+	window.location.href = "http://localhost:8000/auth/api/42/login";
+}
+
+const cheickOauth2Login = async () => {
+	try {
+		const response = await fetch('http://localhost:8000/auth/api/profile', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			console.error('Could not fetch api', response.status);
+			throw new Error('Could not fetch api');
+		}
+
+		const data = await response.json();
+		console.log('Data:', data);
+
+	} catch (error) {
+		console.error('Error:', error.message);
+	}
+}
 
 sideNavSection.addEventListener("click", (e) => {
     e.preventDefault();
@@ -24,8 +64,21 @@ sideNavSection.addEventListener("click", (e) => {
     }
 });
 
-window.addEventListener('load', () => {
-	startTokenRefreshTimer();
+document.addEventListener('DOMContentLoaded', () => {
+	const isAuthenticated = localStorage.getItem("isAuthenticated");
+	const username = localStorage.getItem("username");
+	const enable2Fa = localStorage.getItem("enable2Fa");
+
+	if (isAuthenticated && username) {
+		console.log("user is logged in");
+		console.log("username: ", username);
+		console.log("isAuthenticated: ", isAuthenticated);
+		console.log("enable2Fa: ", enable2Fa);
+		startTokenRefreshTimer();
+
+	} else {
+		console.log("user is not logged in");
+	}
 });
 
 // Login functionality
