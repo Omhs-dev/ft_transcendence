@@ -252,17 +252,16 @@ export function getCookie(name) {
 }
 
 function invalidCredential(errorType) {
-	// Shake the login form
 	const loginBtn = document.querySelector('.btn-login');
 	const inputs = document.querySelectorAll(".form-control");
-	// Display error message
 	const errorBox = document.querySelector("#errorBox");
+
+	errorBox.innerHTML = "";
+
 	const errorMessage = document.createElement("p");
 	const small = document.createElement("small");
 
-	inputs.forEach(input => {
-		input.classList.add('shake');
-	});
+	inputs.forEach(input => input.classList.add('shake'));
 
 	if (errorType === "logins") {
 		small.textContent = "Username or password is incorrect. Please try again.";
@@ -274,7 +273,7 @@ function invalidCredential(errorType) {
 	errorMessage.appendChild(small);
 	errorBox.appendChild(errorMessage);
 
-	setInterval(() => {
+	setTimeout(() => {
 		loginBtn.disabled = false;
 		
 		inputs.forEach(input => {

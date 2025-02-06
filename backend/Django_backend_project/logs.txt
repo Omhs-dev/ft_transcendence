@@ -5,129 +5,37 @@ DEBUG CustomTokenRefreshView request received
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
-INFO [32mHTTP GET /admin/auth_app/profile/ 302 [0.07, 172.18.0.1:62294][0m
-INFO [mHTTP GET /admin/login/?next=/admin/auth_app/profile/ 200 [0.04, 172.18.0.1:62294][0m
-INFO [mHTTP GET /static/admin/css/base.css 200 [0.00, 172.18.0.1:62294][0m
-INFO [36mHTTP GET /static/admin/css/dark_mode.css 304 [0.01, 172.18.0.1:62296][0m
-INFO [mHTTP GET /static/admin/css/responsive.css 200 [0.01, 172.18.0.1:62316][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:62332][0m
-INFO [36mHTTP GET /static/admin/js/theme.js 304 [0.02, 172.18.0.1:62340][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:62352][0m
-INFO [36mHTTP GET /static/admin/css/login.css 304 [0.01, 172.18.0.1:62296][0m
-INFO [36mHTTP GET /static/admin/css/nav_sidebar.css 304 [0.02, 172.18.0.1:62294][0m
-INFO [36mHTTP GET /static/debug_toolbar/css/print.css 304 [0.00, 172.18.0.1:62332][0m
-INFO [36mHTTP GET /static/admin/js/nav_sidebar.js 304 [0.00, 172.18.0.1:62352][0m
-INFO [36mHTTP GET /static/debug_toolbar/js/utils.js 304 [0.01, 172.18.0.1:62352][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.02, 172.18.0.1:62352][0m
-DEBUG Signal: create_or_update_user_profile triggered
-DEBUG Signal: User admin logged in
-INFO [32mHTTP POST /admin/login/?next=/admin/auth_app/profile/ 302 [0.64, 172.18.0.1:62352][0m
-INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.10, 172.18.0.1:62352][0m
-INFO [36mHTTP GET /static/admin/js/jquery.init.js 304 [0.01, 172.18.0.1:62340][0m
-INFO [36mHTTP GET /static/admin/css/changelists.css 304 [0.01, 172.18.0.1:62316][0m
-INFO [mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 200 [0.01, 172.18.0.1:62294][0m
-INFO [mHTTP GET /static/admin/js/vendor/xregexp/xregexp.js 200 [0.02, 172.18.0.1:62296][0m
-INFO [36mHTTP GET /static/admin/js/core.js 304 [0.01, 172.18.0.1:62340][0m
-INFO [mHTTP GET /static/admin/js/vendor/jquery/jquery.js 200 [0.02, 172.18.0.1:62332][0m
-INFO [36mHTTP GET /static/admin/js/actions.js 304 [0.01, 172.18.0.1:62316][0m
-INFO [36mHTTP GET /static/admin/js/urlify.js 304 [0.01, 172.18.0.1:62294][0m
-INFO [36mHTTP GET /static/admin/js/prepopulate.js 304 [0.01, 172.18.0.1:62340][0m
-INFO [36mHTTP GET /static/admin/img/icon-yes.svg 304 [0.01, 172.18.0.1:62332][0m
-INFO [36mHTTP GET /static/admin/img/icon-no.svg 304 [0.02, 172.18.0.1:62296][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.09, 172.18.0.1:62352][0m
-INFO [36mHTTP GET /static/admin/js/filters.js 304 [0.00, 172.18.0.1:62352][0m
-INFO [36mHTTP GET /static/admin/img/icon-viewlink.svg 304 [0.00, 172.18.0.1:62332][0m
-INFO [36mHTTP GET /static/admin/img/icon-addlink.svg 304 [0.00, 172.18.0.1:62352][0m
-INFO [36mHTTP GET /static/admin/img/tooltag-add.svg 304 [0.01, 172.18.0.1:62296][0m
-INFO [mHTTP POST /admin/auth_app/profile/ 200 [0.12, 172.18.0.1:62296][0m
-INFO [36mHTTP GET /static/admin/js/cancel.js 304 [0.00, 172.18.0.1:62296][0m
-INFO [32mHTTP POST /admin/auth_app/profile/ 302 [0.20, 172.18.0.1:62296][0m
-INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.07, 172.18.0.1:62296][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.04, 172.18.0.1:62296][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.02, 172.18.0.1:63760][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG Refresh token found in cookies: None
-ERROR Internal Server Error: /auth/api/logout/
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
-    raise exc_info[1]
-  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
-    response = await get_response(request)
-  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
-    response = await wrapped_callback(
-  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
-    ret = await asyncio.shield(exec_coro)
-  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
-    result = self.fn(*self.args, **self.kwargs)
-  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
-    return func(*args, **kwargs)
-  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
-    return view_func(request, *args, **kwargs)
-  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
-    return self.dispatch(request, *args, **kwargs)
-  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
-    response = self.handle_exception(exc)
-  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
-    self.raise_uncaught_exception(exc)
-  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
-    raise exc
-  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
-    response = handler(request, *args, **kwargs)
-  File "/app/Django_backend_project/auth_app/views.py", line 167, in post
-    elif user.username:
-UnboundLocalError: local variable 'user' referenced before assignment
-ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.10, 172.18.0.1:63760][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=acd0f0f8dfa44258acb145dc86df281e 200 [0.03, 172.18.0.1:63760][0m
-INFO [mHTTP OPTIONS /auth/api/register/ 200 [0.02, 172.18.0.1:65440][0m
-DEBUG Request data: {'username': 'omhs', 'email': 'hsouleyomar@gmail.com', 'password': '1111111111'}
-DEBUG Signal: create_or_update_user_profile triggered
-INFO [mHTTP POST /auth/api/register/ 201 [0.55, 172.18.0.1:65440][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.03, 172.18.0.1:65440][0m
-INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.03, 172.18.0.1:57866][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.04, 172.18.0.1:63138][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.06, 172.18.0.1:63148][0m
 INFO User omhs is authenticated in the login class:
 INFO User omhs is authenticated in the login class:
-INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjhjY2ZhMmZlNTdjMzQ4NmFhZjc2ZTYzZjUzNGI2MTY1IiwidXNlcl9pZCI6M30.9i8WtkikOD5h3hHuS9W5OF81ST1JHdkljg2ezO2Lfyg
-INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjAwNTI5MmI2YjIyMzQwMTliMTkxMDdiZWM2ZTZmMGE3IiwidXNlcl9pZCI6M30.9GZuLaEPvhruWebQJTwCiHrJDE76xJwJUA9bbA31Sgk
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM2Nzc2LCJpYXQiOjE3Mzg4MzY0NzYsImp0aSI6Ijk3NmM5NDFkZmJiYzRjYThhMzhkYjk3OWQ2OWU4NDA4IiwidXNlcl9pZCI6M30.KHd1CrwYlVhbYFBtLUOvvAqgJMyh2LE4bVVxzPB0Y_g
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM2Nzc2LCJpYXQiOjE3Mzg4MzY0NzYsImp0aSI6ImVhMTY5NTE5MWFlYzQ0MWY5ZDU0YmJlZGUzM2E5MjdmIiwidXNlcl9pZCI6M30.kSOFrdTj1Fp4Q8el2UHwNtijczov1qulYBIr3hZnETQ
 DEBUG Signal: create_or_update_user_profile triggered
 DEBUG Signal: create_or_update_user_profile triggered
 DEBUG Signal: User omhs logged in
 DEBUG Signal: User omhs logged in
-DEBUG response.data: {'user_id': 3, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjhjY2ZhMmZlNTdjMzQ4NmFhZjc2ZTYzZjUzNGI2MTY1IiwidXNlcl9pZCI6M30.9i8WtkikOD5h3hHuS9W5OF81ST1JHdkljg2ezO2Lfyg', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMTYyMywiaWF0IjoxNzM4ODM1MjIzLCJqdGkiOiJlYTg0NjNiOWJiMjY0MmEzOTBkNmU3OTAzZWUxNTNhZCIsInVzZXJfaWQiOjN9.9Ym-Za0VWvY8QtpuGB7vFk6Nn8ynjNX3mBmHzqqD7pI'}}
-DEBUG response.data: {'user_id': 3, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjAwNTI5MmI2YjIyMzQwMTliMTkxMDdiZWM2ZTZmMGE3IiwidXNlcl9pZCI6M30.9GZuLaEPvhruWebQJTwCiHrJDE76xJwJUA9bbA31Sgk', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMTYyMywiaWF0IjoxNzM4ODM1MjIzLCJqdGkiOiJhM2I2M2FjYTMyZjY0OTE2YTc1N2Q0OWZiNmJjNDE5NyIsInVzZXJfaWQiOjN9.tW9rZtxngoZUlWOsDUbyw7dx4B1gIFk_HY37djBGBBE'}}
-INFO [mHTTP POST /auth/api/login/ 200 [0.56, 172.18.0.1:57870][0m
-INFO [mHTTP POST /auth/api/login/ 200 [0.60, 172.18.0.1:57872][0m
-INFO [mHTTP OPTIONS /chat/api/friend-requests/ 200 [0.02, 172.18.0.1:57866][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friend-requests/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjhjY2ZhMmZlNTdjMzQ4NmFhZjc2ZTYzZjUzNGI2MTY1IiwidXNlcl9pZCI6M30.9i8WtkikOD5h3hHuS9W5OF81ST1JHdkljg2ezO2Lfyg
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMTYyMywiaWF0IjoxNzM4ODM1MjIzLCJqdGkiOiJlYTg0NjNiOWJiMjY0MmEzOTBkNmU3OTAzZWUxNTNhZCIsInVzZXJfaWQiOjN9.9Ym-Za0VWvY8QtpuGB7vFk6Nn8ynjNX3mBmHzqqD7pI
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjhjY2ZhMmZlNTdjMzQ4NmFhZjc2ZTYzZjUzNGI2MTY1IiwidXNlcl9pZCI6M30.9i8WtkikOD5h3hHuS9W5OF81ST1JHdkljg2ezO2Lfyg
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-INFO [mHTTP GET /chat/api/friend-requests/ 200 [0.07, 172.18.0.1:57872][0m
-INFO [mHTTP OPTIONS /chat/api/online-users/ 200 [0.02, 172.18.0.1:57866][0m
-DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/online-users/'>
-DEBUG Header in authenticate: None
-DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjhjY2ZhMmZlNTdjMzQ4NmFhZjc2ZTYzZjUzNGI2MTY1IiwidXNlcl9pZCI6M30.9i8WtkikOD5h3hHuS9W5OF81ST1JHdkljg2ezO2Lfyg
-DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMTYyMywiaWF0IjoxNzM4ODM1MjIzLCJqdGkiOiJlYTg0NjNiOWJiMjY0MmEzOTBkNmU3OTAzZWUxNTNhZCIsInVzZXJfaWQiOjN9.9Ym-Za0VWvY8QtpuGB7vFk6Nn8ynjNX3mBmHzqqD7pI
-DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM1NTIzLCJpYXQiOjE3Mzg4MzUyMjMsImp0aSI6IjhjY2ZhMmZlNTdjMzQ4NmFhZjc2ZTYzZjUzNGI2MTY1IiwidXNlcl9pZCI6M30.9i8WtkikOD5h3hHuS9W5OF81ST1JHdkljg2ezO2Lfyg
-INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
-INFO CSRF reason in enforce_CSRF: None
-INFO [mHTTP GET /chat/api/online-users/ 200 [0.09, 172.18.0.1:57872][0m
-INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.04, 172.18.0.1:57866][0m
-INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.05, 172.18.0.1:65440][0m
+DEBUG response.data: {'user_id': 3, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM2Nzc2LCJpYXQiOjE3Mzg4MzY0NzYsImp0aSI6Ijk3NmM5NDFkZmJiYzRjYThhMzhkYjk3OWQ2OWU4NDA4IiwidXNlcl9pZCI6M30.KHd1CrwYlVhbYFBtLUOvvAqgJMyh2LE4bVVxzPB0Y_g', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMjg3NiwiaWF0IjoxNzM4ODM2NDc2LCJqdGkiOiJhYzJkOTJkMWEyN2Y0MDJjODc0NmFiMzg2ZTMyMDYxNCIsInVzZXJfaWQiOjN9.86Eg2yriKt8tHGA7dAbRaLzx8-XvPNsExaEF6VIBrz0'}}
+DEBUG response.data: {'user_id': 3, 'Success': 'Login successful', 'data': {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM4ODM2Nzc2LCJpYXQiOjE3Mzg4MzY0NzYsImp0aSI6ImVhMTY5NTE5MWFlYzQ0MWY5ZDU0YmJlZGUzM2E5MjdmIiwidXNlcl9pZCI6M30.kSOFrdTj1Fp4Q8el2UHwNtijczov1qulYBIr3hZnETQ', 'refresh': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMjg3NiwiaWF0IjoxNzM4ODM2NDc2LCJqdGkiOiIwMzgwNmUyOGZmZDc0M2JjOGQyYWQ1OTFmMDgwM2E4NyIsInVzZXJfaWQiOjN9.WpDvViax0vsdkzRd9C7-iyftsHJ0CLMSgrw8UfaBmFY'}}
+INFO [mHTTP POST /auth/api/login/ 200 [1.04, 172.18.0.1:58816][0m
+INFO [mHTTP POST /auth/api/login/ 200 [1.09, 172.18.0.1:58824][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.04, 172.18.0.1:63148][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.05, 172.18.0.1:63138][0m
 DEBUG Logout request received for user: AnonymousUser
-DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMTYyMywiaWF0IjoxNzM4ODM1MjIzLCJqdGkiOiJlYTg0NjNiOWJiMjY0MmEzOTBkNmU3OTAzZWUxNTNhZCIsInVzZXJfaWQiOjN9.9Ym-Za0VWvY8QtpuGB7vFk6Nn8ynjNX3mBmHzqqD7pI
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMjg3NiwiaWF0IjoxNzM4ODM2NDc2LCJqdGkiOiJhYzJkOTJkMWEyN2Y0MDJjODc0NmFiMzg2ZTMyMDYxNCIsInVzZXJfaWQiOjN9.86Eg2yriKt8tHGA7dAbRaLzx8-XvPNsExaEF6VIBrz0
 DEBUG Logout request received for user: AnonymousUser
-DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMTYyMywiaWF0IjoxNzM4ODM1MjIzLCJqdGkiOiJlYTg0NjNiOWJiMjY0MmEzOTBkNmU3OTAzZWUxNTNhZCIsInVzZXJfaWQiOjN9.9Ym-Za0VWvY8QtpuGB7vFk6Nn8ynjNX3mBmHzqqD7pI
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczODkyMjg3NiwiaWF0IjoxNzM4ODM2NDc2LCJqdGkiOiJhYzJkOTJkMWEyN2Y0MDJjODc0NmFiMzg2ZTMyMDYxNCIsInVzZXJfaWQiOjN9.86Eg2yriKt8tHGA7dAbRaLzx8-XvPNsExaEF6VIBrz0
 DEBUG User found in refresh token in logout: omhs
 DEBUG User found in refresh token in logout: omhs
 INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
 DEBUG Signal: User omhs logged out
 INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
 DEBUG Signal: User omhs logged out
-INFO [mHTTP POST /auth/api/logout/ 200 [0.08, 172.18.0.1:57872][0m
-INFO [mHTTP POST /auth/api/logout/ 200 [0.10, 172.18.0.1:57870][0m
+INFO [mHTTP POST /auth/api/logout/ 200 [0.09, 172.18.0.1:58816][0m
+INFO [mHTTP POST /auth/api/logout/ 200 [0.10, 172.18.0.1:58840][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.03, 172.18.0.1:63138][0m
+INFO [mHTTP OPTIONS /auth/api/login/ 200 [0.05, 172.18.0.1:63148][0m
+WARNING Unauthorized: /auth/api/login/
+WARNING [31;1mHTTP POST /auth/api/login/ 401 [0.53, 172.18.0.1:58816][0m
+WARNING Unauthorized: /auth/api/login/
+WARNING [31;1mHTTP POST /auth/api/login/ 401 [0.54, 172.18.0.1:64128][0m

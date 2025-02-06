@@ -101,16 +101,12 @@ function unmatchedPass() {
 	const password = document.getElementById('registerPassword')
 	const confirmPassword = document.getElementById('confirmPassword')
 	const registerBtn = document.getElementById("registerBtn");
-
-	//error box
 	const errorBox = document.querySelector("#errorBox1");
+
+	errorBox.innerHTML = "";
+
 	const errorMessage = document.createElement("p");
 	const small = document.createElement("small");
-
-	console.log("registerBtn: ", registerBtn);
-	console.log("errorBox: ", errorBox);
-	console.log("errorMessage: ", errorMessage);
-	console.log("small: ", small);
 
 	password.classList.add('shake');
 	confirmPassword.classList.add('shake');
@@ -128,7 +124,7 @@ function unmatchedPass() {
 		confirmPassword.classList.remove('shake');
 
 		errorBox.innerHTML = "";
-	}, 2000);
+	}, 3000);
 }
 
 function successfullyRegistered() {
