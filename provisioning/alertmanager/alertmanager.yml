@@ -1,0 +1,19 @@
+global:
+  resolve_timeout: 5m  # Wait 5 minutes before resolving an alert
+
+route:
+  receiver: "email"
+  repeat_interval: 20s  # Alert every 20 seconds if still active
+  group_by: [alertname]
+
+receivers:
+  - name: "email"
+    email_configs:
+      - to: "transcendence.42institute@gmail.com"
+        from: "transcendence.42institute@gmail.com"
+        smarthost: "smtp.gmail.com:587"
+        auth_username: "transcendence.42institute@gmail.com"
+        auth_password: "Tr@nscendence@42"  # ❗ Don't hardcode passwords (use env vars)
+        auth_identity: "transcendence.42institute@gmail.com"
+        headers:
+          subject: "🚨 Prometheus Alert"

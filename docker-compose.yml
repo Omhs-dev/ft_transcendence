@@ -46,11 +46,20 @@ services:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/service_alerts.yml:/etc/prometheus/service_alerts.yml 
     ports:
       - "9090:9090"
     depends_on:
       - cadvisor
     restart: always
+  
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    volumes:
+      - ./provisioning/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
 
   grafana:
     container_name: grafana_container
