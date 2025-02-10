@@ -1,9 +1,12 @@
 const isAuthenticated = localStorage.getItem("isAuthenticated");
 const userName = localStorage.getItem("username");
+const isOauthLogged = localStorage.getItem("isOauthLogged");
+
+console.log("isoauthlogged: ", isOauthLogged);
 
 export function authSection(authSectionDiv) {
-	if (isAuthenticated && userName) {
-		// console.log("user is logged in");
+	if ((isAuthenticated && userName) || isOauthLogged) {
+		console.log("user is logged in");
 		return	authSectionDiv.innerHTML += `
 				<button type="button" class="btn btn-success homebtn mb-3 game-action"
 					id="startbtn" data-action="start">
@@ -86,13 +89,9 @@ export function unloggedSideNav(sideNavDiv) {
 export function UpdateUserName(loggedUserName1) {
 	const loggedUserName = document.getElementById("loggedUserName");
 
-	if (isAuthenticated && userName) {
+	if ((isAuthenticated || isOauthLogged) && userName) {
 		if (loggedUserName) {
 			loggedUserName.textContent = userName;
-		}
-
-		if (loggedUserName1) {
-			loggedUserName1.textContent = userName;
 		}
 	}
 }

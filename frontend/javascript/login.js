@@ -20,18 +20,28 @@ appSection.addEventListener('submit', (e) => {
 appSection.addEventListener('click', (e) => {
 	if (e.target.id === "42Login") {
 		console.log("login with 42 button found !");
-		// loginWith42();
-		cheickOauth2Login();
+		loginWith42();
+		// loadToMainPage();
+		console.log("after redirect 2");
 	}
 });
 
-const loginWith42 = async () => {
+const loginWith42 = () => {
 	console.log("login with 42 button found !");
 	localStorage.setItem("isOauthLogged", "true");
+	localStorage.setItem("loadPageOnce", "true");
 	window.location.href = "http://localhost:8000/auth/api/42/login";
 }
 
-const cheickOauth2Login = async () => {
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const loadToMainPage = async () => {
+	await wait(6000);
+	console.log("after countdown");
+	window.location.href = "/";
+}
+
+const checkOauth2Login = async () => {
 	try {
 		const response = await fetch('http://localhost:8000/auth/api/profile', {
 			method: 'GET',
@@ -50,6 +60,11 @@ const cheickOauth2Login = async () => {
 		const data = await response.json();
 		console.log('Data:', data);
 
+		localStorage.setItem("username", data.username);
+		localStorage.setItem("isAuthenticated", "true");
+
+		// window.location.href = "/";
+
 	} catch (error) {
 		console.error('Error:', error.message);
 	}
@@ -65,11 +80,25 @@ sideNavSection.addEventListener("click", (e) => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-	const isAuthenticated = localStorage.getItem("isAuthenticated");
 	const username = localStorage.getItem("username");
 	const enable2Fa = localStorage.getItem("enable2Fa");
+	const isOauthLogged = localStorage.getItem("isOauthLogged");
+	const isAuthenticated = localStorage.getItem("isAuthenticated");
+	const loadPageOnce = localStorage.getItem("loadPageOnce");
 
-	if (isAuthenticated && username) {
+	if (isOauthLogged) {
+		console.log("user is logged in with oauth");
+		checkOauth2Login();
+	}
+
+	if (loadPageOnce) {
+		console.log("load page once");
+		loadToMainPage();
+		localStorage.removeItem("loadPageOnce");
+	}
+	
+
+	if ((isAuthenticated || isOauthLogged) && username) {
 		console.log("user is logged in");
 		console.log("username: ", username);
 		console.log("isAuthenticated: ", isAuthenticated);
@@ -174,6 +203,7 @@ const logoutUser = async () => {
 		}
 
 		localStorage.removeItem("username");
+		localStorage.removeItem("isOauthLogged");
 		localStorage.removeItem("isAuthenticated");
 
 		window.location.href = "/";

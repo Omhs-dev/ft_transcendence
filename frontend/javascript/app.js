@@ -54,12 +54,13 @@ const publicRoutes = ["/", "/history", "/rules"];
 window.addEventListener('load', () => {
 	console.log('loaded');
 	const isAuthenticated = localStorage.getItem("isAuthenticated");
+	const isOauthLogged = localStorage.getItem("isOauthLogged");
 	const currentPath = window.location.pathname;
 
 	console.log('isAuthenticated:', isAuthenticated);
 	console.log('currentPath:', currentPath);
 
-	if (!isAuthenticated && !publicRoutes.includes(currentPath)) {
+	if ((!isAuthenticated || !isOauthLogged) && !publicRoutes.includes(currentPath)) {
 		console.log('redirecting to login');
 		window.location.href = '/';
 		console.log('href:', window.location.href);
