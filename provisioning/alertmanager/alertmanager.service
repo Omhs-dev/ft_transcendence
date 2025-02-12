@@ -1,0 +1,13 @@
+[Unit]
+Description=Alertmanager
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml
+Restart=always
+User=alertmanager
+Group=alertmanager
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

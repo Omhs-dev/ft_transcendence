@@ -9,11 +9,13 @@ route:
 receivers:
   - name: "email"
     email_configs:
-      - to: "transcendence.42institute@gmail.com"
-        from: "transcendence.42institute@gmail.com"
-        smarthost: "smtp.gmail.com:587"
-        auth_username: "transcendence.42institute@gmail.com"
-        auth_password: "Tr@nscendence@42"  # ❗ Don't hardcode passwords (use env vars)
-        auth_identity: "transcendence.42institute@gmail.com"
+      - to: "transcendence.42institute@gmail.com"  # Change to your desired recipient email
+        from: "transcendence.42institute@gmail.com"  # From email address
+        smarthost: "smtp.gmail.com:587"  # Gmail SMTP server
+        auth_username: "transcendence.42institute@gmail.com"  # Your email address for authentication
+        auth_password: "Tr@nscendence@42"  # Your email password (preferably use environment variables for this)
+        auth_identity: "transcendence.42institute@gmail.com"  # Identity for SMTP authentication
+        smtp_require_tls: true  # Ensure TLS is required for secure communication
         headers:
           subject: "🚨 Prometheus Alert"
+

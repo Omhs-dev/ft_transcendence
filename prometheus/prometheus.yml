@@ -10,7 +10,7 @@ scrape_configs:
   - job_name: cadvisor
     metrics_path: /metrics
     static_configs:
-      - targets: ['ft_transcendence_cadvisor_1:8080']
+      - targets: ['cadvisor_container:8080']
 
 alerting:
   alertmanagers:

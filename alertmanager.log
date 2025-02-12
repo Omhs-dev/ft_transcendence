@@ -1,0 +1,8 @@
+nohup: ignoring input
+ts=2025-02-12T19:41:04.923Z caller=main.go:231 level=info msg="Starting Alertmanager" version="(version=0.24.0, branch=HEAD, revision=f484b17fa3c583ed1b2c8bbcec20ba1db2aa5f11)"
+ts=2025-02-12T19:41:04.923Z caller=main.go:232 level=info build_context="(go=go1.17.8, user=root@265f14f5c6fc, date=20220325-09:31:33)"
+ts=2025-02-12T19:41:04.930Z caller=cluster.go:185 level=info component=cluster msg="setting advertise address explicitly" addr=172.29.140.74 port=9094
+ts=2025-02-12T19:41:04.931Z caller=cluster.go:680 level=info component=cluster msg="Waiting for gossip to settle..." interval=2s
+ts=2025-02-12T19:41:04.953Z caller=coordinator.go:113 level=info component=configuration msg="Loading configuration file" file=/provisioning/alertmanager/alertmanager.yml
+ts=2025-02-12T19:41:04.954Z caller=coordinator.go:118 level=error component=configuration msg="Loading configuration file failed" file=/provisioning/alertmanager/alertmanager.yml err="open /provisioning/alertmanager/alertmanager.yml: no such file or directory"
+ts=2025-02-12T19:41:04.954Z caller=cluster.go:689 level=info component=cluster msg="gossip not settled but continuing anyway" polls=0 elapsed=22.440074ms

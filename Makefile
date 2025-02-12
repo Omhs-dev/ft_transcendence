@@ -1,4 +1,4 @@
-all:
+all: install-alertmanager
 	docker-compose up --build -d
 	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost:80 $(ORG)-----$(RESET)"
 
@@ -26,7 +26,12 @@ fclean:
 	docker system prune -f
 	docker image prune -af
 
-re: fclean all
+install-alertmanager:
+	chmod +x ./provisioning/alertmanager/install.sh
+	./provisioning/alertmanager/install.sh
+
+
+re: fclean  install-alertmanager all
 
 BLUE    = \033[38;5;4m
 GREEN   = \033[38;5;2m

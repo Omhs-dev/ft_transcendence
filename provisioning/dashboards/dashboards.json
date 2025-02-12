@@ -329,7 +329,6 @@
           {
             "datasource": {
               "type": "prometheus"
-  
             },
             "expr": "((node_memory_MemTotal{instance=~\"$server:.*\"} - node_memory_MemAvailable{instance=~\"$server:.*\"}) / node_memory_MemTotal{instance=~\"$server:.*\"}) * 100",
             "intervalFactor": 2,
@@ -2541,7 +2540,6 @@
     "timepicker": {},
     "timezone": "browser",
     "title": "Docker and system monitoring",
-    "uid": "eeber92ddcjr4b",
     "version": 1,
     "weekStart": ""
   }
