@@ -49,6 +49,7 @@ services:
       - ./provisioning/alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
     ports:
       - "9093:9093"
+    command: ["--config.file=/etc/alertmanager/alertmanager.yml"]
 
   prometheus:
     container_name: prometheus_container
