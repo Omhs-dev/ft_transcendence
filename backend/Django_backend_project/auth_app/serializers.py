@@ -75,6 +75,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         instance.user.save()
 
         # Update Profile model fields
+        instance.id = validated_data.get('id', instance.id)
         instance.nickname = validated_data.get('nickname', instance.nickname)
         instance.bio = validated_data.get('bio', instance.bio)
         instance.profile_picture = validated_data.get('profile_picture', instance.profile_picture)

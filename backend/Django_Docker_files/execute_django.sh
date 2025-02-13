@@ -34,4 +34,5 @@ EOF
 
 # Start the Django server
 echo "Starting the Django server..."
+# exec tail -f /dev/null
 exec python Django_backend_project/manage.py runserver 0.0.0.0:8000

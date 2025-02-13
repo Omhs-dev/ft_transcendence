@@ -71,8 +71,21 @@
                 <h3>Online Users</h3>
                 <ul id="userList"></ul>
             </div>
+            <!-- W.B Online Users -->
+            <div id="WBonlineUsers">
+                <h3>W.B Online Users</h3>
+                <ul id="WBuserList"></ul>
+            </div>
 
-            <!-- Friends Requests -->
+			<div id="chatArea" style="display:none;">
+				<h3 id="chatWith"></h3>
+				<div id="chatMessages"></div>
+				<input type="text" id="chatInput" placeholder="Type your message here...">
+				<button id="sendMessage">Send</button>
+			</div>
+
+            <br>
+			<!-- Friends Requests -->
             <div id="friendreq">
                 <h3>My Friends Requests</h3>
                 <ul id="friendRequests"></ul>
@@ -84,6 +97,7 @@
                 <ul id="friendList"></ul>
             </div>
 
+			
 
 			<!-- Profile Section -->
 			<div id="profileSection">
@@ -181,11 +195,21 @@
 		let refreshTimer;
 		let user_id = '';
 		let TwoFA = localStorage.getItem('TwoFA') === 'true'; // Get the 2FA status from local storage
-		
+		let chatSocket = null;
+		let onlineUsers = {}; // Store online user status
+		let globalChatRoomId = null; // Store the chat room ID
 	// *********************************** Helper Functions ***********************************
 		// Ensure this function is called once the DOM is fully loaded
 		document.addEventListener("DOMContentLoaded", function() {
-			update2FASection(TwoFA); // Call the function with the appropriate TwoFA status
+			// OAuth Login
+			if (localStorage.getItem('oauthLogin') === 'true') {
+				localStorage.removeItem('oauthLogin'); // Remove flag
+				checkAuthAndLoadDashboard();
+			}
+			if (localStorage.getItem('isAuthenticated') === 'true') {
+				update2FASection(TwoFA); // Call the function with the appropriate TwoFA status
+			}
+
 		});
 
 	// *********************************** OAuth Login Logic ***********************************
@@ -209,6 +233,7 @@
 
 					// ✅ Store authentication state in local storage
 					localStorage.setItem('username', userData.username);
+					localStorage.setItem('userId', userData.id);
 					localStorage.setItem('isAuthenticated', 'true');
 					localStorage.setItem('oauthLogin', 'true');
 
@@ -222,16 +247,6 @@
 				window.location.href = "/auth/register";
 			}
 		}
-		
-		// OAuth Login
-		document.addEventListener("DOMContentLoaded", async function () {
-			// Check if user came back from OAuth login
-			if (localStorage.getItem('oauthLogin') === 'true') {
-				localStorage.removeItem('oauthLogin'); // Remove flag
-				checkAuthAndLoadDashboard();
-			}
-		});
-
 
 
 	// *********************************** Token Refresh Logic ***********************************
@@ -243,15 +258,12 @@
 				const cookies = document.cookie.split(';');
 				for (let i = 0; i < cookies.length; i++) {
 					const cookie = cookies[i].trim();
-					console.log("cookie: ", cookie);
-					// Does this cookie string begin with the name we want?
 					if (cookie.substring(0, name.length + 1) === (name + '=')) {
 						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
 						break;
 					}
 				}
 			}
-			console.log("cookie value: ", cookieValue);
 			return cookieValue;
 		}
 
@@ -259,12 +271,9 @@
 		function startTokenRefreshTimer() {
 			const refreshInterval = 4 * 60 * 1000; // 1 minute in milliseconds
 
-			console.log('Starting token refresh timer');
 			refreshTimer = setInterval(() => {
 				// Use absolute path to avoid relative path issues
 				const apiUrl = '/auth/api/renew-access/';
-				console.log(`API URL being called: ${apiUrl}`);
-
 				fetch(apiUrl, {
 					method: 'POST',
 					credentials: 'include',
@@ -326,7 +335,7 @@
 				alert('An error occurred during registration.');
 			}
 		});
-
+		//*********************************** Login Logic ***********************************
 		// Login User
 		document.getElementById('loginForm').addEventListener('submit', async function (e) {
 			e.preventDefault();
@@ -347,7 +356,7 @@
 			
 			try {
 				document.getElementById('loginButton').disabled = true; // Disable button
-				console.log("payload in login: ", payload);
+				// console.log("payload in login: ", payload);
 
 				const response = await fetch(`/auth/api/login/`, {
 					method: 'POST',
@@ -360,10 +369,7 @@
 
 				if (response.ok) {
 					const data = await response.json();
-					console.log("data in login: ", data);
 					const user_id = data.user_id;
-					console.log("user_id in login: ", user_id);
-					// Store username in local storage 
 					localStorage.setItem('username', username);
 					localStorage.setItem('userId', user_id);
 					localStorage.setItem('isAuthenticated', 'true');
@@ -373,7 +379,7 @@
 						localStorage.setItem('otpMethod', 'false');
 					}
 					alert('Login successful');
-                    console.log(username, 'Login successful:', data);
+                    // console.log(username, 'Login successful:', data);
     				document.getElementById('otp_method').value = '';
             		document.getElementById('otp_code').value = ''; // Clear OTP code
 					loadDashboard();
@@ -417,6 +423,7 @@
 			}
 		});
 
+		//*********************************** Logout Logic ***********************************
 		// Logout User
 		async function logoutUser() {
 			stopTokenRefreshTimer(); // Stop the refresh timer
@@ -439,7 +446,6 @@
 			} catch (error) {
 				console.error('Error during logout request:', error);
 			} finally {
-				// Cleanup local data and redirect to login page
 				localStorage.removeItem('username');
 				localStorage.removeItem('isAuthenticated');
 				localStorage.removeItem('otpMethod');
@@ -447,6 +453,12 @@
 				localStorage.removeItem('phoneNumber');
 				localStorage.removeItem('TwoFA');
 				localStorage.removeItem('oauthLogin');
+				if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+					chatSocket.close();
+				}
+				chatRoomId = null;
+				user_id = '';
+				onlineUsers = {};
 				showAuthSection(); // Redirect to authentication page
 			}
 		}
@@ -467,7 +479,7 @@
 
 		// Show Authentication Section
 		function showAuthSection() {
-			console.log("in showAuthSection");
+			// console.log("in showAuthSection");
 			document.getElementById('authSection').style.display = 'block';
 			document.getElementById('dashboard').style.display = 'none';
 		}
@@ -490,6 +502,8 @@
 			fetchFriendRequests();
 			fetchFriends();
 			fetchProfile(); // Fetch profile details when the dashboard loads
+			initializeChatWebSocket();
+
 		}
 
 	// *********************************** Fetch Online Users ***********************************
@@ -497,20 +511,17 @@
 		async function fetchOnlineUsers() {
 			try {
 				const response = await fetch('/chat/api/online-users/');
-
 				const data = await response.json();
 				const userList = document.getElementById('userList');
 				userList.innerHTML = '';
-	
-				data.forEach(user => {
+				data.forEach(targetUser => {
 					const userItem = document.createElement('li');
-					userItem.textContent = user.username;
-					userItem.dataset.userId = user.id;
-	
+					userItem.textContent = targetUser.username;
+					userItem.dataset.userId = targetUser.id;
 					const friendButton = document.createElement('button');
 					friendButton.textContent = 'Send Friend Request';
-					friendButton.addEventListener('click', () => sendFriendRequest(user.id));
-	
+
+					friendButton.addEventListener('click', () => sendFriendRequest(targetUser.id));
 					userItem.appendChild(friendButton);
 					userList.appendChild(userItem);
 				});
@@ -518,6 +529,7 @@
 				console.error('Error fetching users:', error);
 			}
 		}
+
 
 	// *********************************** Fetch Friend Request and Friends Logic ***********************************
 		async function sendFriendRequest(userId) {
@@ -545,7 +557,7 @@
 				const data = await response.json();
 				const requestsList = document.getElementById('friendRequests');
 				requestsList.innerHTML = '';
-				console.log("section: ", requestsList);
+				// console.log("section: ", requestsList);
 				
 				data.forEach(request => {
 					const requestItem = document.createElement('li');
@@ -554,7 +566,7 @@
 					const acceptButton = document.createElement('button');
 					acceptButton.textContent = 'Accept';
 					acceptButton.addEventListener('click', () => acceptFriendRequest(request.id));
-	
+					
 					requestItem.appendChild(acceptButton);
 					requestsList.appendChild(requestItem);
 				});
@@ -596,7 +608,6 @@
 					const friendItem = document.createElement('li');
 					friendItem.textContent = friend.username;
 					friendItem.dataset.userId = friend.id;
-					friendItem.addEventListener('click', () => startChat(friend.id, friend.username));
 					friendList.appendChild(friendItem);
 				});
 			} catch (error) {
@@ -643,13 +654,11 @@
 					// Determine if 2FA is enabled
 					TwoFA = profile.is_2fa_enabled || false;
 					localStorage.setItem('TwoFA', TwoFA); //assume 2FA is disabled
-					console.log("otpMethod in the fetch profile: ", TwoFA);
-					// Update the 2FA section based on the status
 					update2FASection(TwoFA);
 
 					const phoneNumber = profile.phone_number || '';
 					localStorage.setItem('phoneNumber', phoneNumber);
-					console.log("phoneNumber: ", phoneNumber);
+					// console.log("phoneNumber: ", phoneNumber);
 				} else {
 					console.error('Failed to fetch profile:', response.status);
 				}
@@ -665,7 +674,7 @@
 			const profilePicture = document.getElementById('profilePicture').files[0];
 			const phone = document.getElementById('profilePhone').value;
 
-			console.log("phone in profile: ", phone);
+			// console.log("phone in profile: ", phone);
 			const formData = new FormData();
 			formData.append('bio', bio);
 			formData.append('phone_number', phone);
@@ -840,15 +849,11 @@
 						console.error('Error selecting 2FA method:', error);
 					}
 				}
-
-			// }, { once: true }); // Ensure the event listener is added only once
 			}); // Ensure the event listener is added only once
 		}
 
 		// Update the 2FA Section
 		function update2FASection(TwoFA) {
-			console.debug("2FA in update2FASection: ", TwoFA);
-			console.log("TwoFA: ", TwoFA);
 			if (TwoFA) {
 				document.getElementById('2fa_not_enabled').style.display = 'none';
 				document.getElementById('2fa_is_enabled').style.display = 'block';
@@ -1003,79 +1008,220 @@
 
 	// *********************************** Chat Logic ***********************************
 		// chat section
-		document.addEventListener('DOMContentLoaded', function () {
-			// Attach event listeners to chat items once the DOM is fully loaded
-			const chatItems = document.querySelectorAll('.chatItem');
-			chatItems.forEach(item => {
-				item.addEventListener('click', function () {
-					const userId = item.getAttribute('data-user-id');
-					const username = item.getAttribute('data-username');
-					startChat(userId, username);
-				});
-			});
-		});
 
-		function startChat(userId, username) {
+		function initializeChatWebSocket() {
+			const currentUserId = localStorage.getItem('userId');
+			const currentUsername = localStorage.getItem('username');
+
+			if (!currentUserId || !currentUsername) {
+				console.error("User ID or username not found. WebSocket connection aborted.");
+				return;
+			}
+
+			chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/`); // General chat connection
+
+			chatSocket.onopen = function () {
+				console.log("WebSocket connected.");
+			};
+
+			chatSocket.onmessage = function (e) {
+				const data = JSON.parse(e.data);
+
+				if (data.type === 'disconnect')
+					console.error(`WebSocket connection closed unexpectedly with code: ${data.reason}.`);
+
+				if (data.type === 'online_status') {
+					onlineUsers[data.user_id] = data;
+					if (!data.is_online) { // Remove the user from onlineUsers if they are offline
+         			   delete onlineUsers[data.user_id];
+        			}
+					console.debug("Online_status received:", data);
+					updateOnlineUsersList();
+				} else if (data.type === 'user.status') {  // Handle the initial user list
+					onlineUsers = data.online_users;       // Update onlineUsers with the initial list
+					updateOnlineUsersList();              // Update the UI
+				} else if (data.type === 'chat_request') {
+					globalChatRoomId = data.chat_room_id;
+					console.debug("Chat request received:", data);
+					console.log(`target_username: ${data.target_username}, chat_room_id: ${data.chat_room_id}`);
+					if (data.creator_id === currentUserId) {
+						consol.log(`target_username: ${data.target_username}, chat_room_id: ${data.chat_room_id}`);
+						startChat(data.target_id, data.target_username, globalChatRoomId);
+					} else if (data.target_id === currentUserId) {
+						console.log(`creator_username: ${data.creator_username}, chat_room_id: ${data.chat_room_id}`);
+						showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, globalChatRoomId);
+					}
+				} else if (data.type === 'chat_message') {
+					globalChatRoomId = data.chat_room_id;
+					console.log("Message received:", data);
+					displayMessageInChat(data.sender_id, data.sender, data.message, data.timestamp, data.is_read);
+				} else if (data.type === 'user.status') { // initial online users list
+					onlineUsers = data.online_users;
+					updateOnlineUsersList();
+				}
+			};
+
+			chatSocket.onclose = function () {
+				console.error("WebSocket connection closed.");
+				console.log("Reconnecting...");
+				// Clear online users list on disconnect (optional)
+				onlineUsers = {};
+				updateOnlineUsersList();
+			};
+
+			chatSocket.onerror = function (error) {
+			console.error("WebSocket error:", error);
+			}
+		}
+
+		function updateOnlineUsersList() {
+			const currentUserId = localStorage.getItem('userId');
+			const currentUsername = localStorage.getItem('username');
+			const onlineUsersList = document.getElementById('WBuserList');
+			onlineUsersList.innerHTML = ''; // Clear the list
+
+			for (const userId in onlineUsers) {
+				if (onlineUsers.hasOwnProperty(userId) && onlineUsers[userId] && userId !== currentUserId) {
+					const userItem = document.createElement('li');
+					userItem.classList.add('chatItem');
+					userItem.dataset.userId = userId;
+					userItem.dataset.username = onlineUsers[userId].username;
+
+					userItem.textContent = onlineUsers[userId].username;
+
+					// Add the "Start Chat" button:
+					const startChatButton = document.createElement('button');
+					startChatButton.textContent = 'Start Chat';
+					startChatButton.addEventListener('click', () => {
+						const message = prompt("Enter your initial message:");
+						if (message) {
+							chatSocket.send(JSON.stringify({
+								type: 'chat_request',
+								target_id: userId,
+								message: message
+							}));
+							// Open the chat window or perform other UI updates as needed.
+							console.debug('chat room id in updateOnlineUsersList: ', globalChatRoomId);
+							startChat(userId, onlineUsers[userId].username, globalChatRoomId); // Call startChat function
+							console.log("currentUserId, currentUsername, message: ", currentUserId, currentUsername, message);
+							displayMessageInChat(currentUserId, currentUsername, message, null, false, 'first_msg');
+						}
+					});
+					userItem.appendChild(startChatButton); // Append the button to the list item
+
+					onlineUsersList.appendChild(userItem);
+				}
+			}
+		}
+
+		function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {
+			// Check if a popup already exists and remove it
+			const existingPopup = document.querySelector('.popup');
+			if (existingPopup) {
+				existingPopup.remove();
+			}
+
+			// Create the popup container
+			const popup = document.createElement('div');
+			popup.classList.add('popup');
+
+			// Create the popup message
+			const message = document.createElement('p');
+			message.textContent = `${creatorUsername} sent you a message.`;
+
+			// Create the "Reply" button
+			const replyButton = document.createElement('button');
+			replyButton.textContent = "Reply";
+			replyButton.classList.add('popup-reply');
+
+			// Event listener for reply
+			replyButton.addEventListener('click', () => {
+				startChat(creatorId, creatorUsername, chatRoomId);
+				displayMessageInChat(creatorId, creatorUsername, received_message);
+				popup.remove(); // Remove the popup after clicking reply
+			});
+
+			// Create a "Close" button
+			const closeButton = document.createElement('button');
+			closeButton.textContent = "Close";
+			closeButton.classList.add('popup-close');
+
+			// Event listener for closing the popup
+			closeButton.addEventListener('click', () => {
+				popup.remove();
+			});
+
+			// Append elements to the popup
+			popup.appendChild(message);
+			popup.appendChild(replyButton);
+			popup.appendChild(closeButton);
+
+			document.body.appendChild(popup);
+		}
+
+		function startChat(receiverId, receiverUsername, chatRoomId) {
 			const chatArea = document.getElementById('chatArea');
 			const chatWith = document.getElementById('chatWith');
 			const chatMessages = document.getElementById('chatMessages');
 
-			if (chatArea && chatWith && chatMessages) {
-				chatArea.style.display = 'block';
-				chatWith.textContent = username;
+			chatArea.style.display = 'block';
+			chatWith.textContent = `Chat with: ${receiverUsername}`;
+			chatArea.dataset.userId = receiverId;
+			chatMessages.innerHTML = ''; // Clear previous messages
+			
+			console.debug("chatRoomId in startChat: ", chatRoomId);
+			if (!chatRoomId)
+				chatRoomId = globalChatRoomId;
+			
+			document.getElementById('sendMessage').onclick = () => sendMessage(receiverId, receiverUsername, globalChatRoomId);
+		}
 
-				chatMessages.innerHTML = '';
+		function sendMessage(receiverId, receiverUsername, chatRoomId) {
+			const messageInputDom = document.getElementById('chatInput');
+			const message = messageInputDom.value;
 
-				fetch(`/chat/api/chat/${userId}/`, {
-					headers: {
-						'Content-Type': 'application/json',
-						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
-					},
-					credentials: 'include'  // Include cookies with the request
-				})
-				.then(response => response.json())
-				.then(data => {
-					data.forEach(message => {
-						const msg = document.createElement('div');
-						msg.textContent = `${message.sender}: ${message.message}`;
-						chatMessages.appendChild(msg);
-					});
-				})
-				.catch(error => console.error('Error fetching chat messages:', error));
+			console.debug('chatRoomId in sendMessage: ', chatRoomId);
 
-				document.getElementById('sendMessage').onclick = () => sendMessage(userId);
+			if (chatSocket && chatSocket.readyState === WebSocket.OPEN && message.trim() !== '') {
+
+				chatSocket.send(JSON.stringify({
+					type: 'chat_message', // Important: Indicate message type
+					message: message,
+					receiver_id: receiverId,
+					chat_room_id: chatRoomId
+				}));
+
+				displayMessageInChat(getCurrentUserId(), localStorage.getItem('username'), message); // Display own message
+				messageInputDom.value = '';
 			} else {
-				console.error('Required chat elements not found in the DOM');
+				console.error("WebSocket not connected or message is empty.");
 			}
 		}
 
-		async function sendMessage(userId) {
-			const message = document.getElementById('chatInput').value;
-			try {
-				const response = await fetch(`chat/api/chat/${userId}/`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
-					},
-					credentials: 'include',  // Include cookies with the request
-					body: JSON.stringify({ message })
-				});
+		function displayMessageInChat(senderId, senderName, message, timestamp = null, is_read = false, first_msg = '') {
+			const chatMessages = document.getElementById('chatMessages');
+			const msg = document.createElement('div');
+			msg.textContent = `${senderName}: ${message} ${timestamp ? `(${timestamp})` : ''}`;
 
-				if (response.ok) {
-					const chatMessages = document.getElementById('chatMessages');
-					const msg = document.createElement('div');
-					msg.textContent = `You: ${message}`;
-					chatMessages.appendChild(msg);
-					document.getElementById('chatInput').value = '';
-				} else {
-					const errorData = await response.json();
-					console.error('Error sending message:', errorData);
-				}
-			} catch (error) {
-				console.error('Error sending message:', error);
+			console.debug("the first message value is :", first_msg);
+			if (is_read) {
+				msg.classList.add('read');
 			}
+			// I add ridiculous statements of 'first_msg' to only show the first message 
+			// sender name after starting chat
+			if (senderId === localStorage.getItem('userId') && first_msg !== 'first_msg') {
+				msg.classList.add('own');
+			} else {
+				msg.classList.add('other');
+				chatMessages.appendChild(msg);
+			}
+			chatMessages.scrollTop = chatMessages.scrollHeight;
 		}
+
+		function getCurrentUserId() {
+			return localStorage.getItem('userId');
+		}
+
 
 	</script>
 	

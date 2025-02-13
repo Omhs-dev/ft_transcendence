@@ -34,6 +34,8 @@ def registration_page(request):
 
 logger = logging.getLogger('auth_app')
 
+# ----------------- Register View ----------------- #
+
 @authentication_classes([])
 @permission_classes([AllowAny])
 class RegisterView(APIView):
@@ -58,6 +60,7 @@ class RegisterView(APIView):
         # Provide a message or metadata for GET requests
         return Response({'message': 'Send a POST request to register a new user.'}, status=status.HTTP_200_OK)
 
+# ----------------- Login View ----------------- #
 
 @authentication_classes([])
 @permission_classes([AllowAny])
@@ -127,7 +130,8 @@ class LoginView(APIView):
         else:
             return Response({"error": "Invalid username or password"}, status=status.HTTP_401_UNAUTHORIZED)
 
-
+# ----------------- Logout View ----------------- #
+        
 @authentication_classes([])
 @permission_classes([AllowAny])
 class LogoutView(APIView):
@@ -136,6 +140,7 @@ class LogoutView(APIView):
     
     def post(self, request):
         logger.debug("Logout request received for user: %s", request.user)
+        logger.debug("\n\n\n request received in the logout: %s", request)
         response = Response()
 
         response.delete_cookie(settings.SIMPLE_JWT['AUTH_COOKIE'])
@@ -164,7 +169,7 @@ class LogoutView(APIView):
         if request.user.username:
             user_logged_out.send(sender=request.user.__class__, request=request, user=request.user)
             logger.info("User %s is_authenticated and logged out successfully", request.user.username)
-        elif user.username:
+        elif refresh_token and user.username:
             logger.info("User '%s' (is not authenticated and retrieved from refresh_token) logged out successfully", request.user.username)
             user_logged_out.send(sender=request.user.__class__, request=request, user=user)
         else:
@@ -172,6 +177,7 @@ class LogoutView(APIView):
 
         return response
 
+# ----------------- Profile Views ----------------- #
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
