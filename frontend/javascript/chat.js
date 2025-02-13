@@ -9,9 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let chatSocket;
     const roomName = 'general';
 
-    const protocol = 'wss://';
-	const wsUrl = `${protocol}${window.location.hostname}/ws/chat/${roomName}/`;
-
+    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+	const wsUrl = `${protocol}${window.location.hostname}:8000/ws/chat/`;
 
     // Show or Hide Chatbox on Icon Click
     chatIcon.addEventListener('click', () => {
@@ -31,17 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Connect WebSocket
     function connectWebSocket() {
-        chatSocket = new WebSocket(wsUrl);
+        chatSocket = new WebSocket(`wss://${window.location.host}:8000/ws/chat/`);
 
         chatSocket.onopen = () => {
             console.log('Connected to chat WebSocket');
         };
 
         chatSocket.onmessage = (e) => {
+			console.log("message received");
             const data = JSON.parse(e.data);
-            const messageElement = document.createElement('div');
-            messageElement.textContent = `${data.username}: ${data.message}`;
-            messageContainer.appendChild(messageElement);
+            
+			console.log('Data:', data);
+			const messageElement = document.createElement('div');
+			messageElement.innerText = `${data.username}: ${data.message}`;
+			messageContainer.appendChild(messageElement);
         };
 
         chatSocket.onerror = (e) => {
@@ -54,19 +56,4 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Handle message sending
-    sendButton.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-
-    function sendMessage() {
-        const message = chatInput.value.trim();
-        if (message && chatSocket) {
-            chatSocket.send(JSON.stringify({ message: message }));
-            chatInput.value = '';
-        }
-    }
 });

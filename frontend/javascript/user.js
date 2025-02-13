@@ -43,12 +43,13 @@ const getOnlineUsers = async () => {
 		
 			// Create <td> for button
 			const tdButton = document.createElement("td");
-			const button = document.createElement("button");
-			button.classList.add("btn", "btn-primary", "rounded-pill");
-			button.id = "addFriend";
-			button.textContent = "Add +";
+			const addButton = document.createElement("button");
+			const messageButton = document.createElement("button");
+			addButton.classList.add("btn", "btn-primary", "rounded-pill");
+			addButton.id = "addFriend";
+			addButton.textContent = "Add +";
 
-			button.addEventListener("click", () => sendFriendRequest(user.id));
+			addButton.addEventListener("click", () => sendFriendRequest(user.id));
 		
 			// Append button inside <td>
 			tdButton.appendChild(button);
