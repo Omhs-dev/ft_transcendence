@@ -9,12 +9,31 @@ class BlockedUser(models.Model):
     blocked = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blocked_users')
     blocked_at = models.DateTimeField(auto_now_add=True)
 
+class ChatRoom(models.Model):  # New: Represents a chat room
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='chat_rooms1')
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='chat_rooms2')
+    created_at = models.DateTimeField(auto_now_add=True)  # Add creation timestamp
+
+    class Meta:
+        unique_together = ('user1', 'user2')  # Ensure only one chat room per user pair
+
+    def __str__(self):
+        return f"Chat between {self.user1.username} and {self.user2.username}"
+
 class ChatMessage(models.Model):
+    chat_room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='messages', db_index=True)  # Add index
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+
+class MessageReadStatus(models.Model):
+    message = models.ForeignKey(ChatMessage, on_delete=models.CASCADE, related_name='read_statuses')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_read = models.BooleanField(default=False)
+    read_at = models.DateTimeField(null=True, blank=True)
+
+
 
 class PongInvitation(models.Model):
     inviter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_invitations')

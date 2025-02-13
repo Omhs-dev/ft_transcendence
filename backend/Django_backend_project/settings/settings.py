@@ -28,7 +28,9 @@ SECRET_KEY = 'django-insecure-*o&k&v7w7&9^242!1$^e#v&27)@0ltyiwx=rxz#0(^yk=h3=l_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django', '127.0.0.1']
+# ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django', '127.0.0.1', '192.168.0.206']
 
 
 # ALLOWED_HOSTS = ['transcendence.com', '0.0.0.0','192.168.65.1', "localhost", "django", intra_ip]
@@ -243,7 +245,7 @@ DEFAULT_FROM_EMAIL = 'Transcendence'
 
 # Auth2.0 settings
 OAUTH_42_CLIENT_ID = 'u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8'
-FRONTEND_URL = "http://localhost:8000"
+FRONTEND_URL = "http://localhost"
 OAUTH_42_CLIENT_SECRET = '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'
 OAUTH_42_REDIRECT_URI = 'http://localhost:8000/auth/api/42/callback/'  # or your deployed URL
 OAUTH_42_AUTHORIZE_URL = 'https://api.intra.42.fr/oauth/authorize'
@@ -299,6 +301,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     "http://localhost", 
 # ]
 
+# this allows all origins to access the backend
 CORS_ALLOW_ALL_ORIGINS = True
 
 # sends the cookies to the frontend
@@ -313,6 +316,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 APPEND_SLASH = True
 
+
+
+#-------- DEBUG TOOLBAR CONFIGURATION --------
 # DEBUG TOOLBAR CONFIGURATION
 INTERNAL_IPS = [
     # ...

@@ -1,0 +1,16 @@
+/* Basic sidenav */
+
+#menuButton {
+	display: none;
+}
+
+/* Responsive layout */
+@media screen and (max-width: 800px) {
+	/* #sidenav {
+		display: none;
+	}
+
+	#menuButton {
+		display: block;
+	} */
+}

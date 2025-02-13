@@ -5,15 +5,70 @@ let refreshTimer;
 
 // Add event listener to the login form
 appSection.addEventListener('submit', (e) => {
-	console.log("submit button clicked");
     e.preventDefault();
 	console.log(e);
 	if (e.target.id === "loginForm"
 		&& e.target.className === "loginClass") {
 		console.log("login button found !");
 		loginUser();
+	} else if (e.target.id === "42Login"
+		&& e.target.className === "btn-42") {
+		console.log("login button found !");
 	}
 });
+
+appSection.addEventListener('click', (e) => {
+	if (e.target.id === "42Login") {
+		console.log("login with 42 button found !");
+		loginWith42();
+		// loadToMainPage();
+		console.log("after redirect 2");
+	}
+});
+
+const loginWith42 = () => {
+	console.log("login with 42 button found !");
+	localStorage.setItem("isOauthLogged", "true");
+	localStorage.setItem("loadPageOnce", "true");
+	window.location.href = "http://localhost:8000/auth/api/42/login";
+}
+
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+const loadToMainPage = async () => {
+	await wait(6000);
+	console.log("after countdown");
+	window.location.href = "/";
+}
+
+const checkOauth2Login = async () => {
+	try {
+		const response = await fetch('http://localhost:8000/auth/api/profile', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			console.error('Could not fetch api', response.status);
+			throw new Error('Could not fetch api');
+		}
+
+		const data = await response.json();
+		console.log('Data:', data);
+
+		localStorage.setItem("username", data.username);
+		localStorage.setItem("isAuthenticated", "true");
+
+		// window.location.href = "/";
+
+	} catch (error) {
+		console.error('Error:', error.message);
+	}
+}
 
 sideNavSection.addEventListener("click", (e) => {
     e.preventDefault();
@@ -24,8 +79,35 @@ sideNavSection.addEventListener("click", (e) => {
     }
 });
 
-window.addEventListener('load', () => {
-	startTokenRefreshTimer();
+document.addEventListener('DOMContentLoaded', () => {
+	const username = localStorage.getItem("username");
+	const enable2Fa = localStorage.getItem("enable2Fa");
+	const isOauthLogged = localStorage.getItem("isOauthLogged");
+	const isAuthenticated = localStorage.getItem("isAuthenticated");
+	const loadPageOnce = localStorage.getItem("loadPageOnce");
+
+	if (isOauthLogged) {
+		console.log("user is logged in with oauth");
+		checkOauth2Login();
+	}
+
+	if (loadPageOnce) {
+		console.log("load page once");
+		loadToMainPage();
+		localStorage.removeItem("loadPageOnce");
+	}
+	
+
+	if ((isAuthenticated || isOauthLogged) && username) {
+		console.log("user is logged in");
+		console.log("username: ", username);
+		console.log("isAuthenticated: ", isAuthenticated);
+		console.log("enable2Fa: ", enable2Fa);
+		startTokenRefreshTimer();
+
+	} else {
+		console.log("user is not logged in");
+	}
 });
 
 // Login functionality
@@ -121,6 +203,7 @@ const logoutUser = async () => {
 		}
 
 		localStorage.removeItem("username");
+		localStorage.removeItem("isOauthLogged");
 		localStorage.removeItem("isAuthenticated");
 
 		window.location.href = "/";
@@ -199,17 +282,16 @@ export function getCookie(name) {
 }
 
 function invalidCredential(errorType) {
-	// Shake the login form
 	const loginBtn = document.querySelector('.btn-login');
 	const inputs = document.querySelectorAll(".form-control");
-	// Display error message
 	const errorBox = document.querySelector("#errorBox");
+
+	errorBox.innerHTML = "";
+
 	const errorMessage = document.createElement("p");
 	const small = document.createElement("small");
 
-	inputs.forEach(input => {
-		input.classList.add('shake');
-	});
+	inputs.forEach(input => input.classList.add('shake'));
 
 	if (errorType === "logins") {
 		small.textContent = "Username or password is incorrect. Please try again.";
@@ -221,7 +303,7 @@ function invalidCredential(errorType) {
 	errorMessage.appendChild(small);
 	errorBox.appendChild(errorMessage);
 
-	setInterval(() => {
+	setTimeout(() => {
 		loginBtn.disabled = false;
 		
 		inputs.forEach(input => {
