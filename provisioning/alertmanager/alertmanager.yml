@@ -15,7 +15,7 @@ receivers:
         auth_username: "transcendence.42institute@gmail.com"  # Your email address for authentication
         auth_password: "Tr@nscendence@42"  # Your email password (preferably use environment variables for this)
         auth_identity: "transcendence.42institute@gmail.com"  # Identity for SMTP authentication
-        smtp_require_tls: true  # Ensure TLS is required for secure communication
+        tls_config:
+          insecure_skip_verify: false  # Set to true if you want to skip TLS verification
         headers:
           subject: "🚨 Prometheus Alert"
-

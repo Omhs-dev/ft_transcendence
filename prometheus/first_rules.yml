@@ -1,0 +1,76 @@
+groups:
+  - name: instance_status
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is down"
+          description: "The instance {{ $labels.instance }} has been down for more than 5 minutes."
+
+  - name: test_alert
+    rules:
+      - alert: TestAlert
+        expr: vector(1)
+        for: 20s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Test Alert"
+          description: >
+            This is a test simple alert to verify that email notifications work 🤪.
+            I wish you have a wonderful day 😘
+
+  - name: container_cpu_alert
+    rules:
+      - alert: HighContainerCPUUsage
+        expr: rate(container_cpu_usage_seconds_total{container!="", image!=""}[3m]) * 100 > 80
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU usage detected on container {{ $labels.container }}"
+          description: >
+            CPU usage for the container {{ $labels.container }} has been above 80% for the last 3 minutes.
+            Please investigate the container.
+
+  - name: container_memory_alert
+    rules:
+      - alert: HighContainerMemoryUsage
+        expr: (container_memory_usage_bytes{container!="", image!=""} / container_spec_memory_limit_bytes{container!="", image!=""}) * 100 > 80
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High Memory usage detected on container {{ $labels.container }}"
+          description: >
+            Memory usage for the container {{ $labels.container }} has been above 80% for the last 3 minutes.
+            Please check the container.
+
+  - name: container_disk_alert
+    rules:
+      - alert: HighContainerDiskIO
+        expr: rate(container_fs_io_time_seconds_total{container!="", image!=""}[5m]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High Disk I/O detected on container {{ $labels.container }}"
+          description: >
+            The disk I/O usage for the container {{ $labels.container }} has been high for the last 5 minutes.
+            Investigate possible performance issues.
+
+  - name: container_network_alert
+    rules:
+      - alert: HighNetworkTraffic
+        expr: rate(container_network_transmit_bytes_total{container!="", image!=""}[5m]) > 100000000
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High network traffic detected on container {{ $labels.container }}"
+          description: >
+            The network traffic for the container {{ $labels.container }} has exceeded 100MB per second for the last 5 minutes.
+            Please check if this behavior is expected.

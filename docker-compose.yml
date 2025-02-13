@@ -42,18 +42,6 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     restart: always
 
-  prometheus:
-    container_name: prometheus_container
-    image: prom/prometheus:latest
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus/service_alerts.yml:/etc/prometheus/service_alerts.yml 
-    ports:
-      - "9090:9090"
-    depends_on:
-      - cadvisor
-    restart: always
-  
   alertmanager:
     image: prom/alertmanager
     container_name: alertmanager
@@ -62,6 +50,20 @@ services:
     ports:
       - "9093:9093"
 
+  prometheus:
+    container_name: prometheus_container
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/service_alerts.yml:/etc/prometheus/service_alerts.yml
+      - ./prometheus/first_rules.yml:/etc/prometheus/first_rules.yml 
+    ports:
+      - "9090:9090"
+    depends_on:
+      - cadvisor
+      - alertmanager
+    restart: always
+  
   grafana:
     container_name: grafana_container
     image: grafana/grafana:latest
