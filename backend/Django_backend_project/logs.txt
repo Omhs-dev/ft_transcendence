@@ -1316,3 +1316,36 @@ DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciO
 DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NDUxNzkzLCJpYXQiOjE3Mzk0NDA1OTcsImp0aSI6IjZiNTk0NDg4M2IxMjRkNzZiOWJhNGRkOTA3MjU3MTNhIiwidXNlcl9pZCI6M30.ES0veiZBN0s1XLFRzPHq44n7cGYWyJ5muP1IfZMcWpM'}
 INFO [mHTTP POST /auth/api/renew-access/ 200 [0.08, 172.18.0.1:57070][0m
 INFO [mHTTP POST /auth/api/renew-access/ 200 [0.12, 172.18.0.1:57054][0m
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Signal: create_or_update_user_profile triggered
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO [32mHTTP GET /auth/api/42/login 301 [0.05, 172.18.0.1:63090][0m
+DEBUG 
+
+state: 
+sRpD5hqgnDgCHJpMN38B3ikn81hnPzupPoMJHe1LCP6qYuoqrwMktpDB2MbGekNu
+DEBUG 
+
+auth_url created for the 42: 
+ https://api.intra.42.fr/oauth/authorize?client_id=u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fauth%2Fapi%2F42%2Fcallback%2F&response_type=code&scope=public&state=sRpD5hqgnDgCHJpMN38B3ikn81hnPzupPoMJHe1LCP6qYuoqrwMktpDB2MbGekNu
+
+INFO [32mHTTP GET /auth/api/42/login/ 302 [0.02, 172.18.0.1:63090][0m
+DEBUG Received OAuth code from 42: <QueryDict: {'code': ['bab28f47f3b22559e3e97266db1a3aa48c9f0591ff60ef39427776faae656501'], 'state': ['sRpD5hqgnDgCHJpMN38B3ikn81hnPzupPoMJHe1LCP6qYuoqrwMktpDB2MbGekNu']}>
+ check_state:sRpD5hqgnDgCHJpMN38B3ikn81hnPzupPoMJHe1LCP6qYuoqrwMktpDB2MbGekNu
+ state:sRpD5hqgnDgCHJpMN38B3ikn81hnPzupPoMJHe1LCP6qYuoqrwMktpDB2MbGekNu
+
+DEBUG 
+
+Token exchange response: {'access_token': '8c8f68d6b4fff3bd6be4a4114138418325b74f4ec099761c2addb7fa180ca19e', 'token_type': 'bearer', 'expires_in': 7200, 'refresh_token': '6163a7a52791e7be11b09767fe5a8816211320bb42db94f3de7613c24cbb5359', 'scope': 'public', 'created_at': 1739488187, 'secret_valid_until': 1740301008}
+
+DEBUG Signal: create_or_update_user_profile triggered
+INFO Access token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NDg4NDg3LCJpYXQiOjE3Mzk0ODgxODcsImp0aSI6IjgwZDY4M2IwMmNiZDRmZGE5MGJlMWFjN2VhZGU0Y2Y1IiwidXNlcl9pZCI6Mn0.edIeobMLK5tE88rZRJRYyp-o61_XP1fVdGVXRAYnDw8
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User mfaoussi logged in
+DEBUG Login successful, response sent with JWT cookies.
+INFO [32mHTTP GET /auth/api/42/callback/?code=bab28f47f3b22559e3e97266db1a3aa48c9f0591ff60ef39427776faae656501&state=sRpD5hqgnDgCHJpMN38B3ikn81hnPzupPoMJHe1LCP6qYuoqrwMktpDB2MbGekNu 302 [0.65, 172.18.0.1:63090][0m
