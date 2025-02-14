@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Connect WebSocket
     function connectWebSocket() {
-        chatSocket = new WebSocket(`wss://${window.location.host}:8000/ws/chat/`);
+        chatSocket = new WebSocket(`ws://${window.location.host}:8000/ws/chat/`);
 
         chatSocket.onopen = () => {
             console.log('Connected to chat WebSocket');

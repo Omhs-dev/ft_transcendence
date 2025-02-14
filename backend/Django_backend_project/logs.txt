@@ -2,162 +2,721 @@ DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
+DEBUG Signal: create_or_update_user_profile triggered
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
+INFO WebSocket HANDSHAKING /ws/chat/ [172.18.0.1:58288]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1739544593, 'iat': 1739458509, 'jti': '9547757c191240d2aaca589b3fe20f1e', 'user_id': 3}
+
+INFO WebSocket REJECT /ws/chat/ [172.18.0.1:58288]
+INFO WebSocket DISCONNECT /ws/chat/ [172.18.0.1:58288]
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.11, 172.18.0.1:64242][0m
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ0ODMzLCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6ImI2NGNkYmRmOTFmNjQ3OTNhMTZmNTU5NjQyOWU1OTY4IiwidXNlcl9pZCI6M30.F6pzYXDnphlpx_dcIglwIXg7Hg4QwJHPokLcxMvtHRU'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.17, 172.18.0.1:62112][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=cc7192b1d8c44b90aee4bab7c7a7478c 200 [0.01, 172.18.0.1:62112][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.02, 172.18.0.1:61722][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.03, 172.18.0.1:61738][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ0ODM4LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6IjFmYTFlMjU2NTdjZDQ1YjQ5Mjk5MWE1ZjdkYzdlMWIwIiwidXNlcl9pZCI6M30.RHcTM0cD07FJhnHhOdOSO5RckiiaTzXrgx3w0obWZKg'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ0ODM5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6IjcxYzBiNzM0MTczNTRhNDc5YjBhZDJjNzg5YzhhZDdkIiwidXNlcl9pZCI6M30.P6ymW9WI4jUnnsjHhiiyylxRFU7FZRIy6ooDMvEtbyc'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 172.18.0.1:62112][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 172.18.0.1:61740][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.08, 172.18.0.1:55968][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.14, 172.18.0.1:55954][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ0OTU5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6ImJiNDViMmJmZTRjOTQ0NGQ5MGZhNGY0ZTczNWE1ZmQyIiwidXNlcl9pZCI6M30.-9InFN2VYhFj6FMQYAloNClXNFXnQ32pB29Jx_tTAjU'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ0OTU5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6IjAxMjcwZjUyODZmNzQzMGI4ZGZmYjhmNmVhZjE4ODU4IiwidXNlcl9pZCI6M30.Fe_VdxmTcYqdAXv1xoeLbaOdDbpKmue69ZGHykQDbOY'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.18, 172.18.0.1:55984][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.24, 172.18.0.1:55998][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ1MDczLCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6ImIyOTY1NjVmMTU0NDRkNGZiN2M3ZDNhYWUxODdmYWU5IiwidXNlcl9pZCI6M30.qi30Lx3LazhVS1_nv5tyHJh4CyNzVXfTkAgtTbMSJ5M'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.15, 172.18.0.1:60050][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=7151a71906254cf4be6fcf1a51f8242c 200 [0.03, 172.18.0.1:60050][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.07, 172.18.0.1:59724][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.14, 172.18.0.1:59740][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ1MDc5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6IjU5MjcxZGI2MDdlOTQ1ZTE4N2FmNjEwYTIzMWVhNDY3IiwidXNlcl9pZCI6M30._iKG8XzUn2AK9B-nhw4adexdcVx8qFVlD2C-I_Sr_vI'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ1MDc5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6IjQ2ZTA3ZGQ4ZDVlYzQxYmZiZGQ4NWYzMDhjNzlkMzZmIiwidXNlcl9pZCI6M30.M5r8-1MJimqGZqIQ_G4gEh7fTF-PV1dyDwTyNh2y2RU'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.15, 172.18.0.1:59756][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.24, 172.18.0.1:60050][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.08, 172.18.0.1:64474][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.14, 172.18.0.1:64484][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ1MTk5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6Ijg2MzMyNWEwYTYzMzQ4MmNhOGUxMDcwNzczYjhiNjVjIiwidXNlcl9pZCI6M30.bFFktBSqER0EaXxAk-lpA69AtkBk_9Q-7jGzuJCcVYQ'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5NTQ1MTk5LCJpYXQiOjE3Mzk0NTg1MDksImp0aSI6ImU4YzYxOGE0MjQxMDQ5NDU4NTBmZDgxNWNmYzhhNjU5IiwidXNlcl9pZCI6M30.bZFFtltBMBxSvRDAKHeq4alS4HgpkmXySM-jw-YdVPs'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.24, 172.18.0.1:64486][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.32, 172.18.0.1:64496][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Internal Server Error: /auth/api/renew-access/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 139, in decode
+    return jwt.decode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 222, in decode
+    decoded = self.decode_complete(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 167, in decode_complete
+    self._validate_claims(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 262, in _validate_claims
+    self._validate_exp(payload, now, leeway)
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 363, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired")
+jwt.exceptions.ExpiredSignatureError: Signature has expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 56, in __init__
+    self.payload = token_backend.decode(token, verify=verify)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 154, in decode
+    raise TokenBackendError(_("Token is invalid or expired")) from ex
+rest_framework_simplejwt.exceptions.TokenBackendError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/Django_backend_project/auth_app/views.py", line 213, in post
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/serializers.py", line 108, in validate
+    refresh = self.token_class(attrs["refresh"])
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 58, in __init__
+    raise TokenError(_("Token is invalid or expired"))
+rest_framework_simplejwt.exceptions.TokenError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 215, in post
+    handle_expired_refresh_token()
+TypeError: handle_expired_refresh_token() missing 1 required positional argument: 'user_id'
+ERROR [35;1mHTTP POST /auth/api/renew-access/ 500 [0.37, 172.18.0.1:58384][0m
 DEBUG Logout request received for user: AnonymousUser
 DEBUG 
 
 
  request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.03, 172.18.0.1:64242][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=18421c489ce342b6ac886e18386d5768 200 [0.03, 172.18.0.1:64242][0m
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Error blacklisting token: Token is invalid or expired
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 172, in post
+    elif refresh_token and user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.10, 172.18.0.1:58384][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=f09b0d06f9754301ae2a16c37e615a7f 200 [0.04, 172.18.0.1:58384][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.09, 172.18.0.1:58488][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.24, 172.18.0.1:58486][0m
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.12, 172.18.0.1:61492][0m
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Internal Server Error: /auth/api/renew-access/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 139, in decode
+    return jwt.decode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 222, in decode
+    decoded = self.decode_complete(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 167, in decode_complete
+    self._validate_claims(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 262, in _validate_claims
+    self._validate_exp(payload, now, leeway)
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 363, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired")
+jwt.exceptions.ExpiredSignatureError: Signature has expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 56, in __init__
+    self.payload = token_backend.decode(token, verify=verify)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 154, in decode
+    raise TokenBackendError(_("Token is invalid or expired")) from ex
+rest_framework_simplejwt.exceptions.TokenBackendError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/Django_backend_project/auth_app/views.py", line 213, in post
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/serializers.py", line 108, in validate
+    refresh = self.token_class(attrs["refresh"])
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 58, in __init__
+    raise TokenError(_("Token is invalid or expired"))
+rest_framework_simplejwt.exceptions.TokenError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 215, in post
+    handle_expired_refresh_token()
+TypeError: handle_expired_refresh_token() missing 1 required positional argument: 'user_id'
+ERROR Internal Server Error: /auth/api/renew-access/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 139, in decode
+    return jwt.decode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 222, in decode
+    decoded = self.decode_complete(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 167, in decode_complete
+    self._validate_claims(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 262, in _validate_claims
+    self._validate_exp(payload, now, leeway)
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 363, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired")
+jwt.exceptions.ExpiredSignatureError: Signature has expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 56, in __init__
+    self.payload = token_backend.decode(token, verify=verify)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 154, in decode
+    raise TokenBackendError(_("Token is invalid or expired")) from ex
+rest_framework_simplejwt.exceptions.TokenBackendError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/Django_backend_project/auth_app/views.py", line 213, in post
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/serializers.py", line 108, in validate
+    refresh = self.token_class(attrs["refresh"])
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 58, in __init__
+    raise TokenError(_("Token is invalid or expired"))
+rest_framework_simplejwt.exceptions.TokenError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 215, in post
+    handle_expired_refresh_token()
+TypeError: handle_expired_refresh_token() missing 1 required positional argument: 'user_id'
+ERROR [35;1mHTTP POST /auth/api/renew-access/ 500 [0.71, 172.18.0.1:58490][0m
+ERROR [35;1mHTTP POST /auth/api/renew-access/ 500 [0.82, 172.18.0.1:58384][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.03, 172.18.0.1:58486][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.02, 172.18.0.1:58488][0m
 DEBUG Logout request received for user: AnonymousUser
 DEBUG 
 
 
  request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.03, 172.18.0.1:61492][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=1ecaf8edf90b40ec98bc9207cc4531b9 200 [0.05, 172.18.0.1:61492][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.07, 172.18.0.1:63160][0m
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Error blacklisting token: Token is invalid or expired
 DEBUG Logout request received for user: AnonymousUser
 DEBUG 
 
 
  request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.05, 172.18.0.1:63160][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=5d30705f808e475888ab15a645e781ec 200 [0.04, 172.18.0.1:63160][0m
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Error blacklisting token: Token is invalid or expired
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 172, in post
+    elif refresh_token and user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 172, in post
+    elif refresh_token and user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.24, 172.18.0.1:58384][0m
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.26, 172.18.0.1:58490][0m
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.07, 172.18.0.1:59578][0m
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Internal Server Error: /auth/api/renew-access/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 139, in decode
+    return jwt.decode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 222, in decode
+    decoded = self.decode_complete(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 167, in decode_complete
+    self._validate_claims(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 262, in _validate_claims
+    self._validate_exp(payload, now, leeway)
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 363, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired")
+jwt.exceptions.ExpiredSignatureError: Signature has expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 56, in __init__
+    self.payload = token_backend.decode(token, verify=verify)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 154, in decode
+    raise TokenBackendError(_("Token is invalid or expired")) from ex
+rest_framework_simplejwt.exceptions.TokenBackendError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/Django_backend_project/auth_app/views.py", line 213, in post
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/serializers.py", line 108, in validate
+    refresh = self.token_class(attrs["refresh"])
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 58, in __init__
+    raise TokenError(_("Token is invalid or expired"))
+rest_framework_simplejwt.exceptions.TokenError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 215, in post
+    handle_expired_refresh_token()
+TypeError: handle_expired_refresh_token() missing 1 required positional argument: 'user_id'
+ERROR [35;1mHTTP POST /auth/api/renew-access/ 500 [0.43, 172.18.0.1:58154][0m
 DEBUG Logout request received for user: AnonymousUser
 DEBUG 
 
 
  request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.05, 172.18.0.1:59578][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=8adacd5b986e475e85052b8e333ee623 200 [0.05, 172.18.0.1:59578][0m
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Error blacklisting token: Token is invalid or expired
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 172, in post
+    elif refresh_token and user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.28, 172.18.0.1:58154][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=bedb81b6666046cda3dfa2dbaa60a878 200 [0.04, 172.18.0.1:58154][0m
+INFO WebSocket HANDSHAKING /ws/chat [172.18.0.1:59206]
+INFO WebSocket DISCONNECT /ws/chat [172.18.0.1:59206]
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.07, 172.18.0.1:56410][0m
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Internal Server Error: /auth/api/renew-access/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 139, in decode
+    return jwt.decode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 222, in decode
+    decoded = self.decode_complete(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 167, in decode_complete
+    self._validate_claims(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 262, in _validate_claims
+    self._validate_exp(payload, now, leeway)
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 363, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired")
+jwt.exceptions.ExpiredSignatureError: Signature has expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 56, in __init__
+    self.payload = token_backend.decode(token, verify=verify)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 154, in decode
+    raise TokenBackendError(_("Token is invalid or expired")) from ex
+rest_framework_simplejwt.exceptions.TokenBackendError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/Django_backend_project/auth_app/views.py", line 213, in post
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/serializers.py", line 108, in validate
+    refresh = self.token_class(attrs["refresh"])
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 58, in __init__
+    raise TokenError(_("Token is invalid or expired"))
+rest_framework_simplejwt.exceptions.TokenError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 215, in post
+    handle_expired_refresh_token()
+TypeError: handle_expired_refresh_token() missing 1 required positional argument: 'user_id'
+ERROR [35;1mHTTP POST /auth/api/renew-access/ 500 [0.33, 172.18.0.1:59162][0m
 DEBUG Logout request received for user: AnonymousUser
 DEBUG 
 
 
  request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.04, 172.18.0.1:56410][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=f0d7f5f08e6347d48301eb25f00551e3 200 [0.04, 172.18.0.1:56410][0m
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Error blacklisting token: Token is invalid or expired
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 172, in post
+    elif refresh_token and user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.10, 172.18.0.1:59162][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=5a5773f500b542c39d5620e8b35f154c 200 [0.04, 172.18.0.1:59162][0m
 DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.07, 172.18.0.1:58952][0m
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Internal Server Error: /auth/api/renew-access/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 139, in decode
+    return jwt.decode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 222, in decode
+    decoded = self.decode_complete(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 167, in decode_complete
+    self._validate_claims(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 262, in _validate_claims
+    self._validate_exp(payload, now, leeway)
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 363, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired")
+jwt.exceptions.ExpiredSignatureError: Signature has expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 56, in __init__
+    self.payload = token_backend.decode(token, verify=verify)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/backends.py", line 154, in decode
+    raise TokenBackendError(_("Token is invalid or expired")) from ex
+rest_framework_simplejwt.exceptions.TokenBackendError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/Django_backend_project/auth_app/views.py", line 213, in post
+    serializer.is_valid(raise_exception=True)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/serializers.py", line 445, in run_validation
+    value = self.validate(value)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/serializers.py", line 108, in validate
+    refresh = self.token_class(attrs["refresh"])
+  File "/usr/local/lib/python3.10/site-packages/rest_framework_simplejwt/tokens.py", line 58, in __init__
+    raise TokenError(_("Token is invalid or expired"))
+rest_framework_simplejwt.exceptions.TokenError: Token is invalid or expired
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 215, in post
+    handle_expired_refresh_token()
+TypeError: handle_expired_refresh_token() missing 1 required positional argument: 'user_id'
+ERROR [35;1mHTTP POST /auth/api/renew-access/ 500 [0.24, 172.18.0.1:58940][0m
 DEBUG Logout request received for user: AnonymousUser
 DEBUG 
 
 
  request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.08, 172.18.0.1:58952][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=3e96e5c2d839496b81876378d0843497 200 [0.13, 172.18.0.1:58952][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.08, 172.18.0.1:61094][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG 
-
-
- request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.09, 172.18.0.1:61094][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=d0047f56ffa24e8491b46334cc69bf3b 200 [0.04, 172.18.0.1:61094][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.04, 172.18.0.1:60508][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG 
-
-
- request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.03, 172.18.0.1:60508][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=168628c4c4e040759adf68838979967f 200 [0.06, 172.18.0.1:60508][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.08, 172.18.0.1:58940][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG 
-
-
- request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.08, 172.18.0.1:58940][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=6c590a00410a4617b8ff6f64d1f97247 200 [0.04, 172.18.0.1:58940][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.09, 172.18.0.1:60020][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG 
-
-
- request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.08, 172.18.0.1:60020][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=63be2b4f1f3c4a9aa797de4b9ee41dc4 200 [0.05, 172.18.0.1:60020][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.09, 172.18.0.1:60928][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG 
-
-
- request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.07, 172.18.0.1:60928][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=fdfe9a78534e4a3292245228c7f3ca3c 200 [0.03, 172.18.0.1:60928][0m
-DEBUG Allowing refresh token request in allowRefreshToken
-DEBUG Refresh token in CustomTokenRefreshView: None
-WARNING Bad Request: /auth/api/renew-access/
-WARNING [31;1mHTTP POST /auth/api/renew-access/ 400 [0.10, 172.18.0.1:55834][0m
-DEBUG Logout request received for user: AnonymousUser
-DEBUG 
-
-
- request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
-DEBUG Refresh token found in cookies: None
-DEBUG Signal: Anonymous user, no logout signal sent
-INFO [mHTTP POST /auth/api/logout/ 200 [0.07, 172.18.0.1:55834][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=a03540317def465ba4fb3c2a74b7517f 200 [0.03, 172.18.0.1:55834][0m
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczOTU0NDkwOSwiaWF0IjoxNzM5NDU4NTA5LCJqdGkiOiI2Y2Y4ZmU3Yjk5N2Q0MjY0YWQ3OTg5ODAwMTlhZWVjNSIsInVzZXJfaWQiOjN9.zkpB0dPbnM4lLHfg2hjapBF7ani_wjm3-xe2Z-F5EoU
+ERROR Error blacklisting token: Token is invalid or expired
+ERROR Internal Server Error: /auth/api/logout/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/base.py", line 253, in _get_response_async
+    response = await wrapped_callback(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/usr/local/lib/python3.10/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/app/Django_backend_project/auth_app/views.py", line 172, in post
+    elif refresh_token and user.username:
+UnboundLocalError: local variable 'user' referenced before assignment
+ERROR [35;1mHTTP POST /auth/api/logout/ 500 [0.16, 172.18.0.1:58940][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=90b925ad22ee4063ab0e9046c31eba3f 200 [0.05, 172.18.0.1:58940][0m
