@@ -1167,11 +1167,11 @@
 			chatWith.textContent = `Chat with: ${receiverUsername}`;
 			chatArea.dataset.userId = receiverId;
 			chatMessages.innerHTML = ''; // Clear previous messages
-			
+
 			console.debug("chatRoomId in startChat: ", chatRoomId);
 			if (!chatRoomId)
 				chatRoomId = globalChatRoomId;
-			
+
 			document.getElementById('sendMessage').onclick = () => sendMessage(receiverId, receiverUsername, globalChatRoomId);
 		}
 
