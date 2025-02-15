@@ -1,0 +1,218 @@
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Signal: create_or_update_user_profile triggered
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43024]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43024]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!fc0e4c80059746a88ddfee418dd8d1c9
+INFO Starting game inside ... gID: 765442 and the user2ID:2 
+INFO User 1: admin, User 2: None
+INFO [mHTTP GET /game/ 200 [0.08, 172.18.0.1:36996][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43024]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!fc0e4c80059746a88ddfee418dd8d1c9
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:36996][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:37008][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:36982][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:37008][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:37008][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:37008][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:37008][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:40802]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:40802]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!cf6af723690c4bd2b49b828097c1ed37
+INFO Starting game inside ... gID: 590514 and the user2ID:2 
+INFO User 1: admin, User 2: None
+ERROR Game 478435 not found.
+ERROR Game 478435 not found.
+ERROR Game 478435 not found.
+ERROR Game 478435 not found.
+ERROR Game 478435 not found.
+INFO [mHTTP GET /auth/register/ 200 [0.06, 172.18.0.1:44814][0m
+INFO [32mHTTP GET /admin/auth_app/profile/ 302 [0.29, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/login/?next=/admin/auth_app/profile/ 200 [0.06, 172.18.0.1:44814][0m
+DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Signal: User admin logged in
+INFO [32mHTTP POST /admin/login/?next=/admin/auth_app/profile/ 302 [0.95, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.16, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.05, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/auth/user/ 200 [0.16, 172.18.0.1:44814][0m
+INFO [mHTTP GET /static/admin/img/search.svg 200 [0.01, 172.18.0.1:44824][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.06, 172.18.0.1:44814][0m
+INFO [mHTTP GET /static/admin/img/sorting-icons.svg 200 [0.00, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/auth/user/add/ 200 [0.19, 172.18.0.1:44814][0m
+INFO [mHTTP GET /static/admin/js/prepopulate_init.js 200 [0.01, 172.18.0.1:43262][0m
+INFO [mHTTP GET /static/admin/css/unusable_password_field.css 200 [0.01, 172.18.0.1:43246][0m
+INFO [mHTTP GET /static/admin/css/forms.css 200 [0.02, 172.18.0.1:44824][0m
+INFO [mHTTP GET /static/admin/css/widgets.css 200 [0.00, 172.18.0.1:43246][0m
+INFO [mHTTP GET /static/admin/js/change_form.js 200 [0.00, 172.18.0.1:43246][0m
+INFO [mHTTP GET /static/admin/js/unusable_password_field.js 200 [0.01, 172.18.0.1:43246][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.08, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/auth/user/ 200 [0.13, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/ 200 [0.14, 172.18.0.1:44814][0m
+INFO [mHTTP GET /auth/register/ 200 [0.04, 172.18.0.1:44814][0m
+DEBUG Request data: {'username': 'narcisse', 'email': 'narcisseobadiahdm@gmail.com', 'password': '11111111'}
+DEBUG Signal: create_or_update_user_profile triggered
+INFO [mHTTP POST /auth/api/register/ 201 [0.94, 172.18.0.1:44814][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=f61f5fd4611a40cd8b5e03963c8ef640 200 [0.03, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/auth/user/ 200 [0.15, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.13, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/auth/user/ 200 [0.25, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.06, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/game_logic_app/player/ 200 [0.24, 172.18.0.1:44814][0m
+INFO [mHTTP GET /admin/jsi18n/ 200 [0.09, 172.18.0.1:44814][0m
+INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:54980][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:40802]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!cf6af723690c4bd2b49b828097c1ed37
+INFO [mHTTP GET /static/js/pong.js 200 [0.04, 172.18.0.1:54992][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.03, 172.18.0.1:55006][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.05, 172.18.0.1:54980][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:55006][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:55006][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:55006][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:55006][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:55014]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:55014]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!ec61ccad68a7463587383ad8941f2c21
+INFO Starting game inside ... gID: 232211 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 232211 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:43562][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:55014]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!ec61ccad68a7463587383ad8941f2c21
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:43562][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.03, 172.18.0.1:43572][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:43576][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:43576][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.02, 172.18.0.1:43562][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:43562][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:43562][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43590]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43590]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!c90fcb7980eb407faba5ad62b4ea961d
+INFO Starting game inside ... gID: 685348 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 685348 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.04, 172.18.0.1:40902][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43590]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!c90fcb7980eb407faba5ad62b4ea961d
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:40894][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:40902][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:40904][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:40904][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40904][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:40904][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:40904][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:40914]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:40914]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!4164451a3a0f4426979d1008319bee9c
+INFO Starting game inside ... gID: 583105 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 583105 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:46968][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:40914]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!4164451a3a0f4426979d1008319bee9c
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:46974][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:46968][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46970][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.06, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:46970][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:46990]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:46990]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!59fe45099d0541bb918dce492f8ccc61
+INFO Starting game inside ... gID: 934917 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 934917 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.08, 172.18.0.1:46970][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:46990]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!59fe45099d0541bb918dce492f8ccc61
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:46974][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:46968][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.02, 172.18.0.1:46968][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:46970][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:52100]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:52100]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!833c6b07effb4e7ea4be75ccb6fc8ff9
+INFO Starting game inside ... gID: 336647 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 336647 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:46970][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:52100]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!833c6b07effb4e7ea4be75ccb6fc8ff9
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:46974][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:46970][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:46968][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:46968][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46968][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:46968][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:46968][0m
+INFO [mHTTP GET /game/ 200 [0.03, 172.18.0.1:40400][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:40400][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:40422][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:40408][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:40408][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40408][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:40408][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:40408][0m
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:40408][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:40422][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:40408][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:40400][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:40422][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40422][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:40422][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:40422][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:41266]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:41266]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!80a0f1a6b8df4b2a9d946682fdb66d6a
+INFO Starting game inside ... gID: 403449 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 403449 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:43350][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:41266]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!80a0f1a6b8df4b2a9d946682fdb66d6a
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:43350][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:43354][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:43360][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:43360][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:43360][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:43360][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:43360][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43370]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43370]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!9dc67cbfb71e41cc97340c0900b10e93
+INFO Starting game inside ... gID: 185389 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 185389 created with state 'in_progress'
+INFO Game state after creation/update: in_progress
+INFO [mHTTP GET /game/ 200 [0.03, 172.18.0.1:42188][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43370]
+INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!9dc67cbfb71e41cc97340c0900b10e93
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:42204][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42212][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:42188][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:42212][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:42212][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:42212][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:42212][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:42224]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:42224]
+INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!a6fcaa66cbf4428f9cd851e5aded1fa3
+INFO Starting game inside ... gID: 708364 and the user2ID:2 
+INFO User 1: admin, User 2: narcisse
+INFO Game 708364 created with state 'in_progress'
+INFO Game state after creation/update: in_progress

@@ -68,8 +68,14 @@ class Game(models.Model):
     id = models.AutoField(primary_key=True)
     player1 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player1', null=True, blank=True)
     player2 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player2', null=True, blank=True)
+    ball_x = models.FloatField(default=400)  # Assuming canvas width=800
+    ball_y = models.FloatField(default=200)  # Assuming canvas height=400
+    ball_dx = models.FloatField(default=4)
+    ball_dy = models.FloatField(default=4)
     player1_score = models.PositiveIntegerField(default=0)  # ✅ NEW
     player2_score = models.PositiveIntegerField(default=0)  # ✅ NEW
+    player1_y = models.FloatField(default=150)
+    player2_y = models.FloatField(default=150)
     start_time = models.DateTimeField(default=timezone.now)
     end_time = models.DateTimeField(null=True, blank=True, default=timezone.now)  # Allow null for ongoing games
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='not_started')
@@ -81,6 +87,13 @@ class Game(models.Model):
         self.end_time = None
         self.player1.score = 0
         self.player2.score = 0
+        self.save()
+    
+    def reset_ball(self):
+        self.ball_x = 400
+        self.ball_y = 200
+        self.ball_dx = 4 * (1 if random.random() > 0.5 else -1)
+        self.ball_dy = 4 * (1 if random.random() > 0.5 else -1)
         self.save()
 
 
