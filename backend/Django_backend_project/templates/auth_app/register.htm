@@ -6,9 +6,10 @@
     <title>Register / Login</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+	<div class="container">
         <h1 id="welcomeMessage">Welcome</h1>
         <div id="authSection">
             <!-- Registration Form -->
@@ -27,7 +28,7 @@
                     <button type="submit">Register</button>
                 </form>
             </div>
-
+			
 			<!-- Login Form -->
 			<div id="loginSection">
 				<h2>Login</h2>
@@ -37,7 +38,7 @@
 					
 					<label for="login_password">Password:</label>
 					<input type="password" id="login_password" name="password" required>
-
+					
 					<!-- Hidden OTP Section -->
 					<div id="otpSection" style="display: none;">
 						<label for="otp_method">2FA Method:</label>
@@ -58,7 +59,7 @@
 				<button onclick="loginWith42()" style="margin-top: 2%;">Login with 42</button>
 			</div>
 		</div>
-
+		
         <!-- Dashboard Section -->
         <div id="dashboard" style="display: none;">
             <h2>Dashboard</h2>
@@ -68,23 +69,41 @@
             </div>
             <!-- Online Users -->
             <div id="onlineUsers">
-                <h3>Online Users</h3>
+				<h3>Online Users</h3>
                 <ul id="userList"></ul>
             </div>
             <!-- W.B Online Users -->
             <div id="WBonlineUsers">
-                <h3>W.B Online Users</h3>
+				<h3>W.B Online Users</h3>
                 <ul id="WBuserList"></ul>
             </div>
-
+			<!-- Chat Section -->
 			<div id="chatArea" style="display:none;">
 				<h3 id="chatWith"></h3>
 				<div id="chatMessages"></div>
 				<input type="text" id="chatInput" placeholder="Type your message here...">
 				<button id="sendMessage">Send</button>
 			</div>
-
-            <br>
+			
+			<!-- Game Section -->
+			<div class="container text-center mt-5" style="display: none;">
+				<style>
+					canvas {
+						border: 2px solid #000;
+						display: block;
+						margin: auto;
+					}
+				</style>
+				<h1>Pong Game</h1>
+				<canvas id="gameCanvas" width="800" height="400"></canvas>
+				<div id="buttons">
+					<button id="startGame" class="btn btn-primary">Start Game</button>
+					<button id="pauseGame" class="btn btn-warning">Pause Game</button>
+					<button id="resumeGame" class="btn btn-success">Resume Game</button>
+					<button id="restartGame" class="btn btn-danger">Restart Game</button>
+				</div>
+			</div>
+			
 			<!-- Friends Requests -->
             <div id="friendreq">
                 <h3>My Friends Requests</h3>
@@ -96,8 +115,6 @@
                 <h3>My Friends :</h3>
                 <ul id="friendList"></ul>
             </div>
-
-			
 
 			<!-- Profile Section -->
 			<div id="profileSection">
@@ -1050,13 +1067,45 @@
 						console.log(`creator_username: ${data.creator_username}, chat_room_id: ${data.chat_room_id}`);
 						showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, globalChatRoomId);
 					}
+					updateOnlineUsersList();
 				} else if (data.type === 'chat_message') {
 					globalChatRoomId = data.chat_room_id;
 					console.log("Message received:", data);
 					displayMessageInChat(data.sender_id, data.sender, data.message, data.timestamp, data.is_read);
+					updateOnlineUsersList();
 				} else if (data.type === 'user.status') { // initial online users list
 					onlineUsers = data.online_users;
 					updateOnlineUsersList();
+				} else if (data.type === 'game_invite_received') { // New message type
+					console.debug("Game invite received:", data);
+					const senderId = data.sender_id;
+					const senderUsername = onlineUsers[senderId].username;
+					const message = data.message;
+					const chatRoomId = data.chat_room_id;
+					// Display confirmation popup
+					if (senderId !== currentUserId) {
+						confirmGamePopup(senderId, senderUsername, message, chatRoomId);
+					} else {
+						// displayMessageInChat(senderId, senderUsername, message, null, false, 'invite_received');
+					}
+				} else if (data.type === 'game_invite_accepted') {
+					//starting the game through the game websocket by sending the player ids
+					const player1_id = data.sender_id;
+					const player2_id = data.target_id;
+					const message = data.message;
+					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_accepted');
+					if (player1_id === currentUserId) {
+						// startGame(player1_id, player2_id);
+					} 
+					console.debug("Game invite accepted:", data);
+				} else if (data.type === 'game_invite_declined') {
+					// send message in chat that the game invite was declined for both users
+					const player1_id = data.sender_id;
+					const player2_id = data.target_id;
+					const message = data.message;
+					
+					console.debug("Game invite accepted:", data);
+					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_declined');
 				}
 			};
 
@@ -1088,9 +1137,10 @@
 
 					userItem.textContent = onlineUsers[userId].username;
 
-					// Add the "Start Chat" button:
+					// Add "Start Chat" button
 					const startChatButton = document.createElement('button');
 					startChatButton.textContent = 'Start Chat';
+					startChatButton.classList.add('start-chat-button');
 					startChatButton.addEventListener('click', () => {
 						const message = prompt("Enter your initial message:");
 						if (message) {
@@ -1099,18 +1149,94 @@
 								target_id: userId,
 								message: message
 							}));
-							// Open the chat window or perform other UI updates as needed.
-							console.debug('chat room id in updateOnlineUsersList: ', globalChatRoomId);
-							startChat(userId, onlineUsers[userId].username, globalChatRoomId); // Call startChat function
-							console.log("currentUserId, currentUsername, message: ", currentUserId, currentUsername, message);
+							startChat(userId, onlineUsers[userId].username, globalChatRoomId);
 							displayMessageInChat(currentUserId, currentUsername, message, null, false, 'first_msg');
 						}
 					});
-					userItem.appendChild(startChatButton); // Append the button to the list item
+					userItem.appendChild(startChatButton);
+
+					if (globalChatRoomId) {
+						// Add "Invite to Game" button
+						const startGameButton = document.createElement('button');
+						startGameButton.textContent = 'Invite to Game';
+						startGameButton.classList.add('invite-game-button');
+						startChatButton.style.display = 'none'; // Hide the chat button
+						startGameButton.addEventListener('click', () => {
+							chatSocket.send(JSON.stringify({
+								type: 'game_invite',
+								target_id: userId,
+								sender_id: currentUserId, // Include sender ID
+								chat_room_id: globalChatRoomId
+							}));
+
+							displayMessageInChat(currentUserId, currentUsername, `Game invitation sent to ${onlineUsers[userId].username}`, null, false, 'invite_sent');
+
+						});
+						userItem.appendChild(startGameButton);
+					}
 
 					onlineUsersList.appendChild(userItem);
 				}
 			}
+		}
+
+		function confirmGamePopup(creatorId, creatorUsername, received_message, chatRoomId) {
+			// Check if a popup already exists and remove it
+			const existingPopup = document.querySelector('.popup');
+			if (existingPopup) {
+				existingPopup.remove();
+			}
+
+			// Create the popup container
+			const popup = document.createElement('div');
+			popup.classList.add('popup');
+
+			// Create the popup message
+			const message = document.createElement('p');
+			message.innerHTML = `<strong>${creatorUsername}:</strong> ${received_message}`;
+
+			// Create the "Reply" button
+			const replyButton = document.createElement('button');
+			replyButton.textContent = "Accept";
+			replyButton.classList.add('popup-reply');
+
+			// Event listener for reply
+			replyButton.addEventListener('click', () => {
+				chatSocket.send(JSON.stringify({
+					type: 'game_invite_accepted',
+					chat_room_id: chatRoomId,
+					target_id: creatorId,
+					sender_id: localStorage.getItem('userId'),
+				}));
+				// startChat(creatorId, creatorUsername, chatRoomId);
+				displayMessageInChat(creatorId, creatorUsername, received_message);
+				popup.remove(); // Remove the popup after clicking reply
+			});
+			
+			// Create a "Close" button
+			const closeButton = document.createElement('button');
+			closeButton.textContent = "decline";
+			closeButton.classList.add('popup-close');
+			
+			// Event listener for closing the popup
+			closeButton.addEventListener('click', () => {
+				chatSocket.send(JSON.stringify({
+					type: 'game_invite_declined',
+					chat_room_id: chatRoomId,
+					target_id: creatorId,
+					sender_id: localStorage.getItem('userId'),
+				}));
+				// startChat(creatorId, creatorUsername, chatRoomId);
+				displayMessageInChat(creatorId, creatorUsername, received_message);
+				popup.remove();
+			});
+
+			// Append elements to the popup
+			popup.appendChild(message);
+			popup.appendChild(replyButton);
+			popup.appendChild(closeButton);
+
+			document.body.appendChild(popup);
 		}
 
 		function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {
@@ -1126,7 +1252,7 @@
 
 			// Create the popup message
 			const message = document.createElement('p');
-			message.textContent = `${creatorUsername} sent you a message.`;
+			message.innerHTML = `<strong>${creatorUsername}</strong> sent you a message.`;
 
 			// Create the "Reply" button
 			const replyButton = document.createElement('button');
@@ -1208,7 +1334,7 @@
 			}
 			// I add ridiculous statements of 'first_msg' to only show the first message 
 			// sender name after starting chat
-			if (senderId === localStorage.getItem('userId') && first_msg !== 'first_msg') {
+			if (senderId === localStorage.getItem('userId') && first_msg == '') {
 				msg.classList.add('own');
 			} else {
 				msg.classList.add('other');
@@ -1222,5 +1348,314 @@
 		}
 
 
+	// *********************************** Pong Game Logic ***********************************
+		const canvas = document.getElementById("gameCanvas");
+		const ctx = canvas.getContext("2d");
+
+		const paddleWidth = 10;
+		const paddleHeight = 100;
+		const ballSize = 10;
+
+		let gameId;
+		let user2Id;
+		let username;
+
+		let player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		let player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
+
+		let keys = {};
+		let websocket;
+		let gameInProgress = false; // Track if the game is in progress
+		let gamePaused = false; // Track if the game is paused
+
+		let animationFrame;
+		let gameLoopInterval;
+
+		// Fetch Profile
+		// async function fetchProfile() {
+		// 	try {
+		// 		const response = await fetch('/auth/api/profile/');
+		// 		if (response.ok) {
+		// 			const profile = await response.json();
+		// 			user2Id = profile.id;
+		// 			username = profile.username;
+		// 			console.log("username and user_id: ", username, user2Id);
+		// 		} else {
+		// 			console.error('Failed to fetch profile:', response.status);
+		// 		}
+		// 	} catch (error) {
+		// 		console.error('Error fetching profile:', error);
+		// 	}
+		// }
+
+		// Draw paddles and ball
+		function draw() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			// Draw paddles
+			ctx.fillStyle = "#000";
+			ctx.fillRect(player1.x, player1.y, paddleWidth, paddleHeight);
+			ctx.fillRect(player2.x, player2.y, paddleWidth, paddleHeight);
+
+			// Draw ball
+			ctx.beginPath();
+			ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
+			ctx.fillStyle = "#000";
+			ctx.fill();
+			ctx.closePath();
+
+			// Draw scores
+			ctx.font = "20px Arial";
+			ctx.fillText(`Admin: ${player1.score}`, 50, 20);
+			ctx.fillText(`${username}: ${player2.score}`, canvas.width - 150, 20);
+		}
+
+		// Move paddles based on keys pressed
+		function movePaddles() {
+			const paddleSpeed = 5;
+
+			if (keys.w && player1.y > 0) {
+				player1.y -= paddleSpeed;
+				sendPaddlePosition("player1", player1.y); // Send paddle position to server
+			}
+			if (keys.s && player1.y < canvas.height - paddleHeight) {
+				player1.y += paddleSpeed;
+				sendPaddlePosition("player1", player1.y); // Send paddle position to server
+			}
+
+			if (keys.ArrowUp && player2.y > 0) {
+				player2.y -= paddleSpeed;
+				sendPaddlePosition("player2", player2.y); // Send paddle position to server
+			}
+			if (keys.ArrowDown && player2.y < canvas.height - paddleHeight) {
+				player2.y += paddleSpeed;
+				sendPaddlePosition("player2", player2.y); // Send paddle position to server
+			}
+		}
+
+		// Reset ball to center
+		function resetBall() {
+			ball.x = canvas.width / 2;
+			ball.y = canvas.height / 2;
+			ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
+			ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
+			sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
+		}
+
+
+		// Update and draw the game
+		function updateGame() {
+			if (!gamePaused && gameInProgress) {
+				movePaddles();
+				// moveBall();
+			}
+			draw();
+			animationFrame = requestAnimationFrame(updateGame);
+		}
+
+		// WebSocket connection and event handlers
+		document.getElementById("startGame").addEventListener("click", async () => {
+			await fetchProfile();
+			resetGameState();
+
+			if (!websocket || websocket.readyState !== WebSocket.OPEN) {
+				console.log("WebSocket not connected. Reconnecting...");
+				setupWebSocket();
+
+			} else if (!gameInProgress) {
+
+				startGameRequest(user2Id);
+				startGameLoop();
+			}
+		});
+
+		function setupWebSocket() {
+			websocket = new WebSocket("ws://" + window.location.host + "/ws/game/");
+
+			websocket.onopen = function () {
+				console.log("WebSocket connected");
+				startGameRequest(user2Id); // Send start game request immediately after connection
+			};
+
+			websocket.onmessage = function (e) {
+				const data = JSON.parse(e.data);
+				console.log("Message from server: ", data);
+
+
+				if (data.type === "game_started") {
+					gameId = data.gameId;
+					localStorage.setItem("gameId", gameId);
+					gameInProgress = true;
+					console.log("Game started, gameId:", gameId);
+				}
+
+				if (data.type === "game_update") {
+					const updateType = data.data.type;
+
+					if (updateType === 'update_ball') {
+						ball = data.data.ball;
+						player1.y = data.data.player1_y; // Update paddle positions from server
+						player2.y = data.data.player2_y;
+						player1.score = data.data.player1_score; // Update scores from server
+						player2.score = data.data.player2_score;
+					} else if (updateType === 'update_paddle') {
+						// No need to update locally, server is authoritative
+					} else if (updateType === 'game_ended') {
+						const winnerId = data.data.winner;
+						const loserId = data.data.loser;
+						const winner = winnerId === user2Id ? username : 'Admin';
+						const loser = loserId === user2Id ? username : 'Admin';
+						console.log(`Game ${gameId} ended. Winner: ${winner}, Loser: ${loser}`);
+						endGame(winner, loser, gameId);
+					} else if (updateType === 'game_paused') {
+						gamePaused = true;
+					} else if (updateType === 'game_resumed') {
+						gamePaused = false;
+					} else if (updateType === 'game_restarted') {
+						resetGameState();
+					}	
+				} else if (data.error) {
+					console.error("Server Error:", data.error);
+				}
+			};
+
+			websocket.onerror = function (e) {
+				console.error("WebSocket error: ", e);
+			};
+
+			websocket.onclose = function () {
+				console.log("WebSocket disconnected. Reconnecting...");
+				gameInProgress = false;
+				clearInterval(gameLoopInterval);
+				cancelAnimationFrame(animationFrame);
+				setTimeout(setupWebSocket, 3000);
+			};
+		}
+
+		function startGameRequest(user2Id) {
+			gameSocket.send(JSON.stringify({
+				action: 'start_game',
+				user2_id: user2Id
+			}));
+		}
+
+		function startGameLoop() {
+			if (!gameInProgress) {
+				gameInProgress = true;
+				gameLoopInterval = setInterval(updateGame, 1000 / 60); // 60 FPS using setInterval
+			}
+		}
+
+
+		// Send paddle position to server
+		function sendPaddlePosition(player, position) {
+			const gameId = localStorage.getItem('gameId');
+			if (websocket && websocket.readyState === WebSocket.OPEN && gameId) {
+				websocket.send(JSON.stringify({
+					action: "update_paddle",
+					player: player,
+					position: position,
+					game_id: gameId
+				}));
+			}
+		}
+
+		// Pause game
+		document.getElementById("pauseGame").addEventListener("click", () => {
+			if (gameInProgress) {
+				websocket.send(JSON.stringify({ action: "pause_game", game_id: localStorage.getItem('gameId')}));
+
+			}
+		});
+
+		// Resume game
+		document.getElementById("resumeGame").addEventListener("click", () => {
+			if (gameInProgress && gamePaused) {
+				websocket.send(JSON.stringify({ action: "resume_game", game_id: localStorage.getItem('gameId')}));
+			}
+		});
+
+		// Example: Restart Game button functionality
+		document.getElementById("restartGame").addEventListener("click", () => {
+			if (gameInProgress) {
+				websocket.send(JSON.stringify({ action: "restart_game", game_id: localStorage.getItem('gameId')}));
+				// gameInProgress = false;
+				resetGameState();
+				document.getElementById("buttons").style.display = "block";
+			}
+		});
+
+
+		// Key event listeners
+		window.addEventListener("keydown", (e) => {
+			keys[e.key] = true;
+		});
+		window.addEventListener("keyup", (e) => {
+			keys[e.key] = false;
+		});
+
+		//101162
+
+
+		function endGame(winner, loser, gameId) {
+			gameInProgress = false; // Prevent further updates
+			clearInterval(gameLoopInterval); // Stop the game loop
+			cancelAnimationFrame(animationFrame); // Stop animations
+
+			window.removeEventListener("keydown", handleKeyDown); // Remove key listeners
+			window.removeEventListener("keyup", handleKeyUp);
+
+			// Display the end game message (Improved)
+			const endGameMessage = document.createElement('div');
+			endGameMessage.id = 'endGameMessage';
+			endGameMessage.innerHTML = `MATCH RESULT <br> WINNER: <<<****${winner}****>>> <br> LOSER: <<<****${loser}****>>> <br> SCORE: ${player1.score} - ${player2.score}`;
+			endGameMessage.style.cssText = `
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+				color: white;
+				padding: 20px;
+				font-size: 24px;
+				text-align: center;
+				border-radius: 10px;
+			`;
+			document.body.appendChild(endGameMessage); // Add to the page
+
+			// Optionally show a restart button
+			const restartButton = document.createElement('button');
+			restartButton.textContent = 'Restart';
+			restartButton.addEventListener('click', () => {
+				document.body.removeChild(endGameMessage); // Remove the message
+				restartGame(gameId); // Call restart function if needed
+			});
+			endGameMessage.appendChild(restartButton);
+
+			// Hide the start game button (if needed)
+			document.getElementById("startGame").style.display = "none";
+
+			websocket.close(); // Close the WebSocket connection (optional, if you don't need it anymore)
+		}
+
+		function resetGameState() {
+			// Reset player scores and positions
+			if (gameInProgress) {
+				// game_id = '';
+				player1.score = 0;
+				player2.score = 0;
+				player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+				player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+				ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
+				// if (websocket)
+				// 	websocket.close();
+				// clearInterval(updateGame);
+			}
+			gameInProgress = false;
+			player1.score = 0;
+			player2.score = 0;
+		}
+
+	//
 	</script>
-	

@@ -47,11 +47,28 @@ function connectWebSocket() {
 		// messageContainer.appendChild(messageElement);
 		console.log("online status", data.type);
 
-		if (data.type === 'online_status') {
+		if (data.type === 'user.status') {
 			console.log("online status");
 			onlineUsers[data.user_id] = data;
-			console.log("online users: ", onlineUsers);
-			updateOnlineUsers(Object.values(onlineUsers));
+			for (const user in onlineUsers) {
+				console.log("user: ", user);
+				if (onlineUsers.hasOwnProperty(user) && onlineUsers[user] && userId !== user) {
+					console.log("user: ", user);
+					const userElement = document.createElement("div");
+					userElement.innerHTML = `
+						<tr>
+							<th scope="row">${user}</th>
+							<td>${onlineUsers[user].username}</td>
+							<td>
+								<button class="btn btn-primary">Message</button>
+								<button class="btn btn-outline-success">add</button>
+							</td>
+						</tr>
+					`;
+
+					// userList.appendChild(userElement);
+				}
+			}
 		}
 	};
 

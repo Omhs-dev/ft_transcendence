@@ -170,6 +170,7 @@ const loginUser = async () => {
 
 		localStorage.removeItem("twoFaMethod");
 		localStorage.setItem("username", username);
+		localStorage.setItem("userId", data.user_id);
 		localStorage.setItem("isAuthenticated", "true");
 
 		window.location.href = "/";
@@ -202,6 +203,7 @@ const logoutUser = async () => {
 			throw new Error("could not fetch api...", response.statusText);
 		}
 
+		localStorage.removeItem("userId");
 		localStorage.removeItem("username");
 		localStorage.removeItem("isOauthLogged");
 		localStorage.removeItem("isAuthenticated");
