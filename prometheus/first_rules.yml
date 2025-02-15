@@ -49,6 +49,20 @@ groups:
             Memory usage for the container {{ $labels.container }} has been above 80% for the last 3 minutes.
             Please check the container.
 
+  - name: django_alerts
+    rules:
+      - alert: HighCPUUsageDjango
+        expr: rate(container_cpu_usage_seconds_total{name="django_container"}[1m]) * 100
+        #expr: rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_service="django"}[1m]) * 100 > 80
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High CPU Usage in Django Container"
+          description: >
+            CPU usage for the Django container has been above 80% for more than 1 minute.
+            Please investigate possible performance issues.
+
   - name: container_disk_alert
     rules:
       - alert: HighContainerDiskIO

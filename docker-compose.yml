@@ -29,7 +29,7 @@ services:
       - postgres  # Ensure Django waits for PostgreSQL to be ready
     env_file: 
       - ./.env    # Load environment variables from .env file
-  
+
   cadvisor:
     image: google/cadvisor:latest
     container_name: cadvisor_container
@@ -37,10 +37,12 @@ services:
       - "8080:8080"
     volumes:
       - /:/rootfs:ro
-      - /var/run:/var/run:ro
+      - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
     restart: always
+
 
   alertmanager:
     image: prom/alertmanager
