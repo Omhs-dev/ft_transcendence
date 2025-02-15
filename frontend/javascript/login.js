@@ -37,7 +37,7 @@ const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const loadToMainPage = async () => {
 	await wait(6000);
-	console.log("after countdown");
+	// console.log("after countdown");
 	window.location.href = "/";
 }
 
@@ -58,8 +58,9 @@ const checkOauth2Login = async () => {
 		}
 
 		const data = await response.json();
-		console.log('Data:', data);
+		// console.log('Data:', data);
 
+		localStorage.setItem("userId", data.id);
 		localStorage.setItem("username", data.username);
 		localStorage.setItem("isAuthenticated", "true");
 
@@ -87,26 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	const loadPageOnce = localStorage.getItem("loadPageOnce");
 
 	if (isOauthLogged) {
-		console.log("user is logged in with oauth");
+		// console.log("user is logged in with oauth");
 		checkOauth2Login();
 	}
 
 	if (loadPageOnce) {
-		console.log("load page once");
+		// console.log("load page once");
 		loadToMainPage();
 		localStorage.removeItem("loadPageOnce");
 	}
 	
 
 	if ((isAuthenticated || isOauthLogged) && username) {
-		console.log("user is logged in");
-		console.log("username: ", username);
-		console.log("isAuthenticated: ", isAuthenticated);
-		console.log("enable2Fa: ", enable2Fa);
 		startTokenRefreshTimer();
-
-	} else {
-		console.log("user is not logged in");
 	}
 });
 
@@ -225,11 +219,8 @@ function stopTokenRefreshTimer() {
 }
 
 const renewToken = async () => {
-	console.log("refresh token timer started");
 	const apiUrl = 'http://localhost:8000/auth/api/renew-access/';
-	console.log(`API URL being called: ${apiUrl}`);
 
-	console.log("after api url");
 	try {
 		const response = await fetch(apiUrl, {
 			method: 'POST',
@@ -248,8 +239,6 @@ const renewToken = async () => {
 		}
 
 		const data = response.json();
-
-		console.log('Token refreshed:', data);
 
 		console.log('Token refreshed successfully');
 	} catch (error) {

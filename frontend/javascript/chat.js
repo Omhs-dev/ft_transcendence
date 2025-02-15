@@ -8,7 +8,7 @@ const chatInput = document.getElementById('chatInput');
 const messageContainer = document.getElementById('messages');
 const sendButton = document.getElementById('sendButton');
 
-let userId = null;
+// let userId = null;
 let chatSocket;
 let onlineUsers = {};
 const roomName = 'general';
@@ -24,8 +24,9 @@ sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
 
 	if (e.target.classList.contains("users")) {
-		console.log("users online found");
-		updateOnlineUsers();
+		setTimeout(() => {
+			updateOnlineUsers();
+		}, 100);
 	}
 });
 
@@ -40,35 +41,24 @@ function connectWebSocket() {
 	chatSocket.onmessage = (e) => {
 		console.log("message received");
 		const data = JSON.parse(e.data);
-		
-		console.log('Data:', data);
-		// const messageElement = document.createElement('div');
-		// messageElement.innerText = `${data.username}: ${data.message}`;
-		// messageContainer.appendChild(messageElement);
-		console.log("online status", data.type);
 
-		if (data.type === 'user.status') {
-			console.log("online status");
+		const userId = localStorage.getItem('userId');
+		// console.log('Data:', data);
+		// console.log('userId:', userId);
+		// console.log("online status", data.type);
+
+		if (data.type === "online_status") {
+			console.log("type: online status");
 			onlineUsers[data.user_id] = data;
-			for (const user in onlineUsers) {
-				console.log("user: ", user);
-				if (onlineUsers.hasOwnProperty(user) && onlineUsers[user] && userId !== user) {
-					console.log("user: ", user);
-					const userElement = document.createElement("div");
-					userElement.innerHTML = `
-						<tr>
-							<th scope="row">${user}</th>
-							<td>${onlineUsers[user].username}</td>
-							<td>
-								<button class="btn btn-primary">Message</button>
-								<button class="btn btn-outline-success">add</button>
-							</td>
-						</tr>
-					`;
-
-					// userList.appendChild(userElement);
-				}
+			if (!data.is_online) {
+				delete onlineUsers[data.user_id];
 			}
+			updateOnlineUsers();
+		} else if (data.type === "user.status") {
+			console.log("type: user status");
+			onlineUsers = data.online_users;
+
+			console.log("online users: ", onlineUsers);
 		}
 	};
 
@@ -92,25 +82,47 @@ closeChat.addEventListener('click', () => {
 	chatBox.style.display = 'none';
 });
 
-const updateOnlineUsers = (onlineUsers) => {
-	const userList = appSection.getElementById("userList");
-	console.log("user list: ", userList);
+const updateOnlineUsers = () => {
+	const userList = document.getElementById("userList");
+	const userId = localStorage.getItem("userId");
+	const username = localStorage.getItem("username");
+	console.log("online user list: ", onlineUsers);
+	// console.log("user id: ", Number(userId));
 
+	if (!userList) {
+		console.log("user list not found");
+		return;
+	}
 	userList.innerHTML = "";
+	
+	let index = 0;
 
-	onlineUsers.forEach((user, index) => {
-		const userElement = document.createElement("div");
-        userElement.innerHTML = `
-            <tr>
+	console.log("before for loop");
+	for (const user of Object.values(onlineUsers)) {
+		if (user.user_id !== Number(userId) && user.username !== username) {
+			console.log("users online found");
+			const userTr = document.createElement("tr");
+			userTr.innerHTML = `
 				<th scope="row">${index + 1}</th>
-				<td>${user.username}</td>
 				<td>
-					<button class="btn btn-primary">Message</button>
-					<button class="btn btn-outline-success">add</button>
+					<a href="" class="user-link" id="userLink"  data-link>${user.username}</a>
 				</td>
-			</tr>
-        `;
+				<td>
+					<button class="btn btn-primary" id="sendMessage">Message</button>
+					<button class="btn btn-outline-success" id="addUser">add</button>
+				</td>
+			`;
 
-        userList.appendChild(userElement);
-	});
+			userList.appendChild(userTr);
+		} else {
+			console.log("no users online");
+		}
+	}
 };
+
+const seendMsgEventListenner = (sendMessageBtn) => {
+	sendMessageBtn.addEventListener("click", (e) => {
+		e.preventDefault();
+		chatBox.style.display = chatBox.style.display === 'block';
+	});
+}

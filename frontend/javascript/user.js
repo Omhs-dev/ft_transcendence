@@ -362,7 +362,7 @@ sideNavSection.addEventListener("click", (e) => {
 	
 	if (e.target.classList.contains("users")) {
 		console.log("users online found");
-		getOnlineUsers();
+		// getOnlineUsers();
 	} else if (e.target.classList.contains("requests")) {
 		console.log("friend requests found");
 		fetchFriendRequests();
