@@ -1043,6 +1043,7 @@
 			chatSocket.onmessage = function (e) {
 				const data = JSON.parse(e.data);
 
+				console.log("data.type: ", data.type);
 				if (data.type === 'disconnect')
 					console.error(`WebSocket connection closed unexpectedly with code: ${data.reason}.`);
 

@@ -7,12 +7,13 @@ const closeChat = document.getElementById('closeChat');
 const chatInput = document.getElementById('chatInput');
 const messageContainer = document.getElementById('messages');
 const sendButton = document.getElementById('sendButton');
+const notificationNbr = document.getElementById('notificationNbr');
 
 // let userId = null;
 let chatSocket;
 let chatRoomId = null;
 let onlineUsers = {};
-const roomName = 'general';
+let notificationCount = 0;
 
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const wsUrl = `${protocol}${window.location.hostname}:8000/ws/chat/`;
@@ -25,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	if (userId && username) {
 		console.log("loaded connecting to websocket");
 		connectWebSocket();
-		
+		updateOnlineUsers();
 	}
 });
 
@@ -38,6 +39,7 @@ window.addEventListener('load', () => {
 		&& localStorage.getItem("wsConnected") === "true") {
 		console.log("user is logged in connecting to websocket");
 		connectWebSocket();
+		updateOnlineUsers();
 	}
 });
 
@@ -79,7 +81,7 @@ function connectWebSocket() {
 		} else if (data.type === "user.status") {
 			console.log("type: user status");
 			onlineUsers = data.online_users;
-
+			updateOnlineUsers();
 			console.log("online users: ", onlineUsers);
 		} else if (data.type === "chat_request") {
 			chatRoomId = data.chat_room_id;
@@ -109,6 +111,7 @@ function connectWebSocket() {
 // Show or Hide Chatbox on Icon Click
 chatIcon.addEventListener('click', () => {
 	chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+	decrementNotificationCount();
 });
 
 // Close Chatbox
@@ -186,7 +189,7 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 	// Create the "Reply" button
 	const replyButton = document.createElement('button');
 	replyButton.textContent = "Reply";
-	replyButton.classList.add('btn', 'btn-succes', 'btn-sm', 'me-2');
+	replyButton.classList.add('btn', 'btn-success', 'btn-sm', 'me-2');
 
 	// Event listener for reply
 	replyButton.addEventListener('click', () => {
@@ -205,6 +208,9 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 		popup.remove();
 	});
 
+	setTimeout(() => {
+		popup.remove();
+	}, 4000);
 	// Append elements to the popup
 	popup.appendChild(message);
 	popup.appendChild(replyButton);
@@ -212,6 +218,25 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 
 	// Append to body
 	document.body.appendChild(popup);
+
+	notifyUserIcon();
+}
+
+function notifyUserIcon() {
+	notificationCount++;
+	notificationNbr.style.background = '#ed2f2f';
+	notificationNbr.style.border = '3px solid #1C3644;';
+	notificationNbr.textContent = notificationCount;
+}
+
+function decrementNotificationCount() {
+	notificationCount--;
+	notificationNbr.textContent = notificationCount;
+
+	if (notificationCount === 0) {
+		notificationNbr.style.background = 'none';
+		notificationNbr.style.border = 'none';
+	}
 }
 
 function startChat(receiverId, receiverUsername, chatRoomId) {

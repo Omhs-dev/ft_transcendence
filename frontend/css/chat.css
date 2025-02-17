@@ -135,6 +135,24 @@
     animation: fadeIn 0.3s ease-in-out;
 }
 
+#notificationNbr {
+    position: absolute;
+    top: 18px;
+    right: 10rem;
+    transform: translate(50%, -50%);
+    /* background-color: #ed2f2f; */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 100%;
+	/* border: 3px solid #1C3644; */
+    width: 20px;
+	height: 20px;
+    text-align: center;
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
+}
+
 /* Animation for fade-in effect */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
