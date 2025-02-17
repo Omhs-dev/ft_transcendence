@@ -1,41 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Whitney:wght@300;400;600&display=swap');
+
 #chatIcon {
+	color: white;
+	background-color: #1c3644 !important;
+	padding-bottom: 10px;
+	border-top-left-radius: 10px;
 	position: fixed;
-	bottom: 20px;
-	right: 20px;
+	bottom: 0px;
+	right: 0px;
 	z-index: 9999;
 	cursor: pointer;
-  }
+	width: 13rem;
+	height: 50px;
+}
 
-  /* Chatbox Styles */
-  #chatBox {
-	position: fixed;
-	bottom: 70px;
-	right: 20px;
+/* Chatbox */
+#chatBox {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+	height: 500px;
+    width: 400px;
+    max-height: 450px;
+    background-color: #22333d;
+    border-radius: 8px;
+    display: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+}
+
+/* Chat Header */
+#chatBoxHeader {
+    background-color: #273944;
+    color: #b5bac1;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 16px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: 1px solid #232428;
+}
+
+/* Chat Messages - Scrollable */
+#chatMessages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+/* Input Area */
+#chatInputArea {
+	margin-top: 210px;
+    display: flex;
+    align-items: center;
+    background-color: #22333d;
+    padding: 10px;
+    border-top: 1px solid #232428;
+}
+
+#chatInput {
+    flex: 1;
+	min-height: 40px;
 	width: 300px;
-	max-height: 400px;
-	background-color: white;
-	border: 1px solid #ddd;
-	border-radius: 10px;
-	display: none;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-	z-index: 9999;
-  }
+    border: none;
+    background: #293f4c;
+    color: white;
+    font-size: 14px;
+    padding: 8px;
+    border-radius: 5px;
+    outline: none;
+    resize: none; /* Prevents textarea from being resized manually */
+}
 
-  #chatBoxHeader {
-	background-color: #007bff;
-	color: white;
-	padding: 10px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-  }
+#sendButton {
+	width: 70px;
+    background-color: #5865F2;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+	font-weight: bold;
+}
 
-  #chatMessages {
-	max-height: 250px;
-	overflow-y: auto;
-	padding: 10px;
-  }
+#chatForm {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input & button */
+}
 
-  #chatInputArea {
-	padding: 10px;
-	border-top: 1px solid #ddd;
-  }
+#sendButton:hover {
+    background-color: #4752C4;
+}
+
+/* 🎮 Invite Button - Sticks to Bottom */
+#inviteContainer {
+    padding: 10px;
+    background-color: #1e1f22;
+    text-align: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+#inviteButton {
+    background-color: #3ba55d;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+    width: 100%;
+}
+
+#inviteButton:hover {
+    background-color: #2e7c47;
+}

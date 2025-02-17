@@ -10,6 +10,7 @@ const sendButton = document.getElementById('sendButton');
 
 // let userId = null;
 let chatSocket;
+let chatRoom = null;
 let onlineUsers = {};
 const roomName = 'general';
 
@@ -59,6 +60,9 @@ function connectWebSocket() {
 			onlineUsers = data.online_users;
 
 			console.log("online users: ", onlineUsers);
+		} else if (data.type === "chat_request") {
+			console.log("type: chat_request");
+			console.log("chat request data: ", data);
 		}
 	};
 
@@ -114,15 +118,22 @@ const updateOnlineUsers = () => {
 			`;
 
 			userList.appendChild(userTr);
+
+			const sendMessageBtn = document.querySelector("#sendMessage");
+			seendMsgEventListenner(sendMessageBtn, user.username);
 		} else {
 			console.log("no users online");
 		}
 	}
 };
 
-const seendMsgEventListenner = (sendMessageBtn) => {
+const seendMsgEventListenner = (sendMessageBtn, userName) => {
 	sendMessageBtn.addEventListener("click", (e) => {
 		e.preventDefault();
-		chatBox.style.display = chatBox.style.display === 'block';
+		chatBox.style.display = 'block';
+
+		const messageTo = document.querySelector("#messageTo");
+		console.log("message to: ", messageTo);
+		messageTo.textContent = `# ${userName}`;
 	});
 }
