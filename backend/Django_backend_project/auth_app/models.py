@@ -1,5 +1,5 @@
 from django.core.validators import RegexValidator
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 from PIL import Image
 import pyotp

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
-from auth_app.models import Profile
+# from auth_app.models import Profile
 
 
 class BlockedUser(models.Model):

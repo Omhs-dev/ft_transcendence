@@ -6,13 +6,7 @@ from django.shortcuts import render
 
 
 # urls.py
-from django.urls import path
-from .AuthII_utils import *
-
-urlpatterns = [
-]
-
-
+from .AuthII_utils import initiate_42_oauth, callback_42_auth
 
 urlpatterns = [
     path('register/', views.registration_page, name='register'),  # HTML registration page

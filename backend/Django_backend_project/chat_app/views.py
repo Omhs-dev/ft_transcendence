@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import ChatMessage, BlockedUser, PongInvitation, Profile, FriendRequest
+from .models import ChatMessage, BlockedUser, PongInvitation, FriendRequest
 from django.contrib.auth.models import User
 from auth_app.models import Profile
 from rest_framework import status
