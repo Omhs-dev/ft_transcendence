@@ -67,9 +67,9 @@ function connectWebSocket() {
 		const data = JSON.parse(e.data);
 
 		const currentUserId = localStorage.getItem('userId');
-		// console.log('Data:', data);
-		console.log('userId:', currentUserId);
-		// console.log("online status", data.type);
+		console.log('Data:', data);
+		// console.log('userId:', currentUserId);
+		console.log("online status", data.type);
 
 		if (data.type === "online_status") {
 			console.log("type: online status");
@@ -94,6 +94,12 @@ function connectWebSocket() {
 			if (data.target_id === currentUserId) {
 				showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
 			}
+		} else if (data.type === "chat_message") {
+			console.log("type: chat_message");
+			console.log("chat message data: ", data);
+			console.log("message timestamp: ", data.timestamp);
+			console.log("message is read: ", data.is_read);
+			displayMessageInChat(data.sender_id, data.sender, data.message);
 		}
 	};
 
@@ -171,6 +177,32 @@ const seendMsgEventListenner = (sendMessageBtn, userName) => {
 	});
 }
 
+function displayMessageInChat(senderId, sender, message) {
+	const chatMessages = document.getElementById('chatMessages');
+	const noMessage = document.getElementById('noMessages');
+	const messageElement = document.createElement('div');
+
+	console.log("chat messages: ", chatMessages);
+	console.log("message element: ", messageElement);
+	console.log("senderId: ", senderId);
+
+	noMessage.innerHTML = '';
+
+	messageElement.classList.add('chat-message', 'd-flex', 'me-2');
+	messageElement.style.borderBottom = '1px solid #344b5b';
+	messageElement.innerHTML += `
+		<img src="./assets/user.png" alt="Helio" class="chat-avatar">
+		<div class="chat-content">
+			<span class="chat-username">${sender}</span>
+			<span class="chat-timestamp">Today at 2:39 PM</span>
+			<p class="chat-text">${message}</p>
+		</div>
+	`;
+
+	chatMessages.prepend(messageElement);
+	chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
 function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {
 	// Remove existing popup if it exists
 	const existingPopup = document.querySelector('.incoming-message-popup');
@@ -230,14 +262,15 @@ function notifyUserIcon() {
 }
 
 function decrementNotificationCount() {
-	notificationCount--;
 	notificationNbr.textContent = notificationCount;
-
+	
 	if (notificationCount === 0) {
 		notificationNbr.style.background = 'none';
 		notificationNbr.style.border = 'none';
 		notificationNbr.textContent = '';
+		return;
 	}
+	notificationCount--;
 }
 
 function startChat(receiverId, receiverUsername, chatRoomId) {
