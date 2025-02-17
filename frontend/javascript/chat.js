@@ -236,6 +236,7 @@ function decrementNotificationCount() {
 	if (notificationCount === 0) {
 		notificationNbr.style.background = 'none';
 		notificationNbr.style.border = 'none';
+		notificationNbr.textContent = '';
 	}
 }
 
