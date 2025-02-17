@@ -10,7 +10,7 @@ const sendButton = document.getElementById('sendButton');
 
 // let userId = null;
 let chatSocket;
-let chatRoom = null;
+let chatRoomId = null;
 let onlineUsers = {};
 const roomName = 'general';
 
@@ -61,8 +61,10 @@ function connectWebSocket() {
 
 			console.log("online users: ", onlineUsers);
 		} else if (data.type === "chat_request") {
+			chatRoomId = data.chat_room_id;
 			console.log("type: chat_request");
 			console.log("chat request data: ", data);
+			showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
 		}
 	};
 
@@ -136,4 +138,67 @@ const seendMsgEventListenner = (sendMessageBtn, userName) => {
 		console.log("message to: ", messageTo);
 		messageTo.textContent = `# ${userName}`;
 	});
+}
+
+function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {
+	// Remove existing popup if it exists
+	const existingPopup = document.querySelector('.incoming-message-popup');
+	if (existingPopup) {
+		existingPopup.remove();
+	}
+
+	// Create the popup container
+	const popup = document.createElement('div');
+	popup.classList.add('incoming-message-popup', 'alert', 'alert-dark', 'shadow-lg', 'fade', 'show');
+
+	// Create the popup message
+	const message = document.createElement('p');
+	message.innerHTML = `<strong>${creatorUsername}</strong> sent you a message.`;
+
+	// Create the "Reply" button
+	const replyButton = document.createElement('button');
+	replyButton.textContent = "Reply";
+	replyButton.classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
+
+	// Event listener for reply
+	replyButton.addEventListener('click', () => {
+		startChat(creatorId, creatorUsername, chatRoomId);
+		displayMessageInChat(creatorId, creatorUsername, received_message);
+		popup.remove(); // Remove the popup after clicking reply
+	});
+
+	// Create a "Close" button
+	const closeButton = document.createElement('button');
+	closeButton.textContent = "Close";
+	closeButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
+
+	// Event listener for closing the popup
+	closeButton.addEventListener('click', () => {
+		popup.remove();
+	});
+
+	// Append elements to the popup
+	popup.appendChild(message);
+	popup.appendChild(replyButton);
+	popup.appendChild(closeButton);
+
+	// Append to body
+	document.body.appendChild(popup);
+}
+
+function startChat(receiverId, receiverUsername, chatRoomId) {
+	const chatArea = document.getElementById('chatArea');
+	const chatWith = document.getElementById('chatWith');
+	const chatMessages = document.getElementById('chatMessages');
+
+	chatArea.style.display = 'block';
+	chatWith.textContent = `Chat with: ${receiverUsername}`;
+	chatArea.dataset.userId = receiverId;
+	chatMessages.innerHTML = ''; // Clear previous messages
+
+	console.debug("chatRoomId in startChat: ", chatRoomId);
+	if (!chatRoomId)
+		chatRoomId = globalChatRoomId;
+
+	document.getElementById('sendMessage').onclick = () => sendMessage(receiverId, receiverUsername, globalChatRoomId);
 }
