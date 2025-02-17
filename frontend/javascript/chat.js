@@ -18,7 +18,27 @@ const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const wsUrl = `${protocol}${window.location.hostname}:8000/ws/chat/`;
 
 document.addEventListener('DOMContentLoaded', () => {
-	connectWebSocket();
+	const userId = localStorage.getItem('userId');
+	const username = localStorage.getItem('username');
+	console.log("userId: ", userId);
+
+	if (userId && username) {
+		console.log("loaded connecting to websocket");
+		connectWebSocket();
+		
+	}
+});
+
+window.addEventListener('load', () => {
+	const userId = localStorage.getItem('userId');
+	const username = localStorage.getItem('username');
+	console.log("userId: ", userId);
+
+	if (userId && username
+		&& localStorage.getItem("wsConnected") === "true") {
+		console.log("user is logged in connecting to websocket");
+		connectWebSocket();
+	}
 });
 
 sideNavSection.addEventListener("click", (e) => {
@@ -37,15 +57,16 @@ function connectWebSocket() {
 
 	chatSocket.onopen = () => {
 		console.log('Connected to chat WebSocket');
+		localStorage.setItem("wsConnected", "true");
 	};
 
 	chatSocket.onmessage = (e) => {
 		console.log("message received");
 		const data = JSON.parse(e.data);
 
-		const userId = localStorage.getItem('userId');
+		const currentUserId = localStorage.getItem('userId');
 		// console.log('Data:', data);
-		// console.log('userId:', userId);
+		console.log('userId:', currentUserId);
 		// console.log("online status", data.type);
 
 		if (data.type === "online_status") {
@@ -64,7 +85,13 @@ function connectWebSocket() {
 			chatRoomId = data.chat_room_id;
 			console.log("type: chat_request");
 			console.log("chat request data: ", data);
-			showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
+			if (data.creator_id === Number(currentUserId)) {
+				console.log("sening message to: ", data.receiver_id);
+				// startChat(data.receiver_id, data.receiver_username, chatRoomId);
+			}
+			if (data.target_id === currentUserId) {
+				showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
+			}
 		}
 	};
 
@@ -75,6 +102,7 @@ function connectWebSocket() {
 	chatSocket.onclose = () => {
 		console.log('WebSocket closed');
 		chatSocket = null; // Clear reference to WebSocket
+		localStorage.removeItem("wsConnected"); // Remove flag on disconnect
 	};
 }
 
@@ -158,7 +186,7 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 	// Create the "Reply" button
 	const replyButton = document.createElement('button');
 	replyButton.textContent = "Reply";
-	replyButton.classList.add('btn', 'btn-primary', 'btn-sm', 'me-2');
+	replyButton.classList.add('btn', 'btn-succes', 'btn-sm', 'me-2');
 
 	// Event listener for reply
 	replyButton.addEventListener('click', () => {

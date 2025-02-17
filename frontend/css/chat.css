@@ -122,11 +122,12 @@
 .incoming-message-popup {
     position: fixed;
     bottom: 20px;
-    right: 20px;
-    width: 280px;
-    background: #2b2d31;
+    right: 0px;
+    width: 13rem;
+    background: #1C3644;
     color: white;
     padding: 15px;
+	border: none;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
