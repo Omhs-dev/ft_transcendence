@@ -4,7 +4,7 @@ import { sideNavSection } from "./utils/sideNavUtil.js";
 const chatIcon = document.getElementById('chatIcon');
 const chatBox = document.getElementById('chatBox');
 const closeChat = document.getElementById('closeChat');
-const chatInput = document.getElementById('chatInput');
+// const chatInput = document.getElementById('chatInput');
 const messageContainer = document.getElementById('messages');
 const sendButton = document.getElementById('sendButton');
 const notificationNbr = document.getElementById('notificationNbr');
@@ -89,7 +89,7 @@ function connectWebSocket() {
 			console.log("chat request data: ", data);
 			if (data.creator_id === Number(currentUserId)) {
 				console.log("sening message to: ", data.receiver_id);
-				// startChat(data.receiver_id, data.receiver_username, chatRoomId);
+				sendMessage(data.receiver_id, data.receiver_username, chatRoomId);
 			}
 			if (data.target_id === currentUserId) {
 				showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
@@ -273,19 +273,65 @@ function decrementNotificationCount() {
 	notificationCount--;
 }
 
-function startChat(receiverId, receiverUsername, chatRoomId) {
-	const chatArea = document.getElementById('chatArea');
-	const chatWith = document.getElementById('chatWith');
-	const chatMessages = document.getElementById('chatMessages');
+// function sendMessage(receiverId, receiverUsername, chatRoomId) {
+	const chatSubmit = document.getElementById('chatForm');
+	const chatInput = document.getElementById('chatInput');
+	const message = chatInput.value;
 
-	chatArea.style.display = 'block';
-	chatWith.textContent = `Chat with: ${receiverUsername}`;
-	chatArea.dataset.userId = receiverId;
-	chatMessages.innerHTML = ''; // Clear previous messages
+	console.log("send button: ", sendButton);
+	// console.log("chat submit: ", chatSubmit);
+	console.log("chat input: ", chatInput);
 
-	console.debug("chatRoomId in startChat: ", chatRoomId);
-	if (!chatRoomId)
-		chatRoomId = globalChatRoomId;
+	// if (message.trim() === '') {
+	// 	return;
+	// }
 
-	document.getElementById('sendMessage').onclick = () => sendMessage(receiverId, receiverUsername, globalChatRoomId);
+	// sendButton.addEventListener('click', (e) => {
+	// 	e.preventDefault();
+
+	// 	console.log('Send button clicked');
+	// 	if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+	// 		console.log('Sending message:', message);
+	// 		sendMessageToSocket(receiverId, receiverUsername, chatRoomId);
+	// 	} else {
+	// 		console.error('WebSocket is not open');
+	// 	}
+	// });
+
+	chatSubmit.addEventListener('submit', (e) => {
+		e.preventDefault();
+
+		console.log('Form submitted');
+		if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+			console.log('Sending message:', message);
+			sendMessageToSocket("hello you", "1", "admin", chatRoomId);
+		} else {
+			console.error('WebSocket is not open');
+		}
+		chatInput.value = '';
+	});
+
+// }
+
+function sendMessageToSocket(message, receiverId, receiverUsername, chatRoomId) {
+	console.log("sending message to socket");
+	const currentUserId = localStorage.getItem('userId');
+	const username = localStorage.getItem('username');
+	const data = {
+		type: 'chat_message',
+		message: message,
+		// sender_id: Number(currentUserId),
+		// sender: username,
+		receiver_id: receiverId,
+		// receiver: receiverUsername,
+		chat_room_id: chatRoomId
+	};
+
+	chatSocket.send(JSON.stringify(data));
+
+	displayMessageInChat(Number(currentUserId), username, message);
 }
+
+// function handleChatInputSubmit(chatInput, chatSubmit) {
+	
+// }
