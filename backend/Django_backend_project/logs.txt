@@ -2,217 +2,3054 @@ DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
-DEBUG Signal: create_or_update_user_profile triggered
 INFO Watching for file changes with StatReloader
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43024]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43024]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!fc0e4c80059746a88ddfee418dd8d1c9
-INFO Starting game inside ... gID: 765442 and the user2ID:2 
-INFO User 1: admin, User 2: None
-INFO [mHTTP GET /game/ 200 [0.08, 172.18.0.1:36996][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43024]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!fc0e4c80059746a88ddfee418dd8d1c9
-INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:36996][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:37008][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:36982][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:37008][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:37008][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:37008][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:37008][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:40802]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:40802]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!cf6af723690c4bd2b49b828097c1ed37
-INFO Starting game inside ... gID: 590514 and the user2ID:2 
-INFO User 1: admin, User 2: None
-ERROR Game 478435 not found.
-ERROR Game 478435 not found.
-ERROR Game 478435 not found.
-ERROR Game 478435 not found.
-ERROR Game 478435 not found.
-INFO [mHTTP GET /auth/register/ 200 [0.06, 172.18.0.1:44814][0m
-INFO [32mHTTP GET /admin/auth_app/profile/ 302 [0.29, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/login/?next=/admin/auth_app/profile/ 200 [0.06, 172.18.0.1:44814][0m
-DEBUG Signal: create_or_update_user_profile triggered
-DEBUG Signal: User admin logged in
-INFO [32mHTTP POST /admin/login/?next=/admin/auth_app/profile/ 302 [0.95, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/auth_app/profile/ 200 [0.16, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.05, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/auth/user/ 200 [0.16, 172.18.0.1:44814][0m
-INFO [mHTTP GET /static/admin/img/search.svg 200 [0.01, 172.18.0.1:44824][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.06, 172.18.0.1:44814][0m
-INFO [mHTTP GET /static/admin/img/sorting-icons.svg 200 [0.00, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/auth/user/add/ 200 [0.19, 172.18.0.1:44814][0m
-INFO [mHTTP GET /static/admin/js/prepopulate_init.js 200 [0.01, 172.18.0.1:43262][0m
-INFO [mHTTP GET /static/admin/css/unusable_password_field.css 200 [0.01, 172.18.0.1:43246][0m
-INFO [mHTTP GET /static/admin/css/forms.css 200 [0.02, 172.18.0.1:44824][0m
-INFO [mHTTP GET /static/admin/css/widgets.css 200 [0.00, 172.18.0.1:43246][0m
-INFO [mHTTP GET /static/admin/js/change_form.js 200 [0.00, 172.18.0.1:43246][0m
-INFO [mHTTP GET /static/admin/js/unusable_password_field.js 200 [0.01, 172.18.0.1:43246][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.08, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/auth/user/ 200 [0.13, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/ 200 [0.14, 172.18.0.1:44814][0m
-INFO [mHTTP GET /auth/register/ 200 [0.04, 172.18.0.1:44814][0m
-DEBUG Request data: {'username': 'narcisse', 'email': 'narcisseobadiahdm@gmail.com', 'password': '11111111'}
-DEBUG Signal: create_or_update_user_profile triggered
-INFO [mHTTP POST /auth/api/register/ 201 [0.94, 172.18.0.1:44814][0m
-INFO [mHTTP GET /__debug__/history_sidebar/?store_id=f61f5fd4611a40cd8b5e03963c8ef640 200 [0.03, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/auth/user/ 200 [0.15, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.13, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/auth/user/ 200 [0.25, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.06, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/game_logic_app/player/ 200 [0.24, 172.18.0.1:44814][0m
-INFO [mHTTP GET /admin/jsi18n/ 200 [0.09, 172.18.0.1:44814][0m
-INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:54980][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:40802]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!cf6af723690c4bd2b49b828097c1ed37
-INFO [mHTTP GET /static/js/pong.js 200 [0.04, 172.18.0.1:54992][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.03, 172.18.0.1:55006][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.05, 172.18.0.1:54980][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:55006][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:55006][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:55006][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:55006][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:55014]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:55014]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!ec61ccad68a7463587383ad8941f2c21
-INFO Starting game inside ... gID: 232211 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 232211 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:43562][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:55014]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!ec61ccad68a7463587383ad8941f2c21
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:43562][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.03, 172.18.0.1:43572][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:43576][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:43576][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.02, 172.18.0.1:43562][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:43562][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:43562][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43590]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43590]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!c90fcb7980eb407faba5ad62b4ea961d
-INFO Starting game inside ... gID: 685348 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 685348 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.04, 172.18.0.1:40902][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43590]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!c90fcb7980eb407faba5ad62b4ea961d
-INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:40894][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:40902][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:40904][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:40904][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40904][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:40904][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:40904][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:40914]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:40914]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!4164451a3a0f4426979d1008319bee9c
-INFO Starting game inside ... gID: 583105 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 583105 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:46968][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:40914]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!4164451a3a0f4426979d1008319bee9c
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:46974][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:46968][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46970][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.06, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:46970][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:46990]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:46990]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!59fe45099d0541bb918dce492f8ccc61
-INFO Starting game inside ... gID: 934917 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 934917 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.08, 172.18.0.1:46970][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:46990]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!59fe45099d0541bb918dce492f8ccc61
-INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:46974][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:46968][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.02, 172.18.0.1:46968][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:46970][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:52100]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:52100]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!833c6b07effb4e7ea4be75ccb6fc8ff9
-INFO Starting game inside ... gID: 336647 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 336647 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:46970][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:52100]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!833c6b07effb4e7ea4be75ccb6fc8ff9
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:46974][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:46970][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:46968][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:46968][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:46968][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:46968][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:46968][0m
-INFO [mHTTP GET /game/ 200 [0.03, 172.18.0.1:40400][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:40400][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:40422][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:40408][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:40408][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40408][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:40408][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:40408][0m
-INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:40408][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:40422][0m
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:40408][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:40400][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:40422][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40422][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:40422][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.00, 172.18.0.1:40422][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:41266]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:41266]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!80a0f1a6b8df4b2a9d946682fdb66d6a
-INFO Starting game inside ... gID: 403449 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 403449 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:43350][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:41266]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!80a0f1a6b8df4b2a9d946682fdb66d6a
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:43350][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:43354][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:43360][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:43360][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:43360][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.03, 172.18.0.1:43360][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:43360][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43370]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43370]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!9dc67cbfb71e41cc97340c0900b10e93
-INFO Starting game inside ... gID: 185389 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 185389 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
-INFO [mHTTP GET /game/ 200 [0.03, 172.18.0.1:42188][0m
-INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43370]
-INFO WebSocket disconnected: specific.c45f0d4c37814661813963f55466d36c!9dc67cbfb71e41cc97340c0900b10e93
-INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 172.18.0.1:42204][0m
-INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 172.18.0.1:42212][0m
-INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:42188][0m
-INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:42212][0m
-INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:42212][0m
-INFO [32mHTTP GET /favicon.ico 301 [0.04, 172.18.0.1:42212][0m
-INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:42212][0m
-INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:42224]
-INFO WebSocket CONNECT /ws/game/ [172.18.0.1:42224]
-INFO WebSocket connected: specific.c45f0d4c37814661813963f55466d36c!a6fcaa66cbf4428f9cd851e5aded1fa3
-INFO Starting game inside ... gID: 708364 and the user2ID:2 
-INFO User 1: admin, User 2: narcisse
-INFO Game 708364 created with state 'in_progress'
-INFO Game state after creation/update: in_progress
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.10, 172.18.0.1:37742][0m
+INFO [mHTTP GET /game/ 200 [0.10, 172.18.0.1:57628][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:57632][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.03, 172.18.0.1:57628][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:57638][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.02, 172.18.0.1:57638][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.02, 172.18.0.1:57628][0m
+INFO [mHTTP GET /game/ 200 [0.04, 172.18.0.1:47038][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.03, 172.18.0.1:47038][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:57544]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:57544]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!5812099be0b549c19e2957762d64a170
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:42242]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:42242]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!31155ba81ba34681b68e78d233f1261a
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:57544]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:34824]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:34824]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!2237561e10c7493cb7bc4be410241e69
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:34824]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:44082]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:44082]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!212dcf3a9dc5443fada075104826eaaf
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: None
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:42242]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:46416]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:46416]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!c56ed0f2e49b4f878985c21dba674b4c
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 3
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:46416]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:46422]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:46422]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!c8914ebcc15c42a3a95842a68aeb0a3f
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 4
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:46422]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:53786]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:53786]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!e6449bfdad214cec8f2f7e57cb7592d8
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 5
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:53786]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:53788]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:53788]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!5e032a279e2a4f06bbbff99f87c610c5
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 6
+INFO Received action: move_paddle
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:53788]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:41792]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:41792]
+INFO WebSocket connected: specific.1f490d188aa04c1685e594aa42538b24!2ed124ad2d1640e78b605d27bcdf0d02
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 7
+INFO [mHTTP GET /game/ 200 [0.09, 172.18.0.1:41800][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:44082]
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:41800][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:41810][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.03, 172.18.0.1:41800][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.02, 172.18.0.1:41800][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.02, 172.18.0.1:41810][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.12, 172.18.0.1:41810][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.03, 172.18.0.1:41810][0m
+INFO [mHTTP GET /game/ 200 [0.12, 172.18.0.1:41822][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:41792]
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:41822][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.02, 172.18.0.1:41828][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.04, 172.18.0.1:41838][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:41838][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:41838][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.07, 172.18.0.1:41838][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.02, 172.18.0.1:41838][0m
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.09, 172.18.0.1:51186][0m
+INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:46460][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:46460][0m
+INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:59726][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:59726][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:51902]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:51902]
+INFO WebSocket connected: specific.513194da59144c369a16017045cd20aa!fd0bb37911194a49bc8964a9c1d13389
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:51912]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:51912]
+INFO WebSocket connected: specific.513194da59144c369a16017045cd20aa!6e8c0413818c46879c2df597f861c573
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO Player: specific.513194da59144c369a16017045cd20aa!fd0bb37911194a49bc8964a9c1d13389, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:51902]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:45288]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:45288]
+INFO WebSocket connected: specific.513194da59144c369a16017045cd20aa!927dd17ab7db4802b26aa53338fce6a1
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO Received action: move_paddle
+INFO Player: specific.513194da59144c369a16017045cd20aa!6e8c0413818c46879c2df597f861c573, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:51912]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:58192]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:58192]
+INFO WebSocket connected: specific.513194da59144c369a16017045cd20aa!9660263699b5462aa1fe866a676460a4
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: None
+INFO Received action: move_paddle
+INFO Player: specific.513194da59144c369a16017045cd20aa!9660263699b5462aa1fe866a676460a4, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:58192]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:40536]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:40536]
+INFO WebSocket connected: specific.513194da59144c369a16017045cd20aa!a973e602cfc84cde9771fdc466a6ab81
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 3
+INFO [mHTTP GET /game/ 200 [0.10, 172.18.0.1:40542][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:45288]
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.03, 172.18.0.1:40542][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.04, 172.18.0.1:40550][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.03, 172.18.0.1:40562][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.02, 172.18.0.1:40562][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40562][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.11, 172.18.0.1:40562][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.03, 172.18.0.1:40562][0m
+INFO [mHTTP GET /game/ 200 [0.11, 172.18.0.1:40574][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:40536]
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.02, 172.18.0.1:40598][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.03, 172.18.0.1:40590][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.03, 172.18.0.1:40574][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.00, 172.18.0.1:40598][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:40598][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.07, 172.18.0.1:40598][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:40598][0m
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.13, 172.18.0.1:59348][0m
+INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:34256][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:34256][0m
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:49350][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:49350][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:44938]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:44938]
+INFO WebSocket connected: specific.f9d073b652f448bcbecf01965cd3fac1!babf0bd656c14c8cb03f9d57f76a159c
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:44666]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:44666]
+INFO WebSocket connected: specific.f9d073b652f448bcbecf01965cd3fac1!48b4cfbd638e4b8f9b7b4121d2195853
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!48b4cfbd638e4b8f9b7b4121d2195853, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:44666]
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!babf0bd656c14c8cb03f9d57f76a159c, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:44938]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43368]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43368]
+INFO WebSocket connected: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:43372]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:43372]
+INFO WebSocket connected: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: None
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 130
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 130
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 130
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 130
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 130
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 150
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43, Position: 190
+WARNING Invalid input from specific.f9d073b652f448bcbecf01965cd3fac1!06dc3473d3904283b406c4f483e30f43
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO Received action: move_paddle
+INFO Player: specific.f9d073b652f448bcbecf01965cd3fac1!f87a9137f7504b8d8ebbc942b613b9c6, Position: 170
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43372]
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:43368]
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.11, 172.18.0.1:48974][0m
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:57524][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.00, 172.18.0.1:57524][0m
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:57530][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:57530][0m
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:57530][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.01, 172.18.0.1:57530][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:39140]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:39140]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!808a19e908214498a57a30adbbb305f4
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:39148]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:39148]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!808a19e908214498a57a30adbbb305f4, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:39140]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:52216]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:52216]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!997f1f1f8dc946f08d219087d2d96a2a
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!997f1f1f8dc946f08d219087d2d96a2a, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:52216]
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:58028]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:58028]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!6aa1d25ab65746f0a05dc4fc5945a5e9
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: None
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 170
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.4cf5cb62ed05498e8f5e430764121c66!7b48e9f22ea64734b7f41b15cf1177db, Position: 130
+INFO [mHTTP GET /game/ 200 [0.11, 172.18.0.1:47304][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:58028]
+INFO [36mHTTP GET /static/js/pong.js 304 [0.02, 172.18.0.1:47304][0m
+INFO [mHTTP GET /game/ 200 [0.10, 172.18.0.1:47324][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:39148]
+INFO [mHTTP GET /static/js/pong.js 200 [0.12, 172.18.0.1:47336][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.13, 172.18.0.1:47324][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.03, 172.18.0.1:47346][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 172.18.0.1:47346][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 172.18.0.1:47346][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.12, 172.18.0.1:47346][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 172.18.0.1:47346][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:49834]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:49834]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!3ad182b2f3514a788d3a97e5a39908aa
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO [mHTTP GET /game/ 200 [0.11, 172.18.0.1:47304][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:49834]
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:47304][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:58892]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:58892]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!759193451d9945669a1e6287cdc2b7bb
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:58896]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:58896]
+INFO WebSocket connected: specific.4cf5cb62ed05498e8f5e430764121c66!07550218b5784486bcabcc031bd7cd67
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 3
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:58896]
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:58892]
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.14, 172.18.0.1:57556][0m
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:55700][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.00, 172.18.0.1:55700][0m
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:38626][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:38626][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:39130]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:39130]
+INFO WebSocket connected: specific.52097e77039c4dbf8ba798c2610f53ca!1b1d05f0ac3541549dde96f1eb1a0529
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:39144]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:39144]
+INFO WebSocket connected: specific.52097e77039c4dbf8ba798c2610f53ca!604435c6ff1b4647bf61b8e98e1dec54
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.52097e77039c4dbf8ba798c2610f53ca!604435c6ff1b4647bf61b8e98e1dec54, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:39144]
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:38094]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:38094]
+INFO WebSocket connected: specific.52097e77039c4dbf8ba798c2610f53ca!5df13fe6a8714568b87cb9e475997de6
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.52097e77039c4dbf8ba798c2610f53ca!1b1d05f0ac3541549dde96f1eb1a0529, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.52097e77039c4dbf8ba798c2610f53ca!1b1d05f0ac3541549dde96f1eb1a0529, Position: 130
+INFO Received action: move_paddle
+INFO None
+INFO Player: specific.52097e77039c4dbf8ba798c2610f53ca!1b1d05f0ac3541549dde96f1eb1a0529, Position: 130
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:38094]
+INFO [mHTTP GET /game/ 200 [0.11, 172.18.0.1:50210][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:39130]
+INFO [36mHTTP GET /static/js/pong.js 304 [0.00, 172.18.0.1:50210][0m
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:45966][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 172.18.0.1:45966][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:33176]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:33176]
+INFO WebSocket connected: specific.52097e77039c4dbf8ba798c2610f53ca!5b6ebcd6905849d59e73cee6654878ed
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:33188]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:33188]
+INFO WebSocket connected: specific.52097e77039c4dbf8ba798c2610f53ca!03d9b077145f4b8eb19e8fa6fdfd33df
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 3
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:33188]
+INFO [mHTTP GET /game/ 200 [0.12, 172.18.0.1:33410][0m
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:33176]
+INFO [mHTTP GET /static/js/pong.js 200 [0.02, 172.18.0.1:33410][0m
+INFO [mHTTP GET /game/ 200 [0.09, 172.18.0.1:33410][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.01, 172.18.0.1:33410][0m
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO /app/Django_backend_project/game_logic_app/game_logic.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.13, 172.18.0.1:33124][0m
+INFO [mHTTP GET /game/ 200 [0.07, 172.18.0.1:54526][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.01, 172.18.0.1:54526][0m
+INFO [mHTTP GET /game/ 200 [0.06, 172.18.0.1:34266][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.01, 172.18.0.1:34266][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:49726]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:49726]
+INFO WebSocket connected: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:49742]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:49742]
+INFO WebSocket connected: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 90
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 130
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc, Position: 130
+WARNING Invalid input from specific.a9e564ce128448eb849fe00e00082cb7!ac12f4cf42064ed2bf55a5cc676f7bdc
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.a9e564ce128448eb849fe00e00082cb7!88616357d59542539db45e7f6559bc09, Position: 230
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:49742]
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:49726]
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+WARNING Not Found: /
+WARNING [33mHTTP GET / 404 [0.10, 172.18.0.1:58826][0m
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:38240][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.01, 172.18.0.1:38240][0m
+INFO [mHTTP GET /game/ 200 [0.05, 172.18.0.1:47054][0m
+INFO [36mHTTP GET /static/js/pong.js 304 [0.01, 172.18.0.1:47054][0m
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:37710]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:37710]
+INFO WebSocket connected: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [172.18.0.1:37726]
+INFO WebSocket CONNECT /ws/game/ [172.18.0.1:37726]
+INFO WebSocket connected: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 290
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 310
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: -10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 290
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: -10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694, Position: 230
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!5f042b30d21843408c912c6988cd4694
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 70
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938, Position: 30
+WARNING Invalid input from specific.99bb14bc35a74663b0e94b617335aa42!a1526d94e0b549b483dfa20e5679d938
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:37726]
+INFO WebSocket DISCONNECT /ws/game/ [172.18.0.1:37710]
+ERROR Invalid HTTP_HOST header: '192.168.178.29:8000'. You may need to add '192.168.178.29' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/utils/deprecation.py", line 141, in __acall__
+    response = await sync_to_async(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/usr/local/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.178.29:8000'. You may need to add '192.168.178.29' to ALLOWED_HOSTS.
+WARNING Bad Request: /game
+WARNING [31;1mHTTP GET /game 400 [0.28, 192.168.178.52:54785][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.04, 192.168.178.52:54785][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.07, 192.168.178.52:54786][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.07, 192.168.178.52:54787][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.02, 192.168.178.52:54785][0m
+ERROR Invalid HTTP_HOST header: '192.168.178.29:8000'. You may need to add '192.168.178.29' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/utils/deprecation.py", line 141, in __acall__
+    response = await sync_to_async(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/usr/local/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.178.29:8000'. You may need to add '192.168.178.29' to ALLOWED_HOSTS.
+WARNING Bad Request: /game
+WARNING [31;1mHTTP GET /game 400 [0.31, 192.168.178.52:54790][0m
+ERROR Invalid HTTP_HOST header: '192.168.178.29:8000'. You may need to add '192.168.178.29' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 518, in thread_handler
+    raise exc_info[1]
+  File "/usr/local/lib/python3.10/site-packages/django/core/handlers/exception.py", line 42, in inner
+    response = await get_response(request)
+  File "/usr/local/lib/python3.10/site-packages/django/utils/deprecation.py", line 141, in __acall__
+    response = await sync_to_async(
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 468, in __call__
+    ret = await asyncio.shield(exec_coro)
+  File "/usr/local/lib/python3.10/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/local/lib/python3.10/site-packages/asgiref/sync.py", line 522, in thread_handler
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/usr/local/lib/python3.10/site-packages/django/http/request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.178.29:8000'. You may need to add '192.168.178.29' to ALLOWED_HOSTS.
+WARNING Bad Request: /game
+WARNING [31;1mHTTP GET /game 400 [0.15, 192.168.178.52:54790][0m
+INFO /app/Django_backend_project/settings/settings.py changed, reloading.
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO [32mHTTP GET /game 301 [0.04, 192.168.178.52:54791][0m
+INFO [mHTTP GET /game/ 200 [0.02, 192.168.178.52:54791][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.00, 192.168.178.52:54791][0m
+INFO [32mHTTP GET /game 301 [0.09, 192.168.178.29:58476][0m
+INFO [mHTTP GET /game/ 200 [0.04, 192.168.178.29:58476][0m
+INFO [mHTTP GET /static/js/pong.js 200 [0.01, 192.168.178.29:58476][0m
+INFO [mHTTP GET /static/debug_toolbar/js/toolbar.js 200 [0.01, 192.168.178.29:58494][0m
+INFO [mHTTP GET /static/debug_toolbar/css/toolbar.css 200 [0.01, 192.168.178.29:58478][0m
+INFO [mHTTP GET /static/debug_toolbar/css/print.css 200 [0.01, 192.168.178.29:58478][0m
+INFO [mHTTP GET /static/debug_toolbar/js/utils.js 200 [0.01, 192.168.178.29:58494][0m
+INFO [32mHTTP GET /favicon.ico 301 [0.05, 192.168.178.29:58494][0m
+INFO [mHTTP GET /static/images/favicon.ico 200 [0.01, 192.168.178.29:58494][0m
+INFO WebSocket HANDSHAKING /ws/game/ [192.168.178.52:54794]
+INFO WebSocket CONNECT /ws/game/ [192.168.178.52:54794]
+INFO WebSocket connected: specific.64ef19296bde478ba34a03fdcadf871a!5142bf256da24ce2a054f60776085a7f
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 1
+INFO WebSocket HANDSHAKING /ws/game/ [192.168.178.29:39582]
+INFO WebSocket CONNECT /ws/game/ [192.168.178.29:39582]
+INFO WebSocket connected: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: start_game
+INFO Player add
+INFO Request start
+INFO # players 2
+INFO Game started with ID: lobby
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+WARNING Invalid input from specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 290
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 310
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 290
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 310
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 270
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 10
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 30
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 50
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 70
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 90
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 250
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 230
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 210
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 190
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 170
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 150
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 130
+INFO Received action: move_paddle
+INFO lobby
+INFO Player: specific.64ef19296bde478ba34a03fdcadf871a!eb3d30977bf7413ea4e12f627c910389, Position: 110
+INFO WebSocket DISCONNECT /ws/game/ [192.168.178.52:54794]
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+INFO Watching for file changes with StatReloader
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received

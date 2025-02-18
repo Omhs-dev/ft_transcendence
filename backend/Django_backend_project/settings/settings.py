@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-*o&k&v7w7&9^242!1$^e#v&27)@0ltyiwx=rxz#0(^yk=h3=l_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django', '127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'django', '127.0.0.1', '*']
 
 
 # ALLOWED_HOSTS = ['transcendence.com', '0.0.0.0','192.168.65.1', "localhost", "django", intra_ip]
@@ -187,6 +187,8 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
             "hosts": [("redis_container", 6379)],
+            "capacity": 1500,  # default 100
+            "expiry": 10,  # default 60
         },
     },
 }
