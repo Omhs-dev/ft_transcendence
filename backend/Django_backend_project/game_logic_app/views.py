@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib.auth.decorators import login_required
-from .models import Tournament, Player
+from .models import Tournament
 from .utils import create_tournament, register_player_to_tournament, organize_tournament
 from django.http import JsonResponse
 import logging

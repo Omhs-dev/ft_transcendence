@@ -17,18 +17,29 @@ services:
     #   retries: 5
     #   start_period: 30s
     #   timeout: 10s
+    networks:
+      - webnet
 
   django:
     container_name: django_container
     build: ./backend/Django_Docker_files/
-    ports:
-      - "8000:8000"
+    environment:
+       - DJANGO_SETTINGS_MODULE=Django_backend_project.settings.settings
+    # ports:
+    #   - "8000:8000"
+    expose:
+      - 8000
     volumes:
       - ./backend:/app  # Mount backend folder into the container
+      - static_files:/app/staticfiles  # Mount static files volume
     depends_on:
       - postgres  # Ensure Django waits for PostgreSQL to be ready
     env_file: 
       - ./.env    # Load environment variables from .env file
+    networks:
+      webnet:
+        aliases:
+          - django
     stdin_open: true # Keep stdin open, so we can attach to the container for debugging with dpd in the django
     tty: true 
   
@@ -68,6 +79,8 @@ services:
     image: redis:6
     ports:
       - "6379:6379"
+    networks:
+      - webnet
 
   nginx:
     container_name: nginx_container
@@ -75,13 +88,20 @@ services:
       context: .
       dockerfile: ./nginx/Dockerfile
     ports:
-      - "80:80"
       - "443:443"
-    # volumes:
+      - "80:80"
+    volumes:
+      - static_files:/home/app/static  # Mount static files volume
     #   - ./nginx:/etc/nginx/conf.d  # Mount custom Nginx config
     depends_on:
       - django
+    networks:
+      - webnet
 
 volumes:
+  static_files:  # Define named volume for static files
   database:  # Define named volume for PostgreSQL persistence
   grafana-data:  # Define named volume for Grafana persistence
+networks:
+  webnet:
+    driver: bridge

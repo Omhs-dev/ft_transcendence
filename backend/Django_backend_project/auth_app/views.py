@@ -20,7 +20,7 @@ from django.utils.timezone import now
 from django.http import JsonResponse
 import qrcode
 from io import BytesIO
-from .IIFA_utils import *  # Ensure these utilities are implemented
+from .IIFA_utils import generate_and_send_Email_SMS_otp, verify_otp_code # Ensure these utilities are implemented
 import logging
 
 
