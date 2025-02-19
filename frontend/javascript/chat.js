@@ -94,20 +94,22 @@ function connectWebSocket() {
 			updateOnlineUsers();
 		} else if (data.type === "game_invite_received") {
 			const senderId = data.sender_id;
-			const senderUsername = onlineUsers[senderId].username;
+			const senderUsername = data.username;
 			const message = data.message;
 			const chatRoomId = data.chat_room_id;
-			if (senderId !== Number(currentUserId)) {
+			if (senderId !== currentUserId) {
 				showConfirmGamePopup(senderId, senderUsername, message, chatRoomId);
+			} else {
+				displayMessageInChat(senderId, senderUsername, message);
 			}
 		} else if (data.type === "game_invite_accepted") {
 			const player1_id = data.sender_id;
-					const player2_id = data.target_id;
-					const message = data.message;
-					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_accepted');
-					if (player1_id === currentUserId) {
-						// startGame(player1_id, player2_id);
-					}
+			const player2_id = data.target_id;
+			const message = data.message;
+			displayMessageInChat(player2_id, data.username, message);
+			if (player1_id === currentUserId) {
+				// startGame(player1_id, player2_id);
+			}
 		} else if (data.type === "game_invite_declined") {
 			const player1_id = data.sender_id;
 			const player2_id = data.target_id;
@@ -361,7 +363,7 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 	chatMessages.prepend(popup);
 }
 
-
+// Notification Icon
 function notifyUserIcon() {
 	notificationCount++;
 	notificationNbr.style.background = '#ed2f2f';
@@ -369,6 +371,7 @@ function notifyUserIcon() {
 	notificationNbr.textContent = notificationCount;
 }
 
+// Decrement Notification Count
 function decrementNotificationCount() {
 	notificationNbr.textContent = notificationCount;
 	
@@ -381,33 +384,44 @@ function decrementNotificationCount() {
 	notificationCount--;
 }
 
-	function collectMessageToSend() {
-		const chatInput = document.getElementById('chatInput');
-		const message = chatInput.value;
+// Send and invite to play game buttons event listeners
+function collectMessageToSend() {
+	const chatInput = document.getElementById('chatInput');
+	const message = chatInput.value;
+	
+	return message;
+}
 
-		return message;
+// Click to send message
+const chatSubmit = document.getElementById('chatForm');
+
+chatSubmit.addEventListener('submit', (e) => {
+	e.preventDefault();
+
+	const message = collectMessageToSend();
+	const chatRequest = localStorage.getItem('chatRequest');
+	const receiverId = localStorage.getItem('receiverId');
+
+	if (chatRequest === "true") {
+		sendChatRequest(message);
 	}
+	if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
+		console.log('Sending message:', message);
+		sendMessageToSocket(message, receiverId, chatRoomId);
+	} else {
+		console.error('WebSocket is not open');
+	}
+	chatInput.value = '';
+});
 
-	const chatSubmit = document.getElementById('chatForm');
+// click to send game invite
+const inviteToPlay = document.getElementById('inviteButton');
 
-	chatSubmit.addEventListener('submit', (e) => {
-		e.preventDefault();
+inviteToPlay.addEventListener('click', () => {
+	const message = "Let's play a game!";
 
-		const message = collectMessageToSend();
-		const chatRequest = localStorage.getItem('chatRequest');
-		const receiverId = localStorage.getItem('receiverId');
-
-		if (chatRequest === "true") {
-			sendChatRequest(message);
-		}
-		if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
-			console.log('Sending message:', message);
-			sendMessageToSocket(message, receiverId, chatRoomId);
-		} else {
-			console.error('WebSocket is not open');
-		}
-		chatInput.value = '';
-	});
+	sendGameInvite(message);
+});
 
 // Send Chat Request
 const sendChatRequest = (message) => {
@@ -423,6 +437,26 @@ const sendChatRequest = (message) => {
 
 	chatSocket.send(JSON.stringify(data));
 	localStorage.removeItem('chatRequest');
+	displayMessageInChat(Number(currentUserId), username, message);
+}
+
+// send game invitation
+function sendGameInvite(message) {
+	const currentUserId = localStorage.getItem('userId');
+	const receiverId = localStorage.getItem('receiverId');
+	const username = localStorage.getItem('username');
+
+	console.log("currentUserId: ", currentUserId);
+	console.log("receiverId: ", receiverId);
+
+	const data = {
+		type: 'game_invite',
+		target_id: receiverId,
+		sender_id: currentUserId,
+		chat_room_id: chatRoomId
+	};
+
+	chatSocket.send(JSON.stringify(data));
 	displayMessageInChat(Number(currentUserId), username, message);
 }
 
