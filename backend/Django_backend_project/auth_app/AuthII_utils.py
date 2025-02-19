@@ -88,7 +88,7 @@ def callback_42_auth(request):
     ✅ Instead of returning JSON, redirect the user to the frontend with setting `location` header
     and `status code 302` to handle the redirection on the frontend automatically with the browser.
     """
-    response['Location'] = f"{settings.FRONTEND_URL}/auth/register"
+    response['Location'] = f"{settings.FRONTEND_URL}"
     response.status_code = 302  # 302 Found (Temporary Redirect)
     
     logger.debug("Login successful, response sent with JWT cookies.")
@@ -124,7 +124,7 @@ def fetch_42_user_info(access_token):
     
     try:
         response = requests.get(settings.OAUTH_42_USER_INFO_URL, headers=headers)
-        logger.debug("\n\nUser info response: %s\n", response.json())
+        # logger.debug("\n\nUser info response: %s\n", response.json())
         response.raise_for_status()
         return response.json()
     except requests.RequestException as e:

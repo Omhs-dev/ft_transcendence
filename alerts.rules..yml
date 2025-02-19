@@ -1,0 +1,32 @@
+groups:
+  - name: container_alerts
+    rules:
+      # Alert for high CPU usage
+      - alert: HighContainerCPUUsage
+        expr: (sum(rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[1m])) by (container, pod, namespace) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage in container {{ $labels.container }}"
+          description: "CPU usage in container {{ $labels.container }} (pod: {{ $labels.pod }}, namespace: {{ $labels.namespace }}) is above 80% for the last 5 minutes."
+
+      # Alert for high memory usage
+      - alert: HighContainerMemoryUsage
+        expr: (container_memory_usage_bytes{container!="", container!="POD"} / container_spec_memory_limit_bytes{container!="", container!="POD"} * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage in container {{ $labels.container }}"
+          description: "Memory usage in container {{ $labels.container }} (pod: {{ $labels.pod }}, namespace: {{ $labels.namespace }}) is above 80% for the last 5 minutes."
+
+      # Alert for database errors (assuming your app exposes a metric like `db_errors_total`)
+      - alert: DatabaseErrors
+        expr: rate(db_errors_total{job="your_database_job"}[1m]) > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database errors detected in {{ $labels.instance }}"
+          description: "Database errors are occurring in {{ $labels.instance }}."

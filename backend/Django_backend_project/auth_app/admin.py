@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from .models import *
-from chat_app.models import *
+from .models import Profile
+from chat_app.models import BlockedUser
 # Register your models here.
 
 # admin.site.register(User)

@@ -16,3 +16,4 @@ django-otp==1.5.4
 qrcode==8.0 #Python library for generating QR codes
 pyotp==2.9.0  #Python library for TOTP generation and validation
 twilio==9.4.3  #Python library for sending SMS
+gunicorn

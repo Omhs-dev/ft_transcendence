@@ -25,6 +25,7 @@ class Sidenav extends HTMLElement {
 			
 			const username = localStorage.getItem("username");
 			const isAuthenticated = localStorage.getItem("isAuthenticated");
+			const isOauthLogged = localStorage.getItem("isOauthLogged");
 			
 			// Parse the HTML string into a document
 			const parser = new DOMParser();
@@ -34,11 +35,12 @@ class Sidenav extends HTMLElement {
 			
 			// const userPicture = doc.getElementById("userPicture");
 			const userPicSideNav = doc.getElementById("userImageSnav");
-			console.log("side nave pic: ", userPicSideNav);
+			// console.log("side nave pic: ", userPicSideNav);
 			userPicSideNav.src = "../assets/user1.png";
 
 			// Check if user is logged in
-			if (isAuthenticated && username) {
+			if ((isAuthenticated || isOauthLogged) && username) {
+				console.log("User is logged in side nav");
 				this.innerHTML = doc.body.innerHTML;
 				UpdateUserName();
 			} else {
