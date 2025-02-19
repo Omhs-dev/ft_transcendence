@@ -91,6 +91,28 @@ function connectWebSocket() {
 			}
 		} else if (data.type === "chat_message") {
 			displayMessageInChat(data.sender_id, data.sender, data.message);
+			updateOnlineUsers();
+		} else if (data.type === "game_invite_received") {
+			const senderId = data.sender_id;
+			const senderUsername = onlineUsers[senderId].username;
+			const message = data.message;
+			const chatRoomId = data.chat_room_id;
+			if (senderId !== Number(currentUserId)) {
+				showConfirmGamePopup(senderId, senderUsername, message, chatRoomId);
+			}
+		} else if (data.type === "game_invite_accepted") {
+			const player1_id = data.sender_id;
+					const player2_id = data.target_id;
+					const message = data.message;
+					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_accepted');
+					if (player1_id === currentUserId) {
+						// startGame(player1_id, player2_id);
+					}
+		} else if (data.type === "game_invite_declined") {
+			const player1_id = data.sender_id;
+			const player2_id = data.target_id;
+			const message = data.message;
+			displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_declined');
 		}
 	};
 
@@ -282,6 +304,63 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 
 	notifyUserIcon();
 }
+
+function showConfirmGamePopup(creatorId, creatorUsername, received_message, chatRoomId) {
+	const chatMessages = document.getElementById('chatMessages');
+	// Remove existing popup if it exists
+	const existingPopup = document.querySelector('.game-invitation-popup');
+	if (existingPopup) {
+		existingPopup.remove();
+	}
+
+	// Create the popup container
+	const popup = document.createElement('div');
+	popup.classList.add('game-invitation-message', 'alert', 'alert-primary', 'shadow-sm', 'fade', 'show', 'p-2', 'mb-2', 'rounded');
+
+	// Create the popup message
+	const message = document.createElement('p');
+	message.innerHTML = `<strong>${creatorUsername}</strong> invited you to a game.`;
+
+	// Create the "Accept" button
+	const acceptButton = document.createElement('button');
+	acceptButton.textContent = "Accept";
+	acceptButton.classList.add('btn', 'btn-success', 'btn-sm', 'me-2');
+
+	// Event listener for Accept
+	acceptButton.addEventListener('click', () => {
+		chatSocket.send(JSON.stringify({
+			type: 'game_invite_accepted',
+			chat_room_id: chatRoomId,
+			target_id: creatorId,
+			sender_id: localStorage.getItem('userId'),
+		}));
+		displayMessageInChat(creatorId, creatorUsername, received_message);
+	});
+
+	// Create a "Decline" button
+	const declineButton = document.createElement('button');
+	declineButton.textContent = "Decline";
+	declineButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+
+	// Event listener for Decline
+	declineButton.addEventListener('click', () => {
+		chatSocket.send(JSON.stringify({
+			type: 'game_invite_declined',
+			chat_room_id: chatRoomId,
+			target_id: creatorId,
+			sender_id: localStorage.getItem('userId'),
+		}));
+	});
+
+	// Append elements to the popup
+	popup.appendChild(message);
+	popup.appendChild(acceptButton);
+	popup.appendChild(declineButton);
+
+	// Append to body
+	chatMessages.prepend(popup);
+}
+
 
 function notifyUserIcon() {
 	notificationCount++;
