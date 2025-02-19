@@ -19,7 +19,7 @@
     position: fixed;
     bottom: 0px;
     right: 0px;
-	height: 500px;
+	height: 510px;
     width: 400px;
     max-height: 450px;
     background-color: #22333d;
@@ -45,9 +45,10 @@
 #chatMessages {
 	display: flex;
     flex-direction: column-reverse;
-	align-items: end;
+	/* align-items: center; */
+	/* justify-content: center; */
     overflow-y: auto;
-    height: 270px;
+    height: 300px;
     padding: 10px;
 }
 
@@ -90,6 +91,7 @@
     align-items: center;
 	width: 100%;
     gap: 10px; /* Space between input & button */
+	padding: 10px;
 }
 
 #sendButton:hover {
@@ -165,7 +167,7 @@
 .chat-message {
 	padding: 10px;
 	border-top: 1px solid #344b5b;
-	width: 100%;
+	/* width: 100%; */
 }
 
 .chat-avatar {

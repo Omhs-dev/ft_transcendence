@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	console.log("userId: ", userId);
 
 	if (userId && username) {
-		console.log("loaded connecting to websocket");
+		// console.log("loaded connecting to websocket");
 		connectWebSocket();
 		updateOnlineUsers();
 	}
@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
 	const userId = localStorage.getItem('userId');
 	const username = localStorage.getItem('username');
-	console.log("userId: ", userId);
+	// console.log("userId: ", userId);
 
 	if (userId && username
 		&& localStorage.getItem("wsConnected") === "true") {
-		console.log("user is logged in connecting to websocket");
+		// console.log("user is logged in connecting to websocket");
 		connectWebSocket();
 		updateOnlineUsers();
 	}
@@ -67,38 +67,28 @@ function connectWebSocket() {
 		const data = JSON.parse(e.data);
 
 		const currentUserId = localStorage.getItem('userId');
-		console.log('Data:', data);
+		// console.log('Data:', data);
 		// console.log('userId:', currentUserId);
-		console.log("online status", data.type);
+		// console.log("online status", data.type);
 
 		if (data.type === "online_status") {
-			console.log("type: online status");
+			// console.log("type: online status");
 			onlineUsers[data.user_id] = data;
 			if (!data.is_online) {
 				delete onlineUsers[data.user_id];
 			}
 			updateOnlineUsers();
 		} else if (data.type === "user.status") {
-			console.log("type: user status");
+			// console.log("type: user status");
 			onlineUsers = data.online_users;
 			updateOnlineUsers();
 			console.log("online users: ", onlineUsers);
 		} else if (data.type === "chat_request") {
 			chatRoomId = data.chat_room_id;
-			console.log("type: chat_request");
-			console.log("chat request data: ", data);
-			if (data.creator_id === Number(currentUserId)) {
-				console.log("sening message to: ", data.receiver_id);
-				sendMessage(data.receiver_id, data.receiver_username, chatRoomId);
-			}
 			if (data.target_id === currentUserId) {
 				showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
 			}
 		} else if (data.type === "chat_message") {
-			console.log("type: chat_message");
-			console.log("chat message data: ", data);
-			console.log("message timestamp: ", data.timestamp);
-			console.log("message is read: ", data.is_read);
 			displayMessageInChat(data.sender_id, data.sender, data.message);
 		}
 	};
@@ -106,7 +96,7 @@ function connectWebSocket() {
 	chatSocket.onerror = (e) => {
 		console.error('WebSocket error:', e);
 	};
-	
+
 	chatSocket.onclose = () => {
 		console.log('WebSocket closed');
 		chatSocket = null; // Clear reference to WebSocket
@@ -159,21 +149,24 @@ const updateOnlineUsers = () => {
 			userList.appendChild(userTr);
 
 			const sendMessageBtn = document.querySelector("#sendMessage");
-			seendMsgEventListenner(sendMessageBtn, user.username);
+			seendMsgEventListenner(sendMessageBtn, user.username, user.user_id);
 		} else {
 			console.log("no users online");
 		}
 	}
 };
 
-const seendMsgEventListenner = (sendMessageBtn, userName) => {
+const seendMsgEventListenner = (sendMessageBtn, userName, userId) => {
 	sendMessageBtn.addEventListener("click", (e) => {
 		e.preventDefault();
 		chatBox.style.display = 'block';
 
 		const messageTo = document.querySelector("#messageTo");
-		console.log("message to: ", messageTo);
+		// console.log("message to: ", messageTo);
 		messageTo.textContent = `# ${userName}`;
+
+		localStorage.setItem("chatRequest", "true");
+		localStorage.setItem("receiverId", userId);
 	});
 }
 
@@ -181,10 +174,6 @@ function displayMessageInChat(senderId, sender, message) {
 	const chatMessages = document.getElementById('chatMessages');
 	const noMessage = document.getElementById('noMessages');
 	const messageElement = document.createElement('div');
-
-	console.log("chat messages: ", chatMessages);
-	console.log("message element: ", messageElement);
-	console.log("senderId: ", senderId);
 
 	noMessage.innerHTML = '';
 
@@ -273,63 +262,67 @@ function decrementNotificationCount() {
 	notificationCount--;
 }
 
-// function sendMessage(receiverId, receiverUsername, chatRoomId) {
+	function collectMessageToSend() {
+		const chatInput = document.getElementById('chatInput');
+		const message = chatInput.value;
+
+		return message;
+	}
+
 	const chatSubmit = document.getElementById('chatForm');
-	const chatInput = document.getElementById('chatInput');
-	const message = chatInput.value;
-
-	console.log("send button: ", sendButton);
-	// console.log("chat submit: ", chatSubmit);
-	console.log("chat input: ", chatInput);
-
-	// if (message.trim() === '') {
-	// 	return;
-	// }
-
-	// sendButton.addEventListener('click', (e) => {
-	// 	e.preventDefault();
-
-	// 	console.log('Send button clicked');
-	// 	if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
-	// 		console.log('Sending message:', message);
-	// 		sendMessageToSocket(receiverId, receiverUsername, chatRoomId);
-	// 	} else {
-	// 		console.error('WebSocket is not open');
-	// 	}
-	// });
 
 	chatSubmit.addEventListener('submit', (e) => {
 		e.preventDefault();
 
-		console.log('Form submitted');
+		const message = collectMessageToSend();
+		const chatRequest = localStorage.getItem('chatRequest');
+		const receiverId = localStorage.getItem('receiverId');
+
+		if (chatRequest === "true") {
+			sendChatRequest(message);
+		}
 		if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
 			console.log('Sending message:', message);
-			sendMessageToSocket("hello you", "1", "admin", chatRoomId);
+			// sendMessageToSocket(message, "1", chatRoomId);
 		} else {
 			console.error('WebSocket is not open');
 		}
 		chatInput.value = '';
 	});
 
-// }
-
-function sendMessageToSocket(message, receiverId, receiverUsername, chatRoomId) {
-	console.log("sending message to socket");
+// Send Chat Request
+const sendChatRequest = (message) => {
 	const currentUserId = localStorage.getItem('userId');
+	const receiverId = localStorage.getItem('receiverId');
 	const username = localStorage.getItem('username');
+
 	const data = {
-		type: 'chat_message',
-		message: message,
-		// sender_id: Number(currentUserId),
-		// sender: username,
-		receiver_id: receiverId,
-		// receiver: receiverUsername,
-		chat_room_id: chatRoomId
+		type: 'chat_request',
+		target_id: receiverId,
+		message: message
 	};
 
 	chatSocket.send(JSON.stringify(data));
-
+	localStorage.removeItem('chatRequest');
+	localStorage.removeItem('receiverId');
 	displayMessageInChat(Number(currentUserId), username, message);
+}
+
+function sendMessageToSocket(message, receiverId, receiverName, chatRoomId) {
+	console.log("sending message to socket");
+	console.log("name of receiver: ", receiverName);
+	const username = localStorage.getItem('username');
+	const currentUserId = localStorage.getItem('userId');
+
+	let data = {};
+
+	data = {
+		type: 'chat_message',
+		message: message,
+		receiver_id: receiverId,
+		chat_room_id: chatRoomId
+	};
+	chatSocket.send(JSON.stringify(data));
 }
 
 // function handleChatInputSubmit(chatInput, chatSubmit) {
