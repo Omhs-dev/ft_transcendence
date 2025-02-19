@@ -1,5 +1,6 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
+import { getOnlineUsers } from "./utils/chatUtils.js";
 
 const chatIcon = document.getElementById('chatIcon');
 const chatBox = document.getElementById('chatBox');
@@ -67,9 +68,9 @@ function connectWebSocket() {
 		const data = JSON.parse(e.data);
 
 		const currentUserId = localStorage.getItem('userId');
-		// console.log('Data:', data);
+		console.log('Data:', data);
 		// console.log('userId:', currentUserId);
-		// console.log("online status", data.type);
+		console.log("online status", data.type);
 
 		if (data.type === "online_status") {
 			// console.log("type: online status");
@@ -113,14 +114,17 @@ chatIcon.addEventListener('click', () => {
 // Close Chatbox
 closeChat.addEventListener('click', () => {
 	chatBox.style.display = 'none';
+
+	const sendMsgBtn = document.querySelectorAll(".send-message-btn")
+	sendMsgBtn.forEach((btn) => {
+		btn.disabled = false;
+	});
 });
 
 const updateOnlineUsers = () => {
 	const userList = document.getElementById("userList");
 	const userId = localStorage.getItem("userId");
 	const username = localStorage.getItem("username");
-	console.log("online user list: ", onlineUsers);
-	// console.log("user id: ", Number(userId));
 
 	if (!userList) {
 		console.log("user list not found");
@@ -128,62 +132,95 @@ const updateOnlineUsers = () => {
 	}
 	userList.innerHTML = "";
 	
+	console.log("before for loop");
 	let index = 0;
 
-	console.log("before for loop");
 	for (const user of Object.values(onlineUsers)) {
 		if (user.user_id !== Number(userId) && user.username !== username) {
 			console.log("users online found");
+
 			const userTr = document.createElement("tr");
 			userTr.innerHTML = `
 				<th scope="row">${index + 1}</th>
 				<td>
-					<a href="" class="user-link" id="userLink"  data-link>${user.username}</a>
+					<a href="" class="user-link" data-link>${user.username}</a>
 				</td>
 				<td>
-					<button class="btn btn-primary" id="sendMessage">Message</button>
-					<button class="btn btn-outline-success" id="addUser">add</button>
+					<button class="btn btn-primary send-message-btn" data-user-id="${user.user_id}" data-username="${user.username}">Message</button>
+					<button class="btn btn-outline-success add-user-btn">Add</button>
 				</td>
 			`;
 
 			userList.appendChild(userTr);
-
-			const sendMessageBtn = document.querySelector("#sendMessage");
-			seendMsgEventListenner(sendMessageBtn, user.username, user.user_id);
 		} else {
 			console.log("no users online");
 		}
 	}
+
+	// Attach event listeners AFTER all elements are added
+	document.querySelectorAll(".send-message-btn").forEach((btn) => {
+		const userId = btn.getAttribute("data-user-id");
+		const username = btn.getAttribute("data-username");
+		onpenChatBoxToSend(btn, username, userId);
+	});
 };
 
-const seendMsgEventListenner = (sendMessageBtn, userName, userId) => {
+// Send Message Event Listener
+const onpenChatBoxToSend = (sendMessageBtn, userName, userId) => {
+	const chatMessages = document.getElementById('chatMessages');
+	const messageTo = document.querySelector("#messageTo");
+
+	console.log("chatMessages: ", chatMessages);
 	sendMessageBtn.addEventListener("click", (e) => {
 		e.preventDefault();
+
+		if (chatMessages !== null) {
+			chatMessages.innerHTML = '';
+		}
 		chatBox.style.display = 'block';
 
-		const messageTo = document.querySelector("#messageTo");
-		// console.log("message to: ", messageTo);
+		chatRoomId = null;
 		messageTo.textContent = `# ${userName}`;
+
+		sendMessageBtn.disabled = true;
 
 		localStorage.setItem("chatRequest", "true");
 		localStorage.setItem("receiverId", userId);
 	});
 }
 
+// Display Message in Chat
 function displayMessageInChat(senderId, sender, message) {
 	const chatMessages = document.getElementById('chatMessages');
 	const noMessage = document.getElementById('noMessages');
 	const messageElement = document.createElement('div');
 
-	noMessage.innerHTML = '';
+	if (noMessage !== null) {
+		noMessage.innerHTML = '';
+	}
+
+	const date = new Date();
+	const time = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+	let userPic = './assets/user.png';
+
+	// Get online users
+	const userOnline = getOnlineUsers();
+	if (userOnline) {
+		for (const user of Object.values(userOnline)) {
+			if (user.user_id === senderId) {
+				userPic = user.profile_pic;
+				break;
+			}
+		}
+	}
 
 	messageElement.classList.add('chat-message', 'd-flex', 'me-2');
 	messageElement.style.borderBottom = '1px solid #344b5b';
 	messageElement.innerHTML += `
-		<img src="./assets/user.png" alt="Helio" class="chat-avatar">
+		<img src=${userPic} alt="profile" class="chat-avatar">
 		<div class="chat-content">
 			<span class="chat-username">${sender}</span>
-			<span class="chat-timestamp">Today at 2:39 PM</span>
+			<span class="chat-timestamp">${time}</span>
 			<p class="chat-text">${message}</p>
 		</div>
 	`;
@@ -214,7 +251,10 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 
 	// Event listener for reply
 	replyButton.addEventListener('click', () => {
-		startChat(creatorId, creatorUsername, chatRoomId);
+		chatBox.style.display = 'block';
+		localStorage.setItem('chatRequest', 'false');
+		localStorage.setItem('receiverId', creatorId);
+		localStorage.setItem('chatRoomId', chatRoomId);
 		displayMessageInChat(creatorId, creatorUsername, received_message);
 		popup.remove(); // Remove the popup after clicking reply
 	});
@@ -283,7 +323,7 @@ function decrementNotificationCount() {
 		}
 		if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
 			console.log('Sending message:', message);
-			// sendMessageToSocket(message, "1", chatRoomId);
+			sendMessageToSocket(message, receiverId, chatRoomId);
 		} else {
 			console.error('WebSocket is not open');
 		}
@@ -304,19 +344,12 @@ const sendChatRequest = (message) => {
 
 	chatSocket.send(JSON.stringify(data));
 	localStorage.removeItem('chatRequest');
-	localStorage.removeItem('receiverId');
 	displayMessageInChat(Number(currentUserId), username, message);
 }
 
-function sendMessageToSocket(message, receiverId, receiverName, chatRoomId) {
+function sendMessageToSocket(message, receiverId, chatRoomId) {
 	console.log("sending message to socket");
-	console.log("name of receiver: ", receiverName);
-	const username = localStorage.getItem('username');
-	const currentUserId = localStorage.getItem('userId');
-
-	let data = {};
-
-	data = {
+	const data = {
 		type: 'chat_message',
 		message: message,
 		receiver_id: receiverId,
