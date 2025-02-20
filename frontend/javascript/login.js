@@ -36,7 +36,7 @@ const loginWith42 = () => {
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const loadToMainPage = async () => {
-	await wait(6000);
+	await wait(1000);
 	// console.log("after countdown");
 	window.location.href = "/";
 }
