@@ -253,7 +253,9 @@ function displayMessageInChat(senderId, sender, message) {
 	messageElement.innerHTML += `
 		<img src=${userPic} alt="profile" class="chat-avatar">
 		<div class="chat-content">
-			<span class="chat-username">${sender}</span>
+			<span class="chat-username">
+				<a href="#" class="user-link" data-link>${sender}</a>
+			</span>
 			<span class="chat-timestamp">${time}</span>
 			<p class="chat-text">${message}</p>
 		</div>

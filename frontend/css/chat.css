@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Whitney:wght@300;400;600&display=swap');
 
 #chatIcon {
+	display: none;
 	color: white;
 	background-color: #1c3644 !important;
 	padding-bottom: 10px;
@@ -191,6 +192,11 @@
 	font-size: 0.8rem;
 	color: #72767d;
 	margin-left: 5px;
+}
+
+.user-link {
+	color: #ffffff;
+	text-decoration: none;
 }
 
 /* Animation for fade-in effect */

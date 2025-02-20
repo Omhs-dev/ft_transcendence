@@ -13,7 +13,7 @@
 				aria-selected="false">Themes</button>
 			<button class="nav-link text-start" id="v-pills-messages-tab" data-bs-toggle="pill" 
 				data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" 
-				aria-selected="false">Account Settings</button>
+				aria-selected="false">Language</button>
 			<button class="nav-link text-start" id="v-pills-settings-tab" data-bs-toggle="pill" 
 		  		data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" 
 				aria-selected="false">Notification</button>
@@ -33,7 +33,19 @@
 				</div>
 			</div>
 			<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-			<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+			<!--  language settings -->
+			<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+				<h3 class="mb-4">Languag<div class="dropdown ms-auto">
+					<button class="btn btn-outline-primary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown">
+						Language
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="languageDropdown">
+						<li><a class="dropdown-item lang-option" href="#" data-lang="en">English</a></li>
+						<li><a class="dropdown-item lang-option" href="#" data-lang="fr">Français</a></li>
+						<li><a class="dropdown-item lang-option" href="#" data-lang="de">Deutsch</a></li>
+					</ul>
+				</div>
+			</div>
 			<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
 		</div>
 	</div>
