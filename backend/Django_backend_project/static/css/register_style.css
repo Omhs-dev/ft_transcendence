@@ -221,3 +221,13 @@ body {
 .invite-game-button:hover {
     background-color: #45a049; /* Darker green on hover */
 }
+
+.buttons-container {
+    display: flex; /* Enable flexbox */
+    gap: 10px;        /* Add some space between buttons (optional) */
+    justify-content: center; /* Center the buttons horizontally (optional) */
+}
+
+.buttons-container button { /* Styling for the buttons */
+    /* Add any other button-specific styles here */
+}

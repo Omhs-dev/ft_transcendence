@@ -85,8 +85,9 @@
 				<button id="sendMessage">Send</button>
 			</div>
 			
+			<br>
 			<!-- Game Section -->
-			<div class="container text-center mt-5" style="display: none;">
+			<div id="game" class="container text-center mt-5" style="display: none;">
 				<style>
 					canvas {
 						border: 2px solid #000;
@@ -96,12 +97,14 @@
 				</style>
 				<h1>Pong Game</h1>
 				<canvas id="gameCanvas" width="800" height="400"></canvas>
-				<div id="buttons">
-					<button id="startGame" class="btn btn-primary">Start Game</button>
+				<div id="buttons" class="buttons-container">
+					<button id="startGame" class="btn btn-primary" style="margin-top: 5px;">Start Game</button>
 					<button id="pauseGame" class="btn btn-warning">Pause Game</button>
 					<button id="resumeGame" class="btn btn-success">Resume Game</button>
 					<button id="restartGame" class="btn btn-danger">Restart Game</button>
 				</div>
+				<div id="gameStatus" class="mt-3">
+					</div>
 			</div>
 			
 			<!-- Friends Requests -->
@@ -215,6 +218,8 @@
 		let chatSocket = null;
 		let onlineUsers = {}; // Store online user status
 		let globalChatRoomId = null; // Store the chat room ID
+		let gameInvite = null;
+
 	// *********************************** Helper Functions ***********************************
 		// Ensure this function is called once the DOM is fully loaded
 		document.addEventListener("DOMContentLoaded", function() {
@@ -1084,6 +1089,7 @@
 					const message = data.message;
 					const chatRoomId = data.chat_room_id;
 					const inviteId = data.invite_id;
+					gameInvite = 'sent';
 					// Display confirmation popup
 					if (senderId !== currentUserId) {
 						confirmGamePopup(senderId, senderUsername, message, chatRoomId, inviteId);
@@ -1096,9 +1102,12 @@
 					const player2_id = data.target_id;
 					const message = data.message;
 					const inviteId = data.invite_id;
+					gameInvite = 'accepted';
 					
+
 					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_accepted');
 					if (player1_id === currentUserId) {
+						document.getElementById('game').style.display = 'block';
 						// startGame(player1_id, player2_id);
 					} 
 					console.debug("Game invite accepted:", data);
@@ -1107,7 +1116,8 @@
 					const player1_id = data.sender_id;
 					const player2_id = data.target_id;
 					const message = data.message;
-					
+					gameInvite = '';
+
 					console.debug("Game invite accepted:", data);
 					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_declined');
 				}
@@ -1159,13 +1169,13 @@
 					});
 					userItem.appendChild(startChatButton);
 
-					if (globalChatRoomId) {
+					if (globalChatRoomId && !gameInvite) {
 						// Add "Invite to Game" button
-						const startGameButton = document.createElement('button');
-						startGameButton.textContent = 'Invite to Game';
-						startGameButton.classList.add('invite-game-button');
+						const GameInvitation = document.createElement('button');
+						GameInvitation.textContent = 'Invite to Game';
+						GameInvitation.classList.add('invite-game-button');
 						startChatButton.style.display = 'none'; // Hide the chat button
-						startGameButton.addEventListener('click', () => {
+						GameInvitation.addEventListener('click', () => {
 							chatSocket.send(JSON.stringify({
 								type: 'game_invite',
 								target_id: userId,
@@ -1176,7 +1186,7 @@
 							displayMessageInChat(currentUserId, currentUsername, `Game invitation sent to ${onlineUsers[userId].username}`, null, false, 'invite_sent');
 
 						});
-						userItem.appendChild(startGameButton);
+						userItem.appendChild(GameInvitation);
 					}
 
 					onlineUsersList.appendChild(userItem);
@@ -1354,50 +1364,34 @@
 		}
 
 
-	// *********************************** Pong Game Logic ***********************************
-		const canvas = document.getElementById("gameCanvas");
+// *********************************** Game Logic ***********************************
+
+	// *********************************** Remote Game Logic ***********************************
+	const canvas = document.getElementById("gameCanvas");
 		const ctx = canvas.getContext("2d");
 
 		const paddleWidth = 10;
 		const paddleHeight = 100;
 		const ballSize = 10;
 
-		let gameId;
-		let user2Id;
-		let username;
+		let game_id = 'lobby';
+		window.game_id = game_id;
+		let user1_id = '1';
+		let user2_id = '2';
+		let username = '';
+		let player1 = { x: 10, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		let player2 = { x: canvas.width - 20, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 0, dy: 0 };
 
-		let player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-		let player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-		let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
-
-		let keys = {};
 		let websocket;
-		let gameInProgress = false; // Track if the game is in progress
-		let gamePaused = false; // Track if the game is paused
+		let gameInProgress =false;
+		let gamePaused = false;
 
-		let animationFrame;
-		let gameLoopInterval;
-
-		// Fetch Profile
-		// async function fetchProfile() {
-		// 	try {
-		// 		const response = await fetch('/auth/api/profile/');
-		// 		if (response.ok) {
-		// 			const profile = await response.json();
-		// 			user2Id = profile.id;
-		// 			username = profile.username;
-		// 			console.log("username and user_id: ", username, user2Id);
-		// 		} else {
-		// 			console.error('Failed to fetch profile:', response.status);
-		// 		}
-		// 	} catch (error) {
-		// 		console.error('Error fetching profile:', error);
-		// 	}
-		// }
-
-		// Draw paddles and ball
 		function draw() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+			// Debugging
+			console.log("Drawing paddle1 at:", player1.y, "paddle2 at:", player2.y, "ball at:", ball.x, ball.y);
 
 			// Draw paddles
 			ctx.fillStyle = "#000";
@@ -1407,258 +1401,139 @@
 			// Draw ball
 			ctx.beginPath();
 			ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
-			ctx.fillStyle = "#000";
 			ctx.fill();
 			ctx.closePath();
 
 			// Draw scores
 			ctx.font = "20px Arial";
-			ctx.fillText(`Admin: ${player1.score}`, 50, 20);
-			ctx.fillText(`${username}: ${player2.score}`, canvas.width - 150, 20);
-		}
-
-		// Move paddles based on keys pressed
-		function movePaddles() {
-			const paddleSpeed = 5;
-
-			if (keys.w && player1.y > 0) {
-				player1.y -= paddleSpeed;
-				sendPaddlePosition("player1", player1.y); // Send paddle position to server
-			}
-			if (keys.s && player1.y < canvas.height - paddleHeight) {
-				player1.y += paddleSpeed;
-				sendPaddlePosition("player1", player1.y); // Send paddle position to server
-			}
-
-			if (keys.ArrowUp && player2.y > 0) {
-				player2.y -= paddleSpeed;
-				sendPaddlePosition("player2", player2.y); // Send paddle position to server
-			}
-			if (keys.ArrowDown && player2.y < canvas.height - paddleHeight) {
-				player2.y += paddleSpeed;
-				sendPaddlePosition("player2", player2.y); // Send paddle position to server
-			}
-		}
-
-		// Reset ball to center
-		function resetBall() {
-			ball.x = canvas.width / 2;
-			ball.y = canvas.height / 2;
-			ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
-			ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
-			sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
+			ctx.fillText(`Host: ${player1.score}`, 50, 20);
+			ctx.fillText(`Guest: ${player2.score}`, canvas.width - 150, 20);
 		}
 
 
-		// Update and draw the game
-		function updateGame() {
-			if (!gamePaused && gameInProgress) {
-				movePaddles();
-				// moveBall();
-			}
-			draw();
-			animationFrame = requestAnimationFrame(updateGame);
+		// // Main game loop
+		// function gameLoop() {
+		//     if (!gamePaused && gameInProgress) {
+		//         draw();
+		//     }
+		//     // requestAnimationFrame(gameLoop); // Keep looping
+		// }
+
+		function updateGameState(data) {
+				// console.log("The ball is being updated ..", data.ball);
+				ball.x = data.ball.x;
+				ball.y = data.ball.y;
+				player1.y = data.paddle1.y;
+				player2.y = data.paddle2.y;
+				player1.score = data.score1;
+				player2.score = data.score2;
+				game_id = data.game_id;
+				// console.log("players. ", player1, player2);
+				draw();
+				// sleep(10000);
 		}
 
-		// WebSocket connection and event handlers
-		document.getElementById("startGame").addEventListener("click", async () => {
-			await fetchProfile();
-			resetGameState();
-
-			if (!websocket || websocket.readyState !== WebSocket.OPEN) {
-				console.log("WebSocket not connected. Reconnecting...");
-				setupWebSocket();
-
-			} else if (!gameInProgress) {
-
-				startGameRequest(user2Id);
-				startGameLoop();
-			}
-		});
+		// Fix the incorrect event listener binding
+		document.getElementById("startGame").addEventListener("click", setupWebSocket);
 
 		function setupWebSocket() {
+			// websocket = new WebSocket("ws://" + window.location.host + "/ws/game/?token=<access_token>");
 			websocket = new WebSocket("ws://" + window.location.host + "/ws/game/");
 
-			websocket.onopen = function () {
+			websocket.onopen = () => {
 				console.log("WebSocket connected");
-				startGameRequest(user2Id); // Send start game request immediately after connection
+				// websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": player_id }));
+				// gameInProgress = true;
+				// gamePaused = false;
+				// startGameLoop();
 			};
 
-			websocket.onmessage = function (e) {
+			websocket.onmessage = (e) => {
 				const data = JSON.parse(e.data);
-				console.log("Message from server: ", data);
+				// console.log("Received update from server:", data);
 
-
-				if (data.type === "game_started") {
-					gameId = data.gameId;
-					localStorage.setItem("gameId", gameId);
+				if (data["type"] == "id") {
+					console.log("Received Id");
+					user1_id = data["id"];
+					websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": user1_id }));
 					gameInProgress = true;
-					console.log("Game started, gameId:", gameId);
+					gamePaused = false;
+					return;
 				}
+				// setInterval(updateGameState(data), 1000);
+				updateGameState(data);
+				// updateGameState(data);
 
-				if (data.type === "game_update") {
-					const updateType = data.data.type;
-
-					if (updateType === 'update_ball') {
-						ball = data.data.ball;
-						player1.y = data.data.player1_y; // Update paddle positions from server
-						player2.y = data.data.player2_y;
-						player1.score = data.data.player1_score; // Update scores from server
-						player2.score = data.data.player2_score;
-					} else if (updateType === 'update_paddle') {
-						// No need to update locally, server is authoritative
-					} else if (updateType === 'game_ended') {
-						const winnerId = data.data.winner;
-						const loserId = data.data.loser;
-						const winner = winnerId === user2Id ? username : 'Admin';
-						const loser = loserId === user2Id ? username : 'Admin';
-						console.log(`Game ${gameId} ended. Winner: ${winner}, Loser: ${loser}`);
-						endGame(winner, loser, gameId);
-					} else if (updateType === 'game_paused') {
-						gamePaused = true;
-					} else if (updateType === 'game_resumed') {
-						gamePaused = false;
-					} else if (updateType === 'game_restarted') {
-						resetGameState();
-					}	
-				} else if (data.error) {
-					console.error("Server Error:", data.error);
+				// if (data.type === "send_game_state") {
+				//     console.log("this is game_state...........");
+				// }
+				// if (data.type === "game_update") {
+				//     console.log("this is game_update......");
+				// }
+				if (data.action === "move_paddle") {
+					console.log("Moving paddle ohhhhhh...");
+					// console.log("drawing map");
+					// if (data.player === "paddle1") {
+					//     console.log("this is player 1");
+					//     player1.y = data.position;
+					// }
+					// if (data.player === "paddle2") {
+					//     console.log("this is player 2");
+					//     player2.y = data.position;
+					// }
+					// draw();
 				}
+				if (data.type === "game_started") {
+					console.log("Game started updating game state ...");
+					// game_id = data.game_id;
+					// localStorage.setItem("gameId", game_id);
+					// gameInProgress = true;
+					console.log("Game started with ID:", data);
+				}
+				// if (data.type === "game_paused") gamePaused = true;
+				// if (data.type === "game_resumed") gamePaused = false;
+				// if (data.type === "game_restarted") resetGameState();
+				// if (data.type === "game_ended") {
+				//     gameInProgress = false;
+				//     alert(`Game Over! Winner: ${data.winner}`);
+				//     websocket.close();
+				// }
 			};
 
-			websocket.onerror = function (e) {
-				console.error("WebSocket error: ", e);
-			};
+			websocket.onerror = (e) => console.error("WebSocket error:", e);
 
-			websocket.onclose = function () {
-				console.log("WebSocket disconnected. Reconnecting...");
-				gameInProgress = false;
-				clearInterval(gameLoopInterval);
-				cancelAnimationFrame(animationFrame);
+			websocket.onclose = () => {
+				console.log("WebSocket disconnected. Reconnecting in 3 seconds...");
 				setTimeout(setupWebSocket, 3000);
 			};
+
 		}
-
-		function startGameRequest(user2Id) {
-			gameSocket.send(JSON.stringify({
-				action: 'start_game',
-				user2_id: user2Id
-			}));
-		}
-
-		function startGameLoop() {
-			if (!gameInProgress) {
-				gameInProgress = true;
-				gameLoopInterval = setInterval(updateGame, 1000 / 60); // 60 FPS using setInterval
-			}
-		}
-
-
-		// Send paddle position to server
-		function sendPaddlePosition(player, position) {
-			const gameId = localStorage.getItem('gameId');
-			if (websocket && websocket.readyState === WebSocket.OPEN && gameId) {
-				websocket.send(JSON.stringify({
-					action: "update_paddle",
-					player: player,
-					position: position,
-					game_id: gameId
-				}));
-			}
-		}
-
-		// Pause game
-		document.getElementById("pauseGame").addEventListener("click", () => {
-			if (gameInProgress) {
-				websocket.send(JSON.stringify({ action: "pause_game", game_id: localStorage.getItem('gameId')}));
-
-			}
-		});
-
-		// Resume game
-		document.getElementById("resumeGame").addEventListener("click", () => {
-			if (gameInProgress && gamePaused) {
-				websocket.send(JSON.stringify({ action: "resume_game", game_id: localStorage.getItem('gameId')}));
-			}
-		});
-
-		// Example: Restart Game button functionality
-		document.getElementById("restartGame").addEventListener("click", () => {
-			if (gameInProgress) {
-				websocket.send(JSON.stringify({ action: "restart_game", game_id: localStorage.getItem('gameId')}));
-				// gameInProgress = false;
-				resetGameState();
-				document.getElementById("buttons").style.display = "block";
-			}
-		});
-
-
-		// Key event listeners
 		window.addEventListener("keydown", (e) => {
-			keys[e.key] = true;
+			if (websocket && websocket.readyState === WebSocket.OPEN) {
+				let action = null;
+				if (e.key === "w") action = { player: user1_id, position: player1.y - 20 };
+				// if (e.key === "w") action = { player: "paddle1", motion: -1 };
+				if (e.key === "s") action = { player: user1_id, position: player1.y + 20 };
+				if (e.key === "ArrowUp") action = { player: user1_id, position: player2.y - 20 };
+				if (e.key === "ArrowDown") action = { player: user1_id, position: player2.y + 20 };
+
+				if (action) {
+					data = {
+						action: "move_paddle",
+						...action,
+						game_id: window.game_id, // localStorage.getItem("gameId")
+					};
+					console.log(data);
+					websocket.send(JSON.stringify(data));
+				}
+			}
 		});
-		window.addEventListener("keyup", (e) => {
-			keys[e.key] = false;
-		});
-
-		//101162
-
-
-		function endGame(winner, loser, gameId) {
-			gameInProgress = false; // Prevent further updates
-			clearInterval(gameLoopInterval); // Stop the game loop
-			cancelAnimationFrame(animationFrame); // Stop animations
-
-			window.removeEventListener("keydown", handleKeyDown); // Remove key listeners
-			window.removeEventListener("keyup", handleKeyUp);
-
-			// Display the end game message (Improved)
-			const endGameMessage = document.createElement('div');
-			endGameMessage.id = 'endGameMessage';
-			endGameMessage.innerHTML = `MATCH RESULT <br> WINNER: <<<****${winner}****>>> <br> LOSER: <<<****${loser}****>>> <br> SCORE: ${player1.score} - ${player2.score}`;
-			endGameMessage.style.cssText = `
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-				color: white;
-				padding: 20px;
-				font-size: 24px;
-				text-align: center;
-				border-radius: 10px;
-			`;
-			document.body.appendChild(endGameMessage); // Add to the page
-
-			// Optionally show a restart button
-			const restartButton = document.createElement('button');
-			restartButton.textContent = 'Restart';
-			restartButton.addEventListener('click', () => {
-				document.body.removeChild(endGameMessage); // Remove the message
-				restartGame(gameId); // Call restart function if needed
-			});
-			endGameMessage.appendChild(restartButton);
-
-			// Hide the start game button (if needed)
-			document.getElementById("startGame").style.display = "none";
-
-			websocket.close(); // Close the WebSocket connection (optional, if you don't need it anymore)
-		}
 
 		function resetGameState() {
-			// Reset player scores and positions
-			if (gameInProgress) {
-				// game_id = '';
-				player1.score = 0;
-				player2.score = 0;
-				player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-				player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-				ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
-				// if (websocket)
-				// 	websocket.close();
-				// clearInterval(updateGame);
-			}
-			gameInProgress = false;
+			player1.y = canvas.height / 2 - paddleHeight / 2;
+			player2.y = canvas.height / 2 - paddleHeight / 2;
+			ball.x = canvas.width / 2;
+			ball.y = canvas.height / 2;
 			player1.score = 0;
 			player2.score = 0;
 		}
