@@ -344,10 +344,16 @@ const updateProfilePicture = async (formData) => {
 	}
 };
 
-// window.addEventListener("load", () => {
+const isAuthenticated = localStorage.getItem("isAuthenticated");
+const userName = localStorage.getItem("username");
 
-// 	fetchProfileInfo();
-// });
+document.addEventListener("DOMContentLoaded", () => {
+	if (isAuthenticated && userName) {
+		console.log("user is authenticated you can fetch data");
+		fetchProfileInfo();
+		// fetchFriendList();
+	}
+});
 
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();

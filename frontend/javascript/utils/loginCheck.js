@@ -3,10 +3,6 @@ const userName = localStorage.getItem("username");
 const isOauthLogged = localStorage.getItem("isOauthLogged");
 const chatIcon = document.getElementById("chatIcon");
 
-console.log("chatIcon: ", chatIcon);
-
-console.log("isoauthlogged: ", isOauthLogged);
-
 export function authSection(authSectionDiv) {
 	if ((isAuthenticated && userName) || isOauthLogged) {
 		
@@ -95,9 +91,7 @@ export function UpdateUserName() {
 	const loggedUserName = document.getElementById("loggedUserName");
 
 	if ((isAuthenticated || isOauthLogged) && userName) {
-		console.log("username: ", userName);
 		if (loggedUserName) {
-			console.log("loggedUserName: ", loggedUserName);
 			loggedUserName.textContent = userName;
 		}
 	}
@@ -105,22 +99,15 @@ export function UpdateUserName() {
 
 export function loadDefaultPic(userPicOne, userPicTwo) {
 	if (userPicOne) {
-		console.log("this is sidnav pic");
-		
 		userPicOne.src = "../assets/user1.png";
 	}
 	if (userPicTwo) {
-		console.log("this is profile pic");
-
 		userPicTwo.src = "../assets/user1.png";
 	}
 }
 
 
 export function check2FaStatus(loginCardBody) {
-	console.log("checking 2fa status");
-
-	console.log("2fa is enabled");
 	// click the 2fa button to show the 2fa modal
 	loginCardBody.innerHTML = `
 		<div class="text-center row justify-content-center mb-4" id="loginOtpInput">
