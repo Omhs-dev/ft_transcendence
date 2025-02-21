@@ -1,5 +1,4 @@
 import AbsractView from "./AbsractView.js";
-import { UpdateUserName } from "../utils/loginCheck.js";
 import { loadDefaultPic } from "../utils/loginCheck.js";
 
 export default class extends AbsractView {
@@ -25,8 +24,13 @@ export default class extends AbsractView {
 			const loggedUserName1 = doc.getElementById("loggedUserName1");
 			const userPicture = doc.getElementById("userPicture");
 			const userPicSideNav = doc.getElementById("userImageSnav");
-			
-			UpdateUserName(loggedUserName1);
+			const userName = localStorage.getItem("username");
+
+			if (loggedUserName1) {
+				console.log("loggedUserName1 is valid 1");
+				loggedUserName1.textContent = userName;
+			}
+
 			// Load default user pic
 			loadDefaultPic(userPicSideNav, userPicture);
 

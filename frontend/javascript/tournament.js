@@ -1,95 +1,107 @@
+import { initGame, resetBall, loop } from "./game.js";
 import { appSection } from "./utils/domUtils.js";
-import { initPongGame } from "./game.js";
-
-console.log("tournament.js");
 
 let players = [];
-let matchQueue = [];
-let currentMatch = null;
+let currentMatch = [];
+let tournamentBracket = [];
+let currentRound = [];
+let currentMatchIndex = 0;
+const maxPlayers = 4;
 
-const registerPlayer = () => {
-    console.log("registerPlayer");
-    const alias = document.querySelector("#playerAlias").value.trim();
-    console.log("alias:", alias);
+// Register players
 
-    if (alias && players.length < 4) {
-        console.log("register one player");
-        players.push(alias);
+function registerPlayer() {
+	const playerAliasInput = document.querySelector("playerAlias");
+	const alias = playerAliasInput.value.trim();
 
-        document.querySelector("#playersList").textContent = `Players: ${players.join(", ")}`;
+	if (alias && players.length < maxPlayers) {
+		players.push(alias);
+		const listItem = document.createElement("li");
+		listItem.classList.add("list-group-item");
+		listItem.textContent = alias;
+		document.querySelector("playersList").appendChild(listItem);
+		playerAliasInput.value = "";
 
-        console.log("players:", players);
+		if (players.length === maxPlayers) {
+			document.querySelector("tournament").style.display = "block";
+			document.querySelector("startTournament").style.display = "block";
+		}
+	}
+}
 
-		document.querySelector("#playerAlias").value = "";
+// Start tournament
+
+function startTournament() {
+	if (players.length < 2) {
+        alert("At least 2 players are required!");
+        return;
     }
+    tournamentBracket = shuffle([...players]);
+    generateNextRound();
+    document.querySelector("registration").style.display = "none";
+    document.querySelector("tournament").style.display = "block";
+}
 
-    if (players.length === 4) {
-        setupTournament();
+function declareWinner(winner) {
+	const winnerText = document.createElement("p");
+	winnerText.textContent = `${winner} wins!`;
+	document.querySelector("winner").appendChild(winnerText);
+}
+
+// Shuffle players for matchmaking
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+// Generate next round
+function generateNextRound() {
+    currentRound = [];
+    for (let i = 0; i < tournamentBracket.length; i += 2) {
+        if (i + 1 < tournamentBracket.length) {
+            currentRound.push([tournamentBracket[i], tournamentBracket[i + 1]]);
+        } else {
+            currentRound.push([tournamentBracket[i], "BYE"]);
+        }
     }
-};
+    tournamentBracket = currentRound.map(match => match[1] === "BYE" ? match[0] : match);
+    currentMatchIndex = 0;
+    startNextMatch();
+}
 
-const setupTournament = () => {
-    document.querySelector("#registration").style.display = "none";
-    document.querySelector("#tournament").style.display = "block";
-
-    matchQueue = shuffleArray([...players]); // Randomize order
-    generateBracket();
-    announceNextMatch();
-};
-
-const generateBracket = () => {
-    document.querySelector("#bracket").innerHTML = `<p>${matchQueue.join(" vs ")}</p>`;
-};
-
-const announceNextMatch = () => {
-    const currentMatchText = document.querySelector("#currentMatch");
-
-    if (matchQueue.length >= 2) {
-        currentMatch = [matchQueue.shift(), matchQueue.shift()];
-        currentMatchText.textContent = `${currentMatch[0]} vs ${currentMatch[1]}`;
+// Start next match
+function startNextMatch() {
+    if (currentMatchIndex < currentRound.length) {
+        currentMatch = currentRound[currentMatchIndex];
+        if (currentMatch.includes("BYE")) {
+            currentMatchIndex++;
+            startNextMatch();
+        } else {
+            document.querySelector("currentMatch").innerText = `${currentMatch[0]} vs ${currentMatch[1]}`;
+            initGame();
+            resetBall();
+            gameOver = false;
+            requestAnimationFrame(loop);
+        }
+    } else if (tournamentBracket.length === 1) {
+        document.querySelector("currentMatch").innerText = `🏆 ${tournamentBracket[0]} is the Champion!`;
     } else {
-        currentMatchText.textContent = `🏆 ${matchQueue[0]} is the Champion! 🏆`;
+        generateNextRound();
     }
-};
+}
 
-const startGame = () => {
-    console.log("startGame");
-    if (currentMatch) {
-        // document.getElementById("pongCanvas").style.display = "block"; // Make sure canvas is visible
-        initPongGame(currentMatch[0], currentMatch[1]);
-    }
-};
+// End match
+export function endMatch(winnerSide) {
+    tournamentBracket[currentMatchIndex] = winnerSide === "left" ? currentMatch[0] : currentMatch[1];
+    currentMatchIndex++;
+    startNextMatch();
+}
 
-
-const declareWinner = (winner) => {
-    matchQueue.push(winner);
-    announceNextMatch();
-};
-
-const resetTournament = () => {
-    players = [];
-    matchQueue = [];
-    currentMatch = null;
-
-    document.querySelector("#registration").style.display = "block";
-    document.querySelector("#tournament").style.display = "none";
-    document.querySelector("#playersList").textContent = "";
-    document.querySelector("#bracket").innerHTML = "";
-    document.querySelector("#pongCanvas").style.display = "none";
-};
-
-const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
-
-appSection.addEventListener("click", (e) => {
-    console.log("e.target.id:", e.target.id);
-
-    const actions = {
-        registerPlayer,
-        startTournament: startGame,
-        resetTournament
-    };
-
-    if (actions[e.target.id]) {
-        actions[e.target.id]();
-    }
+appSection.addEventListener("click", (event) => {
+	if (event.target.matches("registerPlayer")) {
+		registerPlayer();
+	} else if (event.target.matches("startTournament")) {
+		startTournament();
+	} else if (event.target.matches("resetTournament")) {
+		location.reload();
+	}
 });

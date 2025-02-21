@@ -91,11 +91,13 @@ export function unloggedSideNav(sideNavDiv) {
 		ulElement3.innerHTML = "";
 }
 
-export function UpdateUserName(loggedUserName1) {
+export function UpdateUserName() {
 	const loggedUserName = document.getElementById("loggedUserName");
 
 	if ((isAuthenticated || isOauthLogged) && userName) {
+		console.log("username: ", userName);
 		if (loggedUserName) {
+			console.log("loggedUserName: ", loggedUserName);
 			loggedUserName.textContent = userName;
 		}
 	}

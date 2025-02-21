@@ -1,6 +1,5 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
-import { UpdateUserName } from "./utils/loginCheck.js";
 import { getCookie } from "./login.js";
 
 const token = localStorage.getItem("access_token");
@@ -297,13 +296,10 @@ const fetchProfileInfo = async () => {
 		}
 
 		const data = await response.json();
-		console.log("User Information: ", data);
-		console.log("image: ", data.profile_picture);
 
 		const userPicture = document.getElementById("userPicture");
 		const userPicSideNav = document.getElementById("userImageSnav");
-		console.log("User Pic: ", userPicture);
-		console.log("User Pic2: ", userPicSideNav);
+
 		if (data.profile_picture) {
 			userPicSideNav.src = baseUrl + data.profile_picture;
 			console.log("pic 2: ", userPicSideNav.src);
@@ -313,16 +309,12 @@ const fetchProfileInfo = async () => {
 				userPicture.style.height = "200px";
 				userPicture.style.width = "200px";
 			}
-		} else {
-			// userPicture.src = "../assets/user1.png";
-			// userPicSideNav.src = "../assets/user1.png";
 		}
 
 		const twoFa = data.is_2fa_enabled;
 		localStorage.setItem("twoFa", twoFa);
-		console.log("2fa: ", twoFa);
-
-		console.log("Data: ", data);
+		localStorage.setItem("username", data.username);
+		// console.log("profile information: ", data);
 	} catch(error) {
 		console.log(error.message);
 	}
