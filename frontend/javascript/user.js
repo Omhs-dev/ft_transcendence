@@ -169,6 +169,11 @@ const fetchFriendRequests = async () => {
 
 // Accept Friend Request
 const acceptFriendRequest = async (userId, userTr) => {
+	let friendsList = JSON.parse(localStorage.getItem("friendsList")) || [];
+	if (!Array.isArray(friendsList)) {
+		friendsList = [];
+	}
+
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/accept-friend-request/${userId}/`, {
 			method: 'POST',
@@ -183,9 +188,12 @@ const acceptFriendRequest = async (userId, userTr) => {
 			throw new Error(`Failed to accept request: ${response.statusText}`);
 		}
 
-		const data = await response.json();
-
+		// const data = await response.json();
 		userTr.remove();
+		friendsList.push(userId);
+		localStorage.setItem("friendsList", JSON.stringify(friendsList));
+
+		console.log("Friend request accepted");
 	}
 	catch(error) {
 		console.log("Error: ", error);

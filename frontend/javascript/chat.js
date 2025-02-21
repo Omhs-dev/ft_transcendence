@@ -166,14 +166,29 @@ const updateOnlineUsers = () => {
 	}
 	userList.innerHTML = "";
 	
-	console.log("before for loop");
 	let index = 0;
+	let friendOrAdd = "";
+	// const addBtn = `<button class="btn btn-outline-success add-user-btn">Add</button>`;
+	// const friendBadge = `<span class="badge bg-primary">Friend</span>`;
+
+	let friendsList = JSON.parse(localStorage.getItem("friendsList")) || [];
+	console.log("friendsList: ", friendsList);
+	if (!Array.isArray(friendsList)) {
+		friendsList = [];
+	}
 
 	for (const user of Object.values(onlineUsers)) {
 		if (user.user_id !== Number(userId) && user.username !== username) {
 			console.log("users online found");
-
+			console.log("user id ", user.user_id);
 			const userTr = document.createElement("tr");
+
+			if (friendsList.includes(user.user_id)) {
+				friendOrAdd = `<span class="badge bg-light text-dark p-3">Friend</span>`;
+			} else {
+				friendOrAdd = `<button class="btn btn-outline-success add-user-btn">Add</button>`;
+			}
+
 			userTr.innerHTML = `
 				<th scope="row">${index + 1}</th>
 				<td>
@@ -181,7 +196,7 @@ const updateOnlineUsers = () => {
 				</td>
 				<td>
 					<button class="btn btn-primary send-message-btn" data-user-id="${user.user_id}" data-username="${user.username}">Message</button>
-					<button class="btn btn-outline-success add-user-btn">Add</button>
+					${friendOrAdd}
 				</td>
 			`;
 
