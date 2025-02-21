@@ -206,9 +206,14 @@ const fetchFriendList = async () => {
 
 		const friendList = document.getElementById("friendList");
 		const friendNumber = document.querySelector(".friendNumber");
+		let blockedUsersId = JSON.parse(localStorage.getItem("blockedUser")) || [];
+
+		// Ensure it's an array (in case of a bad value in localStorage)
+		if (!Array.isArray(blockedUsersId)) {
+			blockedUsersId = [];
+		}
 
 		if (data.length >= 0) {
-			// friendNumber.textContent = data.length > 0 ? data.length : "0";
 			data.forEach((user, index) => {
 				console.log("User: ", user.from_user);
 				console.log("Index: ", index);
@@ -231,8 +236,25 @@ const fetchFriendList = async () => {
 				button.classList.add("btn", "btn-primary", "rounded-pill");
 				button.textContent = "block";
 
-				button.addEventListener("click", () => blockFriend(user.id));
-			
+				// Check if user is blocked
+				if (blockedUsersId.includes(user.id)) {
+					console.log("this user is blocked");
+					console.log("user id: ", user.id);
+					button.textContent = "Blocked";
+					button.disabled = true;
+				} else {
+					console.log("this user is not blocked");
+				}
+
+				// Handle button click to block user
+				button.addEventListener("click", () => {
+					blockFriend(user.id);
+					button.textContent = "Blocked";
+					button.disabled = true;
+					blockedUsersId.push(user.id);
+					localStorage.setItem("blockedUser", JSON.stringify(blockedUsersId));
+				});
+
 				// Append button inside <td>
 				tdButton.appendChild(button);
 			
@@ -257,22 +279,27 @@ const fetchFriendList = async () => {
 const blockFriend = async (userId) => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/block-user/${userId}/`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				'X-CSRFToken': getCookie('csrftoken'),
 			},
+			credentials: 'include',
 			body: JSON.stringify({ user_id: userId }),
 		});
+
+		const data = await response.json();
+
+		console.log("response status: ", response.status);
+		console.log("Data: ", data);
 
 		if (!response.ok) {
 			throw new Error(`Failed to block friend: ${response.statusText}`);
 		}
 
-		const data = await response.json();
-		console.log("Data: ", data);
-		alert(data.message || "Friend blocked");
-		fetchFriendList();
+		// const data = await response.json();
+		// console.log("Data: ", data);
+		console.log("Friend blocked");
 	}
 
 	catch(error) {
@@ -347,11 +374,14 @@ const updateProfilePicture = async (formData) => {
 const isAuthenticated = localStorage.getItem("isAuthenticated");
 const userName = localStorage.getItem("username");
 
+
 document.addEventListener("DOMContentLoaded", () => {
 	if (isAuthenticated && userName) {
-		console.log("user is authenticated you can fetch data");
 		fetchProfileInfo();
-		// fetchFriendList();
+
+		if (window.location.pathname === "/profile") {
+			fetchFriendList();
+		}
 	}
 });
 

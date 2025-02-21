@@ -98,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		localStorage.removeItem("loadPageOnce");
 	}
 	
-
 	if ((isAuthenticated || isOauthLogged) && username) {
 		startTokenRefreshTimer();
 	}
@@ -191,13 +190,14 @@ const logoutUser = async () => {
 			},
 			credentials: 'include',
 		});
-		console.log("response: ", response);
+
 		if (!response.ok) {
 			console.log("can not fetch api !!!");
 			throw new Error("could not fetch api...", response.statusText);
 		}
 
 		localStorage.removeItem("userId");
+		localStorage.removeItem("senderId");
 		localStorage.removeItem("username");
 		localStorage.removeItem("isOauthLogged");
 		localStorage.removeItem("isAuthenticated");
@@ -205,7 +205,6 @@ const logoutUser = async () => {
 		window.location.href = "/";
 
 		console.log('User registered successfully!');
-		// alert('You have been logged out.');
 	} catch(error) {
 		console.log(error.message);
 	}
@@ -232,7 +231,6 @@ const renewToken = async () => {
 		});
 
 		if (!response.ok) {
-			console.error('Token refresh failed');
 			logoutUser();
 			console.log("User logged out due to token refresh failure");
 			throw new Error('Token refresh failed');
