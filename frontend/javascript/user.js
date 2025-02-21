@@ -129,14 +129,25 @@ const fetchFriendRequests = async () => {
 			// Create <td> for username
 			const tdUsername = document.createElement("td");
 			tdUsername.textContent = user.from_user;
-		
+			
 			// Create <td> for button
 			const tdButton = document.createElement("td");
 			const button = document.createElement("button");
 			button.classList.add("btn", "btn-primary", "rounded-pill");
 			button.textContent = "Accept";
 
-			button.addEventListener("click", () => acceptFriendRequest(user.id));
+			button.addEventListener("click", () => {
+				acceptFriendRequest(user.id, tr);
+				// create an alert to show that the request has been accepted
+				const acceptAlert = document.createElement("div");
+				acceptAlert.classList.add("alert", "alert-success", "position-absolute", "top-0", "end-0");
+				acceptAlert.setAttribute("role", "alert");
+				acceptAlert.textContent = "Friend request accepted!";
+				appSection.appendChild(acceptAlert);
+				setTimeout(() => {
+					acceptAlert.remove();
+				}, 3000);
+			});
 		
 			// Append button inside <td>
 			tdButton.appendChild(button);
@@ -157,7 +168,7 @@ const fetchFriendRequests = async () => {
 };
 
 // Accept Friend Request
-const acceptFriendRequest = async (userId) => {
+const acceptFriendRequest = async (userId, userTr) => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/accept-friend-request/${userId}/`, {
 			method: 'POST',
@@ -173,8 +184,8 @@ const acceptFriendRequest = async (userId) => {
 		}
 
 		const data = await response.json();
-		alert(data.message || "Friend request accepted");
-		fetchFriendRequests();
+
+		userTr.remove();
 	}
 	catch(error) {
 		console.log("Error: ", error);
@@ -381,6 +392,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		if (window.location.pathname === "/profile") {
 			fetchFriendList();
+		} else if (window.location.pathname === "/requests") {
+			fetchFriendRequests();
 		}
 	}
 });
