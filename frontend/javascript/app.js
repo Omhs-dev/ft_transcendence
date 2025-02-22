@@ -71,4 +71,25 @@ window.addEventListener('load', () => {
 	} else {
 		console.log('not redirecting');
 	}
+
+	// ****** SideNav link effects on click ******
+	const navLinks = document.querySelectorAll(".nav-link");
+
+    const activeLink = localStorage.getItem("activeNavLink");
+    if (activeLink) {
+        document.querySelector(`.nav-link[href='${activeLink}']`)?.classList.add("active");
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            // Remove 'active' from all links
+            navLinks.forEach(nav => nav.classList.remove("active"));
+            
+            // Add 'active' class to clicked link
+            this.classList.add("active");
+
+            // Store selected link in localStorage
+            localStorage.setItem("activeNavLink", this.getAttribute("href"));
+        });
+    });
 });

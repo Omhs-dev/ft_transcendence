@@ -22,6 +22,25 @@ html {
 main {
 }
 
+.nav-link {
+    color: black;
+	width: 225.5px;
+    padding: 10px;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: #2b5261;
+    color: white;
+}
+
+/* Active/Selected Link */
+.nav-link.active {
+    background-color: #265060 !important;
+    color: white;
+}
+
 .sidenav {
 	color: #FFFFFF;
 	background-color: #182B38;
