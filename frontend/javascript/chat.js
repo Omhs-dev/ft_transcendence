@@ -161,6 +161,7 @@ function connectWebSocket() {
 chatIcon.addEventListener('click', () => {
 	const senderMessage = localStorage.getItem("senderMessage");
 	const senderName = localStorage.getItem("senderName");
+	const correspondantId = localStorage.getItem("correspondantId");
 
 	chatBox.style.display = 'block';
 
@@ -169,7 +170,7 @@ chatIcon.addEventListener('click', () => {
 		decrementNotificationCount();
 	}
 	if (senderMessage) {
-		displayMessageInChat(null, senderName, senderMessage)
+		displayMessageInChat(correspondantId, senderName, senderMessage)
 			.then(() => console.log("Message displayed successfully!"))
 			.catch(error => console.error("Error displaying message:", error));
 		localStorage.removeItem("senderMessage");
@@ -310,6 +311,8 @@ async function displayMessageInChat(senderId, sender, message) {
 }
 
 function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {
+	localStorage.setItem('correspondantId', creatorId);
+	
 	// Remove existing popup if it exists
 	const existingPopup = document.querySelector('.incoming-message-popup');
 	if (existingPopup) {
@@ -334,7 +337,6 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 		chatBox.style.display = 'block';
 		localStorage.removeItem('senderMessage');
 		localStorage.setItem('chatRequest', 'false');
-		localStorage.setItem('correspondantId', creatorId);
 		localStorage.setItem('chatRoomId', chatRoomId);
 		await displayMessageInChat(creatorId, creatorUsername, received_message);
 		popup.remove();
