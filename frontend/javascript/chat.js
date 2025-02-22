@@ -192,7 +192,7 @@ const updateOnlineUsers = () => {
 			userTr.innerHTML = `
 				<th scope="row">${index + 1}</th>
 				<td>
-					<a href="" class="user-link" data-link>${user.username}</a>
+					<a href="#" class="user-link" data-link>${user.username}</a>
 				</td>
 				<td>
 					<button class="btn btn-primary send-message-btn" data-user-id="${user.user_id}" data-username="${user.username}">Message</button>
@@ -269,7 +269,7 @@ function displayMessageInChat(senderId, sender, message) {
 		<img src=${userPic} alt="profile" class="chat-avatar">
 		<div class="chat-content">
 			<span class="chat-username">
-				<a href="#" class="user-link" data-link>${sender}</a>
+				<a href="/userprofile" class="user-link" data-link>${sender}</a>
 			</span>
 			<span class="chat-timestamp">${time}</span>
 			<p class="chat-text">${message}</p>

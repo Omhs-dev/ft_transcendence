@@ -10,6 +10,7 @@ import SettingsView from "./views/SettingsView.js";
 import LeaderboardView from "./views/LeaderboardView.js";
 import RequestsView from "./views/RequestsView.js";
 import PongGameView from "./views/PongGameView.js";
+import UserProfileView from "./views/UserProfileView.js";
 
 const navigateTo = (url) => {
 	history.pushState(null, null, url);
@@ -21,6 +22,7 @@ const routes = [
 	{ path: "/login", view: LoginView },
 	{ path: "/dashboard", view: DashboardView },
 	{ path: "/profile", view: ProfileView },
+	{ path: "/userprofile", view: UserProfileView },
 	{ path: "/tournaments", view: TournamentsView },
 	{ path: "/tournament", view: TournamentView },
 	{ path: "/requests", view: RequestsView },
