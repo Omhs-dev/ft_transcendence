@@ -1,8 +1,8 @@
 import { getCookie } from "../login.js";
 
-export async function getOnlineUsers() {
+export async function loadUserProfile(userId) {
 	try {
-		const response = await fetch(`http://localhost:8000/chat/api/online-users/`, {
+		const response = await fetch(`http://localhost:8000/auth/api/profile/?id=${userId}`, {
 			method: 'GET',
 			headers: {
 				'X-CSRFToken': getCookie('csrftoken'),
@@ -12,11 +12,11 @@ export async function getOnlineUsers() {
 		});
 
 		if (!response.ok) {
-			alert("could not fetch api");
-			throw new Error("Error fetching api: ", response.status);
+			throw new Error(`Error fetching API: ${response.status} - ${response.statusText}`);
 		}
 
 		const data = await response.json();
+		console.log("Data: ", data);
 		return data;
 	} catch (error) {
 		console.error("Error fetching online users: ", error);

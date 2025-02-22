@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
+from .models import Profile
 from django.contrib.auth import authenticate
 from .serializers import RegisterSerializer, ProfileSerializer
 from django.db.utils import IntegrityError
@@ -20,10 +21,11 @@ from django.utils.timezone import now
 from django.http import JsonResponse
 import qrcode
 from io import BytesIO
-from .IIFA_utils import *  # Ensure these utilities are implemented
+from .IIFA_utils import generate_and_send_Email_SMS_otp, verify_otp_code # Ensure these utilities are implemented
 import logging
+import os
 
-
+logger = logging.getLogger('auth_app')
 
 def index(request):
     return render(request,"auth_app/index.htm")
@@ -31,8 +33,13 @@ def index(request):
 def registration_page(request):
     return render(request, 'auth_app/register.htm')
 
+# ----------------- Debug Status View ----------------- #
 
-logger = logging.getLogger('auth_app')
+def debug_status(request):
+    debug = os.environ.get("DJANGO_DEBUG", False)
+    return JsonResponse({'debug': debug})
+
+
 
 # ----------------- Register View ----------------- #
 
@@ -77,6 +84,9 @@ class LoginView(APIView):
 
         if user is not None:
 
+            if user.profile.is_online:
+                return Response({"error": "This account is already logged in"}, status=status.HTTP_409_CONFLICT) 
+            
             # Check if 2FA is enabled for the user
             if user.profile.is_2fa_enabled:
                 logger.info("2FA is enabled for the user: %s", user.username)
@@ -181,10 +191,24 @@ class LogoutView(APIView):
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
-
+    logger.debug("\n\n\nProfileView request received")
     def get(self, request):
-        """Retrieve the authenticated user's profile."""
-        profile = request.user.profile
+        """
+        Retrieve the authenticated user's profile or another user's profile by ID.
+        """
+        user_id = request.query_params.get('id')  # Extract 'id' from request parameters
+
+        if user_id:
+            # Fetch another user's profile by ID
+            try:
+                profile = Profile.objects.get(user__id=user_id)
+            except Profile.DoesNotExist:
+                return Response({"error": "Profile not found"}, status=404)
+        else:
+            # If no ID is provided, return the authenticated user's profile
+            """Retrieve the authenticated user's profile."""
+            profile = request.user.profile
+            
         serializer = ProfileSerializer(profile)
         return Response(serializer.data, status=200)
 

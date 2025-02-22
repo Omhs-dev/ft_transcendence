@@ -1,6 +1,6 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
-import { getOnlineUsers } from "./utils/chatUtils.js";
+import { loadUserProfile } from "./utils/chatUtils.js";
 
 const chatIcon = document.getElementById('chatIcon');
 const chatBox = document.getElementById('chatBox');
@@ -15,6 +15,9 @@ let chatSocket;
 let chatRoomId = null;
 let onlineUsers = {};
 let notificationCount = 0;
+
+// the base url for the backend
+const baseUrl = "http://localhost:8000"
 
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 const wsUrl = `${protocol}${window.location.hostname}:8000/ws/chat/`;
@@ -68,9 +71,9 @@ function connectWebSocket() {
 		const data = JSON.parse(e.data);
 
 		const currentUserId = localStorage.getItem('userId');
-		console.log('Data:', data);
-		// console.log('userId:', currentUserId);
-		console.log("online status", data.type);
+		const correspondantId = localStorage.getItem('correspondantId');
+		
+		// console.log('Data:', data);
 
 		if (data.type === "online_status") {
 			// console.log("type: online status");
@@ -92,7 +95,18 @@ function connectWebSocket() {
 				showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
 			}
 		} else if (data.type === "chat_message") {
-			displayMessageInChat(data.sender_id, data.sender, data.message);
+			const currentUserId = localStorage.getItem('userId');
+
+			if (data.sender_id !== Number(data.receiver_id)) {
+				displayMessageInChat(Number(currentUserId), data.sender, data.message)
+				.then(() => console.log("Message displayed successfully!"))
+				.catch(error => console.error("Error displaying message:", error));
+			} else if (data.sender_id === Number(data.receiver_id)) {
+				displayMessageInChat(Number(correspondantId), data.sender, data.message)
+				.then(() => console.log("Message displayed successfully!"))
+					.catch(error => console.error("Error displaying message:", error));
+			}
+
 			updateOnlineUsers();
 		} else if (data.type === "game_invite_received") {
 			const senderId = data.sender_id;
@@ -117,14 +131,18 @@ function connectWebSocket() {
 			const correspondantName = localStorage.getItem("senderName");
 
 			if (player1_id === currentUserId) {
-				displayMessageInChat(player2_id, correspondantName, message);
+				displayMessageInChat(player2_id, correspondantName, message)
+					.then(() => console.log("Message displayed successfully!"))
+					.catch(error => console.error("Error displaying message:", error));
 				// startGame(player1_id, player2_id);
 			}
 		} else if (data.type === "game_invite_declined") {
 			const player1_id = data.sender_id;
 			const player2_id = data.target_id;
 			const message = data.message;
-			displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_declined');
+			displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_declined')
+				.then(() => console.log("Message displayed successfully!"))
+				.catch(error => console.error("Error displaying message:", error));
 		}
 	};
 
@@ -151,7 +169,9 @@ chatIcon.addEventListener('click', () => {
 		decrementNotificationCount();
 	}
 	if (senderMessage) {
-		displayMessageInChat(null, senderName, senderMessage);
+		displayMessageInChat(null, senderName, senderMessage)
+			.then(() => console.log("Message displayed successfully!"))
+			.catch(error => console.error("Error displaying message:", error));
 		localStorage.removeItem("senderMessage");
 	}
 });
@@ -245,12 +265,12 @@ const onpenChatBoxToSend = (sendMessageBtn, userName, userId) => {
 		sendMessageBtn.disabled = true;
 
 		localStorage.setItem("chatRequest", "true");
-		localStorage.setItem("receiverId", userId);
+		localStorage.setItem("correspondantId", userId);
 	});
 }
 
 // Display Message in Chat
-function displayMessageInChat(senderId, sender, message) {
+async function displayMessageInChat(senderId, sender, message) {
 	const chatMessages = document.getElementById('chatMessages');
 	const noMessage = document.getElementById('noMessages');
 	const messageElement = document.createElement('div');
@@ -264,14 +284,12 @@ function displayMessageInChat(senderId, sender, message) {
 	let userPic = './assets/user.png';
 
 	// Get online users
-	const userOnline = getOnlineUsers();
-	if (userOnline) {
-		for (const user of Object.values(userOnline)) {
-			if (user.user_id === senderId) {
-				userPic = user.profile_pic;
-				break;
-			}
-		}
+	const userProfile = await loadUserProfile(senderId);
+
+	if (userProfile) {
+		userPic = baseUrl + userProfile.profile_picture;
+	} else {
+		console.warn("No user profile found.");
 	}
 
 	messageElement.classList.add('chat-message', 'd-flex', 'me-2');
@@ -312,13 +330,13 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 	replyButton.classList.add('btn', 'btn-success', 'btn-sm', 'me-2');
 
 	// Event listener for reply
-	replyButton.addEventListener('click', () => {
+	replyButton.addEventListener('click', async () => {
 		chatBox.style.display = 'block';
 		localStorage.removeItem('senderMessage');
 		localStorage.setItem('chatRequest', 'false');
-		localStorage.setItem('receiverId', creatorId);
+		localStorage.setItem('correspondantId', creatorId);
 		localStorage.setItem('chatRoomId', chatRoomId);
-		displayMessageInChat(creatorId, creatorUsername, received_message);
+		await displayMessageInChat(creatorId, creatorUsername, received_message);
 		popup.remove();
 	});
 
@@ -370,7 +388,7 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 	acceptButton.classList.add('btn', 'btn-success', 'btn-sm', 'me-2');
 
 	// Event listener for Accept
-	acceptButton.addEventListener('click', () => {
+	acceptButton.addEventListener('click', async () => {
 		console.log("Accept button clicked");
 		acceptButton.disabled = true;
 		declineButton.disabled = true;
@@ -381,7 +399,7 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 			target_id: creatorId,
 			sender_id: currentUserId,
 		}));
-		displayMessageInChat(currentUserId, username, "Game invite accepted!");
+		await displayMessageInChat(currentUserId, username, "Game invite accepted!");
 	});
 
 	// Create a "Decline" button
@@ -390,7 +408,7 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 	declineButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
 
 	// Event listener for Decline
-	declineButton.addEventListener('click', () => {
+	declineButton.addEventListener('click', async () => {
 		console.log("Decline button clicked");
 		acceptButton.disabled = true;
 		declineButton.disabled = true;
@@ -401,7 +419,7 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 			target_id: creatorId,
 			sender_id: localStorage.getItem('userId'),
 		}));
-		displayMessageInChat(currentUserId, username, "Game invite declined!");
+		await displayMessageInChat(currentUserId, username, "Game invite declined!");
 	});
 
 	// Append elements to the popup
@@ -451,14 +469,13 @@ chatSubmit.addEventListener('submit', (e) => {
 
 	const message = collectMessageToSend();
 	const chatRequest = localStorage.getItem('chatRequest');
-	const receiverId = localStorage.getItem('receiverId');
+	const correspondantId = localStorage.getItem('correspondantId');
 
 	if (chatRequest === "true") {
 		sendChatRequest(message);
 	}
 	if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
-		console.log('Sending message:', message);
-		sendMessageToSocket(message, receiverId, chatRoomId);
+		sendMessageToSocket(message, correspondantId, chatRoomId);
 	} else {
 		console.error('WebSocket is not open');
 	}
@@ -477,46 +494,50 @@ inviteToPlay.addEventListener('click', () => {
 // Send Chat Request
 const sendChatRequest = (message) => {
 	const currentUserId = localStorage.getItem('userId');
-	const receiverId = localStorage.getItem('receiverId');
+	const correspondantId = localStorage.getItem('correspondantId');
 	const username = localStorage.getItem('username');
 
 	const data = {
 		type: 'chat_request',
-		target_id: receiverId,
+		target_id: correspondantId,
 		message: message
 	};
 
 	chatSocket.send(JSON.stringify(data));
 	localStorage.removeItem('chatRequest');
-	displayMessageInChat(Number(currentUserId), username, message);
+	displayMessageInChat(Number(currentUserId), username, message)
+	.then(() => console.log("Message displayed successfully!"))
+    .catch(error => console.error("Error displaying message:", error));
 }
 
 // send game invitation
 function sendGameInvite(message) {
 	const currentUserId = localStorage.getItem('userId');
-	const receiverId = localStorage.getItem('receiverId');
+	const correspondantId = localStorage.getItem('correspondantId');
 	const username = localStorage.getItem('username');
 
 	console.log("currentUserId: ", currentUserId);
-	console.log("receiverId: ", receiverId);
+	console.log("correspondantId: ", correspondantId);
 
 	const data = {
 		type: 'game_invite',
-		target_id: receiverId,
+		target_id: correspondantId,
 		sender_id: currentUserId,
 		chat_room_id: chatRoomId
 	};
 
 	chatSocket.send(JSON.stringify(data));
-	displayMessageInChat(Number(currentUserId), username, message);
+	displayMessageInChat(Number(currentUserId), username, message)
+		.then(() => console.log("Message displayed successfully!"))
+		.catch(error => console.error("Error displaying message:", error));
 }
 
-function sendMessageToSocket(message, receiverId, chatRoomId) {
+function sendMessageToSocket(message, correspondantId, chatRoomId) {
 	console.log("sending message to socket");
 	const data = {
 		type: 'chat_message',
 		message: message,
-		receiver_id: receiverId,
+		receiver_id: correspondantId,
 		chat_room_id: chatRoomId
 	};
 	chatSocket.send(JSON.stringify(data));

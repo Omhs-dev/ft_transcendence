@@ -342,7 +342,7 @@ const fetchProfileInfo = async () => {
 		}
 
 		const data = await response.json();
-
+		console.log("profile data: ", data);
 		const userPicture = document.getElementById("userPicture");
 		const userPicSideNav = document.getElementById("userImageSnav");
 
