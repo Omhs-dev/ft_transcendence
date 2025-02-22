@@ -88,6 +88,7 @@ function connectWebSocket() {
 			chatRoomId = data.chat_room_id;
 			if (data.target_id === currentUserId) {
 				localStorage.setItem("senderName", data.creator_username);
+				localStorage.setItem("senderMessage", data.message);
 				showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, chatRoomId);
 			}
 		} else if (data.type === "chat_message") {
@@ -116,7 +117,6 @@ function connectWebSocket() {
 			const correspondantName = localStorage.getItem("senderName");
 
 			if (player1_id === currentUserId) {
-				console.log("game invite accepted");
 				displayMessageInChat(player2_id, correspondantName, message);
 				// startGame(player1_id, player2_id);
 			}
@@ -141,8 +141,19 @@ function connectWebSocket() {
 
 // Show or Hide Chatbox on Icon Click
 chatIcon.addEventListener('click', () => {
-	chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
-	decrementNotificationCount();
+	const senderMessage = localStorage.getItem("senderMessage");
+	const senderName = localStorage.getItem("senderName");
+
+	chatBox.style.display = 'block';
+
+
+	if (notificationCount > 0) {
+		decrementNotificationCount();
+	}
+	if (senderMessage) {
+		displayMessageInChat(null, senderName, senderMessage);
+		localStorage.removeItem("senderMessage");
+	}
 });
 
 // Close Chatbox
@@ -303,11 +314,12 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 	// Event listener for reply
 	replyButton.addEventListener('click', () => {
 		chatBox.style.display = 'block';
+		localStorage.removeItem('senderMessage');
 		localStorage.setItem('chatRequest', 'false');
 		localStorage.setItem('receiverId', creatorId);
 		localStorage.setItem('chatRoomId', chatRoomId);
 		displayMessageInChat(creatorId, creatorUsername, received_message);
-		popup.remove(); // Remove the popup after clicking reply
+		popup.remove();
 	});
 
 	// Create a "Close" button
@@ -411,6 +423,8 @@ function notifyUserIcon() {
 
 // Decrement Notification Count
 function decrementNotificationCount() {
+	notificationCount--;
+	
 	notificationNbr.textContent = notificationCount;
 	
 	if (notificationCount === 0) {
@@ -419,7 +433,6 @@ function decrementNotificationCount() {
 		notificationNbr.textContent = '';
 		return;
 	}
-	notificationCount--;
 }
 
 // Send and invite to play game buttons event listeners
