@@ -92,16 +92,98 @@ services:
       - "80:80"
     volumes:
       - static_files:/home/app/static  # Mount static files volume
+      - ./ELK/logstash/conf/access.log:/var/log/nginx/access.log
     #   - ./nginx:/etc/nginx/conf.d  # Mount custom Nginx config
     depends_on:
       - django
     networks:
       - webnet
 
+  setup:
+    container_name: setup
+    build: ./ELK/setup
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+    healthcheck:
+      test: ['CMD-SHELL', '[ -f /usr/share/elasticsearch/config/certs/elasticsearch/elasticsearch.crt ]']
+      interval: 1s
+      timeout: 5s
+      retries: 120
+
+  elasticsearch:
+    container_name: elasticsearch
+    depends_on:
+      setup:
+        condition: service_healthy
+    build: ./ELK/elasticsearch
+    restart: always
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+      - elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - '9200:9200'
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+    mem_limit: ${MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  logstash:
+    container_name: logstash
+    depends_on:
+      setup:
+        condition: service_healthy
+    build: ./ELK/logstash
+    restart: always
+    volumes:
+      - certs:/usr/share/logstash/config/certs
+      - ./ELK/logstash/conf/access.log:/usr/share/logstash/nginx/access.log
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+
+  kibana:
+    container_name: kibana
+    depends_on:
+      setup:
+        condition: service_healthy
+    build: ./ELK/kibana
+    restart: always
+    volumes:
+      - certs:/usr/share/kibana/config/certs
+      - kibana:/usr/share/kibana/data
+    ports:
+      - '5601:5601'
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+    mem_limit: ${MEM_LIMIT}
+
+
 volumes:
   static_files:  # Define named volume for static files
   database:  # Define named volume for PostgreSQL persistence
   grafana-data:  # Define named volume for Grafana persistence
+  certs:
+    name: certs
+  elasticsearch:
+    name: elasticsearch
+  kibana:
+    name: kibana
+
 networks:
+  elk-stack:
+    name: elk-stack
   webnet:
     driver: bridge
