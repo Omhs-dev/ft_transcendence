@@ -17,7 +17,6 @@ export async function getOnlineUsers() {
 		}
 
 		const data = await response.json();
-		console.log("Online users: ", data);
 		return data;
 	} catch (error) {
 		console.error("Error fetching online users: ", error);
