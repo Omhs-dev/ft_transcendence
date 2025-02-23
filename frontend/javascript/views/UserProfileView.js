@@ -1,6 +1,6 @@
 import AbsractView from "./AbsractView.js";
+import { loadUserProfile } from "../utils/generalUtils.js";
 import { loadProfilePic } from "../utils/generalUtils.js";
-import { loadUserFriendsList } from "../utils/generalUtils.js";
 import { loadUserFriendsNbr } from "../utils/generalUtils.js";
 
 export default class extends AbsractView {
@@ -27,6 +27,9 @@ export default class extends AbsractView {
 			const eachUserName = doc.getElementById("eachUserName");
 			const eachUserPicture = doc.getElementById("eachUserPicture");
 			const eachUserFriendsNbr = doc.querySelector(".eachUserFriendsNbr");
+			const eachUserName2 = doc.getElementById("eachUserName2");
+			const eachUserName3 = doc.getElementById("eachUserName3");
+			const eachUserEmail = doc.getElementById("eachUserEmail");
 			// Get the correspondant name and id from the local storage
 			const correspondantName = localStorage.getItem("senderName");
 			const correspondantId = localStorage.getItem("correspondantId");
@@ -45,6 +48,15 @@ export default class extends AbsractView {
 			if (eachUserFriendsNbr) {
 				const friendsNbr = await loadUserFriendsNbr(correspondantId);
 				eachUserFriendsNbr.textContent = friendsNbr;
+			}
+			if (eachUserName2 && eachUserName3 && eachUserEmail) {
+				const profileInfo = await loadUserProfile(correspondantId);
+				eachUserName2.textContent = profileInfo.username;
+				eachUserName3.textContent = profileInfo.username;
+				eachUserEmail.textContent = profileInfo.email;
+				console.log("eachUserName2: ", eachUserName2.textContent);
+				console.log("eachUserName3: ", eachUserName3.textContent);
+				console.log("eachUserEmail: ", eachUserEmail.textContent);
 			}
 
             return doc.body.innerHTML;
