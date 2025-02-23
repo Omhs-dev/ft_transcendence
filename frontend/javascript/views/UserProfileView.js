@@ -1,5 +1,7 @@
 import AbsractView from "./AbsractView.js";
-// import { loadDefaultPic } from "../utils/loginCheck.js";
+import { loadProfilePic } from "../utils/generalUtils.js";
+import { loadUserFriendsList } from "../utils/generalUtils.js";
+import { loadUserFriendsNbr } from "../utils/generalUtils.js";
 
 export default class extends AbsractView {
 	constructor(params) {
@@ -21,18 +23,29 @@ export default class extends AbsractView {
 			const parse = new DOMParser();
 			const doc = parse.parseFromString(htmlContent, "text/html");
 
-			// const loggedUserName1 = doc.getElementById("loggedUserName1");
-			// const userPicture = doc.getElementById("userPicture");
-			// const userPicSideNav = doc.getElementById("userImageSnav");
-			// const userName = localStorage.getItem("username");
+			// Get the elements from the external HTML file
+			const eachUserName = doc.getElementById("eachUserName");
+			const eachUserPicture = doc.getElementById("eachUserPicture");
+			const eachUserFriendsNbr = doc.querySelector(".eachUserFriendsNbr");
+			// Get the correspondant name and id from the local storage
+			const correspondantName = localStorage.getItem("senderName");
+			const correspondantId = localStorage.getItem("correspondantId");
 
-			// if (loggedUserName1) {
-			// 	console.log("loggedUserName1 is valid 1");
-			// 	loggedUserName1.textContent = userName;
-			// }
+			console.log("eachUserFriendsNbr: ", eachUserFriendsNbr);
 
-			// // Load default user pic
-			// loadDefaultPic(userPicSideNav, userPicture);
+			if (eachUserName) {
+				eachUserName.textContent = correspondantName;
+			}
+			if (eachUserPicture) {
+				const profilePic = await loadProfilePic(correspondantId);
+				eachUserPicture.src = profilePic;
+				eachUserPicture.style.width = "200px";
+				eachUserPicture.style.height = "200px";
+			}
+			if (eachUserFriendsNbr) {
+				const friendsNbr = await loadUserFriendsNbr(correspondantId);
+				eachUserFriendsNbr.textContent = friendsNbr;
+			}
 
             return doc.body.innerHTML;
         } catch (error) {

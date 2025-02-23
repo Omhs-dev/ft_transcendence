@@ -6,21 +6,16 @@
 			<div class="row justify-content-center">
 				<div class="col-md-3 text-center">
 					<img src="./assets/user.png" alt="Profile Picture"
-						class="rounded-circle img-thumbnail" id="userPicture">
-					<!-- <label for="formFile" class="form-label">Default file input example</label>
-					<input class="form-control" type="file" id="selectPicture" name="picture" accept="image/*"> -->
+						class="rounded-circle img-thumbnail" id="eachUserPicture">
 				</div>
 				<!-- user infos -->
 				<div class="card col-md-7  d-flex text-white bg-dark mb-3">
 					<div class="card-body">
 						<div class="d-flex justify-content-between">
 							<div>
-								<h2 class="card-title fw-bold" id="loggedUserName1">John Doe</h2>
-								<p class="text-muted" id="userNickName">@johndoe</p>
+								<h2 class="card-title fw-bold" id="eachUserName">John Doe</h2>
+								<p class="text-muted" id="eachUserNickName"></p>
 							</div>
-							<!-- <div>
-								<button class="btn btn-primary rounded-pill">Add +</button>
-							</div> -->
 						</div>
 						<div class="card-text d-flex justify-content-between">
 							<div class="text-center"  id="statusDiv">
@@ -31,15 +26,15 @@
 							<div class="text-center" id="friendListDiv">
 								<i class="fa-regular fa-user"></i>
 								<button class="btn text-white friends" type="button" data-bs-toggle="modal"
-									data-bs-target="#staticBackdrop" id="friendListBtn">
+									data-bs-target="#staticBackdrop" id="eachUserfriendListBtn">
 									Friend List
 								</button>
-								<p class="friendNumber">0</p>
+								<p class="eachUserFriendsNbr">0</p>
 							</div>
 							<div class="text-center">
 								<i class="fa-regular fa-message"></i>
-								<a href="#">Send Message</a>
-								<p class="text-success  class="mt-2"">Start</p>
+								<button class="btn text-white" id="sendMessage">Send Message</button>
+								<p class="text-success mt-2">Start</p>
 							</div>
 						</div>
 					</div>
@@ -207,7 +202,7 @@
 										<th scope="col">Game Type</th>
 									</tr>
 								</thead>
-								<tbody id="friendList">
+								<tbody id="userFriendList">
 									<!-- friend list -->
 								</tbody>
 							</table>

@@ -1,6 +1,7 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
-import { loadUserProfile } from "./utils/chatUtils.js";
+import { loadUserProfile } from "./utils/generalUtils.js";
+import { loadUserFriendsList } from "./utils/generalUtils.js";
 
 const chatIcon = document.getElementById('chatIcon');
 const chatBox = document.getElementById('chatBox');
@@ -57,7 +58,21 @@ sideNavSection.addEventListener("click", (e) => {
 	}
 });
 
-// Connect WebSocket
+// ----------------- Display a random user friendlist -----------------
+appSection.addEventListener("click", (e) => {
+	e.preventDefault();
+
+	// this if for correspondant user profile
+	if (e.target.id === "eachUserfriendListBtn") {
+		const correspondantId = localStorage.getItem("correspondantId");
+		const userFriendsList = document.querySelector("#userFriendList");
+		loadUserFriendsList(correspondantId, userFriendsList);
+	} else if (e.target.id === "sendMessage") {
+		chatBox.style.display = 'block';
+	}
+});
+
+// ----------------- connect to websocket -----------------
 function connectWebSocket() {
 	chatSocket = new WebSocket(`ws://${window.location.host}:8000/ws/chat/`);
 
@@ -187,13 +202,37 @@ closeChat.addEventListener('click', () => {
 	});
 });
 
+
+const eachUserfriendListBtn = document.querySelector("#eachUserfriendListBtn");
+
+console.log("eachUserfriendListBtn: ", eachUserfriendListBtn);
+
+if (eachUserfriendListBtn) {
+	console.log("this exists !");
+	eachUserfriendListBtn.addEventListener("click", async () => {
+		console.log("eachUserfriendListBtn clicked !");
+		const friendsList = await loadUserFriendsList(correspondantId);	
+		const userFriendList = document.querySelector("#userFriendList");
+		console.log("friendsList: ", friendsList);
+		if (friendsList) {
+			userFriendList.innerHTML = "";
+			friendsList.forEach(friend => {
+				console.log("friend: ", friend);
+				const friendLi = document.createElement("li");
+				friendLi.textContent = friend.username;
+				userFriendList.appendChild(friendLi);
+			});
+		}
+	});
+}
+
+
 const updateOnlineUsers = () => {
 	const userList = document.getElementById("userList");
 	const userId = localStorage.getItem("userId");
 	const username = localStorage.getItem("username");
 
 	if (!userList) {
-		console.log("user list not found");
 		return;
 	}
 	userList.innerHTML = "";
