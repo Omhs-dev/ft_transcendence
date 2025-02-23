@@ -1,0 +1,31 @@
+<h1>Pong Tournament</h1>
+
+<div class="container text-center mt-5">
+    <h1 class="mb-4 fw-bold">🏓 Pong Tournament</h1>
+
+    <!-- Registration Section -->
+    <div id="registration" class="card shadow p-4 mb-4">
+        <h2 class="card-title mb-3">Register Players</h2>
+        <div class="input-group mb-3">
+            <input type="text" id="playerAlias" class="form-control" placeholder="Enter Alias">
+            <button id="registerPlayer" class="btn btn-primary">Register</button>
+        </div>
+        <ul id="playersList" class="list-group"></ul>
+    </div>
+
+    <!-- Tournament Section -->
+    <div id="tournament" class="card shadow p-4 mb-4" style="display: none;">
+        <h2 class="card-title mb-3">Tournament Bracket</h2>
+        <div id="bracket" class="mb-3"></div>
+        <h3 id="currentMatch" class="text-primary fw-semibold"></h3>
+        <button id="startTournament" class="btn btn-success">Start Match</button>
+    </div>
+
+    <!-- Pong Game Canvas -->
+    <div class="d-flex justify-content-center">
+        <canvas id="pongCanvas" class="border shadow bg-white" width="600" height="450"></canvas>
+    </div>
+
+    <!-- Restart Button -->
+    <button id="resetTournament" class="btn btn-danger mt-4">Restart Tournament</button>
+</div>

@@ -30,26 +30,41 @@
 			<!-- App load -->
 		</div>
 
-		<div id="chatIcon" class="bg-primary text-white p-3 rounded-circle">
-			<i class="bi bi-chat-dots-fill fs-3"></i>
+		<div id="chatIcon" class="text-white p-3 fw-bold">
+			<!-- <i class="bi bi-chat-dots-fill fs-3"></i> -->
+			<i class="fa-solid fa-envelope fa-2x"></i>
+			<span id="notificationNbr"></span>
+			<span class="fs-5 chat-icon-title mb-3">Chat</span>
 		</div>
 
 		<!-- Chat Box -->
 		<div id="chatBox">
+			<!-- Chat Header -->
 			<div id="chatBoxHeader" class="d-flex justify-content-between align-items-center">
-				<span>Chat Support</span>
-				<button id="closeChat" class="btn-close btn-close-white"></button>
+				<span id="messageTo"># pong-chat</span>
+				<button id="closeChat" class="btn-close btn-close-white text-dark">-</button>
 			</div>
 		
+			<!-- Chat Messages -->
 			<div id="chatMessages">
-				<div id="messages" class="text-muted text-center">No messages yet...</div>
+				<div id="noMessages" class="text-muted text-center">No messages yet...</div>
 			</div>
 		
-			<div class="input-group">
-				<input type="text" id="chatInput" class="form-control" placeholder="Type your message...">
-				<button id="sendButton" class="btn btn-primary">Send</button>
+			<!-- Input Area -->
+			<div id="chatInputArea">
+				<form id="chatForm">
+					<input id="chatInput" placeholder="Message #here" autocomplete="off">
+					<button id="sendButton">Send</button>
+				</form>
+				<!-- Invite Button -->
+				<div id="inviteContainer">
+					<button id="inviteButton">🎮 Invite a Player</button>
+				</div>
 			</div>
+			
+		
 		</div>
+		
 	</div>
 
 	<!-- My scripts -->
@@ -60,7 +75,8 @@
 	<script type="module" src="javascript/register.js?v=1.0.1"></script>
 	<script type="module" src="javascript/user.js?v=1.0.1"></script>
 	<script type="module" src="javascript/2fa.js?v=1.0.1"></script>
-	<script type="module" src="javascript/startgame.js"></script>
+	<script type="module" src="javascript/game.js"></script>
+	<script type="module" src="javascript/tournament.js?v=1.0.1"></script>
 	<script type="module" src="javascript/components/sidenav.js"></script>
 	<script type="module" src="javascript/components/loginCard.js"></script>
 	<script type="module" src="javascript/components/registerCard.js"></script>

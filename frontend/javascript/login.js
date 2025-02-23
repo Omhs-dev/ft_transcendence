@@ -36,8 +36,8 @@ const loginWith42 = () => {
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const loadToMainPage = async () => {
-	await wait(6000);
-	console.log("after countdown");
+	await wait(800);
+	// console.log("after countdown");
 	window.location.href = "/";
 }
 
@@ -58,8 +58,9 @@ const checkOauth2Login = async () => {
 		}
 
 		const data = await response.json();
-		console.log('Data:', data);
+		// console.log('Data:', data);
 
+		localStorage.setItem("userId", data.id);
 		localStorage.setItem("username", data.username);
 		localStorage.setItem("isAuthenticated", "true");
 
@@ -87,26 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	const loadPageOnce = localStorage.getItem("loadPageOnce");
 
 	if (isOauthLogged) {
-		console.log("user is logged in with oauth");
+		// console.log("user is logged in with oauth");
 		checkOauth2Login();
 	}
 
 	if (loadPageOnce) {
-		console.log("load page once");
+		// console.log("load page once");
 		loadToMainPage();
 		localStorage.removeItem("loadPageOnce");
 	}
 	
-
 	if ((isAuthenticated || isOauthLogged) && username) {
-		console.log("user is logged in");
-		console.log("username: ", username);
-		console.log("isAuthenticated: ", isAuthenticated);
-		console.log("enable2Fa: ", enable2Fa);
 		startTokenRefreshTimer();
-
-	} else {
-		console.log("user is not logged in");
 	}
 });
 
@@ -170,6 +163,7 @@ const loginUser = async () => {
 
 		localStorage.removeItem("twoFaMethod");
 		localStorage.setItem("username", username);
+		localStorage.setItem("userId", data.user_id);
 		localStorage.setItem("isAuthenticated", "true");
 
 		window.location.href = "/";
@@ -187,6 +181,7 @@ const loginUser = async () => {
 // Logout functionality
 const logoutUser = async () => {
 	stopTokenRefreshTimer();
+
 	try {
 		const response = await fetch('http://localhost:8000/auth/api/logout/', {
 			method: 'POST',
@@ -196,24 +191,28 @@ const logoutUser = async () => {
 			},
 			credentials: 'include',
 		});
-		console.log("response: ", response);
+
+		// Check if logout was successful
 		if (!response.ok) {
-			console.log("can not fetch api !!!");
-			throw new Error("could not fetch api...", response.statusText);
+			throw new Error(`Logout request failed: ${response.status} ${response.statusText}`);
 		}
-
-		localStorage.removeItem("username");
-		localStorage.removeItem("isOauthLogged");
-		localStorage.removeItem("isAuthenticated");
-
-		window.location.href = "/";
-
-		console.log('User registered successfully!');
-		// alert('You have been logged out.');
-	} catch(error) {
-		console.log(error.message);
+	} catch (error) {
+		console.warn("Logout API request failed. Proceeding with local logout.", error);
 	}
+
+	// Remove all authentication-related data (even if API request failed)
+	localStorage.removeItem("userId");
+	localStorage.removeItem("senderId");
+	localStorage.removeItem("username");
+	localStorage.removeItem("senderName");
+	localStorage.removeItem("chatRoomId");
+	localStorage.removeItem("coreespondantId");
+	localStorage.removeItem("isOauthLogged");
+	localStorage.removeItem("isAuthenticated");
+
+	window.location.href = "/";
 };
+
 
 function stopTokenRefreshTimer() {
 	if (refreshTimer) {
@@ -223,11 +222,8 @@ function stopTokenRefreshTimer() {
 }
 
 const renewToken = async () => {
-	console.log("refresh token timer started");
 	const apiUrl = 'http://localhost:8000/auth/api/renew-access/';
-	console.log(`API URL being called: ${apiUrl}`);
 
-	console.log("after api url");
 	try {
 		const response = await fetch(apiUrl, {
 			method: 'POST',
@@ -239,15 +235,12 @@ const renewToken = async () => {
 		});
 
 		if (!response.ok) {
-			console.error('Token refresh failed');
 			logoutUser();
 			console.log("User logged out due to token refresh failure");
 			throw new Error('Token refresh failed');
 		}
 
 		const data = response.json();
-
-		console.log('Token refreshed:', data);
 
 		console.log('Token refreshed successfully');
 	} catch (error) {

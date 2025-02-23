@@ -1,3 +1,13 @@
+# from django.contrib import admin
+# from .models import *
+
+# # admin.site.register(Profile)
+# admin.site.register(BlockedUser)
+# admin.site.register(ChatMessage)
+# admin.site.register(ChatRoom)
+# admin.site.register(MessageReadStatus)
+# admin.site.register(PongInvitation)
+
 from django.contrib import admin
 from django.utils.html import format_html
 from .models import (

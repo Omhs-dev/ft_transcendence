@@ -1,6 +1,5 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
-import { UpdateUserName } from "./utils/loginCheck.js";
 import { getCookie } from "./login.js";
 
 const token = localStorage.getItem("access_token");
@@ -43,12 +42,13 @@ const getOnlineUsers = async () => {
 		
 			// Create <td> for button
 			const tdButton = document.createElement("td");
-			const button = document.createElement("button");
-			button.classList.add("btn", "btn-primary", "rounded-pill");
-			button.id = "addFriend";
-			button.textContent = "Add +";
+			const addButton = document.createElement("button");
+			const messageButton = document.createElement("button");
+			addButton.classList.add("btn", "btn-primary", "rounded-pill");
+			addButton.id = "addFriend";
+			addButton.textContent = "Add +";
 
-			button.addEventListener("click", () => sendFriendRequest(user.id));
+			addButton.addEventListener("click", () => sendFriendRequest(user.id));
 		
 			// Append button inside <td>
 			tdButton.appendChild(button);
@@ -129,14 +129,25 @@ const fetchFriendRequests = async () => {
 			// Create <td> for username
 			const tdUsername = document.createElement("td");
 			tdUsername.textContent = user.from_user;
-		
+			
 			// Create <td> for button
 			const tdButton = document.createElement("td");
 			const button = document.createElement("button");
 			button.classList.add("btn", "btn-primary", "rounded-pill");
 			button.textContent = "Accept";
 
-			button.addEventListener("click", () => acceptFriendRequest(user.id));
+			button.addEventListener("click", () => {
+				acceptFriendRequest(user.id, tr);
+				// create an alert to show that the request has been accepted
+				const acceptAlert = document.createElement("div");
+				acceptAlert.classList.add("alert", "alert-success", "position-absolute", "top-0", "end-0");
+				acceptAlert.setAttribute("role", "alert");
+				acceptAlert.textContent = "Friend request accepted!";
+				appSection.appendChild(acceptAlert);
+				setTimeout(() => {
+					acceptAlert.remove();
+				}, 3000);
+			});
 		
 			// Append button inside <td>
 			tdButton.appendChild(button);
@@ -157,7 +168,12 @@ const fetchFriendRequests = async () => {
 };
 
 // Accept Friend Request
-const acceptFriendRequest = async (userId) => {
+const acceptFriendRequest = async (userId, userTr) => {
+	let friendsList = JSON.parse(localStorage.getItem("friendsList")) || [];
+	if (!Array.isArray(friendsList)) {
+		friendsList = [];
+	}
+
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/accept-friend-request/${userId}/`, {
 			method: 'POST',
@@ -172,9 +188,12 @@ const acceptFriendRequest = async (userId) => {
 			throw new Error(`Failed to accept request: ${response.statusText}`);
 		}
 
-		const data = await response.json();
-		alert(data.message || "Friend request accepted");
-		fetchFriendRequests();
+		// const data = await response.json();
+		userTr.remove();
+		friendsList.push(userId);
+		localStorage.setItem("friendsList", JSON.stringify(friendsList));
+
+		console.log("Friend request accepted");
 	}
 	catch(error) {
 		console.log("Error: ", error);
@@ -206,9 +225,14 @@ const fetchFriendList = async () => {
 
 		const friendList = document.getElementById("friendList");
 		const friendNumber = document.querySelector(".friendNumber");
+		let blockedUsersId = JSON.parse(localStorage.getItem("blockedUser")) || [];
+
+		// Ensure it's an array (in case of a bad value in localStorage)
+		if (!Array.isArray(blockedUsersId)) {
+			blockedUsersId = [];
+		}
 
 		if (data.length >= 0) {
-			// friendNumber.textContent = data.length > 0 ? data.length : "0";
 			data.forEach((user, index) => {
 				console.log("User: ", user.from_user);
 				console.log("Index: ", index);
@@ -231,8 +255,25 @@ const fetchFriendList = async () => {
 				button.classList.add("btn", "btn-primary", "rounded-pill");
 				button.textContent = "block";
 
-				button.addEventListener("click", () => blockFriend(user.id));
-			
+				// Check if user is blocked
+				if (blockedUsersId.includes(user.id)) {
+					console.log("this user is blocked");
+					console.log("user id: ", user.id);
+					button.textContent = "Blocked";
+					button.disabled = true;
+				} else {
+					console.log("this user is not blocked");
+				}
+
+				// Handle button click to block user
+				button.addEventListener("click", () => {
+					blockFriend(user.id);
+					button.textContent = "Blocked";
+					button.disabled = true;
+					blockedUsersId.push(user.id);
+					localStorage.setItem("blockedUser", JSON.stringify(blockedUsersId));
+				});
+
 				// Append button inside <td>
 				tdButton.appendChild(button);
 			
@@ -257,22 +298,27 @@ const fetchFriendList = async () => {
 const blockFriend = async (userId) => {
 	try {
 		const response = await fetch(`${baseUrl}/chat/api/block-user/${userId}/`, {
-			method: "POST",
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				'X-CSRFToken': getCookie('csrftoken'),
 			},
+			credentials: 'include',
 			body: JSON.stringify({ user_id: userId }),
 		});
+
+		const data = await response.json();
+
+		console.log("response status: ", response.status);
+		console.log("Data: ", data);
 
 		if (!response.ok) {
 			throw new Error(`Failed to block friend: ${response.statusText}`);
 		}
 
-		const data = await response.json();
-		console.log("Data: ", data);
-		alert(data.message || "Friend blocked");
-		fetchFriendList();
+		// const data = await response.json();
+		// console.log("Data: ", data);
+		console.log("Friend blocked");
 	}
 
 	catch(error) {
@@ -296,13 +342,10 @@ const fetchProfileInfo = async () => {
 		}
 
 		const data = await response.json();
-		console.log("User Information: ", data);
-		console.log("image: ", data.profile_picture);
-
+		console.log("profile data: ", data);
 		const userPicture = document.getElementById("userPicture");
 		const userPicSideNav = document.getElementById("userImageSnav");
-		console.log("User Pic: ", userPicture);
-		console.log("User Pic2: ", userPicSideNav);
+
 		if (data.profile_picture) {
 			userPicSideNav.src = baseUrl + data.profile_picture;
 			console.log("pic 2: ", userPicSideNav.src);
@@ -312,16 +355,12 @@ const fetchProfileInfo = async () => {
 				userPicture.style.height = "200px";
 				userPicture.style.width = "200px";
 			}
-		} else {
-			// userPicture.src = "../assets/user1.png";
-			// userPicSideNav.src = "../assets/user1.png";
 		}
 
 		const twoFa = data.is_2fa_enabled;
 		localStorage.setItem("twoFa", twoFa);
-		console.log("2fa: ", twoFa);
-
-		console.log("Data: ", data);
+		localStorage.setItem("username", data.username);
+		// console.log("profile information: ", data);
 	} catch(error) {
 		console.log(error.message);
 	}
@@ -351,17 +390,28 @@ const updateProfilePicture = async (formData) => {
 	}
 };
 
-// window.addEventListener("load", () => {
+const isAuthenticated = localStorage.getItem("isAuthenticated");
+const userName = localStorage.getItem("username");
 
-// 	fetchProfileInfo();
-// });
+
+document.addEventListener("DOMContentLoaded", () => {
+	if (isAuthenticated && userName) {
+		fetchProfileInfo();
+
+		if (window.location.pathname === "/profile") {
+			fetchFriendList();
+		} else if (window.location.pathname === "/requests") {
+			fetchFriendRequests();
+		}
+	}
+});
 
 sideNavSection.addEventListener("click", (e) => {
 	e.preventDefault();
 	
 	if (e.target.classList.contains("users")) {
 		console.log("users online found");
-		getOnlineUsers();
+		// getOnlineUsers();
 	} else if (e.target.classList.contains("requests")) {
 		console.log("friend requests found");
 		fetchFriendRequests();

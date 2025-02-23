@@ -20,6 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         self.user = self.scope['user']
+        logger.info(f"\n\n\nUser {self.user.username} with the id {self.user.id} connected\n")
         if self.user.is_authenticated:
             await self.accept()
 

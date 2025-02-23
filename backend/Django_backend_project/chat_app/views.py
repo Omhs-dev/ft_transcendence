@@ -42,6 +42,18 @@ class PongInviteView(APIView):
         return Response({'message': 'Invitation sent!'})
 
 
+# class BlockUserView(APIView):
+#     permission_classes = [IsAuthenticated]
+
+#     def post(self, request, user_id):
+#         blocked_user = User.objects.get(id=user_id)
+#         BlockedUser.objects.get_or_create(user=request.user, blocked_user=blocked_user)
+#         return Response({'message': 'User blocked successfully!'})
+
+#     def delete(self, request, user_id):
+#         blocked_user = User.objects.get(id=user_id)
+#         BlockedUser.objects.filter(user=request.user, blocked_user=blocked_user).delete()
+#         return Response({'message': 'User unblocked successfully!'})
 class BlockUserView(APIView):
     permission_classes = [IsAuthenticated]
 
