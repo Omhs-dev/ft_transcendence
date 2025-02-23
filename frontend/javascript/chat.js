@@ -1,6 +1,6 @@
 import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
-import { loadUserProfile } from "./utils/generalUtils.js";
+import { loadUserProfile, viewUserProfile } from "./utils/generalUtils.js";
 import { loadUserFriendsList } from "./utils/generalUtils.js";
 
 const chatIcon = document.getElementById('chatIcon');
@@ -314,6 +314,7 @@ async function displayMessageInChat(senderId, sender, message) {
 	const chatMessages = document.getElementById('chatMessages');
 	const noMessage = document.getElementById('noMessages');
 	const messageElement = document.createElement('div');
+	const currentUserName = localStorage.getItem('username');
 
 	if (noMessage !== null) {
 		noMessage.innerHTML = '';
@@ -338,7 +339,7 @@ async function displayMessageInChat(senderId, sender, message) {
 		<img src=${userPic} alt="profile" class="chat-avatar">
 		<div class="chat-content">
 			<span class="chat-username">
-				<a href="/userprofile" class="user-link" data-link>${sender}</a>
+				<a href="" class="user-link" id="userProfileLink" data-link>${sender}</a>
 			</span>
 			<span class="chat-timestamp">${time}</span>
 			<p class="chat-text">${message}</p>
@@ -347,6 +348,7 @@ async function displayMessageInChat(senderId, sender, message) {
 
 	chatMessages.prepend(messageElement);
 	chatMessages.scrollTop = chatMessages.scrollHeight;
+	viewUserProfile(document.getElementById("userProfileLink"), sender, currentUserName);
 }
 
 function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {

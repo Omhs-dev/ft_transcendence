@@ -57,3 +57,21 @@ export async function loadUserFriendsNbr(userId) {
 	const friendsNbr = profileInfo.friends.length;
 	return friendsNbr;
 }
+
+export function viewUserProfile(userProfileLink, sender, currentUserName) {
+	userProfileLink.addEventListener('click', (e) => {
+		e.preventDefault();
+
+		console.log("view user profile clicked");
+		
+		if (sender === currentUserName) {
+			console.log("sender is current user");
+			console.log("sender: ", sender);
+			console.log("current user: ", currentUserName);
+			history.pushState({}, "", `/profile`);
+		} else {
+			console.log("sender is not current user");
+			history.pushState({}, "", `/userprofile`);
+		}
+	});
+}
