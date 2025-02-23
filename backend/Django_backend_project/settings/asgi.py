@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
 django.setup()
 
-
 # Initialize Django ASGI application first
 django_asgi_app = get_asgi_application()
 from chat_app.routing import websocket_urlpatterns as chat_websocket_urlpatterns
