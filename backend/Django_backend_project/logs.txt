@@ -17,3 +17,227 @@ DEBUG
 
 ProfileView request received
 DEBUG CustomTokenRefreshView request received
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63204][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63206][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImZjNjUzMGUwZjkyNzQ3YTk5Yjc3ZjRlN2Q4YzYzMTlkIiwidXNlcl9pZCI6Mn0.dVx1o-bHrRrKVo7TiHPmDiFK754Uy7UTRwxJYawmYrI'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.62, 192.168.224.1:63208][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.65, 192.168.224.1:63210][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM2MTE2OSwiaWF0IjoxNzQwMjc0NzY5LCJqdGkiOiIxMmU4YzExYTVkODU0ZDAzYjZkNmFiYjEyNTJlYmUxMCIsInVzZXJfaWQiOjN9.Q5PDvXhXzACGmIv5XaLNzTWaXTpv4zNGGDdh5Y_GKqY
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTgzLCJpYXQiOjE3NDAyNzQ3NjksImp0aSI6ImMzMzFjNmI2MjRhYjQxMjM4NTRiYmUxYzU2YjQ3OWYxIiwidXNlcl9pZCI6M30.S-OsyuPbA3wg7HZF4A8QSaLFfDtqvHlo3phwXsM-_S0'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63216][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=82e83c0d9220464f80f07948bd0cba85 200 [0.01, 192.168.224.1:63216][0m
+INFO WebSocket HANDSHAKING /ws/chat/ [192.168.224.1:63234]
+INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.08, 192.168.224.1:63232][0m
+INFO [mHTTP OPTIONS /auth/api/profile 200 [0.10, 192.168.224.1:63206][0m
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740275577, 'iat': 1740268280, 'jti': 'a0123d9110a242f697d273b12b09357f', 'user_id': 2}
+
+INFO [mHTTP OPTIONS /chat/api/friends/ 200 [0.13, 192.168.224.1:63236][0m
+INFO [mHTTP OPTIONS /auth/api/profile 200 [0.17, 192.168.224.1:63204][0m
+INFO 
+
+
+User ohamadou with the id 2 connected
+
+INFO WebSocket CONNECT /ws/chat/ [192.168.224.1:63234]
+INFO 
+
+
+HIII NAVIDDDDD User ohamadou with the id 2 connected
+
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friends/'>
+DEBUG Header in authenticate: None
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO CSRF reason in enforce_CSRF: None
+INFO [32mHTTP GET /auth/api/profile 301 [0.19, 192.168.224.1:63208][0m
+INFO [32mHTTP GET /auth/api/profile 301 [0.33, 192.168.224.1:63210][0m
+INFO [mHTTP GET /chat/api/friends/ 200 [0.51, 192.168.224.1:63246][0m
+INFO [mHTTP GET /auth/api/profile/ 200 [0.73, 192.168.224.1:63248][0m
+INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.43, 192.168.224.1:63204][0m
+INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.29, 192.168.224.1:63236][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+INFO [mHTTP GET /media/profile_pics/Luffy-PNG-Pic-removebg-preview_LD6p4WB.png 200 [0.13, 192.168.224.1:63248][0m
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+INFO CSRF reason in enforce_CSRF: None
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO [mHTTP GET /auth/api/profile/ 200 [0.17, 192.168.224.1:63246][0m
+INFO WebSocket HANDSHAKING /ws/chat/ [192.168.224.1:63260]
+INFO [mHTTP GET /auth/api/profile/ 200 [0.21, 192.168.224.1:63210][0m
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740275577, 'iat': 1740268280, 'jti': 'a0123d9110a242f697d273b12b09357f', 'user_id': 2}
+
+INFO 
+
+
+User ohamadou with the id 2 connected
+
+INFO WebSocket CONNECT /ws/chat/ [192.168.224.1:63260]
+INFO 
+
+
+HIII NAVIDDDDD User ohamadou with the id 2 connected
+
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM0NjU2OSwiaWF0IjoxNzQwMjYwMTY5LCJqdGkiOiJiMzc1MWJhMzkyN2Q0NzZmYjJkYjY2YTY2YmM3NmZhZiIsInVzZXJfaWQiOjF9.wCj2TxOcaz-RbW14DHu0LD31emQ4lGdY6U-iSWqsOBQ
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NjIzLCJpYXQiOjE3NDAyNjAxNjksImp0aSI6ImUyNjU3NTNkODcwZTRiYzE5ZDliYjU5ZTJjYjJhYmM5IiwidXNlcl9pZCI6MX0.cfDRYC0rIyTYzAWyaLDTcm7iKlJKk_WQGWFH0oy5FMg'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63268][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=003522560dde4c7f8f974324bfaec766 200 [0.01, 192.168.224.1:63268][0m
+INFO [mHTTP OPTIONS /auth/api/profile/ 200 [0.02, 192.168.224.1:63274][0m
+INFO [mHTTP OPTIONS /chat/api/friends/ 200 [0.05, 192.168.224.1:63272][0m
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/chat/api/friends/'>
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Header in authenticate: None
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NTc3LCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImEwMTIzZDkxMTBhMjQyZjY5N2QyNzNiMTJiMDkzNTdmIiwidXNlcl9pZCI6Mn0.gjvL6GJp0vfOk5-cY1DpFbKOjO5t9CyOfSxTnW3IZKo
+INFO CSRF reason in enforce_CSRF: None
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO [mHTTP GET /chat/api/friends/ 200 [0.09, 192.168.224.1:63278][0m
+INFO [mHTTP GET /auth/api/profile/ 200 [0.11, 192.168.224.1:63276][0m
+INFO [mHTTP GET /media/profile_pics/Luffy-PNG-Pic-removebg-preview_LD6p4WB.png 200 [0.02, 192.168.224.1:63276][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.02, 192.168.224.1:63274][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63272][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NzIyLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjJlZjU3ZGY0NzFhMTQ3MzI4ZjMzNzY4YTM3MmFhZjYyIiwidXNlcl9pZCI6Mn0.VV80n7OWQ0OWqqAAuBxMjzRLffSKxOV5Tew0f-_wC68'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1NzIyLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6ImIyNzhlOTc2ZTc0ODRiM2ViODllMDAyNzJlYWJiZWIwIiwidXNlcl9pZCI6Mn0.XIwJHBFVIHn7bnAhgIJIHeB7LjabSRJC3T5WqRB5pSY'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63278][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 192.168.224.1:63276][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM2MTE2OSwiaWF0IjoxNzQwMjc0NzY5LCJqdGkiOiIxMmU4YzExYTVkODU0ZDAzYjZkNmFiYjEyNTJlYmUxMCIsInVzZXJfaWQiOjN9.Q5PDvXhXzACGmIv5XaLNzTWaXTpv4zNGGDdh5Y_GKqY
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1ODIzLCJpYXQiOjE3NDAyNzQ3NjksImp0aSI6IjA5YWJiMWU1MzdlNDQxZTNiODhiNjA5MTEwZmVkNDYwIiwidXNlcl9pZCI6M30.kF-lsjh1LqlJtJgn6ntwyAaNcA6OLzRaDENgS8aweRI'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63288][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=b6eeb9e1a36546d8b998706d47ca968d 200 [0.01, 192.168.224.1:63288][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63292][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63294][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1ODQyLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjUwOThkZmU2OTcyMDQxZTQ4NmJjMTQwYzE5ZjNlMmQ5IiwidXNlcl9pZCI6Mn0.RZ5AcKC27vID8K33AA-BhvZfROOAuOj4kYA8ICdHGqc'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1ODQyLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjA1ZjY1MDFkMzZhNzRmNjk5MGM0ZDdhNGE5ZGUyMjlhIiwidXNlcl9pZCI6Mn0.s2nRL6gfIj77QYbWQo8SNldrzo9ma5JC6K25WQp2g2M'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63296][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 192.168.224.1:63298][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM0NjU2OSwiaWF0IjoxNzQwMjYwMTY5LCJqdGkiOiJiMzc1MWJhMzkyN2Q0NzZmYjJkYjY2YTY2YmM3NmZhZiIsInVzZXJfaWQiOjF9.wCj2TxOcaz-RbW14DHu0LD31emQ4lGdY6U-iSWqsOBQ
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1ODYzLCJpYXQiOjE3NDAyNjAxNjksImp0aSI6Ijk5NjEzNTU1N2I4MzRmZTY5ODI5ZWM0YmZiYzk0NzY3IiwidXNlcl9pZCI6MX0.Mwz37b2eL1iUniA12DQI4Rriq4wOgZV90vyS3CwZPUU'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63304][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=198fc70d1c674d35a62f3ffa98a298b0 200 [0.01, 192.168.224.1:63304][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63310][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.06, 192.168.224.1:63308][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1OTYyLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjdjODU1M2NjNjFmNDQyMjk4YWI3ZWY4YmU5MjkzNjA4IiwidXNlcl9pZCI6Mn0.hI8964WSq22CiqXbUZwr3-DpK-gVDFqPwIL8SNcvEW4'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc1OTYyLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjBlMDUzYmE1MDYwYjQwZDQ4ZTdjMGQxNGE4ZTcwNzkxIiwidXNlcl9pZCI6Mn0.Ruo2ePzA4b33EwTT-eASYV7LeEbsk76mFztqN5MLNzk'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.08, 192.168.224.1:63312][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.11, 192.168.224.1:63314][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM2MTE2OSwiaWF0IjoxNzQwMjc0NzY5LCJqdGkiOiIxMmU4YzExYTVkODU0ZDAzYjZkNmFiYjEyNTJlYmUxMCIsInVzZXJfaWQiOjN9.Q5PDvXhXzACGmIv5XaLNzTWaXTpv4zNGGDdh5Y_GKqY
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc2MDYzLCJpYXQiOjE3NDAyNzQ3NjksImp0aSI6IjhiZjA3ZTVlNGFlZTQyMzg4MDZkMDI1M2FhOTY3YzI1IiwidXNlcl9pZCI6M30.i9k3Nir7XCLZexByQmPNk_ynjLQdbHFyRbymfhaxnhk'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 192.168.224.1:63322][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=00ffdb675a8946fa91b3658b8e5ebad9 200 [0.01, 192.168.224.1:63322][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.39, 192.168.224.1:63326][0m
+INFO [mHTTP OPTIONS /auth/api/renew-access/ 200 [0.41, 192.168.224.1:63328][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc2MDgzLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjkwYjcyZmFmOTUzYTQxYTU4MWIxYjE5YTU3YjcyNjRhIiwidXNlcl9pZCI6Mn0.B5ji45nBfdRqt2Le8gy_Rfh4Ve83DHXsnD6OzIigt3g'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc2MDgzLCJpYXQiOjE3NDAyNjgyODAsImp0aSI6IjEyZDMxNzBlZWUwODQ4Mjg5NTViMzJmNGJiNTk2NDdjIiwidXNlcl9pZCI6Mn0.4PdCOFwmSVs14h9TTTH1Jb-w2blgR5L6TalJx2OAUGM'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 192.168.224.1:63330][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.06, 192.168.224.1:63332][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM0NjU2OSwiaWF0IjoxNzQwMjYwMTY5LCJqdGkiOiJiMzc1MWJhMzkyN2Q0NzZmYjJkYjY2YTY2YmM3NmZhZiIsInVzZXJfaWQiOjF9.wCj2TxOcaz-RbW14DHu0LD31emQ4lGdY6U-iSWqsOBQ
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc2MTAzLCJpYXQiOjE3NDAyNjAxNjksImp0aSI6Ijg0YWI5Njc4OWY2NTQzZjk5N2M5YjYxOTg5MmFmOGE4IiwidXNlcl9pZCI6MX0.mKzFUDXTowy-BJipBG8_oOkF5z7yKDV3mrykV1pnkoE'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63338][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=10b455df96d84c03a9c027a17ac75dd9 200 [0.01, 192.168.224.1:63338][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.02, 192.168.224.1:63328][0m
+INFO [mHTTP OPTIONS /auth/api/logout/ 200 [0.03, 192.168.224.1:63326][0m
+DEBUG Logout request received for user: AnonymousUser
+DEBUG 
+
+
+ request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
+DEBUG Logout request received for user: AnonymousUser
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG 
+
+
+ request received in the logout: <rest_framework.request.Request: POST '/auth/api/logout/'>
+DEBUG Refresh token found in cookies: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM1NDY4MCwiaWF0IjoxNzQwMjY4MjgwLCJqdGkiOiJmYTNmNmFjNTcxOTk0NjBhOTQ1NTVmNzQxYjdhZjQ3NCIsInVzZXJfaWQiOjJ9.VRaYt4S5nglio50bsRsyrim_hr4Soj1rOuvwOKh4NgA
+DEBUG User found in refresh token in logout: ohamadou
+DEBUG User found in refresh token in logout: ohamadou
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User ohamadou logged out
+INFO User '' (is not authenticated and retrieved from refresh_token) logged out successfully
+DEBUG Signal: User ohamadou logged out
+INFO [mHTTP POST /auth/api/logout/ 200 [0.10, 192.168.224.1:63330][0m
+INFO [mHTTP POST /auth/api/logout/ 200 [0.12, 192.168.224.1:63332][0m
+INFO WebSocket DISCONNECT /ws/chat/ [192.168.224.1:63234]
+INFO WebSocket DISCONNECT /ws/chat/ [192.168.224.1:63260]
+INFO 
+
+
+User ohamadou with the id 2 disconnected with this close code 1001
+
+INFO 
+
+
+User ohamadou with the id 2 disconnected with this close code 1001
+
+INFO 
+
+
+HIII NAVIDDDDD User ohamadou with the id 2 disconnected
+
+INFO 
+
+
+HIII NAVIDDDDD User ohamadou with the id 2 disconnected
+
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM2MTE2OSwiaWF0IjoxNzQwMjc0NzY5LCJqdGkiOiIxMmU4YzExYTVkODU0ZDAzYjZkNmFiYjEyNTJlYmUxMCIsInVzZXJfaWQiOjN9.Q5PDvXhXzACGmIv5XaLNzTWaXTpv4zNGGDdh5Y_GKqY
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc2MzAzLCJpYXQiOjE3NDAyNzQ3NjksImp0aSI6ImY2YTc3NDFiNzg3ZjRlZmViNmI5NjFmMTBiODZlODVlIiwidXNlcl9pZCI6M30.ST1IPMqFkSePMks7Llf12qks8jvQtRxco7SliPO55lo'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63360][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=03d0855d104849d280f0d76a90604ecc 200 [0.01, 192.168.224.1:63360][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDM0NjU2OSwiaWF0IjoxNzQwMjYwMTY5LCJqdGkiOiJiMzc1MWJhMzkyN2Q0NzZmYjJkYjY2YTY2YmM3NmZhZiIsInVzZXJfaWQiOjF9.wCj2TxOcaz-RbW14DHu0LD31emQ4lGdY6U-iSWqsOBQ
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMjc2MzQzLCJpYXQiOjE3NDAyNjAxNjksImp0aSI6Ijg1ODRkYjcxM2MyZDRhYTRhOGM1MDg2OTg5NzliZDAyIiwidXNlcl9pZCI6MX0.g9804II0UH46ywy-Vzj40Kw1mvoj1QixopEAY7w0MgE'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 192.168.224.1:63364][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=48e027c9668f4e3788b1a9c75e057a4c 200 [0.01, 192.168.224.1:63364][0m

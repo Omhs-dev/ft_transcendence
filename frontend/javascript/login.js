@@ -175,12 +175,10 @@ const loginUser = async () => {
     }
 };
 
-// verify 2fa
-
-
 // Logout functionality
 const logoutUser = async () => {
 	stopTokenRefreshTimer();
+
 	try {
 		const response = await fetch('http://localhost:8000/auth/api/logout/', {
 			method: 'POST',
@@ -191,24 +189,27 @@ const logoutUser = async () => {
 			credentials: 'include',
 		});
 
+		// Check if logout was successful
 		if (!response.ok) {
-			console.log("can not fetch api !!!");
-			throw new Error("could not fetch api...", response.statusText);
+			throw new Error(`Logout request failed: ${response.status} ${response.statusText}`);
 		}
-
-		localStorage.removeItem("userId");
-		localStorage.removeItem("senderId");
-		localStorage.removeItem("username");
-		localStorage.removeItem("isOauthLogged");
-		localStorage.removeItem("isAuthenticated");
-
-		window.location.href = "/";
-
-		console.log('User registered successfully!');
-	} catch(error) {
-		console.log(error.message);
+	} catch (error) {
+		console.warn("Logout API request failed. Proceeding with local logout.", error);
 	}
+
+	// Remove all authentication-related data (even if API request failed)
+	localStorage.removeItem("userId");
+	localStorage.removeItem("senderId");
+	localStorage.removeItem("username");
+	localStorage.removeItem("senderName");
+	localStorage.removeItem("chatRoomId");
+	localStorage.removeItem("coreespondantId");
+	localStorage.removeItem("isOauthLogged");
+	localStorage.removeItem("isAuthenticated");
+
+	window.location.href = "/";
 };
+
 
 function stopTokenRefreshTimer() {
 	if (refreshTimer) {
