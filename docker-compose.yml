@@ -174,7 +174,7 @@ services:
       setup:
         condition: service_healthy
     build: ./ELK/kibana
-    restart: always`
+    restart: always
     volumes:
       - certs:/usr/share/kibana/config/certs
       - kibana:/usr/share/kibana/data
