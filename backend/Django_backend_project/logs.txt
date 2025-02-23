@@ -33,3 +33,7 @@ DEBUG CustomTokenRefreshView request received
 DEBUG Login function request received
 DEBUG CustomTokenRefreshView request received
 DEBUG Signal: create_or_update_user_profile triggered
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
+DEBUG Login function request received
+DEBUG CustomTokenRefreshView request received
