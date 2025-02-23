@@ -59,18 +59,18 @@ sideNavSection.addEventListener("click", (e) => {
 });
 
 // ----------------- Display a random user friendlist -----------------
-appSection.addEventListener("click", (e) => {
-	e.preventDefault();
+// appSection.addEventListener("click", (e) => {
+// 	e.preventDefault();
 
-	// this if for correspondant user profile
-	if (e.target.id === "eachUserfriendListBtn") {
-		const correspondantId = localStorage.getItem("correspondantId");
-		const userFriendsList = document.querySelector("#userFriendList");
-		loadUserFriendsList(correspondantId, userFriendsList);
-	} else if (e.target.id === "sendMessage") {
-		chatBox.style.display = 'block';
-	}
-});
+// 	// this if for correspondant user profile
+// 	if (e.target.id === "eachUserfriendListBtn") {
+// 		const correspondantId = localStorage.getItem("correspondantId");
+// 		const userFriendsList = document.querySelector("#userFriendList");
+// 		loadUserFriendsList(correspondantId, userFriendsList);
+// 	} else if (e.target.id === "sendMessage") {
+// 		chatBox.style.display = 'block';
+// 	}
+// });
 
 // ----------------- connect to websocket -----------------
 function connectWebSocket() {
