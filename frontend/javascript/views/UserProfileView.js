@@ -34,6 +34,8 @@ export default class extends AbsractView {
 			const correspondantName = localStorage.getItem("senderName");
 			const correspondantId = localStorage.getItem("correspondantId");
 
+			eachUserPicture.src = "./assets/user.png";
+
 			console.log("eachUserFriendsNbr: ", eachUserFriendsNbr);
 
 			if (eachUserName) {
@@ -41,7 +43,11 @@ export default class extends AbsractView {
 			}
 			if (eachUserPicture) {
 				const profilePic = await loadProfilePic(correspondantId);
-				eachUserPicture.src = profilePic;
+				if (profilePic !== "http://localhost:8000null") {
+					console.log("Profile picture: ", profilePic);
+					eachUserPicture.src = profilePic;
+				}
+				eachUserPicture.alt = "User profile picture";
 				eachUserPicture.style.width = "200px";
 				eachUserPicture.style.height = "200px";
 			}
@@ -54,9 +60,6 @@ export default class extends AbsractView {
 				eachUserName2.textContent = profileInfo.username;
 				eachUserName3.textContent = profileInfo.username;
 				eachUserEmail.textContent = profileInfo.email;
-				console.log("eachUserName2: ", eachUserName2.textContent);
-				console.log("eachUserName3: ", eachUserName3.textContent);
-				console.log("eachUserEmail: ", eachUserEmail.textContent);
 			}
 
             return doc.body.innerHTML;

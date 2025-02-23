@@ -99,10 +99,10 @@ export function UpdateUserName() {
 
 export function loadDefaultPic(userPicOne, userPicTwo) {
 	if (userPicOne) {
-		userPicOne.src = "../assets/user1.png";
+		userPicOne.src = "../assets/user.png";
 	}
 	if (userPicTwo) {
-		userPicTwo.src = "../assets/user1.png";
+		userPicTwo.src = "../assets/user.png";
 	}
 }
 

@@ -172,7 +172,7 @@ function connectWebSocket() {
 	};
 }
 
-// Show or Hide Chatbox on Icon Click
+// ----------------- Open Chatbox -----------------
 chatIcon.addEventListener('click', () => {
 	const senderMessage = localStorage.getItem("senderMessage");
 	const senderName = localStorage.getItem("senderName");
@@ -192,7 +192,7 @@ chatIcon.addEventListener('click', () => {
 	}
 });
 
-// Close Chatbox
+// ------------------ Close Chat ------------------
 closeChat.addEventListener('click', () => {
 	chatBox.style.display = 'none';
 
@@ -326,7 +326,7 @@ async function displayMessageInChat(senderId, sender, message) {
 	// Get online users
 	const userProfile = await loadUserProfile(senderId);
 
-	if (userProfile) {
+	if (userProfile.profile_picture) {
 		userPic = baseUrl + userProfile.profile_picture;
 	} else {
 		console.warn("No user profile found.");
@@ -377,6 +377,11 @@ function showIncomingMessagePopup(creatorId, creatorUsername, received_message, 
 		localStorage.removeItem('senderMessage');
 		localStorage.setItem('chatRequest', 'false');
 		localStorage.setItem('chatRoomId', chatRoomId);
+
+		const senderMessage = localStorage.getItem("senderMessage");
+		if (senderMessage) {
+			localStorage.removeItem("senderMessage");
+		}
 		await displayMessageInChat(creatorId, creatorUsername, received_message);
 		popup.remove();
 	});
