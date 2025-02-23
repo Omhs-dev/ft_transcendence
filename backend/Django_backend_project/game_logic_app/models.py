@@ -20,13 +20,23 @@ class Player(models.Model):
     total_points_scored = models.PositiveIntegerField(default=0)  # ✅ NEW
     total_games_played = models.PositiveIntegerField(default=0)  # ✅ NEW
 
-
-
     @property
     def win_rate(self):
         return round(self.total_wins / self.total_games_played * 100, 2) if self.total_games_played > 0 else 0
-        # total_matches = self.total_wins + self.total_losses
-        # return round(self.total_wins / total_matches * 100, 2) if total_matches > 0 else 0
+
+    @property
+    def total_matches_played(self):
+        """Counts total matches where the player participated"""
+        return self.matches_as_player1.count() + self.matches_as_player2.count()
+    @property
+    def total_matches_won(self):
+        """Counts matches won by the player"""
+        return self.matches_won.count()
+
+    @property
+    def total_matches_lost(self):
+        """Counts matches lost by the player"""
+        return self.matches_lost.count()
 
     def __str__(self):
         return self.user.username
@@ -50,6 +60,7 @@ class Tournament(models.Model):
     max_players = models.PositiveIntegerField(default=8)
     players = models.ManyToManyField(Player, related_name='tournaments')
     games = models.ManyToManyField('Game', related_name='tournaments', default=None, blank=True)
+
     def __str__(self):
         return f"{self.name} - {self.status}"
 
@@ -68,17 +79,13 @@ class Game(models.Model):
     id = models.AutoField(primary_key=True)
     player1 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player1', null=True, blank=True)
     player2 = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='games_as_player2', null=True, blank=True)
-    ball_x = models.FloatField(default=400)  # Assuming canvas width=800
-    ball_y = models.FloatField(default=200)  # Assuming canvas height=400
-    ball_dx = models.FloatField(default=4)
-    ball_dy = models.FloatField(default=4)
     player1_score = models.PositiveIntegerField(default=0)  # ✅ NEW
     player2_score = models.PositiveIntegerField(default=0)  # ✅ NEW
-    player1_y = models.FloatField(default=150)
-    player2_y = models.FloatField(default=150)
     start_time = models.DateTimeField(default=timezone.now)
     end_time = models.DateTimeField(null=True, blank=True, default=timezone.now)  # Allow null for ongoing games
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='not_started')
+    winner = models.ForeignKey(Player, on_delete=models.SET_NULL, related_name='games_won', null=True, blank=True)
+    loser = models.ForeignKey(Player, on_delete=models.SET_NULL, related_name='games_lost', null=True, blank=True)
 
 
     def reset(self):
@@ -87,13 +94,6 @@ class Game(models.Model):
         self.end_time = None
         self.player1.score = 0
         self.player2.score = 0
-        self.save()
-    
-    def reset_ball(self):
-        self.ball_x = 400
-        self.ball_y = 200
-        self.ball_dx = 4 * (1 if random.random() > 0.5 else -1)
-        self.ball_dy = 4 * (1 if random.random() > 0.5 else -1)
         self.save()
 
 
@@ -116,6 +116,17 @@ class MatchHistory(models.Model):
     winner = models.ForeignKey(Player, on_delete=models.SET_NULL, related_name='matches_won', null=True, blank=True)
     loser = models.ForeignKey(Player, on_delete=models.SET_NULL, related_name='matches_lost', null=True, blank=True)
     result = models.CharField(max_length=50, blank=True)  # Adjusted for more detailed results
+    start_time = models.DateTimeField(default=timezone.now)
+    end_time = models.DateTimeField(null=True, blank=True, default=timezone.now)
+    match_duration = models.DurationField(null=True, blank=True)
+    tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, related_name='matches', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        """ Automatically calculate match duration before saving """
+        if self.start_time and self.end_time:
+            self.match_duration = self.end_time - self.start_time
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.player1.user.username} vs {self.player2.user.username} - {self.winner.user.username if self.winner else 'No winner yet'}"

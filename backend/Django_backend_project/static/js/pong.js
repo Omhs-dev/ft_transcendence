@@ -5,10 +5,11 @@ const paddleWidth = 10;
 const paddleHeight = 100;
 const ballSize = 10;
 
-let game_id = 'lobby';
+let game_id = "980179"
 window.game_id = game_id;
-let user1_id = '1';
-let user2_id = '2';
+// let game_id = window.game_id; // This window.game_id is set from another js file, i.e.
+//                               // what is listed from chat
+let user_id = ''; 
 let username = '';
 let player1 = { x: 10, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
 let player2 = { x: canvas.width - 20, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
@@ -41,94 +42,84 @@ function draw() {
     ctx.fillText(`Guest: ${player2.score}`, canvas.width - 150, 20);
 }
 
-
-// // Main game loop
-// function gameLoop() {
-//     if (!gamePaused && gameInProgress) {
-//         draw();
-//     }
-//     // requestAnimationFrame(gameLoop); // Keep looping
-// }
-
 function updateGameState(data) {
-        // console.log("The ball is being updated ..", data.ball);
-        ball.x = data.ball.x;
-        ball.y = data.ball.y;
-        player1.y = data.paddle1.y;
-        player2.y = data.paddle2.y;
-        player1.score = data.score1;
-        player2.score = data.score2;
-        game_id = data.game_id;
-        // console.log("players. ", player1, player2);
-        draw();
-        // sleep(10000);
+    ball.x = data.ball.x;
+    ball.y = data.ball.y;
+    player1.y = data.paddle1.y;
+    player2.y = data.paddle2.y;
+    player1.score = data.score1;
+    player2.score = data.score2;
+
+    const winner = data.winner;
+    game_id = data.game_id;
+    if (winner) {
+        gameInProgress = false;
+        document.getElementById("pauseGame").disabled = true;
+        document.getElementById("resumeGame").disabled = true;
+    } else {
+        document.getElementById("pauseGame").disabled = false;
+        document.getElementById("resumeGame").disabled = false;
+    }
+    draw();
 }
 
 // Fix the incorrect event listener binding
-document.getElementById("startGame").addEventListener("click", setupWebSocket);
+document.getElementById("startGame").addEventListener("click", async () => { 
+    await Profile();
+    setupWebSocket(); 
+    document.getElementById("startGame").disabled = true; 
+});
+
+// function Profile() {
+//     fetch('/auth/api/profile/')
+//     .then(response => response.json())
+//     .then(profile => {
+//         user_id = profile.id;
+//         username = profile.username;
+//         console.log("username and user_id: ", username, user_id);
+//     })
+//     .catch((error) => { 
+//         console.error('Error fetching profile:', error);
+//     });
+// }
+
+async function Profile() {
+    try {
+        const response = await fetch('/auth/api/profile/');
+        
+        if (!response.ok) {
+            throw new Error(`can't fetch api ${response.status}`);
+        }
+        const profile = await response.json();
+        user_id = profile.id;
+        username = profile.username;
+        console.log("profile", profile);
+        console.log("username and user_id: ", username, user_id);
+    } catch(error) {
+        console.error('Error fetching profile:', error);
+    }
+}
 
 function setupWebSocket() {
     // websocket = new WebSocket("ws://" + window.location.host + "/ws/game/?token=<access_token>");
     websocket = new WebSocket("ws://" + window.location.host + "/ws/game/");
-
     websocket.onopen = () => {
         console.log("WebSocket connected");
-        // websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": player_id }));
-        // gameInProgress = true;
-        // gamePaused = false;
-        // startGameLoop();
     };
-
     websocket.onmessage = (e) => {
         const data = JSON.parse(e.data);
         // console.log("Received update from server:", data);
 
         if (data["type"] == "id") {
             console.log("Received Id");
-            user1_id = data["id"];
-            websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": user1_id }));
+            console.log(`Game ID: ${game_id}, Player ID: ${user_id}`);
+            websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": user_id }));
             gameInProgress = true;
             gamePaused = false;
             return;
         }
-        // setInterval(updateGameState(data), 1000);
+        document.getElementById("startGame").hidden = true; 
         updateGameState(data);
-        // updateGameState(data);
-
-        // if (data.type === "send_game_state") {
-        //     console.log("this is game_state...........");
-        // }
-        // if (data.type === "game_update") {
-        //     console.log("this is game_update......");
-        // }
-        if (data.action === "move_paddle") {
-            console.log("Moving paddle ohhhhhh...");
-            // console.log("drawing map");
-            // if (data.player === "paddle1") {
-            //     console.log("this is player 1");
-            //     player1.y = data.position;
-            // }
-            // if (data.player === "paddle2") {
-            //     console.log("this is player 2");
-            //     player2.y = data.position;
-            // }
-            // draw();
-        }
-        if (data.type === "game_started") {
-            console.log("Game started updating game state ...");
-            // game_id = data.game_id;
-            // localStorage.setItem("gameId", game_id);
-            // gameInProgress = true;
-            console.log("Game started with ID:", data);
-        }
-        // if (data.type === "game_paused") gamePaused = true;
-        // if (data.type === "game_resumed") gamePaused = false;
-        // if (data.type === "game_restarted") resetGameState();
-        // if (data.type === "game_ended") {
-        //     gameInProgress = false;
-        //     alert(`Game Over! Winner: ${data.winner}`);
-        //     websocket.close();
-        // }
     };
 
     websocket.onerror = (e) => console.error("WebSocket error:", e);
@@ -139,14 +130,49 @@ function setupWebSocket() {
     };
 
 }
+
+document.getElementById("pauseGame").addEventListener("click", () => {
+    console.log("Pause game button clicked");
+    if (websocket && websocket.readyState === WebSocket.OPEN) {
+        data = {    // Send pause game request  to server   
+            action: "pause_game",   
+            game_id: window.game_id, // localStorage.getItem("gameId")
+        };
+        websocket.send(JSON.stringify(data));
+    }
+});
+
+document.getElementById("resumeGame").addEventListener("click", () => {
+    console.log("Resume game button clicked");
+    if (websocket && websocket.readyState === WebSocket.OPEN) {
+        data = {    // Send resume game request  to server
+            action: "resume_game",
+            game_id: window.game_id, // localStorage.getItem("gameId")
+        };
+        websocket.send(JSON.stringify(data));
+    }
+});
+
+document.getElementById("restartGame").addEventListener("click", () => {
+    console.log("Restart game button clicked");
+    if (websocket && websocket.readyState === WebSocket.OPEN) {
+        data = {    // Send restart game request  to server
+            action: "restart_game",
+            game_id: window.game_id, // localStorage.getItem("gameId")
+        };
+        websocket.send(JSON.stringify(data));
+    }
+});
+
+
 window.addEventListener("keydown", (e) => {
     if (websocket && websocket.readyState === WebSocket.OPEN) {
         let action = null;
-        if (e.key === "w") action = { player: user1_id, position: player1.y - 20 };
+        if (e.key === "w") action = { player: user_id, position: player1.y - 20 };
         // if (e.key === "w") action = { player: "paddle1", motion: -1 };
-        if (e.key === "s") action = { player: user1_id, position: player1.y + 20 };
-        if (e.key === "ArrowUp") action = { player: user1_id, position: player2.y - 20 };
-        if (e.key === "ArrowDown") action = { player: user1_id, position: player2.y + 20 };
+        if (e.key === "s") action = { player: user_id, position: player1.y + 20 };
+        if (e.key === "ArrowUp") action = { player: user_id, position: player2.y - 20 };
+        if (e.key === "ArrowDown") action = { player: user_id, position: player2.y + 20 };
 
         if (action) {
             data = {
@@ -159,12 +185,3 @@ window.addEventListener("keydown", (e) => {
         }
     }
 });
-
-function resetGameState() {
-    player1.y = canvas.height / 2 - paddleHeight / 2;
-    player2.y = canvas.height / 2 - paddleHeight / 2;
-    ball.x = canvas.width / 2;
-    ball.y = canvas.height / 2;
-    player1.score = 0;
-    player2.score = 0;
-}

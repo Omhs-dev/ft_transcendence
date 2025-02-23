@@ -1,16 +1,13 @@
 import json, asyncio, random, string, logging, time
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
-from .models import Game, Player
+from channels.db import database_sync_to_async
+from .models import Game, Player, MatchHistory
 import time
-
 from channels.layers import get_channel_layer
-
+from django.db import transaction
 
 logger = logging.getLogger("game_logic_app")
-
-# class PongGame:
-#     pass
 
 class GameManager:
     ball_size = 10
@@ -29,6 +26,7 @@ class GameManager:
             cls.rooms[game_id] = {
                 "players": {players: "paddle1"},
                 # "pong": None,
+                "winner": None,
                 "game_state": None,
                 "game_loop_task": None,
                 "ready": set(),
@@ -52,11 +50,125 @@ class GameManager:
         """Runs the game loop to update ball movement."""
         logger.info(f"Game started with ID: {game_id}")
         
-        if cls.rooms[game_id]["game_state"] is None:
-            cls.initialize_game_state(game_id)
+        try:
+            logger.info(f"Starting game {game_id}")
+            if cls.rooms[game_id]["game_state"] is None:
+                cls.initialize_game_state(game_id)
+                logger.info(f"Initializing game {game_id}")
+            while cls.rooms[game_id]["winner"] is None:
+                await asyncio.gather(cls.game_loop(game_id), asyncio.sleep(1/60))  # 20 FPS update rate
+        except asyncio.CancelledError:
+            logger.info(f"Cancelled process")
 
-        while True:
-            await asyncio.gather(cls.game_loop(game_id), asyncio.sleep(1/60))  # 20 FPS update rate
+    @classmethod
+    async def pause_game(cls, game_id):
+        cls.rooms[game_id]["game_loop_task"].cancel()
+        await asyncio.wait([cls.rooms[game_id]["game_loop_task"]])
+        logger.info(f"Pausing game {game_id}")
+        await cls.broadcast_game_state(game_id)
+
+    @classmethod
+    async def resume_game(cls, game_id):
+        cls.rooms[game_id]["game_loop_task"] = asyncio.create_task(cls.game_start(game_id))
+        cls.rooms[game_id]["last_timestamp"] = time.time_ns()
+        logger.info(f"Resuming game {game_id}")
+        await cls.broadcast_game_state(game_id)
+
+    @classmethod
+    async def restart_game(cls, game_id):
+        cls.rooms[game_id]["game_state"] = None
+        cls.rooms[game_id]["game_loop_task"].cancel()
+        await asyncio.wait([cls.rooms[game_id]["game_loop_task"]])
+        cls.rooms[game_id]["game_loop_task"] = asyncio.create_task(cls.game_start(game_id))
+    
+    @classmethod
+    async def game_winner(cls, game_id):
+        # logger.info(cls.rooms[game_id]["game_state"]["score1"])
+        # logger.info(cls.rooms[game_id]["game_state"]["score2"])
+        if cls.rooms[game_id]["game_state"]["score1"] == 3:
+            return "player1"
+        elif cls.rooms[game_id]["game_state"]["score2"] == 3:
+            return "player2"
+        else:
+            return None    
+
+    @classmethod
+    async def game_score(cls, game_id):
+        score1 = cls.rooms[game_id]["game_state"]["score1"]
+        score2 = cls.rooms[game_id]["game_state"]["score2"]
+        return score1, score2
+
+    @classmethod
+    async def save_game(cls, game_id):
+        logger.info(f"Saving game with ID: {game_id}")
+
+        # Ensure the game exists
+        game_exists = await database_sync_to_async(Game.objects.filter(id=game_id).exists)()
+        if not game_exists:
+            logger.error(f"Game with ID {game_id} does not exist!")
+            return
+
+        # Fetch game instance inside a transaction to prevent race conditions
+        @database_sync_to_async
+        def get_game_instance():
+            with transaction.atomic():
+                return Game.objects.select_related('player1', 'player2').get(id=game_id)
+
+        game = await get_game_instance()
+
+        # # Determine winner and loser
+        # winner_string = await cls.game_winner(game_id)
+        winner_string = cls.rooms[game_id]["winner"]
+        if winner_string == "player1":
+            winner, loser = game.player1, game.player2
+        elif winner_string == "player2":
+            winner, loser = game.player2, game.player1
+        else:
+            logger.info("No winner yet, game not saving.")
+            return
+
+        # Get scores
+        score1, score2 = await cls.game_score(game_id)
+
+        # Update game state, match history, and player stats
+        @database_sync_to_async
+        def update_game_match_history_and_stats():
+            with transaction.atomic():
+                # Update game instance
+                game.winner = winner
+                game.loser = loser
+                game.player1_score = score1
+                game.player2_score = score2
+                game.state = "finished"
+                game.save()
+
+                # Save match history
+                match_result = f"{score1}-{score2}"
+                MatchHistory.objects.create(
+                    game=game,
+                    player1=game.player1,
+                    player2=game.player2,
+                    winner=winner,
+                    loser=loser,
+                    result=match_result
+                )
+
+                # Update player stats
+                if winner:
+                    winner.total_wins += 1
+                    winner.total_games_played += 1
+                    winner.total_points_scored += score1 if winner == game.player1 else score2
+                    winner.save()
+
+                if loser:
+                    loser.total_losses += 1
+                    loser.total_games_played += 1
+                    loser.total_points_scored += score2 if loser == game.player2 else score1
+                    loser.save()
+
+        await update_game_match_history_and_stats()
+        logger.info(f"Game {game_id}, match history, and player stats updated successfully.")
+
 
     @classmethod
     def initialize_game_state(cls, game_id):
@@ -68,6 +180,7 @@ class GameManager:
             "score1": 0,
             "score2": 0,
         }
+        cls.rooms[game_id]["winner"] = None
         cls.rooms[game_id]["last_timestamp"] = time.time_ns()
 
     @classmethod
@@ -102,6 +215,8 @@ class GameManager:
             cls.rooms[game_id]["game_state"]["score1"] += 1
             cls.reset_ball(game_id)
 
+        cls.rooms[game_id]["winner"] = await cls.game_winner(game_id)
+        if cls.rooms[game_id]["winner"]:    await cls.save_game(game_id)
         await cls.broadcast_game_state(game_id)
 
     @classmethod
@@ -138,6 +253,7 @@ class GameManager:
             "type": "send_game_state",
             "state": cls.rooms[game_id]["game_state"],
         }
+        state["state"]["winner"] = cls.rooms[game_id]["winner"]
         await cls.channel_layer.group_send(f"pong_{game_id}", state)
 
     @classmethod
@@ -154,8 +270,10 @@ class GameManager:
             if len(cls.rooms[game_id]["players"]) == 0:
                 if cls.rooms[game_id]["game_loop_task"]:
                     cls.rooms[game_id]["game_loop_task"].cancel()
+                    await asyncio.wait([cls.rooms[game_id]["game_loop_task"]])
                 cls.rooms.pop(game_id, None)
-        
+ 
+
 class PongGameConsumer(AsyncWebsocketConsumer):
     last_broadcast_time = 0
     ball_size = 10
@@ -167,23 +285,26 @@ class PongGameConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         """Handles new WebSocket connections."""
+        # self.user = self.scope['user']
+        # self.id = self.scope['user'].username if self.scope['user'] else self.channel_name
         await self.accept()
-        await self.send(json.dumps({"type": "id", "id": self.channel_name})) #send the id to the client (replace with user_id)
-        logger.info("WebSocket connected: %s", self.channel_name)
+        await self.send(json.dumps({"type": "id"})) #send the id to the client (replace with user_id)
+        logger.info("WebSocket connected: %s", self.channel_name) #username instead of channel_name
 
     async def disconnect(self, close_code):
         """Handles WebSocket disconnections."""
         await self.channel_layer.group_discard(f"pong_{self.game_id}", self.channel_name)
-        if self.game_id:
-            await GameManager.remove_player(self.game_id, self.channel_name)
-        # logger.info("WebSocket disconnected: %s", self.channel_name)
-        # if hasattr(self, "game_loop_task"):
-        #     self.game_loop_task.cancel()
+        if self.game_id and self.id:
+            await GameManager.remove_player(self.game_id, self.id)
+        logger.info("WebSocket disconnected: %s", self.channel_name)
+        if hasattr(self, "game_loop_task"):
+            self.game_loop_task.cancel()
 
     async def receive(self, text_data):
         """Handles messages received from clients."""
         data = json.loads(text_data)
         action = data.get("action") 
+        logger.info(f"Data: {data}")
         logger.info("Received action: %s", action)
 
         if action == "start_game":
@@ -191,14 +312,30 @@ class PongGameConsumer(AsyncWebsocketConsumer):
             # await self.send(json.dumps({"type": "game_id", "game_id": game_id}))
             game_id = data.get("game_id")
             self.game_id = game_id
-            player_id = data.get("player_id")
+            self.id = data.get("player_id")
+            logger.info(f"ID: {self.id}")
             await self.channel_layer.group_add(f"pong_{game_id}", self.channel_name)
-            await GameManager.add_player(game_id, player_id)
-            await GameManager.request_start_game(game_id, player_id)
-        elif action == "move_paddle":
+            await GameManager.add_player(game_id, self.id)
+            await GameManager.request_start_game(game_id, self.id)
+        if action == "move_paddle":
             game_id = data.get("game_id") 
             logger.info(game_id) 
             await GameManager.update_paddle(game_id, data)
+        if action == "pause_game":
+            game_id = data.get("game_id")
+            await GameManager.pause_game(game_id)
+        if action == "resume_game":
+            game_id = data.get("game_id")
+            await GameManager.resume_game(game_id)
+        if action == "restart_game":
+            game_id = data.get("game_id")
+            await GameManager.restart_game(game_id)
+        if action == "save_game":
+            game_id = data.get("game_id")
+            logger.info("Saving game....JFKSDNFKDSNSFN.")
+            await GameManager.save_game(game_id)
+        else:
+            logger.warning("Invalid action")
 
     async def send_game_state(self, event):
         """Sends game state update to the client."""
