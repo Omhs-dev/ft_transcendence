@@ -65,27 +65,8 @@
             <h2>Dashboard</h2>
             <button id="logoutButton">Logout</button>
             <div style="margin-top:5%">
-                <button><a href="{% url 'game_ui' %}" >Start Game</a> </button>
+                <button id="showGameButton">Start Local Game</a> </button>
             </div>
-            <!-- Online Users -->
-            <div id="onlineUsers">
-				<h3>Online Users</h3>
-                <ul id="userList"></ul>
-            </div>
-            <!-- W.B Online Users -->
-            <div id="WBonlineUsers">
-				<h3>W.B Online Users</h3>
-                <ul id="WBuserList"></ul>
-            </div>
-			<!-- Chat Section -->
-			<div id="chatArea" style="display:none;">
-				<h3 id="chatWith"></h3>
-				<div id="chatMessages"></div>
-				<input type="text" id="chatInput" placeholder="Type your message here...">
-				<button id="sendMessage">Send</button>
-			</div>
-			
-			<br>
 			<!-- Game Section -->
 			<div id="game" class="container text-center mt-5" style="display: none;">
 				<style>
@@ -104,8 +85,28 @@
 					<button id="restartGame" class="btn btn-danger">Restart Game</button>
 				</div>
 				<div id="gameStatus" class="mt-3">
-					</div>
+				<button id="finishGame" class="btn btn-secondary" style="margin-top: 15px;">Finish Game</button>
+				</div>
 			</div>
+			<br>
+            <!-- Online Users -->
+            <div id="onlineUsers">
+				<h3>Online Users</h3>
+                <ul id="userList"></ul>
+            </div>
+            <!-- W.B Online Users -->
+            <div id="WBonlineUsers">
+				<h3>W.B Online Users</h3>
+                <ul id="WBuserList"></ul>
+            </div>
+			<!-- Chat Section -->
+			<div id="chatArea" style="display:none;">
+				<h3 id="chatWith"></h3>
+				<div id="chatMessages"></div>
+				<input type="text" id="chatInput" placeholder="Type your message here...">
+				<button id="sendMessage">Send</button>
+			</div>
+			
 			
 			<!-- Friends Requests -->
             <div id="friendreq">
@@ -206,10 +207,8 @@
     </div>
 </body>
 
-
 <script>
 	
-
 	// *********************************** Global Variables ***********************************
 
 		let refreshTimer;
@@ -219,6 +218,10 @@
 		let onlineUsers = {}; // Store online user status
 		let globalChatRoomId = null; // Store the chat room ID
 		let gameInvite = null;
+		let debug = localStorage.getItem('debug') === 'true'; // Get the debug status from local storage
+		let ws_scheme = localStorage.getItem('ws_scheme') || 'wss'; // Get the ws_scheme from local storage
+		let secondPlayer = '';
+		let tournamentlist = [];
 
 	// *********************************** Helper Functions ***********************************
 		// Ensure this function is called once the DOM is fully loaded
@@ -244,6 +247,18 @@
 		// ✅ Optimized: Check authentication and load dashboard
 		async function checkAuthAndLoadDashboard() {
 			try {
+				// Check if is debug mode
+				await fetch('/auth/api/debug-status/')
+						.then(response => response.json())
+						.then(data => {
+							debug = data.debug;
+							localStorage.setItem('debug', debug);
+							ws_scheme = debug ? 'ws' : 'wss';
+							localStorage.setItem('ws_scheme', ws_scheme);
+							// const socket = new WebSocket(`${ws_scheme}://your-websocket-url`);
+						});
+						console.debug(`Debug mode is ${debug ? 'enabled' : 'disabled'} and ws_scheme is ${ws_scheme}`);
+
 				const response = await fetch('/auth/api/profile/', {
 					method: 'GET',
 					credentials: 'include' // ✅ Sends HTTP-only cookies
@@ -357,6 +372,7 @@
 				alert('An error occurred during registration.');
 			}
 		});
+		
 		//*********************************** Login Logic ***********************************
 		// Login User
 		document.getElementById('loginForm').addEventListener('submit', async function (e) {
@@ -401,6 +417,18 @@
 						localStorage.setItem('otpMethod', 'false');
 					}
 					alert('Login successful');
+					// check if debug is enabled
+					await fetch('/auth/api/debug-status/')
+						.then(response => response.json())
+						.then(data => {
+							debug = data.debug;
+							localStorage.setItem('debug', debug);
+							ws_scheme = (debug.toLowerCase() === 'true') ? 'ws' : 'wss';
+							localStorage.setItem('ws_scheme', ws_scheme);
+							// const socket = new WebSocket(`${ws_scheme}://your-websocket-url`);
+						});
+						console.debug(`Debug mode is ${debug ? 'enabled' : 'disabled'} and ws_scheme is ${ws_scheme}`);
+
                     // console.log(username, 'Login successful:', data);
     				document.getElementById('otp_method').value = '';
             		document.getElementById('otp_code').value = ''; // Clear OTP code
@@ -421,7 +449,9 @@
 					// Clear old OTP code and refocus the input field
     				document.getElementById('otp_code').value = '';
     				document.getElementById('otp_code').focus();
-				} else {
+				} else if (response.status === 409){
+					alert('User already logged in');
+				}else {
 					const errorData = await response.json();
 					alert(errorData.error || 'Login failed!');
 					// Clear fields after failed login
@@ -468,12 +498,14 @@
 			} catch (error) {
 				console.error('Error during logout request:', error);
 			} finally {
-				localStorage.removeItem('username');
+				localStorage.removeItem('debug');
 				localStorage.removeItem('isAuthenticated');
 				localStorage.removeItem('otpMethod');
-				localStorage.removeItem('userId');
 				localStorage.removeItem('phoneNumber');
 				localStorage.removeItem('TwoFA');
+				localStorage.removeItem('userId');
+				localStorage.removeItem('username');
+				localStorage.removeItem('ws_scheme');
 				localStorage.removeItem('oauthLogin');
 				if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
 					chatSocket.close();
@@ -534,6 +566,7 @@
 			try {
 				const response = await fetch('/chat/api/online-users/');
 				const data = await response.json();
+				console.debug('Online users:', data);
 				const userList = document.getElementById('userList');
 				userList.innerHTML = '';
 				data.forEach(targetUser => {
@@ -659,6 +692,7 @@
 				if (response.ok) {
 					const profile = await response.json();
 
+					console.debug('Profile:', profile);
 					// Update bio
 					document.getElementById('profileBio').value = profile.bio || '';
 					document.getElementById('profilePhone').value = profile.phone_number || '';
@@ -1040,7 +1074,7 @@
 				return;
 			}
 
-			chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/`); // General chat connection
+			chatSocket = new WebSocket(`${ws_scheme}://${window.location.host}/${ws_scheme}/chat/`); // General chat connection
 
 			chatSocket.onopen = function () {
 				console.log("WebSocket connected.");
@@ -1107,8 +1141,11 @@
 
 					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_accepted');
 					if (player1_id === currentUserId) {
-						document.getElementById('game').style.display = 'block';
+						// document.getElementById('game').style.display = 'block';
 						// startGame(player1_id, player2_id);
+						secondPlayer = localStorage.setItem('secondPlayer', player2_id);
+						tournamentlist.push(player2_id);
+						localStorage.setItem('tournamentlist', JSON.stringify(tournamentlist));
 					} 
 					console.debug("Game invite accepted:", data);
 				} else if (data.type === 'game_invite_declined') {
@@ -1365,178 +1402,39 @@
 
 
 // *********************************** Game Logic ***********************************
+	// *********************************** Local Game Logic ***********************************
+		function setupGameSection() {
+			const gameSection = document.getElementById("game");
+			const finishGameButton = document.getElementById("finishGame");
+			const showGameButton = document.getElementById("showGameButton");
+			
+			showGameButton.addEventListener("click", () => {
+				gameSection.style.display = "block";
+				console.log("Game section shown");
+			});
+
+			finishGameButton.addEventListener("click", () => {
+				gameSection.style.display = "none";
+				console.log("Game section hidden");
+			});
+			// Attach event listeners
+		}
+		setupGameSection();
+		function loadGameScript() {
+			let script = document.createElement("script");
+			script.src = "{% static 'js/local_game.js' %}";
+			script.onload = function () {
+				console.log("local_game.js loaded!");
+			};
+			document.body.appendChild(script);
+		}
+
+		// Wait until the main script logic completes, then load game.js
+		window.onload = function () {
+			loadGameScript();
+		};
 
 	// *********************************** Remote Game Logic ***********************************
-	const canvas = document.getElementById("gameCanvas");
-		const ctx = canvas.getContext("2d");
-
-		const paddleWidth = 10;
-		const paddleHeight = 100;
-		const ballSize = 10;
-
-		let game_id = 'lobby';
-		window.game_id = game_id;
-		let user1_id = '1';
-		let user2_id = '2';
-		let username = '';
-		let player1 = { x: 10, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-		let player2 = { x: canvas.width - 20, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-		let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 0, dy: 0 };
-
-		let websocket;
-		let gameInProgress =false;
-		let gamePaused = false;
-
-		function draw() {
-			ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-
-			// Debugging
-			console.log("Drawing paddle1 at:", player1.y, "paddle2 at:", player2.y, "ball at:", ball.x, ball.y);
-
-			// Draw paddles
-			ctx.fillStyle = "#000";
-			ctx.fillRect(player1.x, player1.y, paddleWidth, paddleHeight);
-			ctx.fillRect(player2.x, player2.y, paddleWidth, paddleHeight);
-
-			// Draw ball
-			ctx.beginPath();
-			ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
-			ctx.fill();
-			ctx.closePath();
-
-			// Draw scores
-			ctx.font = "20px Arial";
-			ctx.fillText(`Host: ${player1.score}`, 50, 20);
-			ctx.fillText(`Guest: ${player2.score}`, canvas.width - 150, 20);
-		}
-
-
-		// // Main game loop
-		// function gameLoop() {
-		//     if (!gamePaused && gameInProgress) {
-		//         draw();
-		//     }
-		//     // requestAnimationFrame(gameLoop); // Keep looping
-		// }
-
-		function updateGameState(data) {
-				// console.log("The ball is being updated ..", data.ball);
-				ball.x = data.ball.x;
-				ball.y = data.ball.y;
-				player1.y = data.paddle1.y;
-				player2.y = data.paddle2.y;
-				player1.score = data.score1;
-				player2.score = data.score2;
-				game_id = data.game_id;
-				// console.log("players. ", player1, player2);
-				draw();
-				// sleep(10000);
-		}
-
-		// Fix the incorrect event listener binding
-		document.getElementById("startGame").addEventListener("click", setupWebSocket);
-
-		function setupWebSocket() {
-			// websocket = new WebSocket("ws://" + window.location.host + "/ws/game/?token=<access_token>");
-			websocket = new WebSocket("ws://" + window.location.host + "/ws/game/");
-
-			websocket.onopen = () => {
-				console.log("WebSocket connected");
-				// websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": player_id }));
-				// gameInProgress = true;
-				// gamePaused = false;
-				// startGameLoop();
-			};
-
-			websocket.onmessage = (e) => {
-				const data = JSON.parse(e.data);
-				// console.log("Received update from server:", data);
-
-				if (data["type"] == "id") {
-					console.log("Received Id");
-					user1_id = data["id"];
-					websocket.send(JSON.stringify({ action: "start_game", game_id, "player_id": user1_id }));
-					gameInProgress = true;
-					gamePaused = false;
-					return;
-				}
-				// setInterval(updateGameState(data), 1000);
-				updateGameState(data);
-				// updateGameState(data);
-
-				// if (data.type === "send_game_state") {
-				//     console.log("this is game_state...........");
-				// }
-				// if (data.type === "game_update") {
-				//     console.log("this is game_update......");
-				// }
-				if (data.action === "move_paddle") {
-					console.log("Moving paddle ohhhhhh...");
-					// console.log("drawing map");
-					// if (data.player === "paddle1") {
-					//     console.log("this is player 1");
-					//     player1.y = data.position;
-					// }
-					// if (data.player === "paddle2") {
-					//     console.log("this is player 2");
-					//     player2.y = data.position;
-					// }
-					// draw();
-				}
-				if (data.type === "game_started") {
-					console.log("Game started updating game state ...");
-					// game_id = data.game_id;
-					// localStorage.setItem("gameId", game_id);
-					// gameInProgress = true;
-					console.log("Game started with ID:", data);
-				}
-				// if (data.type === "game_paused") gamePaused = true;
-				// if (data.type === "game_resumed") gamePaused = false;
-				// if (data.type === "game_restarted") resetGameState();
-				// if (data.type === "game_ended") {
-				//     gameInProgress = false;
-				//     alert(`Game Over! Winner: ${data.winner}`);
-				//     websocket.close();
-				// }
-			};
-
-			websocket.onerror = (e) => console.error("WebSocket error:", e);
-
-			websocket.onclose = () => {
-				console.log("WebSocket disconnected. Reconnecting in 3 seconds...");
-				setTimeout(setupWebSocket, 3000);
-			};
-
-		}
-		window.addEventListener("keydown", (e) => {
-			if (websocket && websocket.readyState === WebSocket.OPEN) {
-				let action = null;
-				if (e.key === "w") action = { player: user1_id, position: player1.y - 20 };
-				// if (e.key === "w") action = { player: "paddle1", motion: -1 };
-				if (e.key === "s") action = { player: user1_id, position: player1.y + 20 };
-				if (e.key === "ArrowUp") action = { player: user1_id, position: player2.y - 20 };
-				if (e.key === "ArrowDown") action = { player: user1_id, position: player2.y + 20 };
-
-				if (action) {
-					data = {
-						action: "move_paddle",
-						...action,
-						game_id: window.game_id, // localStorage.getItem("gameId")
-					};
-					console.log(data);
-					websocket.send(JSON.stringify(data));
-				}
-			}
-		});
-
-		function resetGameState() {
-			player1.y = canvas.height / 2 - paddleHeight / 2;
-			player2.y = canvas.height / 2 - paddleHeight / 2;
-			ball.x = canvas.width / 2;
-			ball.y = canvas.height / 2;
-			player1.score = 0;
-			player2.score = 0;
-		}
-
-	//
+	
 	</script>
+	<!-- <script src="{% static 'js/local_game.js' %}"></script> -->

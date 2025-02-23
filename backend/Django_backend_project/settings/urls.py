@@ -22,6 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from django.views.generic.base import RedirectView
+import debug_toolbar
 
 favicon_view = RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)
 
@@ -31,11 +32,12 @@ urlpatterns = [
     path('game/', include('game_logic_app.urls')),
     path('admin/', admin.site.urls),
     re_path(r'^favicon\.ico$', favicon_view),
-] + debug_toolbar_urls()
+]
 
 
 # Serve media files during development
 if settings.DEBUG:
+    urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     
 	

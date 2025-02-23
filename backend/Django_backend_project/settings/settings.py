@@ -20,21 +20,23 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 DEBUG = os.environ.get("DJANGO_DEBUG", False)
 # ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "192.168.0.206").split(",")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost").split(",")
 
 
 # ALLOWED_HOSTS = ['transcendence.com', '0.0.0.0','192.168.65.1', "localhost", "django", intra_ip]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost',
+    'http://localhost',
     'http://0.0.0.0',
     'https://0.0.0.0',
-    'http://localhost',
     'http://localhost:8000',
     'http://django',
     'https://django',
-	'http://192.168.0.206'
-	'https://192.168.0.206'
+    'http://192.168.0.206'
+    'https://192.168.0.206'
+    'https://192.168.0.135'
+    'http://192.168.0.135'
 ]
 
 
@@ -64,7 +66,7 @@ LOGGING = {
         },
         'console': {
             'class': 'logging.StreamHandler',
-			'formatter': 'simple'
+            'formatter': 'simple'
         },
     },
     'loggers': {
@@ -87,7 +89,7 @@ LOGGING = {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': False,
-		},
+        },
         # Add other loggers as needed
     },
 }
@@ -108,23 +110,23 @@ INSTALLED_APPS = [
     'auth_app',
     'chat_app',
     'game_logic_app',
-	'rest_framework_simplejwt.token_blacklist',
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
     'corsheaders',
     'channels',
-	'debug_toolbar',
-	'django_otp',
-	'qrcode',
-	'pyotp',
+    # 'debug_toolbar',
+    'django_otp',
+    'qrcode',
+    'pyotp',
 ]
 
 
 
 MIDDLEWARE = [
-	'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-	'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -238,8 +240,8 @@ DEFAULT_FROM_EMAIL = 'Transcendence'
 
 # Auth2.0 settings
 OAUTH_42_CLIENT_ID = 'u-s4t2ud-6a125e8a8b29cc39417deacce1ac474315d1b04f9f12a85e4a093c3b777b1da8'
-FRONTEND_URL = "http://localhost"
-OAUTH_42_CLIENT_SECRET = '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'
+FRONTEND_URL = "http://localhost:8000"
+OAUTH_42_CLIENT_SECRET = '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'
 OAUTH_42_REDIRECT_URI = 'http://localhost:8000/auth/api/42/callback/'  # or your deployed URL
 OAUTH_42_AUTHORIZE_URL = 'https://api.intra.42.fr/oauth/authorize'
 OAUTH_42_TOKEN_URL = 'https://api.intra.42.fr/oauth/token'
@@ -277,14 +279,14 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_HEADER_TYPES': ('Bearer',),
-	# custom
-	'AUTH_COOKIE': 'access_token',  # Cookie name. Enables cookies if value is set.
+    # custom
+    'AUTH_COOKIE': 'access_token',  # Cookie name. Enables cookies if value is set.
     'AUTH_COOKIE_REFRESH': 'refresh_token',  # Name for the refresh token cookie.
-	'AUTH_COOKIE_DOMAIN': None,     # A string like "example.com", or None for standard domain cookie.
-	'AUTH_COOKIE_SECURE': False,    # Whether the auth cookies should be secure (https:// only).
-	'AUTH_COOKIE_HTTP_ONLY' : True, # Http only cookie flag.It's not fetch by javascript.
-	'AUTH_COOKIE_PATH': '/',        # The path of the auth cookie.
-	'AUTH_COOKIE_SAMESITE': 'Lax',  # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
+    'AUTH_COOKIE_DOMAIN': None,     # A string like "example.com", or None for standard domain cookie.
+    'AUTH_COOKIE_SECURE': False,    # Whether the auth cookies should be secure (https:// only).
+    'AUTH_COOKIE_HTTP_ONLY' : True, # Http only cookie flag.It's not fetch by javascript.
+    'AUTH_COOKIE_PATH': '/',        # The path of the auth cookie.
+    'AUTH_COOKIE_SAMESITE': 'Lax',  # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
 }
 
 # Default primary key field type
@@ -310,26 +312,29 @@ CORS_ALLOW_CREDENTIALS = False # here we are allowing the frontend to access the
 SESSION_COOKIE_HTTPONLY = True  	# This prevents client-side JavaScript from accessing the session cookie, which is a good security practice.
 CSRF_COOKIE_HTTPONLY = True   		# This prevents client-side JavaScript from accessing the CSRF cookie, which is a good security practice.
 
-if not DEBUG:
-	SESSION_COOKIE_SECURE = True  		# Important for local development (it should be True when using HTTPS)
-	CSRF_COOKIE_SECURE = True			# Important for local development (it should be True when using HTTPS)
-	SIMPLE_JWT['AUTH_COOKIE_SECURE'] = True
-	SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') 	# This ensures that Django knows to trust the X-Forwarded-Proto header that comes from the proxy server.
-	SECURE_SSL_REDIRECT = True								  		# Usually handled by Nginx this redirects all HTTP traffic to HTTPS
+if DEBUG.lower() == 'false':
+    SESSION_COOKIE_SECURE = True  		# Important for local development (it should be True when using HTTPS)
+    CSRF_COOKIE_SECURE = True			# Important for local development (it should be True when using HTTPS)
+    SIMPLE_JWT['AUTH_COOKIE_SECURE'] = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') 	# This ensures that Django knows to trust the X-Forwarded-Proto header that comes from the proxy server.
+    SECURE_SSL_REDIRECT = True								  		# Usually handled by Nginx this redirects all HTTP traffic to HTTPS
+    print(f"debug in setting.py is equsl to first${DEBUG}")
 
 #-------- DEBUG TOOLBAR CONFIGURATION --------
-if DEBUG:
-	# DEBUG TOOLBAR CONFIGURATION
-	INTERNAL_IPS = [
-		# ...
-		"127.0.0.1",
-		# ...
-	]
+if DEBUG.lower() == 'true':
+    INSTALLED_APPS += ['debug_toolbar']
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+    # DEBUG TOOLBAR CONFIGURATION
+    INTERNAL_IPS = [
+        # ...
+        "127.0.0.1",
+        # ...
+    ]
+    print(f"debug  in setting.py is equsl to second${DEBUG}")
+    DEBUG_TOOLBAR_CONFIG = {
+        'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
+    }
 
-	DEBUG_TOOLBAR_CONFIG = {
-		'SHOW_TOOLBAR_CALLBACK': lambda request: DEBUG,
-	}
-
-	import socket
-	hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-	INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
+    # import socket
+    # hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    # INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]

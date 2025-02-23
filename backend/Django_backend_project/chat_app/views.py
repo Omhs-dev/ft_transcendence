@@ -47,12 +47,12 @@ class BlockUserView(APIView):
 
     def post(self, request, user_id):
         blocked_user = User.objects.get(id=user_id)
-        BlockedUser.objects.get_or_create(user=request.user, blocked_user=blocked_user)
+        BlockedUser.objects.get_or_create(blocker=request.user, blocked=blocked_user)  # ✅ Fixed field names
         return Response({'message': 'User blocked successfully!'})
 
     def delete(self, request, user_id):
         blocked_user = User.objects.get(id=user_id)
-        BlockedUser.objects.filter(user=request.user, blocked_user=blocked_user).delete()
+        BlockedUser.objects.filter(blocker=request.user, blocked=blocked_user).delete()  # ✅ Fixed field names
         return Response({'message': 'User unblocked successfully!'})
 
 

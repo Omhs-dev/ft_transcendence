@@ -1,10 +1,11 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .models import Game, Player
+from .models import Game, Player, MatchHistory
 from django.contrib.auth.models import User
-from .utils import *
+# from .local_game_utils import MatchHistory
 from django.utils import timezone
 from asgiref.sync import sync_to_async, async_to_sync
+from channels.db import database_sync_to_async
 import logging
 import asyncio
 import random
@@ -33,7 +34,6 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
         )
         loggers.info(f"WebSocket disconnected: {self.channel_name}")
 
-
     async def receive(self, text_data):
         try:
             data = json.loads(text_data)
@@ -42,10 +42,13 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
 
             if action == 'start_game':
                 user2_id = data.get("user2_id")
+                user1_id = data.get("user1_id")
+                if user1_id == '':
+                    user1_id = 1
                 if not user2_id:
                     raise ValueError("Missing user2_id")
                 game_id = await self.generate_unique_game_id()
-                await self.start_game(game_id, user2_id)
+                await self.start_game(game_id, user2_id, user1_id)
 
             elif action == "update_score":
                 game_id = data.get('game_id')
@@ -77,14 +80,22 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
                 await self.restart_game(game_id)
             
             elif action == "end_game":
-                game_id = data.get('game_id')
-                winner_id = data.get("winner_id")
-                loser_id = data.get("loser_id")
-                result = data.get("result")
-                await self.end_game(game_id, winner_id, loser_id, result)
+                recData = {
+                    'game_id' : data.get('game_id'),
+                    'winner_id' : data.get("winner_id"),
+                    'winner_name' : data.get("winner_name"),
+                    'loser_id' : data.get("loser_id"),
+                    'loser_name' : data.get("loser_name"),
+                    'result' : data.get("result"),
+                    'player1_score' : data.get("player1_score"),
+                    'player2_score' : data.get("player2_score"),
+
+                }
+                loggers.info(f"\n the data in end_game: {data}")
+                loggers.info(f"\n the recData in end_game: {recData}")
+                await self.end_game(recData)
             
             else:
-                # loggers.info(f"\n\n  Game Going on: {game_id}")
                 raise ValueError("Invalid action")
                 
             # Broadcast updates
@@ -99,7 +110,6 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
         data = event["data"]
         await self.send(text_data=json.dumps(data))
 
-
     @sync_to_async
     def get_game(self, game_id):
         try:
@@ -113,7 +123,6 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
         game.save()
         # loggers.info(f"This is saved game: {game}")
 
-    
     @sync_to_async
     def generate_unique_game_id(self):
         # Generate a random 6-digit number
@@ -127,12 +136,12 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
         # Return the unique game_id
         return game_id     
 
-    async def start_game(self, game_id, user2_id):
+    async def start_game(self, game_id, user2_id, user1_id):
     # async def start_game(self, game_id):
-        loggers.info(f"Starting game inside ... gID: {game_id} and the user2ID:{user2_id} ")
-        user1 = await sync_to_async(User.objects.filter(id=1).first)()
+        # loggers.info(f"Starting game inside ... gID: {game_id} and the user2ID:{user2_id} ")
+        user1 = await sync_to_async(User.objects.filter(id=user1_id).first)()
         user2 = await sync_to_async(User.objects.filter(id=user2_id).first)()
-        loggers.info(f"User 1: {user1}, User 2: {user2}")
+        # loggers.info(f"User 1: {user1}, User 2: {user2}")
     
         player1 = await sync_to_async(Player.objects.get)(user=user1)
         player2 = await sync_to_async(Player.objects.get)(user=user2)
@@ -152,12 +161,19 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
         # Fetch the game after potential update to ensure consistency
         game = await self.get_game(game_id)
         loggers.info(f"Game state after creation/update: {game.state}")
+
         # Notify WebSocket group about the game start
         await self.channel_layer.group_send(
             self.room_group_name,
-            {"type": "game_update", "data": {"type": "game_started", "game_id": game_id}},
+            {"type": "game_update", "data": {
+                "type": "game_started",
+                "game_id": game_id,
+                "user1_id": user1.id,
+                "user2_id": user2.id,
+                "player1":  user1.username,
+                "player2": user2.username,
+                }},
         )
-
 
     async def pause_game(self, game_id):
         game = await self.get_game(game_id)
@@ -206,45 +222,98 @@ class LocalGameConsumer(AsyncWebsocketConsumer):
         game.ball_dx = ball_data['dx']
         game.ball_dy = ball_data['dy']
         await self.save_game(game)
-    
-    
-    async def end_game(self, game_id):
-        game = await self.get_game(game_id)
-        winner, loser = await finalize_game_sync(game)  # Receive both winner and loser
-
-        if winner and loser:
-            # Proceed only if both winner and loser are available
-            await self.channel_layer.group_send(
-                self.room_group_name,
-                {
-                    "type": "game_update",
-                    "data": {
-                        "type": "game_ended",
-                        "winner": winner.id if winner else None,  # Send winner ID
-                        "loser": loser.id if loser else None,  # Send loser ID
-                        "game_id": game_id
-                    },
-                },
-            )
-        else:
-            loggers.error(f"Game {game_id} has no winner or loser. Skipping game update.")
-
-
-
-    @sync_to_async
-    def update_score(self, game_id, player1_score, player2_score):
-        loggers.info(f"\n\nUpdating score for game: {game_id}\nPlayer1 Score: {player1_score}\nPlayer2 Score: {player2_score}")
         
+    # @sync_to_async
+    @database_sync_to_async
+    def finalize_game(self, game, recData):
+        winner, loser = None, None
+        try:
+            if game.state != 'finished':
+                game.state = 'finished'
+                game.end_time = timezone.now()
+
+                if game.player1_score > game.player2_score:
+                    winner, loser = game.player1, game.player2
+                elif game.player2_score > game.player1_score:
+                    winner, loser = game.player2, game.player1
+
+                if winner and loser:
+                    winner.total_wins += 1
+                    loser.total_losses += 1
+                    winner.save(update_fields=['total_wins'])
+                    loser.save(update_fields=['total_losses'])
+
+                game.save()
+                MatchHistory.objects.create(
+                    game=game,
+                    player1=game.player1,
+                    player2=game.player2,
+                    winner=winner,
+                    loser=loser,
+                    result=f"{game.player1_score} - {game.player2_score}"
+                )
+                loggers.info(f"Game {game.id} fiiiiinnnnnnalized. Winner: {winner}, Loser: {loser}")
+
+        except Exception as e:
+            loggers.error(f"Error finalizing game {game.id}: {str(e)}")
+
+        return winner, loser    # @sync_to_async
+    
+
+    async def end_game(self, recData):
+        loggers.debug(f"\n\n\nGame {recData['game_id']} ended. Winner: {recData['winner_id']}, Loser: {recData['loser_id']}")
+        try:
+            game = await database_sync_to_async(Game.objects.get)(id=recData['game_id'])
+            
+            game.player1_score = recData['player1_score']
+            game.player2_score = recData['player2_score']
+            await database_sync_to_async(game.save)(update_fields=['player1_score', 'player2_score'])
+
+            game_id = recData['game_id']
+            winner_id = recData['winner_id']
+            winner_name = recData['winner_name']
+            loser_id = recData['loser_id']
+            loser_name = recData['loser_name']
+            result = recData['result']
+
+            loggers.debug(f"\n\nGame111 {game_id} ended. Winner: {winner_id}, Loser: {loser_id}")
+
+            winner, loser = await self.finalize_game(game, recData)  # Await the coroutine
+
+            if winner and loser:
+                loggers.info(f"Game222 {game_id} ended. Winner: {winner}, Loser: {loser}")
+                await self.channel_layer.group_send(  # Await the async call
+                    self.room_group_name,
+                    {
+                        "type": "game_update",
+                        "data": {
+                            "type": "game_ended",
+                            "winner": winner_id,
+                            "winner_name": winner_name,
+                            "loser": loser_id,
+                            "loser_name": loser_name,
+                            "result": result,
+                            "game_id": game_id,
+                        },
+                    },
+                )
+            else:
+                loggers.error(f"Game {game_id} has no winner or loser. Skipping game update.")
+        except Game.DoesNotExist:
+            loggers.error(f"Game with ID {recData['game_id']} does not exist.")
+        except Exception as e:
+            loggers.error(f"Error ending game {recData['game_id']}: {str(e)}")
+
+    # @sync_to_async
+    @database_sync_to_async
+    def update_score(self, game_id, player1_score, player2_score):
         try:
             game = Game.objects.get(id=game_id)
 
-            # Store scores in the Game model instead of Player
+            # Store scores in the Game model
             game.player1_score = player1_score
             game.player2_score = player2_score
             game.save(update_fields=['player1_score', 'player2_score'])
-
-            if player1_score >= 3 or player2_score >= 3:  # Win condition
-                async_to_sync(self.end_game)(game_id)
 
             loggers.info(f"Updated score for game {game_id}: Player1={player1_score}, Player2={player2_score}")
 

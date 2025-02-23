@@ -4,6 +4,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import UniqueValidator
 from django.core.validators import RegexValidator
 from .models import Profile
+from chat_app.models import BlockedUser
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
@@ -32,17 +33,18 @@ class ProfileSerializer(serializers.ModelSerializer):
         required=False,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    # id = serializers.IntegerField(
-	# 	source='user.id',
-	# 	read_only=True
-	# )
     email = serializers.EmailField(
         source='user.email',
         required=False,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
-    password = serializers.CharField(write_only=True, required=False)
+    profile_picture = serializers.ImageField(required=False)
+ 
     nickname = serializers.CharField(required=False)
+
+
+    friends = serializers.SerializerMethodField()
+    blocked_users = serializers.SerializerMethodField()
 
     phone_number = serializers.CharField(
         required=False,
@@ -57,7 +59,35 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ['id', 'nickname', 'bio', 'profile_picture', 'username', 'email', 'password', 'phone_number', 'is_2fa_enabled']
+        fields = ['id', 'nickname', 'bio', 'profile_picture', 'username', 'email',
+                   'phone_number', 'is_2fa_enabled', 'friends', 'blocked_users']
+
+    def get_friends(self, obj):
+        """
+        Return a list of friends with basic information.
+        """
+        friends = obj.friends.all()
+        return [
+            {
+                "id": friend.user.id,
+                "username": friend.user.username,
+                "nickname": friend.nickname,
+                "profile_picture": friend.profile_picture.url if friend.profile_picture else None
+            }
+            for friend in friends
+        ]
+    
+    def get_blocked_users(self, obj):
+        """Return list of blocked users with id, username, and profile_picture."""
+        blocked_users = BlockedUser.objects.filter(blocker=obj.user).select_related('blocked')
+        return [
+            {
+                "id": blocked.blocked.id,
+                "username": blocked.blocked.username,
+                "profile_picture": blocked.blocked.profile.profile_picture.url if blocked.blocked.profile.profile_picture else None
+            }
+            for blocked in blocked_users
+        ]
 
     def update(self, instance, validated_data):
         user_data = validated_data.pop('user', {})

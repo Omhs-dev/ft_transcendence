@@ -6,10 +6,16 @@ const paddleHeight = 100;
 const ballSize = 10;
 
 let game_id ='';
+let winnerName = '';
+let winnerID = '';
+let loserName = '';
+let loserID = '';
+let user1_id = '';
 let user2_id = '';
-let username = '';
-let player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-let player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+let user1_name = '';
+let user2_name = '';
+let player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: '' };
+let player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: '' };
 let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
 
 let keys = {};
@@ -18,6 +24,17 @@ let gameInProgress = false; // Track if the game is in progress
 let gamePaused = false; // Track if the game is paused
 let gameStatue = null;
 let intervalId;
+
+
+document.addEventListener("DOMContentLoaded", () => {
+	if (websocket)
+		websocket.close();
+		close.log("game websocket closed");
+	// resetGameState();
+	fetchProfile();
+	console.debug("user2_name and user_id: ", user2_name, user2_id);
+
+})
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -28,11 +45,12 @@ function sleep(ms) {
 async function fetchProfile() {
 	try {
 		const response = await fetch('/auth/api/profile/');
+		console.debug("response in fetchprofile: ", response);
 		if (response.ok) {
 			const profile = await response.json();
 			user2_id = profile.id;
-			username = profile.username;
-			console.log("username and user_id: ", username, user2_id);
+			user2_name = profile.username;
+			console.debug("username and user_id in fetchprofile: ", user2_name, user2_id);
 		} else {
 			console.error('Failed to fetch profile:', response.status);
 		}
@@ -40,7 +58,6 @@ async function fetchProfile() {
 		console.error('Error fetching profile:', error);
 	}
 }
-
 
 // Draw paddles and ball
 function draw() {
@@ -60,8 +77,8 @@ function draw() {
 
     // Draw scores
     ctx.font = "20px Arial";
-    ctx.fillText(`Admin: ${player1.score}`, 50, 20);
-    ctx.fillText(`${username}: ${player2.score}`, canvas.width - 150, 20);
+    ctx.fillText(`${localStorage.getItem('player1Name')}: ${player1.score}`, 50, 20);
+    ctx.fillText(`${localStorage.getItem('player2Name')}: ${player2.score}`, canvas.width - 150, 20);
 }
 
 // Move paddles based on keys pressed
@@ -70,20 +87,20 @@ function movePaddles() {
 
     if (keys.w && player1.y > 0) {
         player1.y -= paddleSpeed;
-        sendPaddlePosition(player1.y, "player1");
+        // sendPaddlePosition(player1.y, "player1");
     }
     if (keys.s && player1.y < canvas.height - paddleHeight) {
         player1.y += paddleSpeed;
-        sendPaddlePosition(player1.y, "player1");
+        // sendPaddlePosition(player1.y, "player1");
     }
 
     if (keys.ArrowUp && player2.y > 0) {
         player2.y -= paddleSpeed;
-        sendPaddlePosition(player2.y, "player2");
+        // sendPaddlePosition(player2.y, "player2");
     }
     if (keys.ArrowDown && player2.y < canvas.height - paddleHeight) {
         player2.y += paddleSpeed;
-        sendPaddlePosition(player2.y, "player2");
+        // sendPaddlePosition(player2.y, "player2");
     }
 }
 
@@ -101,18 +118,20 @@ function moveBall() {
         (ball.x >= canvas.width - paddleWidth && ball.y >= player2.y && ball.y <= player2.y + paddleHeight)
     ) {
         ball.dx *= -1;
-        sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
+        // sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
     }
 
     // Ball goes out of bounds
     if (ball.x < 0) {
         player2.score++;
         resetBall();
+		// checkGameStatus();
         sendScoreUpdate();
 		sleep(3000);
     } else if (ball.x > canvas.width) {
 		player1.score++;
         resetBall();
+		// checkGameStatus();
         sendScoreUpdate();
 		sleep(3000);
     }
@@ -124,9 +143,8 @@ function resetBall() {
     ball.y = canvas.height / 2;
     ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
     ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
-    sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
+    // sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
 }
-
 
 // Update and draw the game
 function updateGame() {
@@ -141,25 +159,26 @@ function updateGame() {
 document.getElementById("startGame").addEventListener("click", async () => {
 	if (gameStatue === 'started')
 		return;
-	await fetchProfile();
 	resetGameState();
+	await fetchProfile();
     if (!websocket || websocket.readyState !== WebSocket.OPEN) {
         console.log("WebSocket not connected. Reconnecting...");
         setupWebSocket();
         
         websocket.onopen = function () {
+
+			const tournamentList = localStorage.getItem('tournamentList');
+			console.log("tournamentList in startGame: ", tournamentList);
+			user1_id = localStorage.getItem('secondPlayer') || '';
+
             console.log("WebSocket connected");
 			console.log("user_id: ", user2_id);
-			// user2_id = localStorage.getItem("userId");
-			console.log("user_id: ", user2_id);
-            websocket.send(JSON.stringify({ action: "start_game", user2_id }));
-            // websocket.send(JSON.stringify({ action: "start_game", userId, game_id: 1 }));
+            websocket.send(JSON.stringify({ action: "start_game", user2_id: user2_id, user1_id: user1_id }));
 			gameStatue = 'started';
             startGameLoop();
         };
     } else if (!gameInProgress) {
-		websocket.send(JSON.stringify({ action: "start_game", user2_id }));
-        // websocket.send(JSON.stringify({ action: "start_game", game_id: 1 }));
+		websocket.send(JSON.stringify({ action: "start_game", user2_id: user2_id, user1_id: user1_id }));
         startGameLoop();
     }
 });
@@ -169,7 +188,7 @@ function setupWebSocket() {
 
     websocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
-        console.log("Message from server: ", data);
+        // console.log("Message from server: ", data);
 
         if (data.type === "game_update") {
             if (data.player1) player1 = data.player1;
@@ -185,6 +204,11 @@ function setupWebSocket() {
 
         if (data.type === "game_started") {
 			game_id = localStorage.setItem("gameId", data.game_id);
+			user1_id = localStorage.setItem("player1Id", data.user1_id);
+			user1_name = localStorage.setItem("player1Name", data.player1);
+			user2_id = localStorage.setItem("player2Id", data.user2_id);
+			user2_name = localStorage.setItem("player2Name", data.player2);
+			console.debug("received data in game_started: ", data);
             gameInProgress = true;
             console.log("Game started");
         }
@@ -207,18 +231,16 @@ function setupWebSocket() {
 		if (data.type === "game_ended") {
 			console.debug(`game ended ${data}`);
 			winnerID = data.winner;
-			if (winnerID === user2_id ? winner = username:'Admin');
+			console.debug(`winnerID in game_ended: ${winnerID}`);
             gameInProgress = false; // Prevent game updates
-            alert(`MATCH RESULT \n WINNER: <<<****${winner}****>>>\n SCORE: ${player1.score} - ${player2.score}`);
-            // cancelAnimationFrame(animationFrame);  // Stop any ongoing animation
-            window.removeEventListener("keydown", handleKeyDown);
-            window.removeEventListener("keyup", handleKeyUp);
+            alert(`MATCH RESULT \n WINNER: <<<****${winnerName}****>>>\n SCORE: ${player1.score} - ${player2.score}`);
             document.getElementById("restartGame").style.display = "block";
             document.getElementById("startGame").style.display = "none";
             websocket.close();  // Close the WebSocket connection
 			gameStatue = 'ended';
 			resetGameState();
-            // clearInterval(intervalId);  // Stop the game loop
+			localStorage.setItem('secondPlayer', '');
+            clearInterval(intervalId);  // Stop the game loop
         }
     };
 
@@ -251,7 +273,6 @@ function sendPaddlePosition(y, player) {
 				action: "move_paddle",
 				player: player,
 				position: y,
-				// game_id: 1,  // Example game ID
 				game_id: gID,  // Example game ID
 			})
 		);
@@ -267,7 +288,6 @@ function sendBallPosition(x, y, dx, dy) {
 			JSON.stringify({
 				action: "update_ball",
 				ball: { x: x, y: y, dx: dx, dy: dy },
-				// game_id: 1,  // Example game ID
 				game_id: gID,  // Example game ID
 			})
 		);
@@ -276,6 +296,11 @@ function sendBallPosition(x, y, dx, dy) {
 
 // Send score update to server
 function sendScoreUpdate() {
+	console.log("player1 score: %s player2 score: %s", player1.score, player2.score);
+	if (player1.score >= 3 || player2.score >= 3) {
+		sendGameEnd();
+		return;
+	}
 	const gID = localStorage.getItem('gameId');
     console.log("Sending score update");
 	if (websocket.readyState === WebSocket.OPEN) {
@@ -284,13 +309,40 @@ function sendScoreUpdate() {
 				action: "update_score",
 				player1_score: player1.score,
 				player2_score: player2.score,
-				// game_id: 1,  // Example game ID
-				game_id: gID,  // Example game ID
+				game_id: gID,
+			})
+			);
+		}
+	}
+	
+	
+	function sendGameEnd() {
+	winnerID = player1.score >= 3 ? localStorage.getItem("player1Id") : localStorage.getItem("player2Id");
+	loserID = player1.score >= 3 ? localStorage.getItem("player2Id") : localStorage.getItem("player1Id");
+	winnerName = player1.score >= 3 ? localStorage.getItem("player1Name") : localStorage.getItem("player2Name");
+	loserName = player1.score >= 3 ? localStorage.getItem("player2Name") : localStorage.getItem("player1Name");
+	player1_score = player1.score;
+	player2_score = player2.score;
+	
+	console.log("winnerID : %s, loserID: %s ,\
+		winner: %s, loser: %s, player1_score: %s,\
+		player2_score: %s", winnerID, loserID, winnerName, loserName, player1_score, player2_score);
+	if (websocket.readyState === WebSocket.OPEN) {
+		websocket.send(
+			JSON.stringify({
+				action: "end_game",
+				game_id: localStorage.getItem('gameId'),
+				winner_id: winnerID,
+				winner: winnerName,
+				loser_id: loserID,
+				loser: loserName,
+				result:`${player1_score} - ${player2_score}`,
+				player1_score: player1.score,
+				player2_score: player2.score,
 			})
 		);
 	}
 }
-
 
 // Pause game
 document.getElementById("pauseGame").addEventListener("click", () => {
@@ -331,7 +383,7 @@ window.addEventListener("keyup", (e) => {
 function resetGameState() {
     // Reset player scores and positions
 	if (gameInProgress) {
-		// game_id = '';
+		game_id = localStorage.setItem("gameId", '');'';
 		player1.score = 0;
 		player2.score = 0;
 		player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
@@ -341,6 +393,11 @@ function resetGameState() {
 		// 	websocket.close();
 		// clearInterval(intervalId);
 	}
+	game_id = localStorage.setItem("gameId", '');'';
+	user1_id = localStorage.setItem("player1Id", '');
+	user1_name = localStorage.setItem("player1Name", '');
+	user2_id = localStorage.setItem("player2Id", '');
+	user2_name = localStorage.setItem("player2Name", '');
 	gameInProgress = false;
     player1.score = 0;
     player2.score = 0;
