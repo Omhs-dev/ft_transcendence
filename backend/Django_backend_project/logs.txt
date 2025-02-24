@@ -17,9 +17,190 @@ DEBUG
 
 ProfileView request received
 DEBUG CustomTokenRefreshView request received
-INFO WebSocket HANDSHAKING /ws/localGame/ [192.168.48.1:61672]
+INFO WebSocket HANDSHAKING /ws/localGame/ [172.30.0.1:65234]
 DEBUG 
-decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740366017, 'iat': 1740363308, 'jti': '8c1c6f60460244ac948202fc6b96e8ac', 'user_id': 3}
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372258, 'iat': 1740363308, 'jti': 'd51896b3f3674d609e30e1a5e65d91f1', 'user_id': 3}
 
-INFO WebSocket CONNECT /ws/localGame/ [192.168.48.1:61672]
-INFO WebSocket connected: specific.408534ab085f42bb836e1686f9eed19e!55bbf71131bd492dbd30f18223c26e09
+INFO WebSocket CONNECT /ws/localGame/ [172.30.0.1:65234]
+INFO WebSocket connected: specific.960741af5af442e4831da190dfb612f6!f58f81afeaeb4cc79d370b7a02fe2346
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ0OTcwOCwiaWF0IjoxNzQwMzYzMzA4LCJqdGkiOiJmMzg3ZDlkNWZlZTE0ZjFhYWM5ZWFhN2IxZjY0ZDNjZSIsInVzZXJfaWQiOjN9.cOwSlMi5PLOD-AP8BsSk_3386rPinxjt0dpWqspoS4Q
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyNDk4LCJpYXQiOjE3NDAzNjMzMDgsImp0aSI6IjcxOTJmNGY3ZmU0YzQ5NTk5MTdmNzc1MGI4MzVkODgwIiwidXNlcl9pZCI6M30.WMUiVGnfx4CuKv9YM9aDvd6VFR_cqj-LH5PrWSv8Mh4'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.12, 172.30.0.1:65242][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=37ebe98b2cf14a73868f8543b6f13c86 200 [0.01, 172.30.0.1:65242][0m
+INFO WebSocket HANDSHAKING /ws/chat/ [172.30.0.5:36694]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372344, 'iat': 1740367352, 'jti': '90bba95aca9240379f6fdddfc5c53d53', 'user_id': 3}
+
+INFO 
+
+
+User omhs with the id 3 connected
+
+INFO WebSocket CONNECT /ws/chat/ [172.30.0.5:36694]
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyMzQ0LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjkwYmJhOTVhY2E5MjQwMzc5ZjZmZGRkZmM1YzUzZDUzIiwidXNlcl9pZCI6M30.bVpILMbLZFD5ZNO5JPCtMKtRBPhQbHqX5VcXlw8czi4
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ1Mzc1MiwiaWF0IjoxNzQwMzY3MzUyLCJqdGkiOiIwZDMxZWVmYjRjM2Q0NzVlYjEwM2U2NmY4N2QxNTQ0NSIsInVzZXJfaWQiOjN9._niHTAkfdIfHr2zXNnCCS9EHixgE8D2kz1MEhTS5-UY
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyMzQ0LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjkwYmJhOTVhY2E5MjQwMzc5ZjZmZGRkZmM1YzUzZDUzIiwidXNlcl9pZCI6M30.bVpILMbLZFD5ZNO5JPCtMKtRBPhQbHqX5VcXlw8czi4
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 connected
+
+INFO [mHTTP GET /auth/api/profile/ 200 [0.27, 172.30.0.5:36698][0m
+INFO WebSocket HANDSHAKING /ws/chat/ [172.30.0.5:36710]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372344, 'iat': 1740367352, 'jti': '90bba95aca9240379f6fdddfc5c53d53', 'user_id': 3}
+
+INFO 
+
+
+User omhs with the id 3 connected
+
+INFO WebSocket CONNECT /ws/chat/ [172.30.0.5:36710]
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 connected
+
+INFO WebSocket DISCONNECT /ws/chat/ [172.30.0.5:36710]
+INFO WebSocket DISCONNECT /ws/chat/ [172.30.0.5:36694]
+INFO 
+
+
+User omhs with the id 3 disconnected with this close code 1001
+
+INFO 
+
+
+User omhs with the id 3 disconnected with this close code 1001
+
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 disconnected
+
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 disconnected
+
+INFO WebSocket HANDSHAKING /ws/chat/ [172.30.0.5:36744]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372344, 'iat': 1740367352, 'jti': '90bba95aca9240379f6fdddfc5c53d53', 'user_id': 3}
+
+INFO 
+
+
+User omhs with the id 3 connected
+
+INFO WebSocket CONNECT /ws/chat/ [172.30.0.5:36744]
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyMzQ0LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjkwYmJhOTVhY2E5MjQwMzc5ZjZmZGRkZmM1YzUzZDUzIiwidXNlcl9pZCI6M30.bVpILMbLZFD5ZNO5JPCtMKtRBPhQbHqX5VcXlw8czi4
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ1Mzc1MiwiaWF0IjoxNzQwMzY3MzUyLCJqdGkiOiIwZDMxZWVmYjRjM2Q0NzVlYjEwM2U2NmY4N2QxNTQ0NSIsInVzZXJfaWQiOjN9._niHTAkfdIfHr2zXNnCCS9EHixgE8D2kz1MEhTS5-UY
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyMzQ0LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjkwYmJhOTVhY2E5MjQwMzc5ZjZmZGRkZmM1YzUzZDUzIiwidXNlcl9pZCI6M30.bVpILMbLZFD5ZNO5JPCtMKtRBPhQbHqX5VcXlw8czi4
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 connected
+
+INFO [mHTTP GET /auth/api/profile/ 200 [0.06, 172.30.0.5:36748][0m
+INFO WebSocket HANDSHAKING /ws/chat/ [172.30.0.5:36760]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372344, 'iat': 1740367352, 'jti': '90bba95aca9240379f6fdddfc5c53d53', 'user_id': 3}
+
+INFO 
+
+
+User omhs with the id 3 connected
+
+INFO WebSocket CONNECT /ws/chat/ [172.30.0.5:36760]
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 connected
+
+INFO WebSocket DISCONNECT /ws/chat/ [172.30.0.5:36760]
+INFO WebSocket DISCONNECT /ws/chat/ [172.30.0.5:36744]
+INFO 
+
+
+User omhs with the id 3 disconnected with this close code 1001
+
+INFO 
+
+
+User omhs with the id 3 disconnected with this close code 1001
+
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 disconnected
+
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 disconnected
+
+INFO WebSocket HANDSHAKING /ws/chat/ [172.30.0.5:36772]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372344, 'iat': 1740367352, 'jti': '90bba95aca9240379f6fdddfc5c53d53', 'user_id': 3}
+
+INFO 
+
+
+User omhs with the id 3 connected
+
+INFO WebSocket CONNECT /ws/chat/ [172.30.0.5:36772]
+DEBUG received Request in authentication: <rest_framework.request.Request: GET '/auth/api/profile/'>
+DEBUG Header in authenticate: None
+DEBUG Raw token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyMzQ0LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjkwYmJhOTVhY2E5MjQwMzc5ZjZmZGRkZmM1YzUzZDUzIiwidXNlcl9pZCI6M30.bVpILMbLZFD5ZNO5JPCtMKtRBPhQbHqX5VcXlw8czi4
+DEBUG Refresh token from cookie in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ1Mzc1MiwiaWF0IjoxNzQwMzY3MzUyLCJqdGkiOiIwZDMxZWVmYjRjM2Q0NzVlYjEwM2U2NmY4N2QxNTQ0NSIsInVzZXJfaWQiOjN9._niHTAkfdIfHr2zXNnCCS9EHixgE8D2kz1MEhTS5-UY
+DEBUG Validated token in authenticate: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyMzQ0LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjkwYmJhOTVhY2E5MjQwMzc5ZjZmZGRkZmM1YzUzZDUzIiwidXNlcl9pZCI6M30.bVpILMbLZFD5ZNO5JPCtMKtRBPhQbHqX5VcXlw8czi4
+INFO CSRF check: <CSRFCheck get_response=dummy_get_response>
+INFO CSRF reason in enforce_CSRF: None
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 connected
+
+INFO [mHTTP GET /auth/api/profile/ 200 [0.13, 172.30.0.5:36776][0m
+INFO WebSocket HANDSHAKING /ws/chat/ [172.30.0.5:36788]
+DEBUG 
+decoded data in JWTAuthMiddleware: {'token_type': 'access', 'exp': 1740372344, 'iat': 1740367352, 'jti': '90bba95aca9240379f6fdddfc5c53d53', 'user_id': 3}
+
+INFO 
+
+
+User omhs with the id 3 connected
+
+INFO WebSocket CONNECT /ws/chat/ [172.30.0.5:36788]
+INFO 
+
+
+HIII NAVIDDDDD User omhs with the id 3 connected
+
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ0OTYyMSwiaWF0IjoxNzQwMzYzMjIxLCJqdGkiOiI1NjUwN2NhMDEyM2E0MTdiOTQwYzRhMmZkMTU1MTQyNCIsInVzZXJfaWQiOjR9.BXmxBWxB4ygqk23RLfwug3SB4MO_58uTNKwyQHSVlLc
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyNzIyLCJpYXQiOjE3NDAzNjMyMjEsImp0aSI6IjNkNDQ1NjNlNmExNjRkNGVhNzQwNDcwM2Y2NDMwNzc4IiwidXNlcl9pZCI6NH0.2oKo4qa7lKCozZydU2yYhRbX4ShHOsVwmTLFxWUzW3c'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.04, 172.30.0.1:65380][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=816919a9296c46ab9537d8bc6c672fc5 200 [0.01, 172.30.0.1:65380][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ1Mzc1MiwiaWF0IjoxNzQwMzY3MzUyLCJqdGkiOiIwZDMxZWVmYjRjM2Q0NzVlYjEwM2U2NmY4N2QxNTQ0NSIsInVzZXJfaWQiOjN9._niHTAkfdIfHr2zXNnCCS9EHixgE8D2kz1MEhTS5-UY
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ1Mzc1MiwiaWF0IjoxNzQwMzY3MzUyLCJqdGkiOiIwZDMxZWVmYjRjM2Q0NzVlYjEwM2U2NmY4N2QxNTQ0NSIsInVzZXJfaWQiOjN9._niHTAkfdIfHr2zXNnCCS9EHixgE8D2kz1MEhTS5-UY
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyNzM1LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6ImEzODYxODhmMWMxZTQ4OWFiMDEzZTUwYTkxMjgxNDEzIiwidXNlcl9pZCI6M30.T22JUqvRueTOCJsfP576P7PX7caYQxQFa9l1vZeZa3o'}
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyNzM1LCJpYXQiOjE3NDAzNjczNTIsImp0aSI6IjIyMDNiYzljYWY3MDQzNWNhZWZmMDM4YzdlNzg5MDcxIiwidXNlcl9pZCI6M30.l_nNesJT2NMQ-KurCEQLl1VywqLoFrgRfw9KC9BmAfQ'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 172.30.0.5:36808][0m
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.05, 172.30.0.5:36810][0m
+DEBUG Allowing refresh token request in allowRefreshToken
+DEBUG Refresh token in CustomTokenRefreshView: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc0MDQ0OTcwOCwiaWF0IjoxNzQwMzYzMzA4LCJqdGkiOiJmMzg3ZDlkNWZlZTE0ZjFhYWM5ZWFhN2IxZjY0ZDNjZSIsInVzZXJfaWQiOjN9.cOwSlMi5PLOD-AP8BsSk_3386rPinxjt0dpWqspoS4Q
+DEBUG Response for Access token in CustomTokenRefreshView: {'access': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwMzcyNzM4LCJpYXQiOjE3NDAzNjMzMDgsImp0aSI6IjQ1MTM4M2RlN2QzZTRiYjM5OGFkNDJmZTlkNjFkMGUyIiwidXNlcl9pZCI6M30.Txy2aZ7h5W3dsrGANtfrxhvtfEra0-ZKXqPt4wP-qpQ'}
+INFO [mHTTP POST /auth/api/renew-access/ 200 [0.03, 172.30.0.1:65400][0m
+INFO [mHTTP GET /__debug__/history_sidebar/?store_id=7305c654dfed43d59de123afd1f15fda 200 [0.01, 172.30.0.1:65400][0m

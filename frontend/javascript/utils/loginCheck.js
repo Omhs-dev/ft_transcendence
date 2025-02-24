@@ -9,8 +9,7 @@ export function authSection(authSectionDiv) {
 		chatIcon.style.display = "block";
 
 		return	authSectionDiv.innerHTML += `
-				<a href="ponggame" class="btn btn-success homebtn mb-3 game-action"
-					id="startbtn" data-action="start" data-link>
+				<a href="/ponggame" class="btn btn-success homebtn mb-3 game-action" id="startbtn" data-link>
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
 						<small class="fw-light">Play with a training AI</small>
@@ -28,7 +27,7 @@ export function authSection(authSectionDiv) {
 		// console.log("user is not logged in");
 		return	authSectionDiv.innerHTML += `
 				<a href="#" class="btn btn-success homebtn mb-3 game-action"
-					id="startbtn" data-action="start" data-bs-toggle="modal" data-bs-target="#registerMod">
+					id="startbtninvalid" data-action="start" data-bs-toggle="modal" data-bs-target="#registerMod">
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
 						<small class="fw-light">Play with a training AI</small>
