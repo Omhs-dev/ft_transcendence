@@ -30,6 +30,7 @@ appSection.addEventListener('click', (e) => {
 const loginWith42 = () => {
 	console.log("login with 42 button found !");
 	localStorage.setItem("loadPageOnce", "true");
+	localStorage.setItem("isOauthLogged", "true");
 	window.location.href = `${baseUrl}/auth/api/42/login`;
 	// window.location.href = "http://localhost:8000/auth/api/42/login";
 }
