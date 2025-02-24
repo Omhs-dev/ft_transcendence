@@ -25,10 +25,10 @@ services:
     build: ./backend/Django_Docker_files/
     environment:
        - DJANGO_SETTINGS_MODULE=Django_backend_project.settings.settings
-    ports:
-      - "8000:8000"
-    # expose:
-    #   - 8000
+    # ports:
+    #   - "8000:8000"
+    expose:
+      - 8000
     volumes:
       - ./backend:/app  # Mount backend folder into the container
       - static_files:/app/staticfiles  # Mount static files volume
