@@ -43,7 +43,7 @@ export default class extends AbsractView {
 			}
 			if (eachUserPicture) {
 				const profilePic = await loadProfilePic(correspondantId);
-				if (profilePic !== "http://localhost:8000null") {
+				if (profilePic) {
 					console.log("Profile picture: ", profilePic);
 					eachUserPicture.src = profilePic;
 				}

@@ -3,7 +3,7 @@ import { sideNavSection } from "./utils/sideNavUtil.js";
 import { getCookie } from "./login.js";
 
 const token = localStorage.getItem("access_token");
-const baseUrl = "http://localhost:8000"
+const baseUrl = window.location.origin;
 
 const getOnlineUsers = async () => {
 	try {
@@ -30,16 +30,16 @@ const getOnlineUsers = async () => {
 		data.forEach((user, index) => {
 			// Create a new <tr> element
 			const tr = document.createElement("tr");
-		
+
 			// Create <th> for the index
 			const th = document.createElement("th");
 			th.setAttribute("scope", "row");
 			th.textContent = index + 1; // Row number
-		
+
 			// Create <td> for username
 			const tdUsername = document.createElement("td");
 			tdUsername.textContent = user.username;
-		
+
 			// Create <td> for button
 			const tdButton = document.createElement("td");
 			const addButton = document.createElement("button");

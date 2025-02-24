@@ -1,6 +1,6 @@
 import { getCookie } from "../login.js";
 
-const baseUrl = "http://localhost:8000"
+const baseUrl = window.location.origin;
 
 export async function loadUserProfile(userId) {
 	try {
@@ -27,7 +27,7 @@ export async function loadUserProfile(userId) {
 
 export async function loadProfilePic(userId) {
 	const profileInfo = await loadUserProfile(userId);
-	const profilePic = baseUrl + profileInfo.profile_picture;
+	const profilePic = profileInfo.profile_picture ? baseUrl + profileInfo.profile_picture : null;
 	return profilePic;
 }
 

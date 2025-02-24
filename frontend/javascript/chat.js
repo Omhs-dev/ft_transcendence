@@ -18,10 +18,10 @@ let onlineUsers = {};
 let notificationCount = 0;
 
 // the base url for the backend
-const baseUrl = "http://localhost:8000"
+const baseUrl = window.location.origin;
 
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-const wsUrl = `${protocol}${window.location.hostname}:8000/ws/chat/`;
+const wsUrl = `${protocol}${window.location.hostname}/ws/chat/`;
 
 document.addEventListener('DOMContentLoaded', () => {
 	const userId = localStorage.getItem('userId');
@@ -74,7 +74,7 @@ sideNavSection.addEventListener("click", (e) => {
 
 // ----------------- connect to websocket -----------------
 function connectWebSocket() {
-	chatSocket = new WebSocket(`ws://${window.location.host}:8000/ws/chat/`);
+	chatSocket = new WebSocket(wsUrl);
 
 	chatSocket.onopen = () => {
 		console.log('Connected to chat WebSocket');
@@ -330,7 +330,7 @@ async function displayMessageInChat(senderId, sender, message) {
 	if (userProfile.profile_picture) {
 		userPic = baseUrl + userProfile.profile_picture;
 	} else {
-		console.warn("No user profile found.");
+		console.log("No user profile found.");
 	}
 
 	messageElement.classList.add('chat-message', 'd-flex', 'me-2');
