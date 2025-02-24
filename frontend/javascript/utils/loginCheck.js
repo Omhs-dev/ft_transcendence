@@ -9,13 +9,13 @@ export function authSection(authSectionDiv) {
 		chatIcon.style.display = "block";
 
 		return	authSectionDiv.innerHTML += `
-				<button type="button" class="btn btn-success homebtn mb-3 game-action"
-					id="startbtn" data-action="start">
+				<a href="ponggame" class="btn btn-success homebtn mb-3 game-action"
+					id="startbtn" data-action="start" data-link>
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
 						<small class="fw-light">Play with a training AI</small>
 					</div>
-				</button>
+				</a>
 
 				<button type="button" class="btn homebtn mb-3 game-action game-mode" data-action="mode">
 					<div class="d-flex flex-column">
@@ -27,13 +27,13 @@ export function authSection(authSectionDiv) {
 	} else {
 		// console.log("user is not logged in");
 		return	authSectionDiv.innerHTML += `
-				<button type="button" class="btn btn-success homebtn mb-3 game-action"
-					id="startbtn" data-action="start">
+				<a href="#" class="btn btn-success homebtn mb-3 game-action"
+					id="startbtn" data-action="start" data-bs-toggle="modal" data-bs-target="#registerMod">
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
 						<small class="fw-light">Play with a training AI</small>
 					</div>
-				</button>
+				</a>
 				
 				<a href="#" type="button" class="btn homebtn text-decoration-none register"
 					id="registerBtn" data-bs-toggle="modal" data-bs-target="#registerMod">

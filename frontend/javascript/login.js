@@ -2,6 +2,7 @@ import { appSection } from "./utils/domUtils.js"
 import { sideNavSection } from "./utils/sideNavUtil.js";
 
 let refreshTimer;
+const baseUrl = window.location.origin;
 
 // Add event listener to the login form
 appSection.addEventListener('submit', (e) => {
@@ -28,9 +29,9 @@ appSection.addEventListener('click', (e) => {
 
 const loginWith42 = () => {
 	console.log("login with 42 button found !");
-	localStorage.setItem("isOauthLogged", "true");
 	localStorage.setItem("loadPageOnce", "true");
-	window.location.href = "http://localhost:8000/auth/api/42/login";
+	window.location.href = `${baseUrl}/auth/api/42/login`;
+	// window.location.href = "http://localhost:8000/auth/api/42/login";
 }
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -43,7 +44,7 @@ const loadToMainPage = async () => {
 
 const checkOauth2Login = async () => {
 	try {
-		const response = await fetch('http://localhost:8000/auth/api/profile', {
+		const response = await fetch(`${baseUrl}/auth/api/42/login/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -62,6 +63,7 @@ const checkOauth2Login = async () => {
 
 		localStorage.setItem("userId", data.id);
 		localStorage.setItem("username", data.username);
+		localStorage.setItem("isOauthLogged", "true");
 		localStorage.setItem("isAuthenticated", "true");
 
 		// window.location.href = "/";
@@ -121,7 +123,7 @@ const loginUser = async () => {
 	}
 
     try {
-        const response = await fetch('http://localhost:8000/auth/api/login/', {
+        const response = await fetch(`${baseUrl}/auth/api/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -183,7 +185,7 @@ const logoutUser = async () => {
 	stopTokenRefreshTimer();
 
 	try {
-		const response = await fetch('http://localhost:8000/auth/api/logout/', {
+		const response = await fetch(`${baseUrl}/auth/api/logout/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -222,10 +224,8 @@ function stopTokenRefreshTimer() {
 }
 
 const renewToken = async () => {
-	const apiUrl = 'http://localhost:8000/auth/api/renew-access/';
-
 	try {
-		const response = await fetch(apiUrl, {
+		const response = await fetch(`${baseUrl}/auth/api/renew-access/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
