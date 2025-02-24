@@ -159,6 +159,10 @@ function updateGame() {
 
 // WebSocket connection and event handlers
 document.getElementById("startGame").addEventListener("click", async () => {
+	await startGame();
+});
+
+async function startGame() {
 	if (gameStatue === 'started')
 		return;
 	resetGameState();
@@ -183,7 +187,7 @@ document.getElementById("startGame").addEventListener("click", async () => {
 		websocket.send(JSON.stringify({ action: "start_game", user2_id: user2_id, user1_id: user1_id }));
         startGameLoop();
     }
-});
+}
 
 function setupWebSocket() {
     websocket = new WebSocket("ws://" + window.location.host + "/ws/localGame/");
@@ -319,57 +323,69 @@ function sendScoreUpdate() {
 	
 	
 	function sendGameEnd() {
-	winnerID = player1.score >= 3 ? localStorage.getItem("player1Id") : localStorage.getItem("player2Id");
-	loserID = player1.score >= 3 ? localStorage.getItem("player2Id") : localStorage.getItem("player1Id");
-	winnerName = player1.score >= 3 ? localStorage.getItem("player1Name") : localStorage.getItem("player2Name");
-	loserName = player1.score >= 3 ? localStorage.getItem("player2Name") : localStorage.getItem("player1Name");
-	player1_score = player1.score;
-	player2_score = player2.score;
-	
-	console.log("winnerID : %s, loserID: %s ,\
-		winner: %s, loser: %s, player1_score: %s,\
-		player2_score: %s", winnerID, loserID, winnerName, loserName, player1_score, player2_score);
-	if (websocket.readyState === WebSocket.OPEN) {
-		websocket.send(
-			JSON.stringify({
-				action: "end_game",
-				game_id: localStorage.getItem('gameId'),
-				winner_id: winnerID,
-				winner: winnerName,
-				loser_id: loserID,
-				loser: loserName,
-				result:`${player1_score} - ${player2_score}`,
-				player1_score: player1.score,
-				player2_score: player2.score,
-			})
-		);
+		winnerID = player1.score >= 3 ? localStorage.getItem("player1Id") : localStorage.getItem("player2Id");
+		loserID = player1.score >= 3 ? localStorage.getItem("player2Id") : localStorage.getItem("player1Id");
+		winnerName = player1.score >= 3 ? localStorage.getItem("player1Name") : localStorage.getItem("player2Name");
+		loserName = player1.score >= 3 ? localStorage.getItem("player2Name") : localStorage.getItem("player1Name");
+		player1_score = player1.score;
+		player2_score = player2.score;
+		
+		console.log("winnerID : %s, loserID: %s ,\
+			winner: %s, loser: %s, player1_score: %s,\
+			player2_score: %s", winnerID, loserID, winnerName, loserName, player1_score, player2_score);
+		if (websocket.readyState === WebSocket.OPEN) {
+			websocket.send(
+				JSON.stringify({
+					action: "end_game",
+					game_id: localStorage.getItem('gameId'),
+					winner_id: winnerID,
+					winner: winnerName,
+					loser_id: loserID,
+					loser: loserName,
+					result:`${player1_score} - ${player2_score}`,
+					player1_score: player1.score,
+					player2_score: player2.score,
+				})
+			);
+		}
 	}
-}
 
 // Pause game
 document.getElementById("pauseGame").addEventListener("click", () => {
-    if (gameInProgress) {
+    pauseGame();
+});
+
+function pauseGame() {
+	if (gameInProgress) {
         websocket.send(JSON.stringify({ action: "pause_game", game_id: localStorage.getItem('gameId')}));
 
     }
-});
+}
 
 // Resume game
 document.getElementById("resumeGame").addEventListener("click", () => {
-    if (gameInProgress && gamePaused) {
+    resumeGame();
+});
+
+function resumeGame() {
+	if (gameInProgress && gamePaused) {
         websocket.send(JSON.stringify({ action: "resume_game", game_id: localStorage.getItem('gameId')}));
     }
-});
+}
 
 // Example: Restart Game button functionality
 document.getElementById("restartGame").addEventListener("click", () => {
-    if (gameInProgress || gameStatue === 'ended') {
+    restartGame();
+});
+
+function restartGame() {
+	if (gameInProgress || gameStatue === 'ended') {
         websocket.send(JSON.stringify({ action: "restart_game", game_id: localStorage.getItem('gameId')}));
         // gameInProgress = false;
 		resetGameState();
         document.getElementById("buttons").style.display = "block";
     }
-});
+}
 
 
 // Key event listeners
