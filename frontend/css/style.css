@@ -50,6 +50,7 @@ main {
 .homebtn {
     height: 80px;
     width: 400px;
+	text-decoration: none;
     background-color: #28a745; /* Green background (same color) */
     color: white; /* Text color */
     border: none;
