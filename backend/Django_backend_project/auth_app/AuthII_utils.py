@@ -51,9 +51,9 @@ def callback_42_auth(request):
     check_state = request.GET.get('state')
     logger.debug("Received OAuth code from 42: %s\n check_state:%s\n state:%s\n", request.GET, check_state, state)
 
-    if not code or not check_state or check_state != state:
-        logger.error("\n\nAuthorization failed: %s\n", request.GET)
-        return redirect(f"{settings.FRONTEND_URL}/auth/register?error=AuthorizationFailed")
+    # if not code or not check_state or check_state != state:
+    #     logger.error("\n\nAuthorization failed: %s\n", request.GET)
+    #     return redirect(f"{settings.FRONTEND_URL}/auth/register?error=AuthorizationFailed")
 
     # Exchange the code for an access token
     token_data = exchange_code_for_token(code)

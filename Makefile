@@ -1,6 +1,6 @@
 all:
 	docker compose up --build
-	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost:80 $(ORG)-----$(RESET)"
+	@echo "$(ORG) ----- The project is run, check $(CYAN) http://localhost $(ORG)-----$(RESET)"
 
 stop:
 	@echo "$(ORG)----- Stoping containers$(MAGENTA) $(SERVICES) $(ORG) -----$(RESET)"

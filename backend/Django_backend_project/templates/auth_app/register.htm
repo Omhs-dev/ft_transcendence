@@ -6,9 +6,10 @@
     <title>Register / Login</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+	<div class="container">
         <h1 id="welcomeMessage">Welcome</h1>
         <div id="authSection">
             <!-- Registration Form -->
@@ -27,7 +28,7 @@
                     <button type="submit">Register</button>
                 </form>
             </div>
-
+			
 			<!-- Login Form -->
 			<div id="loginSection">
 				<h2>Login</h2>
@@ -37,7 +38,7 @@
 					
 					<label for="login_password">Password:</label>
 					<input type="password" id="login_password" name="password" required>
-
+					
 					<!-- Hidden OTP Section -->
 					<div id="otpSection" style="display: none;">
 						<label for="otp_method">2FA Method:</label>
@@ -58,33 +59,55 @@
 				<button onclick="loginWith42()" style="margin-top: 2%;">Login with 42</button>
 			</div>
 		</div>
-
+		
         <!-- Dashboard Section -->
         <div id="dashboard" style="display: none;">
             <h2>Dashboard</h2>
             <button id="logoutButton">Logout</button>
             <div style="margin-top:5%">
-                <button><a href="{% url 'game_ui' %}" >Start Game</a> </button>
+                <button id="showGameButton">Start Local Game</a> </button>
             </div>
+			<!-- Game Section -->
+			<div id="game" class="container text-center mt-5" style="display: none;">
+				<style>
+					canvas {
+						border: 2px solid #000;
+						display: block;
+						margin: auto;
+					}
+				</style>
+				<h1>Pong Game</h1>
+				<canvas id="gameCanvas" width="800" height="400"></canvas>
+				<div id="buttons" class="buttons-container">
+					<button id="startGame" class="btn btn-primary" style="margin-top: 5px;">Start Game</button>
+					<button id="pauseGame" class="btn btn-warning">Pause Game</button>
+					<button id="resumeGame" class="btn btn-success">Resume Game</button>
+					<button id="restartGame" class="btn btn-danger">Restart Game</button>
+				</div>
+				<div id="gameStatus" class="mt-3">
+				<button id="finishGame" class="btn btn-secondary" style="margin-top: 15px;">Finish Game</button>
+				</div>
+			</div>
+			<br>
             <!-- Online Users -->
             <div id="onlineUsers">
-                <h3>Online Users</h3>
+				<h3>Online Users</h3>
                 <ul id="userList"></ul>
             </div>
             <!-- W.B Online Users -->
             <div id="WBonlineUsers">
-                <h3>W.B Online Users</h3>
+				<h3>W.B Online Users</h3>
                 <ul id="WBuserList"></ul>
             </div>
-
+			<!-- Chat Section -->
 			<div id="chatArea" style="display:none;">
 				<h3 id="chatWith"></h3>
 				<div id="chatMessages"></div>
 				<input type="text" id="chatInput" placeholder="Type your message here...">
 				<button id="sendMessage">Send</button>
 			</div>
-
-            <br>
+			
+			
 			<!-- Friends Requests -->
             <div id="friendreq">
                 <h3>My Friends Requests</h3>
@@ -96,8 +119,6 @@
                 <h3>My Friends :</h3>
                 <ul id="friendList"></ul>
             </div>
-
-			
 
 			<!-- Profile Section -->
 			<div id="profileSection">
@@ -186,10 +207,8 @@
     </div>
 </body>
 
-
 <script>
 	
-
 	// *********************************** Global Variables ***********************************
 
 		let refreshTimer;
@@ -198,6 +217,12 @@
 		let chatSocket = null;
 		let onlineUsers = {}; // Store online user status
 		let globalChatRoomId = null; // Store the chat room ID
+		let gameInvite = null;
+		let debug = localStorage.getItem('debug') === 'true'; // Get the debug status from local storage
+		let ws_scheme = localStorage.getItem('ws_scheme') || 'wss'; // Get the ws_scheme from local storage
+		let secondPlayer = '';
+		let tournamentlist = [];
+
 	// *********************************** Helper Functions ***********************************
 		// Ensure this function is called once the DOM is fully loaded
 		document.addEventListener("DOMContentLoaded", function() {
@@ -222,6 +247,18 @@
 		// ✅ Optimized: Check authentication and load dashboard
 		async function checkAuthAndLoadDashboard() {
 			try {
+				// Check if is debug mode
+				await fetch('/auth/api/debug-status/')
+						.then(response => response.json())
+						.then(data => {
+							debug = data.debug;
+							localStorage.setItem('debug', debug);
+							ws_scheme = debug ? 'ws' : 'wss';
+							localStorage.setItem('ws_scheme', ws_scheme);
+							// const socket = new WebSocket(`${ws_scheme}://your-websocket-url`);
+						});
+						console.debug(`Debug mode is ${debug ? 'enabled' : 'disabled'} and ws_scheme is ${ws_scheme}`);
+
 				const response = await fetch('/auth/api/profile/', {
 					method: 'GET',
 					credentials: 'include' // ✅ Sends HTTP-only cookies
@@ -335,6 +372,7 @@
 				alert('An error occurred during registration.');
 			}
 		});
+		
 		//*********************************** Login Logic ***********************************
 		// Login User
 		document.getElementById('loginForm').addEventListener('submit', async function (e) {
@@ -379,6 +417,18 @@
 						localStorage.setItem('otpMethod', 'false');
 					}
 					alert('Login successful');
+					// check if debug is enabled
+					await fetch('/auth/api/debug-status/')
+						.then(response => response.json())
+						.then(data => {
+							debug = data.debug;
+							localStorage.setItem('debug', debug);
+							ws_scheme = (debug.toLowerCase() === 'true') ? 'ws' : 'wss';
+							localStorage.setItem('ws_scheme', ws_scheme);
+							// const socket = new WebSocket(`${ws_scheme}://your-websocket-url`);
+						});
+						console.debug(`Debug mode is ${debug ? 'enabled' : 'disabled'} and ws_scheme is ${ws_scheme}`);
+
                     // console.log(username, 'Login successful:', data);
     				document.getElementById('otp_method').value = '';
             		document.getElementById('otp_code').value = ''; // Clear OTP code
@@ -399,7 +449,9 @@
 					// Clear old OTP code and refocus the input field
     				document.getElementById('otp_code').value = '';
     				document.getElementById('otp_code').focus();
-				} else {
+				} else if (response.status === 409){
+					alert('User already logged in');
+				}else {
 					const errorData = await response.json();
 					alert(errorData.error || 'Login failed!');
 					// Clear fields after failed login
@@ -446,12 +498,14 @@
 			} catch (error) {
 				console.error('Error during logout request:', error);
 			} finally {
-				localStorage.removeItem('username');
+				localStorage.removeItem('debug');
 				localStorage.removeItem('isAuthenticated');
 				localStorage.removeItem('otpMethod');
-				localStorage.removeItem('userId');
 				localStorage.removeItem('phoneNumber');
 				localStorage.removeItem('TwoFA');
+				localStorage.removeItem('userId');
+				localStorage.removeItem('username');
+				localStorage.removeItem('ws_scheme');
 				localStorage.removeItem('oauthLogin');
 				if (chatSocket && chatSocket.readyState === WebSocket.OPEN) {
 					chatSocket.close();
@@ -512,6 +566,7 @@
 			try {
 				const response = await fetch('/chat/api/online-users/');
 				const data = await response.json();
+				console.debug('Online users:', data);
 				const userList = document.getElementById('userList');
 				userList.innerHTML = '';
 				data.forEach(targetUser => {
@@ -637,6 +692,7 @@
 				if (response.ok) {
 					const profile = await response.json();
 
+					console.debug('Profile:', profile);
 					// Update bio
 					document.getElementById('profileBio').value = profile.bio || '';
 					document.getElementById('profilePhone').value = profile.phone_number || '';
@@ -1005,7 +1061,6 @@
 			}
 		});
 
-
 	// *********************************** Chat Logic ***********************************
 		// chat section
 
@@ -1018,7 +1073,7 @@
 				return;
 			}
 
-			chatSocket = new WebSocket(`ws://${window.location.host}/ws/chat/`); // General chat connection
+			chatSocket = new WebSocket(`${ws_scheme}://${window.location.host}/${ws_scheme}/chat/`); // General chat connection
 
 			chatSocket.onopen = function () {
 				console.log("WebSocket connected.");
@@ -1051,13 +1106,56 @@
 						console.log(`creator_username: ${data.creator_username}, chat_room_id: ${data.chat_room_id}`);
 						showIncomingMessagePopup(data.creator_id, data.creator_username, data.message, globalChatRoomId);
 					}
+					updateOnlineUsersList();
 				} else if (data.type === 'chat_message') {
 					globalChatRoomId = data.chat_room_id;
 					console.log("Message received:", data);
 					displayMessageInChat(data.sender_id, data.sender, data.message, data.timestamp, data.is_read);
+					updateOnlineUsersList();
 				} else if (data.type === 'user.status') { // initial online users list
 					onlineUsers = data.online_users;
 					updateOnlineUsersList();
+				} else if (data.type === 'game_invite_received') { // New message type
+					console.debug("Game invite received:", data);
+					const senderId = data.sender_id;
+					const senderUsername = onlineUsers[senderId].username;
+					const message = data.message;
+					const chatRoomId = data.chat_room_id;
+					const inviteId = data.invite_id;
+					gameInvite = 'sent';
+					// Display confirmation popup
+					if (senderId !== currentUserId) {
+						confirmGamePopup(senderId, senderUsername, message, chatRoomId, inviteId);
+					} else {
+						// displayMessageInChat(senderId, senderUsername, message, null, false, 'invite_received');
+					}
+				} else if (data.type === 'game_invite_accepted') {
+					//starting the game through the game websocket by sending the player ids
+					const player1_id = data.sender_id;
+					const player2_id = data.target_id;
+					const message = data.message;
+					const inviteId = data.invite_id;
+					gameInvite = 'accepted';
+					
+
+					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_accepted');
+					if (player1_id === currentUserId) {
+						// document.getElementById('game').style.display = 'block';
+						// startGame(player1_id, player2_id);
+						secondPlayer = localStorage.setItem('secondPlayer', player2_id);
+						tournamentlist.push(player2_id);
+						localStorage.setItem('tournamentlist', JSON.stringify(tournamentlist));
+					} 
+					console.debug("Game invite accepted:", data);
+				} else if (data.type === 'game_invite_declined') {
+					// send message in chat that the game invite was declined for both users
+					const player1_id = data.sender_id;
+					const player2_id = data.target_id;
+					const message = data.message;
+					gameInvite = '';
+
+					console.debug("Game invite accepted:", data);
+					displayMessageInChat(player2_id, onlineUsers[player2_id].username, message, null, false, 'invite_declined');
 				}
 			};
 
@@ -1089,9 +1187,10 @@
 
 					userItem.textContent = onlineUsers[userId].username;
 
-					// Add the "Start Chat" button:
+					// Add "Start Chat" button
 					const startChatButton = document.createElement('button');
 					startChatButton.textContent = 'Start Chat';
+					startChatButton.classList.add('start-chat-button');
 					startChatButton.addEventListener('click', () => {
 						const message = prompt("Enter your initial message:");
 						if (message) {
@@ -1100,18 +1199,96 @@
 								target_id: userId,
 								message: message
 							}));
-							// Open the chat window or perform other UI updates as needed.
-							console.debug('chat room id in updateOnlineUsersList: ', globalChatRoomId);
-							startChat(userId, onlineUsers[userId].username, globalChatRoomId); // Call startChat function
-							console.log("currentUserId, currentUsername, message: ", currentUserId, currentUsername, message);
+							startChat(userId, onlineUsers[userId].username, globalChatRoomId);
 							displayMessageInChat(currentUserId, currentUsername, message, null, false, 'first_msg');
 						}
 					});
-					userItem.appendChild(startChatButton); // Append the button to the list item
+					userItem.appendChild(startChatButton);
+
+					if (globalChatRoomId && !gameInvite) {
+						// Add "Invite to Game" button
+						const GameInvitation = document.createElement('button');
+						GameInvitation.textContent = 'Invite to Game';
+						GameInvitation.classList.add('invite-game-button');
+						startChatButton.style.display = 'none'; // Hide the chat button
+						GameInvitation.addEventListener('click', () => {
+							chatSocket.send(JSON.stringify({
+								type: 'game_invite',
+								target_id: userId,
+								sender_id: currentUserId, // Include sender ID
+								chat_room_id: globalChatRoomId
+							}));
+
+							displayMessageInChat(currentUserId, currentUsername, `Game invitation sent to ${onlineUsers[userId].username}`, null, false, 'invite_sent');
+
+						});
+						userItem.appendChild(GameInvitation);
+					}
 
 					onlineUsersList.appendChild(userItem);
 				}
 			}
+		}
+
+		function confirmGamePopup(creatorId, creatorUsername, received_message, chatRoomId, inviteId) {
+			// Check if a popup already exists and remove it
+			const existingPopup = document.querySelector('.popup');
+			if (existingPopup) {
+				existingPopup.remove();
+			}
+
+			// Create the popup container
+			const popup = document.createElement('div');
+			popup.classList.add('popup');
+
+			// Create the popup message
+			const message = document.createElement('p');
+			message.innerHTML = `<strong>${creatorUsername}:</strong> ${received_message}`;
+
+			// Create the "Reply" button
+			const replyButton = document.createElement('button');
+			replyButton.textContent = "Accept";
+			replyButton.classList.add('popup-reply');
+
+			// Event listener for reply
+			replyButton.addEventListener('click', () => {
+				chatSocket.send(JSON.stringify({
+					type: 'game_invite_accepted',
+					chat_room_id: chatRoomId,
+					target_id: creatorId,
+					sender_id: localStorage.getItem('userId'),
+					invite_id: inviteId
+				}));
+				// startChat(creatorId, creatorUsername, chatRoomId);
+				displayMessageInChat(creatorId, creatorUsername, received_message);
+				popup.remove(); // Remove the popup after clicking reply
+			});
+			
+			// Create a "Close" button
+			const closeButton = document.createElement('button');
+			closeButton.textContent = "decline";
+			closeButton.classList.add('popup-close');
+			
+			// Event listener for closing the popup
+			closeButton.addEventListener('click', () => {
+				chatSocket.send(JSON.stringify({
+					type: 'game_invite_declined',
+					chat_room_id: chatRoomId,
+					target_id: creatorId,
+					sender_id: localStorage.getItem('userId'),
+					invite_id: inviteId
+				}));
+				// startChat(creatorId, creatorUsername, chatRoomId);
+				displayMessageInChat(creatorId, creatorUsername, received_message);
+				popup.remove();
+			});
+
+			// Append elements to the popup
+			popup.appendChild(message);
+			popup.appendChild(replyButton);
+			popup.appendChild(closeButton);
+
+			document.body.appendChild(popup);
 		}
 
 		function showIncomingMessagePopup(creatorId, creatorUsername, received_message, chatRoomId) {
@@ -1127,7 +1304,7 @@
 
 			// Create the popup message
 			const message = document.createElement('p');
-			message.textContent = `${creatorUsername} sent you a message.`;
+			message.innerHTML = `<strong>${creatorUsername}</strong> sent you a message.`;
 
 			// Create the "Reply" button
 			const replyButton = document.createElement('button');
@@ -1209,7 +1386,7 @@
 			}
 			// I add ridiculous statements of 'first_msg' to only show the first message 
 			// sender name after starting chat
-			if (senderId === localStorage.getItem('userId') && first_msg !== 'first_msg') {
+			if (senderId === localStorage.getItem('userId') && first_msg == '') {
 				msg.classList.add('own');
 			} else {
 				msg.classList.add('other');
@@ -1223,5 +1400,40 @@
 		}
 
 
-	</script>
+// *********************************** Game Logic ***********************************
+	// *********************************** Local Game Logic ***********************************
+		function setupGameSection() {
+			const gameSection = document.getElementById("game");
+			const finishGameButton = document.getElementById("finishGame");
+			const showGameButton = document.getElementById("showGameButton");
+			
+			showGameButton.addEventListener("click", () => {
+				gameSection.style.display = "block";
+				console.log("Game section shown");
+			});
+
+			finishGameButton.addEventListener("click", () => {
+				gameSection.style.display = "none";
+				console.log("Game section hidden");
+			});
+			// Attach event listeners
+		}
+		setupGameSection();
+		function loadGameScript() {
+			let script = document.createElement("script");
+			script.src = "{% static 'js/local_game.js' %}";
+			script.onload = function () {
+				console.log("local_game.js loaded!");
+			};
+			document.body.appendChild(script);
+		}
+
+		// Wait until the main script logic completes, then load game.js
+		window.onload = function () {
+			loadGameScript();
+		};
+
+	// *********************************** Remote Game Logic ***********************************
 	
+	</script>
+	<!-- <script src="{% static 'js/local_game.js' %}"></script> -->

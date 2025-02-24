@@ -20,6 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
         self.user = self.scope['user']
+        logger.info(f"\n\n\nUser {self.user.username} with the id {self.user.id} connected\n")
         if self.user.is_authenticated:
             await self.accept()
 
@@ -93,8 +94,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             target_user = await database_sync_to_async(User.objects.get)(id=target_id)
 
             # Get or create the ChatRoom:
+            user1, user2 = sorted((self.user, target_user), key=lambda u: u.id) # Sort users by ID
             chat_room, created = await database_sync_to_async(ChatRoom.objects.get_or_create)(
-            user1=self.user, user2=target_user
+                user1=user1, user2=user2
             )
 
             await self.channel_layer.group_add(f'chat_{chat_room.id}', self.channel_name)
@@ -163,6 +165,104 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         # 'is_read': chat_message.is_read
                     }
                 )
+                
+        elif data.get('type') == 'game_invite':
+            chat_room_id = data.get('chat_room_id')
+            target_id = data.get('target_id')
+            sender_id = data.get('sender_id')
+
+            gameInviteMessage = 'Do you want to play a game with me?'
+            
+            target = await database_sync_to_async(User.objects.get)(id=target_id)
+            chat_room = await database_sync_to_async(ChatRoom.objects.get)(id=chat_room_id)
+            pong_invite = await database_sync_to_async(PongInvitation.objects.create)(
+                inviter=self.user, invitee=target, status='pending')
+
+            await self.channel_layer.group_send(
+                f'chat_{chat_room.id}',  # Send to the target user's group
+                {
+                    'type': 'game_invitation_handler',
+                    'msg_type': 'game_invite_received', # New message type
+                    'sender_id': sender_id,
+                    'target_id': target_id,
+                    'target_username': target.username,
+                    'message': gameInviteMessage,
+                    'chat_room_id': chat_room_id,
+                    'invite_id': pong_invite.id
+                }
+            )
+            logger.info(f"\n\n\nGame invite sent from {self.user.username} to {target_id} with message:{gameInviteMessage}\n")
+
+        elif data.get('type') == 'game_invite_accepted':
+            chat_room_id = data.get('chat_room_id')
+            target_id = data.get('target_id')
+            sender_id = data.get('sender_id')
+            invite_id = data.get('invite_id')
+
+            gameInviteMessageAnswer = 'Game invite accepted!'
+
+            target = await database_sync_to_async(User.objects.get)(id=target_id)
+            chat_room = await database_sync_to_async(ChatRoom.objects.get)(id=chat_room_id)
+            pong_invite = await database_sync_to_async(PongInvitation.objects.get)(id=invite_id)
+            pong_invite.status = 'accepted'
+            await database_sync_to_async(pong_invite.save)()
+
+            await self.channel_layer.group_send(
+                f'chat_{chat_room.id}',  # Send to the target user's group
+                {
+                    'type': 'game_invitation_handler',
+                    'msg_type': 'game_invite_accepted',
+                    'sender_id': target_id,
+                    'target_id': sender_id,
+                    'target_username': target.username,
+                    'message': gameInviteMessageAnswer,
+                    'chat_room_id': chat_room_id,
+                    'invite_id': invite_id
+                }
+            )
+
+        elif data.get('type') == 'game_invite_declined':
+            target_id = data.get('target_id')
+            sender_id = data.get('sender_id')
+            chat_room_id = data.get('chat_room_id')
+            invite_id = data.get('invite_id')
+
+            gameInviteMessageAnswer = 'Game invite declined!'
+            
+            target = await database_sync_to_async(User.objects.get)(id=target_id)
+            chat_room = await database_sync_to_async(ChatRoom.objects.get)(id=chat_room_id)
+            pong_invite = await database_sync_to_async(PongInvitation.objects.get)(id=invite_id)
+            pong_invite.status = 'rejected'
+            await database_sync_to_async(pong_invite.save)()
+
+            await self.channel_layer.group_send(
+                f'chat_{chat_room.id}',  # Send to the target user's group
+                {
+                    'type': 'game_invitation_handler',
+                    'msg_type': 'game_invite_accepted',
+                    'sender_id': target_id,
+                    'target_id': sender_id,
+                    'target_username': target.username,
+                    'message': gameInviteMessageAnswer,
+                    'chat_room_id': chat_room_id,
+                    'invite_id': invite_id
+                }
+            )
+
+        elif data.get('type') == 'start_game_request':
+            player1_id = data.get('player1_id')
+            player2_id = data.get('player2_id')
+            game_id = await self.generate_unique_game_id()
+            await self.create_game(game_id, player1_id, player2_id) # Create the game instance in DB
+            await self.channel_layer.group_send(
+                self.room_group_name, # Send to the game room group
+                {
+                    'type': 'game_started',
+                    'game_id': game_id,
+                    'player1_id': player1_id,
+                    'player2_id': player2_id
+                }
+            )
 
     async def chat_message(self, event):
         message_id = event.get('message_id')
@@ -221,3 +321,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'username': event['username'],
             'is_online': event['is_online']
         }))
+        
+    async def game_invitation_handler(self, event):
+            type = event.get('msg_type')
+            sender_id = event.get('sender_id')
+            target_id = event.get('target_id')
+            target_username = event.get('target_username')
+            message = event.get('message')
+            chat_room_id = event.get('chat_room_id')
+            invite_id = event.get('invite_id')
+
+            await self.send(text_data=json.dumps({
+                'type': type,
+                'sender_id': sender_id,
+                'sender_username': self.user.username,
+                'target_id': target_id,
+                'target_username': target_username,
+                'message': message,
+                'chat_room_id': chat_room_id,
+                'invite_id': invite_id
+            }))

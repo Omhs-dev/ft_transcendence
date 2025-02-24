@@ -32,26 +32,30 @@ python Django_backend_project/manage.py migrate
 echo "Creating superuser if it doesn't exist..."
 python Django_backend_project/manage.py shell <<EOF
 from django.contrib.auth import get_user_model
+import os
+
 User = get_user_model()
+admin_user = os.getenv("ADMIN_USER")
+admin_email = os.getenv("ADMIN_EMAIL")
+admin_pwd = os.getenv("ADMIN_PWD")
 if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword')
+    User.objects.create_superuser(admin_user, admin_email, admin_pwd)
 EOF
 
 # Start the Django server
 echo "Starting the Django server..."
-# exec tail -f /dev/null
-
-echo "NAAAAAAAAAAVIDDDDDDDD this is debug: $DJANGO_DEBUG"
-# python Django_backend_project/manage.py collectstatic --noinput
 
 mkdir -p /app/staticfiles
 cp -r Django_backend_project/static/* /app/staticfiles/
 
+# exec tail -f /dev/null
 # Start server (development or production)
 if [ "$DJANGO_DEBUG" = "true" ]; then
     echo "Starting Django development server..."
     exec python Django_backend_project/manage.py runserver 0.0.0.0:8000
 else
     echo "Starting Gunicorn..."
-    gunicorn --bind 0.0.0.0:8000 Django_backend_project.settings.wsgi:application
+    gunicorn --workers 3 --bind 0.0.0.0:8000 Django_backend_project.settings.wsgi:application &
+	echo "Starting Daphne for WebSockets..."
+    daphne -b 0.0.0.0 -p 8001 Django_backend_project.settings.asgi:application
 fi

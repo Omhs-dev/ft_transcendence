@@ -1,20 +1,21 @@
 const isAuthenticated = localStorage.getItem("isAuthenticated");
 const userName = localStorage.getItem("username");
 const isOauthLogged = localStorage.getItem("isOauthLogged");
-
-console.log("isoauthlogged: ", isOauthLogged);
+const chatIcon = document.getElementById("chatIcon");
 
 export function authSection(authSectionDiv) {
 	if ((isAuthenticated && userName) || isOauthLogged) {
-		console.log("user is logged in");
+		
+		chatIcon.style.display = "block";
+
 		return	authSectionDiv.innerHTML += `
-				<button type="button" class="btn btn-success homebtn mb-3 game-action"
-					id="startbtn" data-action="start">
+				<a href="ponggame" class="btn btn-success homebtn mb-3 game-action"
+					id="startbtn" data-action="start" data-link>
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
 						<small class="fw-light">Play with a training AI</small>
 					</div>
-				</button>
+				</a>
 
 				<button type="button" class="btn homebtn mb-3 game-action game-mode" data-action="mode">
 					<div class="d-flex flex-column">
@@ -26,13 +27,13 @@ export function authSection(authSectionDiv) {
 	} else {
 		// console.log("user is not logged in");
 		return	authSectionDiv.innerHTML += `
-				<button type="button" class="btn btn-success homebtn mb-3 game-action"
-					id="startbtn" data-action="start">
+				<a href="#" class="btn btn-success homebtn mb-3 game-action"
+					id="startbtn" data-action="start" data-bs-toggle="modal" data-bs-target="#registerMod">
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
 						<small class="fw-light">Play with a training AI</small>
 					</div>
-				</button>
+				</a>
 				
 				<a href="#" type="button" class="btn homebtn text-decoration-none register"
 					id="registerBtn" data-bs-toggle="modal" data-bs-target="#registerMod">
@@ -86,7 +87,7 @@ export function unloggedSideNav(sideNavDiv) {
 		ulElement3.innerHTML = "";
 }
 
-export function UpdateUserName(loggedUserName1) {
+export function UpdateUserName() {
 	const loggedUserName = document.getElementById("loggedUserName");
 
 	if ((isAuthenticated || isOauthLogged) && userName) {
@@ -98,22 +99,15 @@ export function UpdateUserName(loggedUserName1) {
 
 export function loadDefaultPic(userPicOne, userPicTwo) {
 	if (userPicOne) {
-		console.log("this is sidnav pic");
-		
-		userPicOne.src = "../assets/user1.png";
+		userPicOne.src = "../assets/user.png";
 	}
 	if (userPicTwo) {
-		console.log("this is profile pic");
-
-		userPicTwo.src = "../assets/user1.png";
+		userPicTwo.src = "../assets/user.png";
 	}
 }
 
 
 export function check2FaStatus(loginCardBody) {
-	console.log("checking 2fa status");
-
-	console.log("2fa is enabled");
 	// click the 2fa button to show the 2fa modal
 	loginCardBody.innerHTML = `
 		<div class="text-center row justify-content-center mb-4" id="loginOtpInput">

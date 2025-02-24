@@ -9,6 +9,8 @@ import UsersOnlineview from "./views/UsersOnlineview.js";
 import SettingsView from "./views/SettingsView.js";
 import LeaderboardView from "./views/LeaderboardView.js";
 import RequestsView from "./views/RequestsView.js";
+import PongGameView from "./views/PongGameView.js";
+import UserProfileView from "./views/UserProfileView.js";
 
 const navigateTo = (url) => {
 	history.pushState(null, null, url);
@@ -20,11 +22,13 @@ const routes = [
 	{ path: "/login", view: LoginView },
 	{ path: "/dashboard", view: DashboardView },
 	{ path: "/profile", view: ProfileView },
+	{ path: "/userprofile", view: UserProfileView },
 	{ path: "/tournaments", view: TournamentsView },
 	{ path: "/tournament", view: TournamentView },
 	{ path: "/requests", view: RequestsView },
 	{ path: "/usersonline", view: UsersOnlineview },
 	{ path: "/leaderboard", view: LeaderboardView },
+	{ path: "/ponggame", view: PongGameView },
 	{ path: "/settings", view: SettingsView }
 ];
 
@@ -67,4 +71,25 @@ window.addEventListener('load', () => {
 	} else {
 		console.log('not redirecting');
 	}
+
+	// ****** SideNav link effects on click ******
+	const navLinks = document.querySelectorAll(".nav-link");
+
+    const activeLink = localStorage.getItem("activeNavLink");
+    if (activeLink) {
+        document.querySelector(`.nav-link[href='${activeLink}']`)?.classList.add("active");
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            // Remove 'active' from all links
+            navLinks.forEach(nav => nav.classList.remove("active"));
+            
+            // Add 'active' class to clicked link
+            this.classList.add("active");
+
+            // Store selected link in localStorage
+            localStorage.setItem("activeNavLink", this.getAttribute("href"));
+        });
+    });
 });
