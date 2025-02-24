@@ -11,7 +11,7 @@ import asyncio
 import random
 import string
 
-loggers = logging.getLogger('game_logic_app')
+loggers = logging.getLogger('game_app')
 
 class LocalGameConsumer(AsyncWebsocketConsumer):
     async def connect(self):

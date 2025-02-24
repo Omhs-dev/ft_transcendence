@@ -14,8 +14,6 @@ class Player(models.Model):
     total_points_scored = models.PositiveIntegerField(default=0)  # ✅ NEW
     total_games_played = models.PositiveIntegerField(default=0)  # ✅ NEW
 
-
-
     @property
     def win_rate(self):
         return round(self.total_wins / self.total_games_played * 100, 2) if self.total_games_played > 0 else 0
@@ -25,27 +23,6 @@ class Player(models.Model):
     def __str__(self):
         return self.user.username
 
-#Tournament model
-#a tournament can have many players, and a player can be in many tournaments (many to many relationship)
-#status can be pending, ongoing or finished, default is pending
-class Tournament(models.Model):
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('ongoing', 'Ongoing'),
-        ('finished', 'Finished'),
-    ]
-
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=150, unique=True)
-    description = models.TextField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
-    start_time = models.DateTimeField(default=timezone.now)
-    end_time = models.DateTimeField(null=True, blank=True)  # Allow custom end times
-    max_players = models.PositiveIntegerField(default=8)
-    players = models.ManyToManyField(Player, related_name='tournaments')
-    games = models.ManyToManyField('Game', related_name='tournaments', default=None, blank=True)
-    def __str__(self):
-        return f"{self.name} - {self.status}"
 
 #Game model
 #A game can have many players, and a player can be in many games (many to many relationship)

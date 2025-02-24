@@ -15,7 +15,7 @@ django.setup()
 # Initialize Django ASGI application first
 django_asgi_app = get_asgi_application()
 from chat_app.routing import websocket_urlpatterns as chat_websocket_urlpatterns
-from game_logic_app.routing import websocket_urlpatterns as game_websocket_urlpatterns
+from game_app.routing import websocket_urlpatterns as game_websocket_urlpatterns
 
 websocket_urlpatterns = chat_websocket_urlpatterns + game_websocket_urlpatterns
 

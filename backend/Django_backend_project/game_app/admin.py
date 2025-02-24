@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Player, Tournament, Game, MatchHistory
+from .models import Player, Game, MatchHistory
+from tournament_app.models import Tournament
 
 from django.contrib import admin
 from django.db.models import Q
@@ -65,6 +66,5 @@ class PlayerAdmin(admin.ModelAdmin):
 
 # Register models
 admin.site.register(Player, PlayerAdmin)
-admin.site.register(Tournament)
 admin.site.register(Game, GameAdmin) 
 admin.site.register(MatchHistory, MatchHistoryAdmin)

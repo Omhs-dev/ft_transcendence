@@ -7,7 +7,7 @@ import time
 from channels.layers import get_channel_layer
 
 
-logger = logging.getLogger("game_logic_app")
+logger = logging.getLogger("game_app")
 
 # class PongGame:
 #     pass

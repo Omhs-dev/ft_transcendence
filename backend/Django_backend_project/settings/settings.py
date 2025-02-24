@@ -80,12 +80,17 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
-        'game_logic_app': {
+        'game_app': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': False,
             },
         'auth_app': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'tournament_app': {
             'handlers': ['file'],
             'level': 'DEBUG',
             'propagate': False,
@@ -109,12 +114,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'auth_app',
     'chat_app',
-    'game_logic_app',
+    'game_app',
+    'tournament_app',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
     'corsheaders',
     'channels',
-    # 'debug_toolbar',
     'django_otp',
     'qrcode',
     'pyotp',
@@ -123,7 +128,6 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
