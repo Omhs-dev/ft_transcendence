@@ -81,7 +81,7 @@ export function initGame(canvas, ctx) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 		// Draw paddles
-		ctx.fillStyle = "black";
+		ctx.fillStyle = "orange";
 		ctx.fillRect(player1.x, player1.y, paddleWidth, paddleHeight);
 		ctx.fillRect(player2.x, player2.y, paddleWidth, paddleHeight);
 
@@ -142,13 +142,11 @@ export function initGame(canvas, ctx) {
 		if (ball.x < 0) {
 			player2.score++;
 			resetBall();
-			// checkGameStatus();
 			sendScoreUpdate();
 			sleep(3000);
 		} else if (ball.x > canvas.width) {
 			player1.score++;
 			resetBall();
-			// checkGameStatus();
 			sendScoreUpdate();
 			sleep(3000);
 		}
@@ -173,6 +171,7 @@ export function initGame(canvas, ctx) {
 	}
 
 	async function startGame() {
+		console.log("gameStatue in startGame: ", gameStatue);
 		if (gameStatue === 'started')
 			return;
 		resetGameState();
@@ -189,8 +188,11 @@ export function initGame(canvas, ctx) {
 
 				console.log("WebSocket connected");
 				console.log("user_id: ", user2_id);
+				console.log("user1_id: ", user1_id);
 				websocket.send(JSON.stringify({ action: "start_game", user2_id: user2_id, user1_id: user1_id }));
 				gameStatue = 'started';
+
+				console.log("gameStatue in startGame: ", gameStatue);
 				startGameLoop();
 			};
 		} else if (!gameInProgress) {
@@ -206,11 +208,19 @@ export function initGame(canvas, ctx) {
 			const data = JSON.parse(e.data);
 			console.log("Message from server: ", data);
 
+			console.log("data.type: ", data.type);
+
 			if (data.type === "game_update") {
 				console.debug("received data in game_update: ", data);
-				if (data.player1) player1 = data.player1;
-				if (data.player2) player2 = data.player2;
-				if (data.ball) ball = data.ball;
+				if (data.player1) {
+					player1 = data.player1;
+				}
+				if (data.player2) {
+					player2 = data.player2;
+				}
+				if (data.ball) {
+					ball = data.ball;
+				}
 				if (data.player1_score !== undefined) {
 					player1.score = data.player1_score;
 				}
@@ -277,7 +287,6 @@ export function initGame(canvas, ctx) {
 		if (!gameInProgress) {
 			gameInProgress = true;
 			intervalId = setInterval(updateGame, 1000 / 60); // 60 FPS
-			
 		}
 	}
 
@@ -308,9 +317,9 @@ export function initGame(canvas, ctx) {
 		loserID = player1.score >= 3 ? localStorage.getItem("player2Id") : localStorage.getItem("player1Id");
 		winnerName = player1.score >= 3 ? localStorage.getItem("player1Name") : localStorage.getItem("player2Name");
 		loserName = player1.score >= 3 ? localStorage.getItem("player2Name") : localStorage.getItem("player1Name");
-		player1_score = player1.score;
-		player2_score = player2.score;
-		
+		const player1_score = player1.score;
+		const player2_score = player2.score;
+
 		console.log("winnerID : %s, loserID: %s ,\
 			winner: %s, loser: %s, player1_score: %s,\
 			player2_score: %s", winnerID, loserID, winnerName, loserName, player1_score, player2_score);
@@ -353,11 +362,20 @@ export function initGame(canvas, ctx) {
 		}
 	}
 
-	// Key event listeners
-	window.addEventListener("keydown", (e) => {
+	// // Key event listeners
+	// window.addEventListener("keydown", (e) => {
+	// 	// console.log("Key pressed: ", e.key);
+	// 	keys[e.key] = true;
+	// });
+	// window.addEventListener("keyup", (e) => {
+	// 	// console.log("Key released: ", e.key);
+	// 	keys[e.key] = false;
+	// });
+
+	document.addEventListener("keydown", (e) => {
 		keys[e.key] = true;
 	});
-	window.addEventListener("keyup", (e) => {
+	document.addEventListener("keyup", (e) => {
 		keys[e.key] = false;
 	});
 
@@ -395,19 +413,19 @@ export function initGame(canvas, ctx) {
 		}
 
 		// Pause Game Button
-		if (e.target.className === "pause-game") {
+		if (e.target.id === "pauseGame") {
 			console.log("Pause Game clicked");
 			pauseGame();
 		}
 
 		// Resume Game Button
-		if (e.target.matches("#resumeGame")) {
+		if (e.target.id === "resumeGame") {
 			console.log("Resume Game clicked");
 			resumeGame();
 		}
 
 		// Restart Game Button
-		if (e.target.matches("#restartGame")) {
+		if (e.target.id === "restartGame") {
 			console.log("Restart Game clicked");
 			restartGame();
 		}

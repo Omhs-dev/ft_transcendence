@@ -2,51 +2,25 @@ import AbsractView from "./AbsractView.js";
 import { initGame } from "../game.js";
 
 export default class extends AbsractView {
-	constructor(params) {
-		super(params);
-		this.setTitle("Tournaments");
-	}
+    constructor(params) {
+        super(params);
+        this.setTitle("Pong Game");
+    }
 
-	async loadHtml() {
+    async loadHtml() {
         try {
-            // Fetch the external HTML file
             const response = await fetch("./pages/ponggame.html");
-
             if (!response.ok) {
-                throw new Error(`Failed to fetch profile.html: ${response.statusText}`);
+                throw new Error(`Failed to load ponggame.html: ${response.statusText}`);
             }
-
-            // Return the fetched HTML content as a string
-			const htmlContent =  await response.text();
-
-			const parser = new DOMParser();
-			const doc = parser.parseFromString(htmlContent, "text/html");
-
-			// ********************** Draw the game **********************
-
-			const canvas = doc.getElementById("pongCanvas");
-            if (!canvas) {
-                console.error("Canvas element not found!");
-                return;
-            }
-            const ctx = canvas.getContext("2d");
-
-            console.log("Canvas initialized:", canvas);
-            console.log("Context initialized:", ctx);
-
-            // Initialize the game by passing canvas and ctx
-            initGame(canvas, ctx);
-			
-			// ***********************************************************
-
-            const content = doc.body.innerHTML;
-			return content;
+            return await response.text();
         } catch (error) {
             console.error(error);
-            return "<p>Error loading profile view. Please try again later.</p>";
+            return "<p>Error loading view. Please try again later.</p>";
         }
     }
 }
+
 
 
 

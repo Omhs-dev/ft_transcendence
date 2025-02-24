@@ -12,6 +12,8 @@ import RequestsView from "./views/RequestsView.js";
 import PongGameView from "./views/PongGameView.js";
 import UserProfileView from "./views/UserProfileView.js";
 
+import { initGame } from "./game.js";
+
 const navigateTo = (url) => {
 	history.pushState(null, null, url);
 	router();
@@ -38,6 +40,17 @@ const router = async () => {
 	const view = new match.view();
 
 	appSection.innerHTML = await view.loadHtml();
+
+	if (location.pathname === "/ponggame") {
+		console.log("Pong Game view loaded");
+        const canvas = document.getElementById("pongCanvas");
+        if (!canvas) {
+            console.error("Canvas element not found in live DOM!");
+        } else {
+            const ctx = canvas.getContext("2d");
+            initGame(canvas, ctx);
+        }
+    }
 };
 
 window.addEventListener("popstate", router);
