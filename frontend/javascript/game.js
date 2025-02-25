@@ -241,7 +241,7 @@ export function initGame(canvas, ctx) {
 
 				const tournamentList = localStorage.getItem('tournamentList');
 				console.log("tournamentList in startGame: ", tournamentList);
-				user1_id = localStorage.getItem('secondPlayer') || '';
+				user1_id = localStorage.getItem('correspondantId') || '';
 
 				console.log("WebSocket connected");
 				console.log("user_id: ", user2_id);

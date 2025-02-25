@@ -172,6 +172,7 @@ const loginUser = async () => {
 		localStorage.setItem("username", username);
 		localStorage.setItem("userId", data.user_id);
 		localStorage.setItem("isAuthenticated", "true");
+		localStorage.setItem("wsConnected", "false");
 
 		window.location.href = "/";
 
@@ -216,6 +217,7 @@ const logoutUser = async () => {
 	localStorage.removeItem("coreespondantId");
 	localStorage.removeItem("isOauthLogged");
 	localStorage.removeItem("isAuthenticated");
+	localStorage.setItem("wsConnected", "false");
 
 	window.location.href = "/";
 };

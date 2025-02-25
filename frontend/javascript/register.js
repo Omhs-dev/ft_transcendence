@@ -1,4 +1,5 @@
 import { appSection } from "./utils/domUtils.js"
+import { backToREgister} from "./utils/generalUtils.js";
 
 const baseUrl = window.location.origin;
 
@@ -67,12 +68,15 @@ const registerUser = async () => {
 };
 
 function closeModal() {
+	const registerCard = document.querySelector("#registerCard");
 	const closeBtn = document.getElementById("closeBtn");
 	console.log("closeBtn: ", closeBtn);
 	successfullyRegistered();
 	setTimeout(() => {
 		closeBtn.click();
+		backToREgister(registerCard);
 	}, 2000);
+
 }
 
 function registerError(type) {

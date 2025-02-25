@@ -174,3 +174,49 @@ export function showNextGamePopup(resumeGame) {
     // Append popup to body
     appSection.appendChild(popup);
 }
+
+export function backToREgister(register) {
+	register.innerHTML = `
+		<div class="card">
+		<div class="card-bg">
+
+		</div>
+		<div>
+			<h2 class="text-center mt-4 fw-bold">
+				REGISTER
+			</h2>
+		</div>
+		<div class="card-body p-4">
+			<form id="registerForm" class="registerClass">
+				<div class="mb-4">
+					<!-- <label for="username" class="form-label">Username</label> -->
+					<input type="text" class="form-control" id="registerUsername" placeholder="Enter your username"
+						required>
+				</div>
+				<div class="mb-4">
+					<!-- <label for="email" class="form-label">Email Address</label> -->
+					<input type="email" class="form-control" id="registerEmail" placeholder="Enter your email"
+						required>
+				</div>
+				<div class="mb-4">
+					<!-- <label for="password" class="form-label">Password</label> -->
+					<input type="password" class="form-control" id="registerPassword"
+						placeholder="Enter your password" required>
+				</div>
+				<div class="mb-4">
+					<!-- <label for="confirmPassword" class="form-label">Confirm Password</label> -->
+					<input type="password" class="form-control" id="confirmPassword"
+						placeholder="Confirm your password" required>
+				</div>
+				<div id="errorBox1"></div>
+				<div class="d-grid">
+					<button type="submit" class="btn btn-register" id="registerBtn">REGISTER</button>
+				</div>
+			</form>
+		</div>
+		<div class="card-footer text-secondary">
+			Already have an account? <a href="#" data-bs-target="#loginMod" data-bs-toggle="modal" data-bs-dismiss="modal">Sign In<a>
+		</div>
+	</div>
+	`;
+}
