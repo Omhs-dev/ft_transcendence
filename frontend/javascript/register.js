@@ -22,33 +22,17 @@ const registerUser = async () => {
 	const confirmPassword = document.getElementById('confirmPassword').value.trim();
 	const registerBtn = document.getElementById("registerBtn");
 
-	console.log("username: ", username);
-	console.log("email: ", email);
-	console.log("Password: ", password);
-	console.log("Confirm Password: ", confirmPassword);
-	console.log("registerBtn: ", registerBtn);
-
 	if (!username || !email || !password) {
 		console.log("Empty fields !");
 		return;
 	}
-	console.log("password length: ", password.length)
 	if (password.length < 8) {
-		let errorBox = document.querySelector("#errorBox1");
-		console.log("errorBox for pass < 8: ", errorBox);
-		errorBox.innerHTML = `
-			<p class="text-danger fw-light text-center">
-				Password must be at least 8 characters long.
-			</p>
-		`;
-		setInterval(() => {
-			errorBox.innerHTML = "";
-		}, 1000);
+		registerError("password");
 		return;
 	}
 	
 	if (password !== confirmPassword) {
-		unmatchedPass();
+		registerError("passwordMismatch");
 		return;
 	}	
 
@@ -59,34 +43,27 @@ const registerUser = async () => {
             body: JSON.stringify({ username, email, password }),
         });
 
-		console.log("username: ", username);
-		console.log("email: ", email);
-		console.log("password: ", password);
-
         const data = await response.json();
 
+		console.log("data: ", data);
+		if (response.status === 400 && (data.email[0] === "A user with this email already exists."
+			|| data.username[0] === "A user with that username already exists."
+		)) {
+			registerError("alreadyRegistered");
+			return;
+		}
 		if (!response.ok) {
-			let message = "Registration failed:\n";
-		
-			if (data.username) message += `- Username: ${data.username[0]}\n`;
-			if (data.password) message += `- Password: ${data.password[0]}\n`;
-			if (data.email) message += `- Email: ${data.email[0]}\n`;
-		
-			alert(message.trim());
-			throw new Error(message.trim());
+			throw new Error(`Could not fetch api ${response.status}`);
 		}
 		
 		registerBtn.disabled = true;
 
 		closeModal();
-
 		// alert('User registered successfully!');
 		console.log('User registered successfully!');
     } catch (error) {
         console.error('Error:', error);
-        alert('Something went wrong. Please try again.');
     }
-	console.log("Empty the forms !");
 };
 
 function closeModal() {
@@ -98,7 +75,7 @@ function closeModal() {
 	}, 2000);
 }
 
-function unmatchedPass() {
+function registerError(type) {
 	//register form fields
 	const password = document.getElementById('registerPassword')
 	const confirmPassword = document.getElementById('confirmPassword')
@@ -113,7 +90,14 @@ function unmatchedPass() {
 	password.classList.add('shake');
 	confirmPassword.classList.add('shake');
 
-	small.textContent = "Passwords do not match!";
+
+	if (type === "password") {
+		small.textContent = "Password must be at least 8 characters long.";
+	} else if ("alreadyRegistered") {
+		small.textContent = "Username or email already registered!";
+	} else if ("passwordMismatch") {
+		small.textContent = "Passwords do not match!";
+	}
 
 	errorMessage.classList.add('text-danger', 'fw-light', 'text-center');
 	errorMessage.appendChild(small);

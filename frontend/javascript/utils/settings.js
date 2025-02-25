@@ -20,7 +20,6 @@ console.log("themes: ", settingsClassic);
 // Ensure appSection exists before adding an event listener
 if (appSection) {
     appSection.addEventListener("click", (e) => {
-        console.log("clicked on color theme");
         if (e.target.id === "classic") {
             localStorage.setItem("pongTheme", JSON.stringify(settingsClassic));
         } else if (e.target.id === "dark") {
