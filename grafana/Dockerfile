@@ -14,6 +14,7 @@ COPY ./grafana.ini /etc/grafana/grafana.ini
 
 
 RUN chown -R grafana:root /etc/grafana
+
 USER grafana
 
 
