@@ -108,7 +108,7 @@ export function initGame(canvas, ctx) {
 	}
 
 	function drawText(text, x, y) {
-		ctx.fillStyle = "black";
+		ctx.fillStyle = parsedTheme.ballColor || "#000";
 		ctx.font = "20px Arial";
 		ctx.fillText(text, x, y);
 	}
@@ -152,28 +152,36 @@ export function initGame(canvas, ctx) {
 	function moveBall() {
 		ball.x += ball.dx;
 		ball.y += ball.dy;
-
+	
 		// Ball collision with top and bottom
 		if (ball.y <= 0 || ball.y >= canvas.height) ball.dy *= -1;
-
+	
 		// Ball collision with paddles
 		if (
 			(ball.x <= paddleWidth && ball.y >= player1.y && ball.y <= player1.y + paddleHeight) ||
 			(ball.x >= canvas.width - paddleWidth && ball.y >= player2.y && ball.y <= player2.y + paddleHeight)
 		) {
 			ball.dx *= -1; // Reverse horizontal direction
-			
+	
 			// 🎯 Add randomness: Modify dy slightly
 			let angleChange = (Math.random() - 0.5) * 2;
-			ball.dy += angleChange; 
-			
+			ball.dy += angleChange;
+	
 			// Prevent ball from going too slow
 			if (Math.abs(ball.dy) < 2) {
 				ball.dy = ball.dy < 0 ? -2 : 2;
 			}
+	
+			// Increase ball speed after paddle collision
+			ball.dx *= 1.1; // Increase horizontal speed by 10%
+			ball.dy *= 1.1; // Increase vertical speed by 10%
+	
+			// Cap the maximum speed
+			const maxSpeed = 10; // Maximum speed for the ball
+			if (Math.abs(ball.dx) > maxSpeed) ball.dx = maxSpeed * Math.sign(ball.dx);
+			if (Math.abs(ball.dy) > maxSpeed) ball.dy = maxSpeed * Math.sign(ball.dy);
 		}
-		
-
+	
 		// Ball goes out of bounds
 		if (ball.x < 0) {
 			player2.score++;
@@ -194,13 +202,19 @@ export function initGame(canvas, ctx) {
 	}
 
 	// Reset ball to center
+	// function resetBall() {
+	// 	ball.x = canvas.width / 2;
+	// 	ball.y = canvas.height / 2;
+	// 	ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
+	// 	ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
+	// }
+	
 	function resetBall() {
 		ball.x = canvas.width / 2;
 		ball.y = canvas.height / 2;
-		ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
-		ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
+		ball.dx = 6 * (Math.random() > 0.5 ? 1 : -1); // Increase initial horizontal speed
+		ball.dy = 6 * (Math.random() > 0.5 ? 1 : -1); // Increase initial vertical speed
 	}
-	
 
 	// Update and draw the game
 	function updateGame() {
@@ -218,6 +232,7 @@ export function initGame(canvas, ctx) {
 		resetGameState();
 		showGameSatuts('started');
 		await fetchProfile();
+		document.getElementById("startGame").disabled = true;
 		if (!websocket || websocket.readyState !== WebSocket.OPEN) {
 			console.log("WebSocket not connected. Reconnecting...");
 			setupWebSocket();
@@ -304,10 +319,11 @@ export function initGame(canvas, ctx) {
 				
 				showMatchResultPopup(winnerName, player1.score, player2.score); // Call the new popup function
 				drawText(`${winnerName} Wins!`, canvas.width / 2 - 50, canvas.height / 2);
+				document.getElementById("restartGame").disabled = false;
+
 				resetPaddles();
-				
 				document.getElementById("restartGame").style.display = "block";
-				document.getElementById("startGame").style.display = "none";
+				// document.getElementById("startGame").disable = true;
 				websocket.close();  // Close the WebSocket connection
 				gameStatue = 'ended';
 				resetGameState();
@@ -337,8 +353,9 @@ export function initGame(canvas, ctx) {
 
 	// Send score update to server
 	function sendScoreUpdate() {
-		console.log("player1 score: %s player2 score: %s", player1.score, player2.score);
+		console.log("score update");
 		if (player1.score >= 3 || player2.score >= 3) {
+			console.log("Game ended");
 			sendGameEnd();
 			return;
 		}
@@ -399,12 +416,25 @@ export function initGame(canvas, ctx) {
 	}
 
 	function restartGame() {
-		if (gameInProgress || gameStatue === 'ended') {
-			websocket.send(JSON.stringify({ action: "restart_game", game_id: localStorage.getItem('gameId')}));
-			// gameInProgress = false;
-			resetGameState();
-			document.getElementById("buttons").style.display = "block";
-		}
+		document.getElementById("startGame").disabled = false;
+		document.getElementById("restartGame").disabled = true;
+		websocket.close();
+		resetGameState();
+		startGame();
+		// if (gameInProgress || gameStatue === 'ended') {
+		// 	// Send restart message to the server
+		// 	websocket.send(JSON.stringify({ action: "restart_game", game_id: localStorage.getItem('gameId') }));
+	
+		// 	// Reset the game state
+		// 	resetGameState();
+	
+		// 	// Start a new game with the same users
+		// 	startGame();
+	
+		// 	// Update UI
+		// 	document.getElementById("startGame").style.display = "block";
+		// 	showGameSatuts('started');
+		// }
 	}
 
 	function showGameSatuts(status) {
@@ -442,25 +472,34 @@ export function initGame(canvas, ctx) {
 
 	function resetGameState() {
 		// Reset player scores and positions
-		if (gameInProgress) {
-			game_id = localStorage.setItem("gameId", '');'';
-			player1.score = 0;
-			player2.score = 0;
-			player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-			player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
-			ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
-			// if (websocket)
-			// 	websocket.close();
-			// clearInterval(intervalId);
-		}
-		game_id = localStorage.setItem("gameId", '');'';
-		user1_id = localStorage.setItem("player1Id", '');
-		user1_name = localStorage.setItem("player1Name", '');
-		user2_id = localStorage.setItem("player2Id", '');
-		user2_name = localStorage.setItem("player2Name", '');
-		gameInProgress = false;
+		// if (gameInProgress) {
+		// 	game_id = localStorage.setItem("gameId", '');'';
+		// 	player1.score = 0;
+		// 	player2.score = 0;
+		// 	player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		// 	player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0 };
+		// 	ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
+		// 	// if (websocket)
+		// 	// 	websocket.close();
+		// 	// clearInterval(intervalId);
+		// }
+		// game_id = localStorage.setItem("gameId", '');'';
+		// user1_id = localStorage.setItem("player1Id", '');
+		// user1_name = localStorage.setItem("player1Name", '');
+		// user2_id = localStorage.setItem("player2Id", '');
+		// user2_name = localStorage.setItem("player2Name", '');
+		// gameInProgress = false;
+		// player1.score = 0;
+		// player2.score = 0;
+		// gameStatue = null;
 		player1.score = 0;
 		player2.score = 0;
+		player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: user1_name };
+		player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: user2_name };
+		ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 6 * (Math.random() > 0.5 ? 1 : -1), dy: 6 * (Math.random() > 0.5 ? 1 : -1) };
+	
+		// Reset game status
+		gameInProgress = false;
 		gameStatue = null;
 	}
 
@@ -488,7 +527,6 @@ export function initGame(canvas, ctx) {
 
 		// Restart Game Button
 		if (e.target.id === "restartGame") {
-			console.log("Restart Game clicked");
 			restartGame();
 			showGameSatuts('ended');
 		}
