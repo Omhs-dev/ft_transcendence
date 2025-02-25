@@ -1,0 +1,307 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: hardware_group
+      folder: hardware
+      interval: 1m
+      rules:
+        - uid: bee5n2s95nawwf
+          title: CPU_ALERT
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                disableTextWrap: false
+                editorMode: builder
+                expr: sum(rate(container_cpu_usage_seconds_total[5m]))  *100
+                fullMetaSearch: false
+                includeNullMetadata: true
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 100
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: pMEd7m0Mz
+          panelId: 15
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: pMEd7m0Mz
+            __panelId__: "15"
+            description: cpu value is much more than what it was expected
+            summary: ACHTUNG ACHTUNG. cpu time is more that what was expected.
+          isPaused: false
+          notification_settings:
+            receiver: imadfaoussi
+        - uid: eee5vk24ogglcd
+          title: Memory usage
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                disableTextWrap: false
+                editorMode: builder
+                expr: sum by(__name__) (container_memory_rss)
+                fullMetaSearch: false
+                includeNullMetadata: false
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2.0045269504e+10
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: pMEd7m0Mz
+          panelId: 9
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: pMEd7m0Mz
+            __panelId__: "9"
+            description: Be careful because of memory
+            summary: Be careful because memory is mroe than average
+          isPaused: false
+          notification_settings:
+            receiver: imadfaoussi
+        - uid: dee5vrt338lxce
+          title: Memory cached
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                disableTextWrap: false
+                editorMode: builder
+                expr: sum by(__name__) (container_memory_cache)
+                fullMetaSearch: false
+                includeNullMetadata: false
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 2.0877167616e+10
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: pMEd7m0Mz
+          panelId: 14
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: pMEd7m0Mz
+            __panelId__: "14"
+            description: Be careful of memory cache
+            summary: Memory cache is more than expected
+          isPaused: false
+          notification_settings:
+            receiver: imadfaoussi
+        - uid: fee5w1k67yrr4f
+          title: Network traffic alert
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                disableTextWrap: false
+                editorMode: builder
+                expr: sum(rate(container_network_receive_bytes_total[$__rate_interval]))
+                fullMetaSearch: false
+                includeNullMetadata: false
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 44296.52591
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: pMEd7m0Mz
+          panelId: 4
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: pMEd7m0Mz
+            __panelId__: "4"
+            description: Careful unusual network traffic
+            summary: Received network traffic alert
+          isPaused: false
+          notification_settings:
+            receiver: imadfaoussi
+        - uid: bee5wa4no1am8b
+          title: Sent network traffic
+          condition: C
+          data:
+            - refId: A
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: PBFA97CFB590B2093
+              model:
+                disableTextWrap: false
+                editorMode: builder
+                expr: sum(rate(container_network_transmit_bytes_total[$__rate_interval]))
+                fullMetaSearch: false
+                includeNullMetadata: false
+                instant: true
+                intervalMs: 1000
+                legendFormat: __auto
+                maxDataPoints: 43200
+                range: false
+                refId: A
+                useBackend: false
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 40713.68973
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          dashboardUid: pMEd7m0Mz
+          panelId: 6
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            __dashboardUid__: pMEd7m0Mz
+            __panelId__: "6"
+            description: Sent network traffic is more than average
+            summary: Careful from Sent network traffic
+          isPaused: false
+          notification_settings:
+            receiver: imadfaoussi
