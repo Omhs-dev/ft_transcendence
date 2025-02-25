@@ -1,5 +1,6 @@
 import { appSection } from "./utils/domUtils.js";
 import { getCookie } from "./login.js";
+import { showMatchResultPopup } from "./utils/generalUtils.js";
 
 export function initGame(canvas, ctx) {
 	console.log("pongCanvas: ", canvas);
@@ -20,7 +21,7 @@ export function initGame(canvas, ctx) {
 	let user2_name = '';
 	let player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: '' };
 	let player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: '' };
-	let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4 };
+	let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 4, dy: 4};
 
 	let keys = {};
 	let websocket;
@@ -28,6 +29,12 @@ export function initGame(canvas, ctx) {
 	let gamePaused = false; // Track if the game is paused
 	let gameStatue = null;
 	let intervalId;
+
+	// pong theme
+	let storedTheme = localStorage.getItem("pongTheme");
+	const parsedTheme = JSON.parse(storedTheme);
+
+	console.log("ball color: ", parsedTheme.ballColor);
 
 	const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
 	const wsUrl = `${protocol}${window.location.hostname}/ws/localGame/`;
@@ -80,15 +87,17 @@ export function initGame(canvas, ctx) {
 	function draw() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+		// draw line in the middle
+		drawMiddleLine(ctx, canvas);
 		// Draw paddles
-		ctx.fillStyle = "orange";
+		ctx.fillStyle = parsedTheme.paddleColor || "#000";
 		ctx.fillRect(player1.x, player1.y, paddleWidth, paddleHeight);
 		ctx.fillRect(player2.x, player2.y, paddleWidth, paddleHeight);
 
 		// Draw ball
 		ctx.beginPath();
 		ctx.arc(ball.x, ball.y, ballSize, 0, Math.PI * 2);
-		ctx.fillStyle = "black";
+		ctx.fillStyle = parsedTheme.ballColor || "#000";
 		ctx.fill();
 		ctx.closePath();
 
@@ -97,6 +106,18 @@ export function initGame(canvas, ctx) {
 		ctx.fillText(`${localStorage.getItem('player1Name')}: ${player1.score}`, 50, 20);
 		ctx.fillText(`${localStorage.getItem('player2Name')}: ${player2.score}`, canvas.width - 150, 20);
 	}
+
+	function drawMiddleLine(ctx, canvas) {
+		ctx.setLineDash([5, 5]); // Dashed line
+		ctx.strokeStyle = "white"; // Line color
+		ctx.lineWidth = 2; // Line thickness
+	
+		ctx.beginPath();
+		ctx.moveTo(canvas.width / 2, 0); // Start at the top middle
+		ctx.lineTo(canvas.width / 2, canvas.height); // End at the bottom middle
+		ctx.stroke();
+	}
+	
 
 	// Move paddles based on keys pressed
 	function movePaddles() {
@@ -134,9 +155,18 @@ export function initGame(canvas, ctx) {
 			(ball.x <= paddleWidth && ball.y >= player1.y && ball.y <= player1.y + paddleHeight) ||
 			(ball.x >= canvas.width - paddleWidth && ball.y >= player2.y && ball.y <= player2.y + paddleHeight)
 		) {
-			ball.dx *= -1;
-			// sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
+			ball.dx *= -1; // Reverse horizontal direction
+			
+			// 🎯 Add randomness: Modify dy slightly
+			let angleChange = (Math.random() - 0.5) * 2;
+			ball.dy += angleChange; 
+			
+			// Prevent ball from going too slow
+			if (Math.abs(ball.dy) < 2) {
+				ball.dy = ball.dy < 0 ? -2 : 2;
+			}
 		}
+		
 
 		// Ball goes out of bounds
 		if (ball.x < 0) {
@@ -152,14 +182,19 @@ export function initGame(canvas, ctx) {
 		}
 	}
 
+	function resetPaddles() {
+		player1 = { x: 0, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: '' };
+		player2 = { x: canvas.width - paddleWidth, y: canvas.height / 2 - paddleHeight / 2, score: 0, name: '' };
+	}
+
 	// Reset ball to center
 	function resetBall() {
 		ball.x = canvas.width / 2;
 		ball.y = canvas.height / 2;
 		ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
 		ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
-		// sendBallPosition(ball.x, ball.y, ball.dx, ball.dy);
 	}
+	
 
 	// Update and draw the game
 	function updateGame() {
@@ -175,6 +210,7 @@ export function initGame(canvas, ctx) {
 		if (gameStatue === 'started')
 			return;
 		resetGameState();
+		showGameSatuts('started');
 		await fetchProfile();
 		if (!websocket || websocket.readyState !== WebSocket.OPEN) {
 			console.log("WebSocket not connected. Reconnecting...");
@@ -257,19 +293,21 @@ export function initGame(canvas, ctx) {
 			}
 
 			if (data.type === "game_ended") {
-				console.debug(`game ended ${data}`);
 				winnerID = data.winner;
-				console.debug(`winnerID in game_ended: ${winnerID}`);
 				gameInProgress = false; // Prevent game updates
-				alert(`MATCH RESULT \n WINNER: <<<****${winnerName}****>>>\n SCORE: ${player1.score} - ${player2.score}`);
+			
+				resetPaddles();
+				resetGameState();
+				showMatchResultPopup(winnerName, player1.score, player2.score); // Call the new popup function
+				
 				document.getElementById("restartGame").style.display = "block";
 				document.getElementById("startGame").style.display = "none";
 				websocket.close();  // Close the WebSocket connection
 				gameStatue = 'ended';
-				resetGameState();
 				localStorage.setItem('secondPlayer', '');
 				clearInterval(intervalId);  // Stop the game loop
 			}
+			
 		};
 
 		websocket.onerror = function (e) {
@@ -362,6 +400,22 @@ export function initGame(canvas, ctx) {
 		}
 	}
 
+	function showGameSatuts(status) {
+		const gameStatus = document.getElementById("gameStatus");
+
+		if (status === 'started') {
+			gameStatus.innerHTML = "Game in Progress";
+		}
+		else if (status === 'paused') {
+			gameStatus.innerHTML = "Game Paused";
+		}
+		else if (status === 'ended') {
+			gameStatus.innerHTML = "Game Ended";
+		} else {
+			gameStatus.innerHTML = "Game Not Started";
+		}
+	}
+
 	// // Key event listeners
 	// window.addEventListener("keydown", (e) => {
 	// 	// console.log("Key pressed: ", e.key);
@@ -405,29 +459,31 @@ export function initGame(canvas, ctx) {
 
 	appSection.addEventListener("click", (e) => {
 		// Start Game Button
-		console.log("event target in game.js: ", e.target);
-		console.log("event target id in game.js: ", e.target.id);
 		if (e.target.id === "startGame") {
 			console.log("Start Game clicked");
 			startGame();
+			showGameSatuts('started');
 		}
 
 		// Pause Game Button
 		if (e.target.id === "pauseGame") {
 			console.log("Pause Game clicked");
 			pauseGame();
+			showGameSatuts('paused');
 		}
 
 		// Resume Game Button
 		if (e.target.id === "resumeGame") {
 			console.log("Resume Game clicked");
 			resumeGame();
+			showGameSatuts('started');
 		}
 
 		// Restart Game Button
 		if (e.target.id === "restartGame") {
 			console.log("Restart Game clicked");
 			restartGame();
+			showGameSatuts('ended');
 		}
 	}
 	);

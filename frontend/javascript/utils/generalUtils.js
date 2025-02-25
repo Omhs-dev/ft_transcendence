@@ -1,4 +1,5 @@
 import { getCookie } from "../login.js";
+import { appSection } from "./domUtils.js";
 
 const baseUrl = window.location.origin;
 
@@ -74,4 +75,54 @@ export function viewUserProfile(userProfileLink, sender, currentUserName) {
 			history.pushState({}, "", `/userprofile`);
 		}
 	});
+}
+
+
+// pop alert for winner
+export function showMatchResultPopup(winnerName, player1Score, player2Score) {
+    // Remove existing modal if present
+    const existingModal = document.getElementById("matchResultModal");
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Create modal container
+    const modal = document.createElement("div");
+    modal.id = "matchResultModal";
+    modal.className = "modal fade";
+    modal.tabIndex = "-1";
+	modal.style.marginLeft = "130px";
+    modal.setAttribute("aria-hidden", "true");
+
+    // Modal content
+    modal.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-0">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">MATCH RESULT</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+					<p class="text-success fw-bolder">
+						WINNER:
+					</p>
+					<span class="text-success fw-bolder">${winnerName}</span>
+                    <p class="fs-4">
+						SCORE: 
+                    </p>
+					<h4>${player1Score} - ${player2Score}</h4>
+                </div>
+                <div class="modal-footer border-0 d-flex justify-content-center">
+                    <button type="button" class="btn btn-primary px-4 py-2" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Append modal to body
+    appSection.appendChild(modal);
+
+    // Initialize Bootstrap modal
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
 }

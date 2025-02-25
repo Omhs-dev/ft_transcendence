@@ -5,6 +5,7 @@
 } */
 
 canvas {
+	background-color:rgb(10, 20, 27);
 	border: 2px solid #000;
 	display: block;
 	margin: auto;
@@ -128,6 +129,61 @@ table td i {
 .trinfolast {
 	width: 27rem;
 }
+
+/* Base styles for the game buttons */
+/* Base styles for the game buttons */
+.pong-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    /* margin: 10px; */
+    color: white;
+}
+
+/* Dark-themed buttons */
+.start-game,
+.pause-game,
+.resume-game,
+.restart-game {
+    background-color: #333333; /* Dark gray */
+}
+
+.start-game:hover,
+.pause-game:hover,
+.resume-game:hover,
+.restart-game:hover {
+    background-color: #444444; /* Slightly lighter gray on hover */
+}
+
+/* Icons */
+.start-game i,
+.pause-game i,
+.resume-game i,
+.restart-game i {
+    margin-right: 10px;
+}
+
+/* Hover effects for all buttons */
+.pong-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Center buttons horizontally */
+/* button {
+    display: block;
+    margin: 10px auto;
+}
+
+/* Optional: Center buttons horizontally */
+
+
 
 @media (max-width: 868px) {
     .pcard {
