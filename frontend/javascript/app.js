@@ -12,7 +12,9 @@ import RequestsView from "./views/RequestsView.js";
 import PongGameView from "./views/PongGameView.js";
 import UserProfileView from "./views/UserProfileView.js";
 
+// game imports
 import { initGame } from "./game.js";
+import { initTournamentGame } from "./tournament.js";
 
 const navigateTo = (url) => {
 	history.pushState(null, null, url);
@@ -50,7 +52,15 @@ const router = async () => {
             const ctx = canvas.getContext("2d");
             initGame(canvas, ctx);
         }
-    }
+    } else if (location.pathname === "/tournament") {
+		const canvas = document.getElementById("tournamentCanvas");
+		if (!canvas) {
+			console.error("Canvas element not found in live DOM!");
+		} else {
+			const ctx = canvas.getContext("2d");
+			initTournamentGame(canvas, ctx);
+		}
+	}
 };
 
 window.addEventListener("popstate", router);
@@ -79,13 +89,13 @@ window.addEventListener('load', () => {
 	console.log('isAuthenticated:', isAuthenticated);
 	console.log('currentPath:', currentPath);
 
-	if ((!isAuthenticated || !isOauthLogged) && !publicRoutes.includes(currentPath)) {
-		console.log('redirecting to login');
-		window.location.href = '/';
-		console.log('href:', window.location.href);
-	} else {
-		console.log('not redirecting');
-	}
+	// if ((!isAuthenticated || !isOauthLogged) && !publicRoutes.includes(currentPath)) {
+	// 	console.log('redirecting to login');
+	// 	window.location.href = '/';
+	// 	console.log('href:', window.location.href);
+	// } else {
+	// 	console.log('not redirecting');
+	// }
 
 	// ****** SideNav link effects on click ******
 	const navLinks = document.querySelectorAll(".nav-link");

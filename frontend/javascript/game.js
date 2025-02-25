@@ -115,7 +115,7 @@ export function initGame(canvas, ctx) {
 
 	function drawMiddleLine(ctx, canvas) {
 		ctx.setLineDash([5, 5]); // Dashed line
-		ctx.strokeStyle = "white"; // Line color
+		ctx.strokeStyle = parsedTheme.ballColor || "#000";
 		ctx.lineWidth = 2; // Line thickness
 	
 		ctx.beginPath();

@@ -130,10 +130,20 @@ table td i {
 	width: 27rem;
 }
 
+#gameControls {
+	display: none;
+}
+
+#tournament {
+	margin-right: auto;
+	margin-left: auto;
+	display: none;
+	width: 840px;
+}
+
 /* Base styles for the game buttons */
 /* Base styles for the game buttons */
 .pong-btn {
-    display: inline-flex;
     align-items: center;
     font-size: 14px;
     border: 2px solid transparent;

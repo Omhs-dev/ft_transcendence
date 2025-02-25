@@ -104,7 +104,7 @@ export function showMatchResultPopup(winnerName, player1Score, player2Score) {
                 </div>
                 <div class="modal-body text-center">
 					<p class="text-success fw-bolder">
-						WINNER:
+						WINNER 🏆:
 					</p>
 					<span class="text-success fw-bolder">${winnerName}</span>
                     <p class="fs-4">
@@ -125,4 +125,52 @@ export function showMatchResultPopup(winnerName, player1Score, player2Score) {
     // Initialize Bootstrap modal
     const bootstrapModal = new bootstrap.Modal(modal);
     bootstrapModal.show();
+}
+
+export function showNextGamePopup(resumeGame) {
+    // Create popup container
+    let popup = document.createElement("div");
+    popup.id = "nextGamePopup";
+	popup.style.position = "fixed";
+	popup.style.top = "50%";
+	popup.style.left = "55%"; // Moves it slightly to the right
+	popup.style.transform = "translate(-40%, -50%)"; // Moves it right by reducing the negative X offset
+    popup.style.background = "#333";
+    popup.style.color = "white";
+    popup.style.padding = "20px";
+    popup.style.borderRadius = "10px";
+    popup.style.boxShadow = "0 0 10px rgba(0,0,0,0.5)";
+    popup.style.textAlign = "center";
+    popup.style.zIndex = "1000";
+
+    // Add text
+    let message = document.createElement("p");
+    message.innerText = "Next Game Starting Soon!";
+    popup.appendChild(message);
+
+    // Add Next Game button
+    let nextGameButton = document.createElement("button");
+    nextGameButton.innerText = "Start Next Game";
+    nextGameButton.style.marginTop = "10px";
+    nextGameButton.style.padding = "10px 15px";
+    nextGameButton.style.border = "none";
+    nextGameButton.style.cursor = "pointer";
+    nextGameButton.style.background = "#ffcc00";
+    nextGameButton.style.color = "black";
+    nextGameButton.style.fontSize = "16px";
+    nextGameButton.style.borderRadius = "5px";
+
+    // Close popup and start new game
+    nextGameButton.onclick = function () {
+		if (typeof resumeGame === "function")
+		{
+			resumeGame();
+		}
+        appSection.removeChild(popup);
+    };
+
+    popup.appendChild(nextGameButton);
+
+    // Append popup to body
+    appSection.appendChild(popup);
 }

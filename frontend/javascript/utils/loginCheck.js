@@ -12,16 +12,16 @@ export function authSection(authSectionDiv) {
 				<a href="/ponggame" class="btn btn-success homebtn mb-3 game-action" id="startbtn" data-link>
 					<div class="d-flex flex-column">
 						<span class="fs-2">Start Game</span>
-						<small class="fw-light">Play with a training AI</small>
+						<small class="fw-light">Click to start local game</small>
 					</div>
 				</a>
 
-				<button type="button" class="btn homebtn mb-3 game-action game-mode" data-action="mode">
+				<a href="/tournament" class="btn homebtn mb-3 game-action game-mode" id="tournamentStart" data-action="mode" data-link>
 					<div class="d-flex flex-column">
-						<span class="fs-2">Game Mode</span>
-						<small class="fw-light">Select game mode to play</small>
+						<span class="fs-2">Start Tournament</span>
+						<small class="fw-light">Play with multiple players</small>
 					</div>
-				</button>
+				</a>
 			`;
 	} else {
 		// console.log("user is not logged in");
