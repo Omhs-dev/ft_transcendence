@@ -61,8 +61,8 @@ export function choose2FaMethodSection() {
 	console.log("choose2FaMethod: ", choose2FaMethod);
 
 	choose2FaMethod.innerHTML = `
-		<div class="mb-4">
-			<label for="twoFaMethod" class="form-label">Choose 2FA Method:</label>
+		<div class="mb-4 text-white">
+			<label for="twoFaMethod" class="form-label text-white">Choose 2FA Method:</label>
 			<select id="twoFaMethod" class="form-select" required>
 				<option value="sms">SMS</option>
 				<option value="email">Email</option>
