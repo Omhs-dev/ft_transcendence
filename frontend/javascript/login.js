@@ -158,6 +158,10 @@ const loginUser = async () => {
 
 			console.log("invalid otp code");
 		}
+		if (response.status === 409) {
+			console.log("error here: ", data.error);
+			invalidCredential("userlogged");
+		}
         if (!response.ok) {
 			throw new Error(`Could not fetch api ${response.status}`);
 		}
@@ -291,6 +295,8 @@ function invalidCredential(errorType) {
 		small.textContent = "Username or password is incorrect. Please try again.";
 	} else if (errorType === "otp") {
 		small.textContent = "Invalid OTP code. Please try again.";
+	} else if (errorType === "userlogged") {
+		small.textContent = "User is already logged in. Please logout first.";
 	}
 
 	errorMessage.classList.add('text-danger', 'fw-light', 'text-center');

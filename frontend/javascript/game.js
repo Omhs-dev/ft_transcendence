@@ -107,6 +107,12 @@ export function initGame(canvas, ctx) {
 		ctx.fillText(`${localStorage.getItem('player2Name')}: ${player2.score}`, canvas.width - 150, 20);
 	}
 
+	function drawText(text, x, y) {
+		ctx.fillStyle = "black";
+		ctx.font = "20px Arial";
+		ctx.fillText(text, x, y);
+	}
+
 	function drawMiddleLine(ctx, canvas) {
 		ctx.setLineDash([5, 5]); // Dashed line
 		ctx.strokeStyle = "white"; // Line color
@@ -297,6 +303,7 @@ export function initGame(canvas, ctx) {
 				gameInProgress = false; // Prevent game updates
 				
 				showMatchResultPopup(winnerName, player1.score, player2.score); // Call the new popup function
+				drawText(`${winnerName} Wins!`, canvas.width / 2 - 50, canvas.height / 2);
 				resetPaddles();
 				
 				document.getElementById("restartGame").style.display = "block";
