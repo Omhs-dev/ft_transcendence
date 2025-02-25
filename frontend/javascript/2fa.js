@@ -7,7 +7,8 @@ import { loadSmsContainer } from "./utils/2faUtils.js";
 import { twoFaAlreadyEnabled } from "./utils/2faUtils.js";
 import { choose2FaMethodSection } from "./utils/2faUtils.js";
 
-const baseUrl = window.location.origin;
+const baseUrl = window.location.protocol === "https:" ? "https://localhost" : "http://localhost:8000";
+console.log("protocol: ", window.location.protocol);
 const twoFa = localStorage.getItem('twoFa');
 
 console.log("2fa: ", twoFa);
