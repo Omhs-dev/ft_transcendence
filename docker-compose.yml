@@ -71,10 +71,10 @@ services:
       - postgres
       - redis
       - nginx
-      # - setup
-      # - elasticsearch
-      # - logstash
-      # - kibana
+      - setup
+      - elasticsearch
+      - logstash
+      - kibana
 
   grafana:
     # image: grafana/grafana:latest
@@ -119,76 +119,76 @@ services:
     networks:
       - webnet
 
-  # setup:
-  #   container_name: setup
-  #   build: ./ELK/setup
-  #   volumes:
-  #     - certs:/usr/share/elasticsearch/config/certs
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - elk-stack
-  #   healthcheck:
-  #     test: ['CMD-SHELL', '[ -f /usr/share/elasticsearch/config/certs/elasticsearch/elasticsearch.crt ]']
-  #     interval: 1s
-  #     timeout: 5s
-  #     retries: 120
+  setup:
+    container_name: setup
+    build: ./ELK/setup
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+    healthcheck:
+      test: ['CMD-SHELL', '[ -f /usr/share/elasticsearch/config/certs/elasticsearch/elasticsearch.crt ]']
+      interval: 1s
+      timeout: 5s
+      retries: 120
 
-  # elasticsearch:
-  #   container_name: elasticsearch
-  #   depends_on:
-  #     setup:
-  #       condition: service_healthy
-  #   build: ./ELK/elasticsearch
-  #   restart: always
-  #   volumes:
-  #     - certs:/usr/share/elasticsearch/config/certs
-  #     - elasticsearch:/usr/share/elasticsearch/data
-  #   ports:
-  #     - '9200:9200'
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - elk-stack
-  #   mem_limit: ${MEM_LIMIT}
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
+  elasticsearch:
+    container_name: elasticsearch
+    depends_on:
+      setup:
+        condition: service_healthy
+    build: ./ELK/elasticsearch
+    restart: always
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs
+      - elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - '9200:9200'
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+    mem_limit: ${MEM_LIMIT}
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
 
-  # logstash:
-  #   container_name: logstash
-  #   depends_on:
-  #     setup:
-  #       condition: service_healthy
-  #   build: ./ELK/logstash
-  #   restart: always
-  #   volumes:
-  #     - certs:/usr/share/logstash/config/certs
-  #     - ./ELK/logstash/conf/access.log:/usr/share/logstash/nginx/access.log
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - elk-stack
+  logstash:
+    container_name: logstash
+    depends_on:
+      setup:
+        condition: service_healthy
+    build: ./ELK/logstash
+    restart: always
+    volumes:
+      - certs:/usr/share/logstash/config/certs
+      - ./ELK/logstash/conf/access.log:/usr/share/logstash/nginx/access.log
+    env_file:
+      - .env
+    networks:
+      - elk-stack
 
-  # kibana:
-  #   container_name: kibana
-  #   depends_on:
-  #     setup:
-  #       condition: service_healthy
-  #   build: ./ELK/kibana
-  #   restart: always
-  #   volumes:
-  #     - certs:/usr/share/kibana/config/certs
-  #     - kibana:/usr/share/kibana/data
-  #   ports:
-  #     - '5601:5601'
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - elk-stack
-  #   mem_limit: ${MEM_LIMIT}
+  kibana:
+    container_name: kibana
+    depends_on:
+      setup:
+        condition: service_healthy
+    build: ./ELK/kibana
+    restart: always
+    volumes:
+      - certs:/usr/share/kibana/config/certs
+      - kibana:/usr/share/kibana/data
+    ports:
+      - '5601:5601'
+    env_file:
+      - .env
+    networks:
+      - elk-stack
+    mem_limit: ${MEM_LIMIT}
 
 
 volumes:
