@@ -295,15 +295,15 @@ export function initGame(canvas, ctx) {
 			if (data.type === "game_ended") {
 				winnerID = data.winner;
 				gameInProgress = false; // Prevent game updates
-			
-				resetPaddles();
-				resetGameState();
+				
 				showMatchResultPopup(winnerName, player1.score, player2.score); // Call the new popup function
+				resetPaddles();
 				
 				document.getElementById("restartGame").style.display = "block";
 				document.getElementById("startGame").style.display = "none";
 				websocket.close();  // Close the WebSocket connection
 				gameStatue = 'ended';
+				resetGameState();
 				localStorage.setItem('secondPlayer', '');
 				clearInterval(intervalId);  // Stop the game loop
 			}

@@ -139,7 +139,7 @@ table td i {
     border: 2px solid transparent;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     text-transform: uppercase;
     font-weight: bold;
     /* margin: 10px; */
