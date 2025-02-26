@@ -2,6 +2,7 @@ import { appSection } from "./utils/domUtils.js";
 import { sideNavSection } from "./utils/sideNavUtil.js";
 import { loadUserProfile, viewUserProfile } from "./utils/generalUtils.js";
 import { loadUserFriendsList } from "./utils/generalUtils.js";
+import { getCookie } from "./login.js";
 
 const chatIcon = document.getElementById('chatIcon');
 const chatBox = document.getElementById('chatBox');
@@ -12,7 +13,7 @@ const sendButton = document.getElementById('sendButton');
 const notificationNbr = document.getElementById('notificationNbr');
 
 // let userId = null;
-let chatSocket;
+let chatSocket = null;
 let chatRoomId = null;
 let onlineUsers = {};
 let notificationCount = 0;
@@ -20,17 +21,20 @@ let notificationCount = 0;
 // the base url for the backend
 const baseUrl = window.location.origin;
 
-const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-const wsUrl = `${protocol}${window.location.hostname}/ws/chat/`;
+const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+const wsUrl = `${protocol}:${window.location.hostname}/${protocol}/chat/`;
 
 document.addEventListener('DOMContentLoaded', () => {
+	console.log("DOM fully loaded and parsed");
+
 	const userId = localStorage.getItem('userId');
 	const username = localStorage.getItem('username');
 	console.log("userId: ", userId);
-
+	
 	if (userId && username) {
 		// console.log("loaded connecting to websocket");
-		connectWebSocket();
+		startTokenRefreshTimer();
+		// connectWebSocket();
 		updateOnlineUsers();
 	}
 });
@@ -38,12 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
 	const userId = localStorage.getItem('userId');
 	const username = localStorage.getItem('username');
+	const isAuthenticated = localStorage.getItem('isAuthenticated');
 	// console.log("userId: ", userId);
+	const wsConnected = localStorage.getItem("wsConnected");
+	console.log("wsConnected: ", wsConnected);
 
-	if (userId && username
-		&& localStorage.getItem("wsConnected") === "true") {
-		// console.log("user is logged in connecting to websocket");
+	if (wsConnected === "false" && chatSocket !== null) {
+		console.log("closing websocket in load event listener");
+		chatSocket.close();
+	} else if (wsConnected === "false" && isAuthenticated) {
+		console.log("reconnecting to websocket user is authenticated");
 		connectWebSocket();
+	}
+	console.log("user is logged in connecting to websocket");
+	if (userId && username) {
+		if (wsConnected === "true") {
+				console.log("user is logged in connecting to websocket");
+			// 	console.log("user is logged in connecting to websocket");
+				connectWebSocket();
+			// 	updateOnlineUsers();
+			}
+		// connectWebSocket();
 		updateOnlineUsers();
 	}
 });
@@ -53,6 +72,7 @@ sideNavSection.addEventListener("click", (e) => {
 
 	if (e.target.classList.contains("users")) {
 		setTimeout(() => {
+			// connectWebSocket();
 			updateOnlineUsers();
 		}, 100);
 	}
@@ -168,7 +188,11 @@ function connectWebSocket() {
 	chatSocket.onclose = () => {
 		console.log('WebSocket closed');
 		chatSocket = null; // Clear reference to WebSocket
-		localStorage.removeItem("wsConnected"); // Remove flag on disconnect
+		localStorage.setItem("wsConnected", "false");
+		if (localStorage.getItem("isAuthenticated")) {
+			console.log("reconnecting to websocket user is authenticated");
+			connectWebSocket();
+		}
 	};
 }
 
@@ -227,62 +251,185 @@ if (eachUserfriendListBtn) {
 }
 
 
-const updateOnlineUsers = () => {
-	const userList = document.getElementById("userList");
-	const userId = localStorage.getItem("userId");
-	const username = localStorage.getItem("username");
+// const updateOnlineUsers = () => {
+// 	const userList = document.getElementById("userList");
+// 	const userId = localStorage.getItem("userId");
+// 	const username = localStorage.getItem("username");
 
-	if (!userList) {
-		return;
-	}
-	userList.innerHTML = "";
+// 	if (!userList) {
+// 		return;
+// 	}
+// 	userList.innerHTML = "";
 	
-	let index = 0;
-	let friendOrAdd = "";
-	// const addBtn = `<button class="btn btn-outline-success add-user-btn">Add</button>`;
-	// const friendBadge = `<span class="badge bg-primary">Friend</span>`;
+// 	let index = 0;
+// 	let friendOrAdd = "";
+// 	// const addBtn = `<button class="btn btn-outline-success add-user-btn">Add</button>`;
+// 	// const friendBadge = `<span class="badge bg-primary">Friend</span>`;
 
-	let friendsList = JSON.parse(localStorage.getItem("friendsList")) || [];
-	console.log("friendsList: ", friendsList);
-	if (!Array.isArray(friendsList)) {
-		friendsList = [];
-	}
+// 	let friendsList = JSON.parse(localStorage.getItem("friendsList")) || [];
+// 	console.log("friendsList: ", friendsList);
+// 	if (!Array.isArray(friendsList)) {
+// 		friendsList = [];
+// 	}
 
-	for (const user of Object.values(onlineUsers)) {
-		if (user.user_id !== Number(userId) && user.username !== username) {
-			console.log("users online found");
-			console.log("user id ", user.user_id);
-			const userTr = document.createElement("tr");
+// 	for (const user of Object.values(onlineUsers)) {
+// 		if (user.user_id !== Number(userId) && user.username !== username) {
+// 			console.log("users online found");
+// 			console.log("user id ", user.user_id);
+// 			const userTr = document.createElement("tr");
 
-			if (friendsList.includes(user.user_id)) {
-				friendOrAdd = `<span class="badge bg-light text-dark p-3">Friend</span>`;
-			} else {
-				friendOrAdd = `<button class="btn btn-outline-success add-user-btn">Add</button>`;
-			}
+// 			if (friendsList.includes(user.user_id)) {
+// 				friendOrAdd = `<span class="badge bg-light text-dark p-3">Friend</span>`;
+// 			} else {
+// 				friendOrAdd = `<button class="btn btn-outline-success add-user-btn">Add</button>`;
+// 			}
 
-			userTr.innerHTML = `
-				<th scope="row">${index + 1}</th>
-				<td>
-					<a href="#" class="user-link" data-link>${user.username}</a>
-				</td>
-				<td>
-					<button class="btn btn-primary send-message-btn" data-user-id="${user.user_id}" data-username="${user.username}">Message</button>
-					${friendOrAdd}
-				</td>
-			`;
+// 			userTr.innerHTML = `
+// 				<th scope="row">${index + 1}</th>
+// 				<td>
+// 					<a href="#" class="user-link" data-link>${user.username}</a>
+// 				</td>
+// 				<td>
+// 					<button class="btn btn-primary send-message-btn" data-user-id="${user.user_id}" data-username="${user.username}">Message</button>
+// 					${friendOrAdd}
+// 				</td>
+// 			`;
 
-			userList.appendChild(userTr);
-		} else {
-			console.log("no users online");
+// 			userList.appendChild(userTr);
+// 		} else {
+// 			console.log("no users online");
+// 		}
+// 	}
+
+// 	// Attach event listeners AFTER all elements are added
+// 	document.querySelectorAll(".send-message-btn").forEach((btn) => {
+// 		const userId = btn.getAttribute("data-user-id");
+// 		const username = btn.getAttribute("data-username");
+// 		onpenChatBoxToSend(btn, username, userId);
+// 	});
+
+// 	document.querySelectorAll(".add-user-btn").forEach((btn) => {
+// 		btn.addEventListener("click", async () => {
+// 			console.log("Add button clicked");
+// 			const userId = user.user_id;
+// 			console.log("userId: ", userId);
+// 			await sendFriendRequest(userId);
+// 		});
+// 	}
+// 	);
+// };
+
+const updateOnlineUsers = () => {
+    const userList = document.getElementById("userList");
+    const userId = localStorage.getItem("userId");
+    const username = localStorage.getItem("username");
+
+    if (!userList) {
+        return;
+    }
+
+    // Clear the user list
+    userList.innerHTML = "";
+
+    let index = 0;
+    let friendsList = JSON.parse(localStorage.getItem("friendsList")) || [];
+    console.log("friendsList: ", friendsList);
+
+    if (!Array.isArray(friendsList)) {
+        friendsList = [];
+    }
+
+    // Loop through online users
+    for (const user of Object.values(onlineUsers)) {
+        if (user.user_id !== Number(userId) && user.username !== username) {
+            console.log("users online found");
+            console.log("user id ", user.user_id);
+
+            // Create a new row for the user
+            const userTr = document.createElement("tr");
+
+            // Create table cells
+            const th = document.createElement("th");
+            th.setAttribute("scope", "row");
+            th.textContent = index + 1;
+
+            const tdUsername = document.createElement("td");
+            const userLink = document.createElement("a");
+            userLink.href = "#";
+            userLink.classList.add("user-link");
+            userLink.textContent = user.username;
+            tdUsername.appendChild(userLink);
+
+            const tdActions = document.createElement("td");
+            const messageButton = document.createElement("button");
+            messageButton.classList.add("btn", "btn-primary", "send-message-btn");
+            messageButton.setAttribute("data-user-id", user.user_id);
+            messageButton.setAttribute("data-username", user.username);
+            messageButton.textContent = "Message";
+
+            // Add event listener for the message button
+            messageButton.addEventListener("click", () => {
+                onpenChatBoxToSend(messageButton, user.username, user.user_id);
+            });
+
+            // Check if the user is a friend
+            if (friendsList.includes(user.user_id)) {
+                const friendBadge = document.createElement("span");
+                friendBadge.classList.add("badge", "bg-light", "text-dark", "p-3");
+                friendBadge.textContent = "Friend";
+                tdActions.appendChild(friendBadge);
+            } else {
+                const addButton = document.createElement("button");
+                addButton.classList.add("btn", "btn-outline-success", "add-user-btn");
+                addButton.textContent = "Add";
+
+                // Add event listener for the add button
+                addButton.addEventListener("click", async () => {
+                    console.log("Add button clicked");
+                    console.log("userId: ", user.user_id);
+                    await sendFriendRequest(user.user_id);
+                });
+
+                tdActions.appendChild(addButton);
+            }
+
+            tdActions.appendChild(messageButton);
+
+            // Append cells to the row
+            userTr.appendChild(th);
+            userTr.appendChild(tdUsername);
+            userTr.appendChild(tdActions);
+
+            // Append the row to the user list
+            userList.appendChild(userTr);
+
+            index++;
+        } else {
+            console.log("no users online");
+        }
+    }
+};
+
+const sendFriendRequest = async (userId) => {
+	console.log("sending friend request to: ", userId);
+	try {
+		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to send request: ${response.statusText}`);
 		}
-	}
 
-	// Attach event listeners AFTER all elements are added
-	document.querySelectorAll(".send-message-btn").forEach((btn) => {
-		const userId = btn.getAttribute("data-user-id");
-		const username = btn.getAttribute("data-username");
-		onpenChatBoxToSend(btn, username, userId);
-	});
+		const data = await response.json();
+	} catch(error) {
+		console.log("Error: ", error);
+	}
 };
 
 // Send Message Event Listener
@@ -290,7 +437,6 @@ const onpenChatBoxToSend = (sendMessageBtn, userName, userId) => {
 	const chatMessages = document.getElementById('chatMessages');
 	const messageTo = document.querySelector("#messageTo");
 
-	console.log("chatMessages: ", chatMessages);
 	sendMessageBtn.addEventListener("click", (e) => {
 		e.preventDefault();
 
@@ -447,6 +593,15 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 			target_id: creatorId,
 			sender_id: currentUserId,
 		}));
+
+		popup.classList.remove('alert-primary');
+		popup.classList.add('alert-success');
+		acceptButton.remove();
+		declineButton.remove();
+
+		popup.appendChild(msg);
+		chatMessages.prepend(popup);
+
 		await displayMessageInChat(currentUserId, username, "Game invite accepted!");
 	});
 
@@ -467,6 +622,15 @@ function showConfirmGamePopup(creatorId, creatorUsername, received_message, chat
 			target_id: creatorId,
 			sender_id: localStorage.getItem('userId'),
 		}));
+
+		popup.classList.remove('alert-primary');
+		popup.classList.add('alert-success');
+		acceptButton.remove();
+		declineButton.remove();
+
+		popup.appendChild(msg);
+		chatMessages.prepend(popup);
+
 		await displayMessageInChat(currentUserId, username, "Game invite declined!");
 	});
 
@@ -490,9 +654,9 @@ function notifyUserIcon() {
 // Decrement Notification Count
 function decrementNotificationCount() {
 	notificationCount--;
-	
+
 	notificationNbr.textContent = notificationCount;
-	
+
 	if (notificationCount === 0) {
 		notificationNbr.style.background = 'none';
 		notificationNbr.style.border = 'none';
@@ -590,6 +754,38 @@ function sendMessageToSocket(message, correspondantId, chatRoomId) {
 	};
 	chatSocket.send(JSON.stringify(data));
 }
+
+let refreshTimer;
+
+const startTokenRefreshTimer = async () => {
+	const refreshInterval = 2 * 60 * 1000; // 2 minutes
+
+	console.log('Starting token refresh timer for websocket');
+	// Clear any existing interval before setting a new one
+	if (refreshTimer) {
+		clearInterval(refreshTimer);
+	}
+
+	refreshTimer = setInterval(() => {
+		console.log("connecting to websocket");
+		// Function to refresh the token (or make the request)
+		if (localStorage.getItem("wsConnected") === "false") {
+			console.log("user is logged in connecting to websocket");
+			// connectWebSocket();
+		} else {
+			console.log("user is still connected to websocket");
+		}
+		console.log('Token refreshed');
+	}, refreshInterval);
+};
+
+// If you need to stop the refresh timer at any point, you can call this:
+const stopTokenRefreshTimer = () => {
+	if (refreshTimer) {
+		clearInterval(refreshTimer);
+		console.log('Token refresh timer stopped');
+	}
+};
 
 // function handleChatInputSubmit(chatInput, chatSubmit) {
 	

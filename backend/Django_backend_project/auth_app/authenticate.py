@@ -47,7 +47,7 @@ class CustomAuthentication(JWTAuthentication):
 
         validated_token = self.get_validated_token(raw_token)
         logger.debug(f"Validated token in authenticate: {validated_token}")
-        enforce_csrf(request)
+        # enforce_csrf(request)
 
         return self.get_user(validated_token), validated_token
     

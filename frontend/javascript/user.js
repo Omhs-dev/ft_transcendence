@@ -67,34 +67,34 @@ const getOnlineUsers = async () => {
 	}
 };
 
-//send Friend Request
-const sendFriendRequest = async (userId) => {
-	try {
-		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'X-CSRFToken': getCookie('csrftoken'),
-			},
-			credentials: 'include',
-		});
+// //send Friend Request
+// const sendFriendRequest = async (userId) => {
+// 	try {
+// 		const response = await fetch(`${baseUrl}/chat/api/send-friend-request/${userId}/`, {
+// 			method: 'POST',
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				'X-CSRFToken': getCookie('csrftoken'),
+// 			},
+// 			credentials: 'include',
+// 		});
 
-		if (!response.ok) {
-			throw new Error(`Failed to send request: ${response.statusText}`);
-		}
+// 		if (!response.ok) {
+// 			throw new Error(`Failed to send request: ${response.statusText}`);
+// 		}
 
-		const data = await response.json();
+// 		const data = await response.json();
 
-		const btn = document.getElementById("addFriend");
-		console.log("Button: ", btn);
+// 		const btn = document.getElementById("addFriend");
+// 		console.log("Button: ", btn);
 
-		btn.textContent = "Request Sent";
-		btn.disabled = true;
-		alert(data.message || "Friend request sent");
-	} catch(error) {
-		console.log("Error: ", error);
-	}
-};
+// 		btn.textContent = "Request Sent";
+// 		btn.disabled = true;
+// 		alert(data.message || "Friend request sent");
+// 	} catch(error) {
+// 		console.log("Error: ", error);
+// 	}
+// };
 
 // Fetch Friend Request
 const fetchFriendRequests = async () => {
@@ -326,6 +326,122 @@ const blockFriend = async (userId) => {
 	}
 }
 
+const fetchMatchHistory = async () => {
+	try {
+		const response = await fetch(`${baseUrl}/game/api/match-history/`, {
+			method: 'GET',
+			headers: {
+				'X-CSRFToken': getCookie('csrftoken'),
+			},
+			credentials: 'include',
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to fetch match history: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+
+		console.log("Match History: ", data);
+
+		buildMatchHistoryTable(data);
+
+		calculateWinsAndLosses(data);
+
+	} catch(error) {
+		console.log("Error: ", error);
+	}
+}
+
+const buildMatchHistoryTable = (matchHistory) => {
+    // Get the table body element
+    const matchHistoryTableBody = document.getElementById("matchHistoryTableBody");
+
+	console.log("match history table body: ", matchHistoryTableBody);
+
+	if (matchHistoryTableBody) {
+		// Clear any existing rows
+		matchHistoryTableBody.innerHTML = "";
+		// Loop through each match in the history
+		matchHistory.forEach((match, index) => {
+			// Create a new <tr> element
+			const tr = document.createElement("tr");
+	
+			// Create <th> for the index
+			const th = document.createElement("th");
+			th.setAttribute("scope", "row");
+			th.textContent = index + 1; // Row number
+	
+			// Create <td> for game_id
+			const tdGameId = document.createElement("td");
+			tdGameId.textContent = match.game_id;
+	
+			// Create <td> for player1_username
+			const tdPlayer1 = document.createElement("td");
+			tdPlayer1.textContent = match.player1_username;
+	
+			// Create <td> for player2_username
+			const tdPlayer2 = document.createElement("td");
+			tdPlayer2.textContent = match.player2_username;
+	
+			// Create <td> for result
+			const tdResult = document.createElement("td");
+			tdResult.textContent = match.result;
+	
+			// Create <td> for winner_username
+			const tdWinner = document.createElement("td");
+			tdWinner.textContent = match.winner_username;
+	
+			// Create <td> for loser_username
+			const tdLoser = document.createElement("td");
+			tdLoser.textContent = match.loser_username;
+	
+			// Append all elements to the <tr>
+			tr.appendChild(th);
+			tr.appendChild(tdGameId);
+			tr.appendChild(tdPlayer1);
+			tr.appendChild(tdPlayer2);
+			tr.appendChild(tdResult);
+			tr.appendChild(tdWinner);
+			tr.appendChild(tdLoser);
+	
+			// Append <tr> to the <tbody> (matchHistoryTableBody)
+			matchHistoryTableBody.appendChild(tr);
+		});
+	}
+
+};
+
+const calculateWinsAndLosses = (data) => {
+    // Get the current user's username (replace with your logic to get the current user)
+    const currentUser = localStorage.getItem("username");
+
+    let wins = 0;
+    let losses = 0;
+
+    // Loop through the match history
+    data.forEach((match) => {
+        if (match.winner_username === currentUser) {
+            wins++;
+        } else if (match.loser_username === currentUser) {
+            losses++;
+        }
+    });
+
+    // Update the DOM with the calculated wins and losses
+    updateAchievements(wins, losses);
+};
+
+const updateAchievements = (wins, losses) => {
+    // Get the "Win" and "Lost" elements
+    const winElement = document.querySelector(".fa-trophy").nextElementSibling; // The <p> element next to the trophy icon
+    const lostElement = document.querySelector(".fa-face-frown").nextElementSibling; // The <p> element next to the frown icon
+
+    // Update the text content
+    winElement.textContent = `${wins} Win${wins !== 1 ? "s" : ""}`;
+    lostElement.textContent = `${losses} Loss${losses !== 1 ? "es" : ""}`;
+};
+
 // Profile Picture
 const fetchProfileInfo = async () => {
 	try {
@@ -346,6 +462,14 @@ const fetchProfileInfo = async () => {
 		const userPicture = document.getElementById("userPicture");
 		const userPicSideNav = document.getElementById("userImageSnav");
 
+		const myName = document.getElementById("myName");
+		const myFullName = document.getElementById("myFullName");
+		const myEmail = document.getElementById("myEmail");
+
+		console.log("my name: ", myName);
+		console.log("my full name: ", myFullName);
+		console.log("my email: ", myEmail);
+
 		if (data.profile_picture) {
 			userPicSideNav.src = baseUrl + data.profile_picture;
 			console.log("pic 2: ", userPicSideNav.src);
@@ -355,6 +479,12 @@ const fetchProfileInfo = async () => {
 				userPicture.style.height = "200px";
 				userPicture.style.width = "200px";
 			}
+		}
+
+		if (myName && myFullName && myEmail) {
+			myName.textContent = data.username;
+			myFullName.textContent = data.username;
+			myEmail.textContent = data.email;
 		}
 
 		const twoFa = data.is_2fa_enabled;
@@ -400,6 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		if (window.location.pathname === "/profile") {
 			fetchFriendList();
+			fetchMatchHistory();
 		} else if (window.location.pathname === "/requests") {
 			fetchFriendRequests();
 		}
@@ -417,6 +548,7 @@ sideNavSection.addEventListener("click", (e) => {
 		fetchFriendRequests();
 	} else if (e.target.classList.contains("profile")) {
 		fetchProfileInfo();
+		fetchMatchHistory();
 		fetchFriendList();
 	}
 });

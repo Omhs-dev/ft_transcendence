@@ -1,149 +1,51 @@
+<div class="container text-center mt-5">
+	<h1 class="mb-4 fw-bold">🏓 Pong Tournament</h1>
 
-<div class="d-flex">
+	<!-- Registration Section -->
 
-	<div class="container justify-content-center align-items-center mt-5">
-		<div class="mt-5">
-			<div class="d-flex justify-content-between">
-				<!-- <a href="/tournaments" data-link>
-					<i class="fas fa-chevron-left pr-1 text-white fa-2x"></i>
-				</a> -->
-				<h1 class="fw-bold">Tournament One</h1>
-				<button class="btn btn-success create">
-					Create +
-				</button>
+	<!-- Tournament Section -->
+	<div id="tournament" class="card shadow p-4 mb-4">
+		<h2 class="card-title mb-3">Tournament Bracket</h2>
+		<div id="bracket" class="mb-3"></div>
+		<h3 id="currentMatch" class="text-primary fw-semibold"></h3>
+	</div>
+
+	<!-- Pong Game Canvas -->
+	<div class="d-flex justify-content-center">
+		<div id="registration" class="card shadow p-4 mb-4">
+			<h2 class="card-title mb-3">Register Players</h2>
+			<div class="input-group mb-3">
+				<input type="text" id="playerAlias" class="form-control" placeholder="Enter Alias">
+				<button id="registerPlayer" class="btn btn-primary">Register</button>
 			</div>
+			<p id="playerAliasError"></p>
+			<ul id="playersList" class="list-group mb-3"></ul>
+			<button class="btn btn-outline-success" id="lunchTournament" style="display: none;">
+				Lunch Tournament
+			</button>
+		</div>
 
-			<div class="d-flex justify-content-around mt-5 text-center">
-				<div class="submen">
-					<i class="fa-regular fa-chess-queen"></i>
-					Tournaments 1/10
-				</div>
-				<div class="submen">
-					<i class="fa-solid fa-users"></i>
-					Players 4/4
-				</div>
-				<div class="submen">
-					<i class="fa-solid fa-calendar-days"></i>
-					Date 01/01/2025
-				</div>
-				<div class="">
-					<!-- <i class="fa-solid fa-calendar-days"></i> -->
-					<button class="btn submenactive text-light">
-						Join Tournament
-					</button>
-					
-				</div>
-			</div>
-
-			<div class="container mt-5">
-
-				<div class="d-flex flex-wrap justify-content-center justify-content-evenly pt-4">
-				<!-- Players list card -->
-				<div class="">
-					<div class="card text-white bg-dark mb-3 pcard">
-						<div class="card-body">
-							<h4 class="card-title">Players</h4>
-							<div class="table-responsive"></div>
-							<table class="table table-dark table-hover table-borderless">
-								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Ruseel bill</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">6</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">7</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-									<tr>
-										<th scope="row">8</th>
-										<td>Larry the Bird</td>
-										<td><i class="fa-solid fa-circle "></i></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-				<!-- Tournament informations -->
-				<div class="infos">
-					<div class="row">
-						<div class="card col-6 col-md-12 text-white bg-dark mb-3 trinfo">
-							<div class="card-body">
-								<i class="fa-solid fa-user-plus"></i>
-								<h6 class="card-title fw-bold mt-2">No. Players</h6>
-								<p class="card-text">
-								<span class="display-3">4</span></p>
-							</div>
-						</div>
-						<div class="card col-6 col-md-12 text-white bg-dark mb-3 trinfo">
-							<div class="card-body">
-								<i class="fa-solid fa-dice"></i>
-								<h6 class="card-title fw-bold mt-2">Rounds</h6>
-								<p class="card-text">
-								<span class="display-3">4</span></p>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="card col-6 col-md-12 text-white bg-dark mb-3 trinfo">
-							<div class="card-body">
-								<i class="fa-solid fa-circle-play"></i>
-								<h6 class="card-title fw-bold mt-2">Status</h6>
-								<p class="card-text">
-								<span class="display-3">On</span></p>
-							</div>
-						</div>
-						<div class="card col-6 col-md-12 text-white bg-dark mb-3 trinfo">
-							<div class="card-body">
-								<i class="fa-solid fa-users"></i>
-								<h6 class="card-title fw-bold mt-2">Limeted to</h6>
-								<p class="card-text">
-								<span class="display-3">8</span></p>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="card col-12 text-white bg-dark mb-3 trinfolast">
-							<div class="card-body">
-								<i class="fa-solid fa-ranking-star"></i>
-								<h6 class="card-title mt-2">Winner</h6>
-								<p class="card-text">
-								<span class="display-3">--</span></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
+		<div class="border border-3 rounded p-3 shadow bg-light" id="gameSection" style="display: none;">
+			<canvas id="tournamentCanvas" width="800" height="400" class="d-block mx-auto"></canvas>
 		</div>
 
 	</div>
+
+	<div class="mt-4" id="gameControls">
+        <button id="startTournament" class="btn pong-btn btn-primary start-game">
+            <i class="fa-solid fa-play fa-2x"></i> Start Game
+        </button>
+        <button id="pauseTournament" class="btn pong-btn btn-warning pause-game">
+            <i class="fa-solid fa-pause fa-2x"></i> Pause Game
+        </button>
+        <button id="resumeTournament" class="btn pong-btn btn-success">
+            <i class="fa-solid fa-circle-play fa-2x"></i> Resume Game
+        </button>
+        <button id="resetTournament" class="btn pong-btn btn-danger">
+            <i class="fa-solid fa-rotate-right"></i> Restart Game
+        </button>
+    </div>
+
+	<!-- Restart Button -->
+	<!-- <button id="resetTournament" class="btn btn-danger mt-4">Restart Tournament</button> -->
 </div>

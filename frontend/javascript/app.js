@@ -12,6 +12,10 @@ import RequestsView from "./views/RequestsView.js";
 import PongGameView from "./views/PongGameView.js";
 import UserProfileView from "./views/UserProfileView.js";
 
+// game imports
+import { initGame } from "./game.js";
+import { initTournamentGame } from "./tournament.js";
+
 const navigateTo = (url) => {
 	history.pushState(null, null, url);
 	router();
@@ -38,16 +42,37 @@ const router = async () => {
 	const view = new match.view();
 
 	appSection.innerHTML = await view.loadHtml();
+
+	if (location.pathname === "/ponggame") {
+		console.log("Pong Game view loaded");
+        const canvas = document.getElementById("pongCanvas");
+        if (!canvas) {
+            console.error("Canvas element not found in live DOM!");
+        } else {
+            const ctx = canvas.getContext("2d");
+            initGame(canvas, ctx);
+        }
+    } else if (location.pathname === "/tournament") {
+		const canvas = document.getElementById("tournamentCanvas");
+		if (!canvas) {
+			console.error("Canvas element not found in live DOM!");
+		} else {
+			const ctx = canvas.getContext("2d");
+			initTournamentGame(canvas, ctx);
+		}
+	}
 };
 
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
 	document.body.addEventListener("click", (e) => {
-		if (e.target.matches("[data-link]")) {
+		const link = e.target.closest("[data-link]");
+		// if (e.target.matches("[data-link]")) {
+		if (!link)
+			return;
 			e.preventDefault();
-			navigateTo(e.target.href);
-		}
+			navigateTo(link.href);
 	});
 
 	router();
@@ -64,13 +89,13 @@ window.addEventListener('load', () => {
 	console.log('isAuthenticated:', isAuthenticated);
 	console.log('currentPath:', currentPath);
 
-	if ((!isAuthenticated || !isOauthLogged) && !publicRoutes.includes(currentPath)) {
-		console.log('redirecting to login');
-		window.location.href = '/';
-		console.log('href:', window.location.href);
-	} else {
-		console.log('not redirecting');
-	}
+	// if ((!isAuthenticated || !isOauthLogged) && !publicRoutes.includes(currentPath)) {
+	// 	console.log('redirecting to login');
+	// 	window.location.href = '/';
+	// 	console.log('href:', window.location.href);
+	// } else {
+	// 	console.log('not redirecting');
+	// }
 
 	// ****** SideNav link effects on click ******
 	const navLinks = document.querySelectorAll(".nav-link");

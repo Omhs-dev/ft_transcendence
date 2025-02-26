@@ -31,7 +31,7 @@ const loginWith42 = () => {
 	console.log("login with 42 button found !");
 	localStorage.setItem("loadPageOnce", "true");
 	localStorage.setItem("isOauthLogged", "true");
-	window.location.href = `${baseUrl}/auth/api/42/login`;
+	window.location.href = `${baseUrl}/auth/api/42/login/`;
 	// window.location.href = "http://localhost:8000/auth/api/42/login";
 }
 
@@ -45,7 +45,7 @@ const loadToMainPage = async () => {
 
 const checkOauth2Login = async () => {
 	try {
-		const response = await fetch(`${baseUrl}/auth/api/42/login/`, {
+		const response = await fetch(`${baseUrl}/auth/api/profile/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -158,6 +158,10 @@ const loginUser = async () => {
 
 			console.log("invalid otp code");
 		}
+		if (response.status === 409) {
+			console.log("error here: ", data.error);
+			invalidCredential("userlogged");
+		}
         if (!response.ok) {
 			throw new Error(`Could not fetch api ${response.status}`);
 		}
@@ -168,6 +172,7 @@ const loginUser = async () => {
 		localStorage.setItem("username", username);
 		localStorage.setItem("userId", data.user_id);
 		localStorage.setItem("isAuthenticated", "true");
+		localStorage.setItem("wsConnected", "false");
 
 		window.location.href = "/";
 
@@ -212,6 +217,7 @@ const logoutUser = async () => {
 	localStorage.removeItem("coreespondantId");
 	localStorage.removeItem("isOauthLogged");
 	localStorage.removeItem("isAuthenticated");
+	localStorage.setItem("wsConnected", "false");
 
 	window.location.href = "/";
 };
@@ -291,6 +297,8 @@ function invalidCredential(errorType) {
 		small.textContent = "Username or password is incorrect. Please try again.";
 	} else if (errorType === "otp") {
 		small.textContent = "Invalid OTP code. Please try again.";
+	} else if (errorType === "userlogged") {
+		small.textContent = "User is already logged in. Please logout first.";
 	}
 
 	errorMessage.classList.add('text-danger', 'fw-light', 'text-center');
