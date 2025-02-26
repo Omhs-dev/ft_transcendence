@@ -17,14 +17,13 @@ def generate_otp_code():
 
 def send_2fa_sms(phone_number, code):
     """Send an SMS verification code to the user's phone."""
-   
-    # TWILIO_ACCOUNT_SID=""
-    # TWILIO_AUTH_TOKEN=""
-    # TWILIO_PHONE_NUMBER=""
 
+    TWILIO_ACCOUNT_SID=""
+    TWILIO_AUTH_TOKEN=""
+    TWILIO_PHONE_NUMBER=""
 
     logger.info("Sending SMS to %s and the code is:", phone_number, code)
-    return
+    # return
 
     client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
     try:
@@ -82,5 +81,6 @@ def generate_and_send_Email_SMS_otp(user, method):
         send_2fa_email(user.email, otp_code)
         user.profile.last_otp_sent_at = now()
     elif method == 'sms':
+        logger.info("\n\n\n*****\n\tSending SMS\n\n")   
         send_2fa_sms(user.profile.phone_number, otp_code)
         user.profile.last_otp_sent_at = now()
