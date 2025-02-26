@@ -12,7 +12,7 @@ export function initTournamentGame(canvas, ctx) {
 	const maxPaddleY = canvas.height - grid - paddleHeight;
 	const paddleSpeed = 6;
 	const ballSpeed = 5;
-	const winningScore = 1;
+	const winningScore = 3;
 
 	let leftPaddle, rightPaddle, ball;
 	let leftScore = 0;

@@ -1,0 +1,11 @@
+apiVersion: 1
+contactPoints:
+    - orgId: 1
+      name: imadfaoussi
+      receivers:
+        - uid: eee5zh9bz6i2od
+          type: email
+          settings:
+            addresses: imadfaoussi@gmail.com
+            singleEmail: false
+          disableResolveMessage: false

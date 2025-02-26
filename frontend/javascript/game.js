@@ -36,8 +36,8 @@ export function initGame(canvas, ctx) {
 
 	console.log("ball color: ", parsedTheme.ballColor);
 
-	const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-	const wsUrl = `${protocol}${window.location.hostname}/ws/localGame/`;
+	const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+	const wsUrl = `${protocol}:${window.location.hostname}/${protocol}/localGame/`;
 
 	const baseUrl = window.location.origin;
 

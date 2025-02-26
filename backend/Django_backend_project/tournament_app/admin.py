@@ -3,9 +3,9 @@ from .models import Tournament
 # from game_app.models import Player, Game, MatchHistory
 
 # Customize Admin Panel Appearance
-admin.site.site_header = "Tournament Management Admin"
-admin.site.site_title = "Tournament Admin"
-admin.site.index_title = "Welcome to the Tournament Admin Panel"
+admin.site.site_header = "Ft_transcendence Management Admin"
+admin.site.site_title = "Ft_transcendence Admin"
+admin.site.index_title = "Welcome to the Ft_transcendence Admin Panel"
 
 # Inline for managing Tournament Players directly in Tournament Admin
 class TournamentPlayerInline(admin.TabularInline):  
