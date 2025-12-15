@@ -1,6 +1,6 @@
-# Full‑Stack Django Application with Docker, Nginx, ELK & Grafana
+# Ft_transcendence
 
-This repository contains a full‑stack web application with:
+Full‑stack web application with:
 
 - **Backend**: Django (multiple apps: auth, chat, game)
 - **Frontend**: Static HTML/CSS/JS frontend
